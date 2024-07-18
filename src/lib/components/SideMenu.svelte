@@ -25,7 +25,7 @@
         </div>
     {/each}
     {#if isMobileSideMenu}
-    <div class="flex flex-col justify-end flex-grow">
+    <div class="flex flex-col justify-end flex-grow pb-3">
         <Button class="" on:click={connectWallet}>Connect Wallet</Button>
     </div>
     {/if}
