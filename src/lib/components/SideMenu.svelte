@@ -1,5 +1,8 @@
 <script>
 	import { page } from "$app/stores";
+    import { Button, buttonVariants } from '$lib/components/ui/button';
+	import { connectWallet } from '$lib/web3/wagmi';
+
     export let isMobileSideMenu = false
 
     const menuList = [
@@ -21,4 +24,9 @@
             </a>
         </div>
     {/each}
+    {#if isMobileSideMenu}
+    <div class="flex flex-col justify-end flex-grow">
+        <Button class="" on:click={connectWallet}>Connect Wallet</Button>
+    </div>
+    {/if}
 </div>
