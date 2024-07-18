@@ -4,9 +4,10 @@
 	import * as Card from '$lib/components/ui/card';
 	import * as Carousel from '$lib/components/ui/carousel';
 	import Autoplay from 'embla-carousel-autoplay';
+	import { truncateString } from '$lib/helper';
 </script>
 
-<div class="h-full w-full min-h-screen p-5 space-y-10">
+<div class="h-full w-full min-h-screen p-3 xl:p-5 space-y-10">
 	<div id="Game List" class="space-y-5 flex flex-col items-center">
 		<div class="flex justify-between w-full">
 			<Text tag="h1" size="_4xl">Game List</Text>
@@ -18,7 +19,7 @@
 					delay: 2000
 				})
 			]}
-			class="w-full max-w-[85%] md:max-w-[90%]"
+			class="w-full max-w-[80%] md:max-w-[90%]"
 		>
 			<Carousel.Content class="-ml-1">
 				{#each Array(5) as _, i (i)}
@@ -42,9 +43,15 @@
 	<div id="Reward Pool" class="space-y-5">
 		<Text tag="h1" size="_4xl">Reward Pool</Text>
 
-		<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 justify-items-center w-full gap-y-5">
+		<div
+			class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 justify-items-center w-full gap-y-5 gap-x-5"
+		>
 			{#each Array(5) as _, i}
-				<Card.Root class="w-[80%] h-[130px] {i == 0 ? 'col-span-full w-1/4' : ''}">
+				<Card.Root
+					class="w-full md:w-[80%] h-[150px] md:h-[130px] {i == 0
+						? 'col-span-full w-[80%] md:w-1/4'
+						: ''}"
+				>
 					<Text
 						tag="p"
 						size="xl"
@@ -69,7 +76,7 @@
 	</div>
 	<div id="Jackpot Pool" class="space-y-5 flex flex-col items-center">
 		<Text tag="h1" size="_4xl" class="">Jackpot List</Text>
-		<Card.Root class="w-1/4 flex flex-col justify-center items-center py-3">
+		<Card.Root class="w-full xl:w-1/4 flex flex-col justify-center items-center py-3">
 			<Text>Dividend Pool</Text>
 			<Text size="_4xl">$ 39,070,19</Text>
 		</Card.Root>
@@ -84,7 +91,7 @@
 				{#each Array(5) as _, i}
 					<div class="flex justify-between items-center {i < 4 ? 'border-b' : ''} px-3 py-2">
 						<Text tag="h1" size="xl" class="font-bold text-center"
-							>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text
+							>{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 8, 8)}</Text
 						>
 						<Text tag="h1" size="xl" class="font-bold text-center">{i + 2}</Text>
 					</div>
