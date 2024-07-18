@@ -9,14 +9,13 @@ const labelVarient = tv({
 			default: ''
 		},
 		size: {
-			default: 'h-10 px-4 py-2',
-			sm: 'h-9 rounded-md px-3',
-			lg: 'h-11 rounded-md px-8',
-			xl: '',
-			_2xl: '',
-			_3xl: '',
-			_4x: '',
-			icon: 'h-10 w-10'
+			default: 'text-[14px]',
+			sm: 'text-[12px]',
+			lg: 'text-[16px]',
+			xl: 'text-[18px] font-semibold',
+			_2xl: 'text-[20px] font-semibold',
+			_3xl: 'text-[22px] font-bold',
+			_4xl: 'text-[26px] font-bold'
 		}
 	},
 	defaultVariants: {

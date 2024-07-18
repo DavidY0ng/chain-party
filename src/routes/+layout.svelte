@@ -4,7 +4,7 @@
 	import '../app.postcss';
 </script>
 
-<div class="w-full h-full min-h-screen relative z-10 transition">
+<div class="w-full h-full relative z-10 overflow-x-hidden transition">
 	<Nprogress />
 	<slot />
 	<Toaster />

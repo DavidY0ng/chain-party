@@ -1,10 +1,95 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import { connectWallet } from '$lib/web3/wagmi';
+	import { Text } from '$lib/components/ui/text';
+	import * as Card from '$lib/components/ui/card';
+	import * as Carousel from '$lib/components/ui/carousel';
+	import Autoplay from 'embla-carousel-autoplay';
 </script>
 
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
+<div class="h-full w-full min-h-screen p-5 space-y-10">
+	<div id="Game List" class="space-y-5 flex flex-col items-center">
+		<div class="flex justify-between w-full">
+			<Text tag="h1" size="_4xl">Game List</Text>
+			<Button class=""><Text tag="p" size="lg" class="text-white">Bind Referral</Text></Button>
+		</div>
+		<Carousel.Root
+			plugins={[
+				Autoplay({
+					delay: 2000
+				})
+			]}
+			class="w-full max-w-[85%] md:max-w-[90%]"
+		>
+			<Carousel.Content class="-ml-1">
+				{#each Array(5) as _, i (i)}
+					<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
+						<div class="p-1">
+							<Card.Root>
+								<Card.Content
+									class="flex aspect-square items-center w-full justify-center h-[250px] p-6"
+								>
+									<span class="text-2xl font-semibold text-black">{i + 1}</span>
+								</Card.Content>
+							</Card.Root>
+						</div>
+					</Carousel.Item>
+				{/each}
+			</Carousel.Content>
+			<Carousel.Previous />
+			<Carousel.Next />
+		</Carousel.Root>
+	</div>
+	<div id="Reward Pool" class="space-y-5">
+		<Text tag="h1" size="_4xl">Reward Pool</Text>
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<Button on:click={connectWallet}>Connect</Button>
+		<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 justify-items-center w-full gap-y-5">
+			{#each Array(5) as _, i}
+				<Card.Root class="w-[80%] h-[130px] {i == 0 ? 'col-span-full w-1/4' : ''}">
+					<Text
+						tag="p"
+						size="xl"
+						class="border-b w-full text-center h-1/3 flex font-bold items-center justify-center"
+						>Pool {i + 1}</Text
+					>
+					<Text
+						tag="p"
+						size="lg"
+						class="border-b font-normal w-full text-center h-1/3 flex items-center justify-center"
+						>500 / 1000</Text
+					>
+					<Text
+						tag="p"
+						size="lg"
+						class="w-full font-normal text-center h-1/3 flex items-center justify-center"
+						>Total Reward: 10,000 USDT</Text
+					>
+				</Card.Root>
+			{/each}
+		</div>
+	</div>
+	<div id="Jackpot Pool" class="space-y-5 flex flex-col items-center">
+		<Text tag="h1" size="_4xl" class="">Jackpot List</Text>
+		<Card.Root class="w-1/4 flex flex-col justify-center items-center py-3">
+			<Text>Dividend Pool</Text>
+			<Text size="_4xl">$ 39,070,19</Text>
+		</Card.Root>
+
+		<Card.Root class="px-3 pb-3 w-full">
+			<Text tag="h1" size="_4xl" class="text-center">Jackpot List</Text>
+			<div class="border">
+				<div class="flex justify-between items-center border-b px-3 py-2">
+					<Text tag="h1" size="xl" class="font-bold text-center">Address</Text>
+					<Text tag="h1" size="xl" class="font-bold text-center">Won Times</Text>
+				</div>
+				{#each Array(5) as _, i}
+					<div class="flex justify-between items-center {i < 4 ? 'border-b' : ''} px-3 py-2">
+						<Text tag="h1" size="xl" class="font-bold text-center"
+							>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text
+						>
+						<Text tag="h1" size="xl" class="font-bold text-center">{i + 2}</Text>
+					</div>
+				{/each}
+			</div>
+		</Card.Root>
+	</div>
 </div>
