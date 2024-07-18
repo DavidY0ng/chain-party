@@ -1,6 +1,15 @@
 import { bscClient, walletClient } from '$lib/web3/client';
-import { getContract, parseAbi, type Abi, type Address, type PublicClient } from 'viem';
-import DgenBank from './abi/DgenBank';
+import {
+	getContract,
+	type Abi,
+	type Account,
+	type Address,
+	type Chain,
+	type Client,
+	type GetContractReturnType,
+	type PublicClient,
+	type Transport
+} from 'viem';
 import DgenToken from './abi/DgenToken';
 import contractConfig from './contract.config.json';
 
@@ -12,7 +21,13 @@ export let wagmiContracts:
 
 let allABIs: Abi = [];
 
-function _getContract(name: keyof typeof contracts, abi: any, client: PublicClient) {
+function _getContract<
+	TAbi extends Abi,
+	TClient extends {
+		public: Client<Transport, Chain | undefined>;
+		wallet?: Client<Transport, Chain | undefined, Account | undefined> | undefined;
+	}
+>(name: keyof typeof contracts, abi: TAbi, client: PublicClient) {
 	allABIs = [...allABIs, ...abi];
 
 	listABIs[name] = abi;
@@ -24,10 +39,12 @@ function _getContract(name: keyof typeof contracts, abi: any, client: PublicClie
 
 	return getContract({
 		address: `0x${contracts[name as keyof typeof contracts].slice(2)}`,
-		abi: parseAbi(abi),
+		abi: abi,
 		client: {
 			public: client,
 			wallet: walletClient
 		}
-	});
+	}) as GetContractReturnType<TAbi, TClient, Address>;
 }
+
+export const DgenTokenContract = _getContract('DgenToken', DgenToken, bscClient);
