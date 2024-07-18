@@ -1,5 +1,3 @@
-import type { Abi } from "viem";
-
 export default [
 	{
 		inputs: [],
@@ -345,4 +343,4 @@ export default [
 		stateMutability: 'nonpayable',
 		type: 'function'
 	}
-] as const as Abi;
+] as const;
