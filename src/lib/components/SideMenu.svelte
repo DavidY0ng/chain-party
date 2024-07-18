@@ -8,7 +8,9 @@
     ]
 </script>
 
-<div class="bg-gray-500 min-h-screen flex flex-col p-5 gap-5 min-w-[200px]">
+
+
+<div class="hidden md:flex bg-gray-500 min-h-screen flex flex-col p-5 gap-5 min-w-[200px]">
     {#each menuList as menu}
         <div>
             <a href={menu.path} class="hover:text-gray-300">

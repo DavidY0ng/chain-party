@@ -9,8 +9,8 @@
 <div class="w-full h-full min-h-screen relative z-10 transition">
 	<Nprogress />
 
-	<TopMenu/>
-	<div class='flex'>
+	<TopMenu />
+	<div class="flex">
 		<SideMenu />
 		<slot />
 	</div>
