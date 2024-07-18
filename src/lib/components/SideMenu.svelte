@@ -1,4 +1,7 @@
 <script>
+	import { page } from "$app/stores";
+
+
     const menuList = [
         {name: "Home", path: '/'},
         {name: "Game #1", path: '/game-1'},
@@ -10,10 +13,10 @@
 
 
 
-<div class="hidden md:flex bg-gray-500 min-h-screen flex flex-col p-5 gap-5 min-w-[200px]">
+<div class="hidden md:flex bg-gray-500 min-h-screen flex flex-col p-3 gap-5 min-w-[200px]">
     {#each menuList as menu}
-        <div>
-            <a href={menu.path} class="hover:text-gray-300">
+        <div class='flex justify-center p-2 {($page.url.pathname == menu.path)? 'bg-gray-700/50 text-white rounded-md' : 'hover:text-gray-300 '}'>
+            <a href={menu.path} class="">
                 {menu.name}
             </a>
         </div>

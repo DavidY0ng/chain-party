@@ -5,7 +5,7 @@
 </script>
 
 <div class="bg-gray-600 px-5 py-3 flex justify-between items-center">
-	<h1 class="text-2xl">GAMEFI</h1>
+	<h1 class="text-2xl md:pl-10">GAMEFI</h1>
 	<div class="hidden md:flex">
 		<Button class='' on:click={connectWallet}>Connect Wallet</Button>
 	</div>
