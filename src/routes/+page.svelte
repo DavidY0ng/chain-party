@@ -1,17 +1,12 @@
 <script lang="ts">
 	import Carousel from '$lib/components/page/home/Carousel.svelte';
-	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
 </script>
 
-<div class="h-full w-full min-h-screen p-3 xl:p-5 space-y-10">
-	<div id="Game List" class="space-y-5 flex flex-col items-center">
-		<div class="flex justify-between w-full">
-			<Text tag="h1" size="_4xl">Game List</Text>
-			<Button class=""><Text tag="p" size="lg" class="text-white">Bind Referral</Text></Button>
-		</div>
+<div class="h-full w-full min-h-screen space-y-10">
+	<div id="Game List" class="space-y-5 flex flex-col items-center pt-5">
 		<Carousel />
 	</div>
 	<div id="Reward Pool" class="space-y-5">

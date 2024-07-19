@@ -27,7 +27,7 @@
 
 <!-- mobile view -->
 <Drawer.Root bind:open={openDrawer} direction={'left'}>
-	<Drawer.Content class="w-4/6 h-screen">
-		<SideMenu {isMobileSideMenu} />
+	<Drawer.Content class="w-4/6 md:w-2/6 h-screen">
+		<SideMenu {isMobileSideMenu} bind:openDrawer />
 	</Drawer.Content>
 </Drawer.Root>
