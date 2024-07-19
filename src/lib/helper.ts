@@ -1,7 +1,23 @@
 import { toast } from 'svelte-sonner';
-import { InsufficientFundsError, type GetBlockNumberErrorType } from 'viem';
+import { InsufficientFundsError } from 'viem';
 
-export const truncateString = (str: any, startNum: number, endNum: number) => {
+interface GetErrorType {
+	walk: (callback: (e: unknown) => boolean) => boolean;
+	shortMessage: string;
+}
+
+export const onTranslateErrMsg = (e: unknown) => {
+	const error = e as GetErrorType;
+	const isInsufficientFundsError = error.walk((e: unknown) => e instanceof InsufficientFundsError);
+
+	if (isInsufficientFundsError) {
+		toast.error('Not Enough Balance in Wallet');
+	} else {
+		toast.error(error.shortMessage);
+	}
+};
+
+export const truncateString = (str: string, startNum: number, endNum: number) => {
 	if (!str) {
 		return;
 	}
@@ -13,18 +29,7 @@ export const truncateString = (str: any, startNum: number, endNum: number) => {
 	return `${startStr}...${endStr}`;
 };
 
-export const onTranslateErrMsg = (e: any) => {
-	const error: any = e as GetBlockNumberErrorType;
-	const isInsufficientFundsError = error.walk((e: any) => e instanceof InsufficientFundsError);
-
-	if (isInsufficientFundsError) {
-		toast.error('Not Enough Balance in Wallet');
-	} else {
-		toast.error(error.shortMessage);
-	}
-};
-
-export function copyToClipboard(text: any) {
+export function copyToClipboard(text: string) {
 	// Check if the Clipboard API is available
 	if (navigator.clipboard) {
 		navigator.clipboard
@@ -51,9 +56,10 @@ export function copyToClipboard(text: any) {
 	}
 }
 
-export function filterInput(e: any) {
-	let inputAmount = e.target.value;
-	let regex = /^[0-9]*\.?[0-9]*$/;
+export function filterInput(e: InputEvent): string | undefined {
+	const target = e.target as HTMLInputElement;
+	const inputAmount = target.value;
+	const regex = /^[0-9]*\.?[0-9]*$/;
 
 	if (regex.test(inputAmount)) {
 		return inputAmount;

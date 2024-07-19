@@ -1,20 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from 'js-cookie';
 import { toast } from 'svelte-sonner';
 import { urls } from './settings';
 
-export const api = async (
+type APIResponse<T = any> = {
+	success: boolean;
+	data: T;
+	msg: string;
+};
+
+export const api = async <T = any>(
 	method: string,
 	resource: string,
-	data?: any,
+	data?: T,
 	useToken: boolean = false
-) => {
-	let resp: any;
+): Promise<APIResponse<T>> => {
+	let resp: APIResponse<T>;
 	try {
 		const queryString: string =
 			data && method === 'GET'
 				? '?' +
-					Object.keys(data)
-						.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+					Object.keys(data as Record<string, any>)
+						.map(
+							(key) =>
+								encodeURIComponent(key) +
+								'=' +
+								encodeURIComponent((data as Record<string, any>)[key])
+						)
 						.join('&')
 				: '';
 
@@ -24,7 +36,7 @@ export const api = async (
 		};
 
 		if (useToken) {
-			const tokenApi: any = Cookies.get('accessToken');
+			const tokenApi: string | undefined = Cookies.get('accessToken');
 			if (tokenApi) {
 				headers.Authorization = `Bearer ${tokenApi}`;
 			} else {

@@ -1,9 +1,8 @@
 <script lang="ts">
+	import Carousel from '$lib/components/page/home/Carousel.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { Text } from '$lib/components/ui/text';
 	import * as Card from '$lib/components/ui/card';
-	import * as Carousel from '$lib/components/ui/carousel';
-	import Autoplay from 'embla-carousel-autoplay';
+	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
 </script>
 
@@ -13,32 +12,7 @@
 			<Text tag="h1" size="_4xl">Game List</Text>
 			<Button class=""><Text tag="p" size="lg" class="text-white">Bind Referral</Text></Button>
 		</div>
-		<Carousel.Root
-			plugins={[
-				Autoplay({
-					delay: 2000
-				})
-			]}
-			class="w-full max-w-[80%] md:max-w-[90%]"
-		>
-			<Carousel.Content class="-ml-1">
-				{#each Array(5) as _, i (i)}
-					<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
-						<div class="p-1">
-							<Card.Root>
-								<Card.Content
-									class="flex aspect-square items-center w-full justify-center h-[250px] p-6"
-								>
-									<span class="text-2xl font-semibold text-black">{i + 1}</span>
-								</Card.Content>
-							</Card.Root>
-						</div>
-					</Carousel.Item>
-				{/each}
-			</Carousel.Content>
-			<Carousel.Previous />
-			<Carousel.Next />
-		</Carousel.Root>
+		<Carousel />
 	</div>
 	<div id="Reward Pool" class="space-y-5">
 		<Text tag="h1" size="_4xl">Reward Pool</Text>
