@@ -24,11 +24,11 @@
         <!-- mobile view of status-->
         <div id="Status" class="flex flex-col md:hidden ">
             <Text tag='h4' size='lg' class='font-semibold'>Your Status</Text>
-            <Card.Root class="w-full flex flex-col justify-center p-3 rounded-xl">
+            <Card.Root class="w-full flex flex-col justify-center p-3 rounded-xl gap-1">
                 {#each statusList as status}
-                    <div class="flex justify-between">
-                        <Text>{status.name}:</Text>
-                        <Text class='font-bold'>{status.value}</Text>
+                    <div class="flex justify-between items-center">
+                        <Text size='lg'>{status.name}:</Text>
+                        <Text size='lg' class='font-bold'>{status.value}</Text>
                     </div>
                 {/each}
             </Card.Root>
