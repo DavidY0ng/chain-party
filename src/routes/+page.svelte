@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Carousel from '$lib/components/home/Carousel.svelte';
+	import Carousel from '$lib/components/page/home/Carousel.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
