@@ -2,7 +2,7 @@
 	import * as Carousel from '$lib/components/ui/carousel';
 	import * as Card from '$lib/components/ui/card';
 	import Autoplay from 'embla-carousel-autoplay';
-	import type { CarouselAPI } from '../ui/carousel/context';
+	import type { CarouselAPI } from '../../ui/carousel/context';
 
 	let api: CarouselAPI;
 	let selectedIndex = 0;
