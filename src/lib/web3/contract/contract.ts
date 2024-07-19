@@ -10,12 +10,15 @@ import {
 	type PublicClient,
 	type Transport
 } from 'viem';
-import DgenToken from './abi/DgenToken';
 import contractConfig from './contract.config.json';
+import FakeUSDT from './abi/FakeUSDT';
+import GameContract from './abi/GameContract';
+import RNG from './abi/RNG';
+import MeicToken from './abi/MeicToken';
 
 export const contracts = contractConfig.contracts;
-export let listABIs: { [K in keyof typeof contracts]: Abi } | Record<string, never> = {};
-export let wagmiContracts:
+export const listABIs: { [K in keyof typeof contracts]: Abi } | Record<string, never> = {};
+export const wagmiContracts:
 	| { [K in keyof typeof contracts]: { address: Address; abi: Abi } }
 	| Record<string, never> = {};
 
@@ -47,4 +50,8 @@ function _getContract<
 	}) as GetContractReturnType<TAbi, TClient, Address>;
 }
 
-export const DgenTokenContract = _getContract('DgenToken', DgenToken, bscClient);
+// Define your contract instance here
+export const fakeUsdtContract = _getContract('fakeUSDT', FakeUSDT, bscClient);
+export const gameContract = _getContract('GameContract', GameContract, bscClient);
+export const rngContract = _getContract('RNG', RNG, bscClient);
+export const meicTokenContract = _getContract('MeicToken', MeicToken, bscClient);
