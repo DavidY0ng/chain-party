@@ -11,12 +11,14 @@
 </script>
 
 <Dialog.Root bind:open={showModal}>
-	<Dialog.Trigger class={buttonVariants({ variant: 'default' })}>Bind Referral</Dialog.Trigger>
-	<Dialog.Content class="sm:max-w-[425px]">
+	<Dialog.Trigger class="{buttonVariants({ variant: 'default' })} ">
+		<Text class="text-white">Bind Referral</Text>
+	</Dialog.Trigger>
+	<Dialog.Content class="sm:max-w-[425px] bindRef">
 		<Dialog.Header>
 			<Dialog.Title>Referrer Address</Dialog.Title>
 		</Dialog.Header>
-		<Input id="name" value="" placeholder="Address" class="text-center" />
+		<Input id="name" value="" placeholder="Address" class="text-center text-md" />
 		<div class="items-top flex space-x-2">
 			<Checkbox bind:checked={isChecked} id="terms1" class="w-3 h-3" />
 			<div class="flex flex-col gap-1.5 leading-none">
@@ -26,28 +28,22 @@
 				>
 					Terms & Condition
 				</Label>
-				<Text size="sm" class="text-muted-foreground">
+				<Text size="sm" class="text-muted-foreground leading-normal">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, odit harum. Architecto
 					temporibus magni repellendus?
 				</Text>
 			</div>
 		</div>
-		<Dialog.Footer class="flex w-full justify-between">
+		<Dialog.Footer class="flex w-full gap-2 justify-between">
 			<Button
 				on:click={() => {
 					showModal = false;
 				}}
 				type="submit"
 				variant="outline"
-				class="w-full ">Close</Button
+				class="w-full text-md">Close</Button
 			>
-			<Button type="submit" class="w-full">Bind</Button>
+			<Button type="submit" class="w-full text-md">Bind</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
-
-<style>
-	:global(button[data-melt-dialog-close]) {
-		display: none;
-	}
-</style>

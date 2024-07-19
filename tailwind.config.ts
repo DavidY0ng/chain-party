@@ -8,7 +8,7 @@ const config: Config = {
 	theme: {
 		fontSize: {
 			sm: '0.625rem',
-			base: '0.75rem',
+			md: '0.75rem',
 			lg: '1rem',
 			xl: '1.125rem',
 			'2xl': '1.25rem;',

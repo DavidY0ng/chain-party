@@ -12,7 +12,7 @@
 	<Toaster />
 	<div id="mainContainer" class="flex flex-grow overflow-hidden">
 		<SideMenu />
-		<div class="w-full xl:w-[85%] flex flex-col overflow-hidden">
+		<div class="w-full xl:w-[85%] h-full flex flex-col">
 			<TopMenu />
 			<div class="flex-grow p-3 xl:p-5">
 				<Pageheader />
