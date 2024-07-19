@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Pageheader from '$lib/components/layout/PageHeader.svelte';
+	import Pageheader from '$lib/components/layout/PageHeader/PageHeader.svelte';
 	import SideMenu from '$lib/components/layout/SideMenu.svelte';
 	import TopMenu from '$lib/components/layout/TopMenu.svelte';
 	import Nprogress from '$lib/components/ui/nprogress/nprogress.svelte';
