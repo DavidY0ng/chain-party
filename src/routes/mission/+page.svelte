@@ -22,39 +22,34 @@
 		</div>
 
         <!-- mobile view of status-->
-        <div id="Status" class="flex flex-col xl:hidden ">
+        <div id="Status" class="flex flex-col md:hidden ">
             <Text tag='h4' size='lg' class='font-semibold'>Your Status</Text>
-            <Card.Root class="w-full xl:w-1/4 flex flex-col justify-center p-3 rounded-xl">
+            <Card.Root class="w-full flex flex-col justify-center p-3 rounded-xl">
                 {#each statusList as status}
                     <div class="flex justify-between">
                         <Text>{status.name}:</Text>
                         <Text class='font-bold'>{status.value}</Text>
                     </div>
-    
                 {/each}
             </Card.Root>
         </div>
 
         <!-- desktop view of status-->
-        <div class="flex justify-center hidden xl:flex">
+        <div class="flex justify-center hidden md:flex">
             <div class="grid grid-cols-5 h-[100px] w-[80%]">
                 {#each statusList as status, i}
-                <div class="flex flex-col items-center gap-3">
-                    <Text tag='h1' size='_2xl' class='whitespace-nowrap overflow-hidden'>{status.name}:</Text>
-                    
-                    <Text tag='h1' size='_4xl' class='font-bold text-[35px]'>{status.value}</Text>
-                </div>
-    
-                <div class="flex justify-center h-full">
-                    {#if i !== statusList.length - 1}
-                    <Separator orientation='vertical' class='h-full bg-gray-300 max-w-[1px]' />
-                    {/if}
-                </div>
-    
+                    <div class="flex flex-col items-center gap-3">
+                        <Text tag='h1' size='_2xl' class='whitespace-nowrap overflow-hidden'>{status.name}:</Text>
+                        <Text tag='h1' size='_4xl' class='font-bold text-[35px]'>{status.value}</Text>
+                    </div>
+                    <div class="flex justify-center h-full">
+                        {#if i !== statusList.length - 1}
+                        <Separator orientation='vertical' class='h-full bg-gray-300 max-w-[1px]' />
+                        {/if}
+                    </div>
                 {/each}
             </div>
         </div>
-      
 
         <div id="Mission List" class="flex flex-col w-full">
             <Text tag='h1' size='_4xl' class='font-bold '>Mission List</Text>
