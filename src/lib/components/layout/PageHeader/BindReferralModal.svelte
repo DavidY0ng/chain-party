@@ -6,7 +6,7 @@
 	import { Text } from '$lib/components/ui/text';
 	import { Button, buttonVariants } from '../../ui/button';
 
-	let showModal = true;
+	let showModal = false;
 	let isChecked = false;
 </script>
 

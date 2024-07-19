@@ -14,7 +14,7 @@
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
-	<div id="Mission" class="space-y-5 flex flex-col w-full">
+	<div id="Mission" class=" flex flex-col w-full space-y-5">
 		<!-- mobile view of status-->
 		<div id="Status" class="flex flex-col md:hidden">
 			<Text tag="h4" size="lg" class="font-semibold">Your Status</Text>
@@ -33,10 +33,9 @@
 			<div class="grid grid-cols-5 h-[100px] w-[80%]">
 				{#each statusList as status, i}
 					<div class="flex flex-col items-center gap-3">
-						<Text tag="h1" size="_2xl" class="whitespace-nowrap overflow-hidden"
-							>{status.name}:</Text
+						<Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">{status.name}:</Text
 						>
-						<Text tag="h1" size="_4xl" class="font-bold text-[35px]">{status.value}</Text>
+						<Text tag="h1" size="4xl" class="font-bold text-[35px]">{status.value}</Text>
 					</div>
 					<div class="flex justify-center h-full">
 						{#if i !== statusList.length - 1}
@@ -47,8 +46,8 @@
 			</div>
 		</div>
 
-		<div id="Mission List" class="flex flex-col w-full">
-			<Text tag="h1" size="_4xl" class="font-bold ">Mission List</Text>
+		<div id="Mission List" class="flex flex-col w-full space-y-5">
+			<Text tag="h1" size="3xl" class="font-bold ">Mission List</Text>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
 				{#each sampleMissionData as mission}
 					<Card.Root class="flex justify-between p-2 items-center rounded-sm">

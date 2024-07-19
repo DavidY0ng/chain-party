@@ -7,12 +7,12 @@
 	import '../app.postcss';
 </script>
 
-<div class="w-full h-full flex flex-col relative z-10 transition">
+<div class="w-full h-full flex flex-col relative z-10 transition overflow-hidden">
 	<Nprogress />
 	<Toaster />
-	<div id="mainContainer" class="flex flex-grow">
+	<div id="mainContainer" class="flex flex-grow overflow-hidden">
 		<SideMenu />
-		<div class="w-full xl:w-[85%] flex flex-col">
+		<div class="w-full xl:w-[85%] flex flex-col overflow-hidden">
 			<TopMenu />
 			<div class="flex-grow p-3 xl:p-5">
 				<Pageheader />

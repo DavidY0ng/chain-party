@@ -17,7 +17,7 @@
 
 <div class="relative xl:max-w-[15%] w-full {isMobileSideMenu ? '' : 'hidden xl:flex'}">
 	<div class=" xl:bg-gray-500 min-h-screen flex flex-col p-3 gap-5 xl:fixed w-full xl:w-[15%]">
-		<Text size="_4xl" class="text-center text-blue-500">GAMEFI</Text>
+		<Text size="4xl" class="text-center text-blue-500">GAMEFI</Text>
 		{#each menuList as menu}
 			<button
 				on:click={() => {

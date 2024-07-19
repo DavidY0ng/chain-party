@@ -17,7 +17,7 @@
 	class="bg-gray-600 px-5 py-3 flex justify-between items-center w-full sticky top-0 left-0 z-50"
 >
 	<div class="flex w-full xl:justify-end justify-between">
-		<Text size="_4xl" class="text-center block xl:hidden text-blue-500">GAMEFI</Text>
+		<Text size="4xl" class="text-center block xl:hidden text-blue-500">GAMEFI</Text>
 		<Button class="hidden xl:block" on:click={connectWallet}>Connect Wallet</Button>
 		<Button variant="ghost" class="xl:hidden" on:click={handleDrawer}>
 			<Icon icon="material-symbols:menu" class="text-2xl" />
