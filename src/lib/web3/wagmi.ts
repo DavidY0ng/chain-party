@@ -1,4 +1,3 @@
-import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import { api } from '$lib/api/https';
 import { onTranslateErrMsg } from '$lib/helper';
@@ -20,6 +19,7 @@ import { toast } from 'svelte-sonner';
 import { get, readable } from 'svelte/store';
 import { zeroAddress, type Hash, type SignMessageReturnType } from 'viem';
 import { wagmiConfig } from './client';
+import { browser } from '$app/environment';
 
 export const chainId = readable<GetChainIdReturnType>(getChainId(wagmiConfig), (set) =>
 	watchChainId(wagmiConfig, { onChange: set })
@@ -90,17 +90,15 @@ async function onVerifyMessage(message: SignMessageReturnType) {
 export const onChange = async () => {
 	// To compare address in native mobile apps
 	// Tp wallet cant detect wallet change, so use this method
+
 	if (browser && get(storeUserInfo).web3_address != zeroAddress) {
 		let isChange = false;
-
 		window.ethereum.on('accountsChanged', async () => {
 			onDisconnect();
 			return (isChange = true);
 		});
-
 		if (!isChange) {
 			const { address } = getAccount(wagmiConfig);
-
 			if (address !== get(storeUserInfo).web3_address) {
 				onDisconnect();
 			}

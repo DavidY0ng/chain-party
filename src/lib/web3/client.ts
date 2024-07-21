@@ -1,4 +1,3 @@
-import { browser } from '$app/environment';
 import { createConfig, getPublicClient } from '@wagmi/core';
 import { createPublicClient, createWalletClient, custom, http, type WalletClient } from 'viem';
 import { bsc, bscTestnet } from 'viem/chains';
@@ -18,7 +17,8 @@ export let walletClient: WalletClient;
 // Wagmi Public Client with specified chain
 export const bscClient = getPublicClient(wagmiConfig, { chainId: bscChain.id });
 
-if (typeof window !== 'undefined' && browser) {
+// Remember to declare window.ethereum exist first or else program will crash !
+if (typeof window !== 'undefined' && window.ethereum) {
 	walletClient = createWalletClient({
 		chain: bscChain,
 		transport: custom(window.ethereum!)
