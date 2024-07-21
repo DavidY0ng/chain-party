@@ -34,7 +34,7 @@
 				</Text>
 			</div>
 		</div>
-		<Dialog.Footer class="flex w-full gap-2 justify-between">
+		<Dialog.Footer class="flex flex-row w-full gap-2 justify-between">
 			<Button
 				on:click={() => {
 					showModal = false;

@@ -10,7 +10,7 @@
 	import { truncateString } from '$lib/helper';
 	import Icon from '@iconify/svelte';
 
-	let showBuyTicketModal = true;
+	let showBuyTicketModal = false;
 </script>
 
 <div class="h-full w-full min-h-screen space-y-14">
@@ -34,7 +34,7 @@
 			<Dialog.Trigger>
 				<Button size="lg" class="text-2xl">Buy Ticket</Button>
 			</Dialog.Trigger>
-			<Dialog.Content class="sm:max-w-[425px]">
+			<Dialog.Content class="sm:max-w-[425px] ">
 				<Dialog.Header class="border-b w-full pb-3 relative">
 					<Dialog.Title class="w-full text-center">Buy Ticket</Dialog.Title>
 					<Button
@@ -42,7 +42,7 @@
 							showBuyTicketModal = false;
 						}}
 						variant="ghost"
-						class="absolute p-0 w-10 hover:bg-accent/20 -top-5 -right-2"
+						class="absolute p-0 w-10 hover:bg-accent/0 -top-5 -right-2"
 					>
 						<Icon icon="material-symbols:close" class="text-xl" />
 					</Button>
