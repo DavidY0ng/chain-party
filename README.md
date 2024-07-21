@@ -1,6 +1,9 @@
-# create-svelte
+# EIC Dapp
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+This is a [SvelteKit](https://kit.svelte.dev/) project.
+
+Staging:
+https://eicdapp.imhero.pro/
 
 ## Creating a project
 
