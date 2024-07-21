@@ -8,7 +8,7 @@ import { goto } from '$app/navigation';
 const AuthAPI = {
 	requestMessage: async function (address: Address) {
 		try {
-			const response = await api.get('/v1/auth/request', {
+			const response = await api.get('/dapp/auth/request', {
 				data: { address }
 			});
 
@@ -29,7 +29,7 @@ const AuthAPI = {
 	},
 	verifyMessage: async function (signature: string, address: Address) {
 		try {
-			const response = await api.post('/v1/auth/verify', {
+			const response = await api.post('/dapp/auth/verify', {
 				data: {
 					address,
 					signature
@@ -54,7 +54,7 @@ const AuthAPI = {
 
 		if (!cookie) return goto('/');
 
-		await api.post('/v1/auth/logout', { useToken: true });
+		await api.post('/dapp/auth/logout', { useToken: true });
 		Cookies.remove('accessToken');
 		return goto('/');
 	}
