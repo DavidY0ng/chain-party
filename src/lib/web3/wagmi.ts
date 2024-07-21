@@ -1,5 +1,5 @@
 import { goto } from '$app/navigation';
-import { api } from '$lib/api/https';
+import { api } from '$lib/http/https';
 import { onTranslateErrMsg } from '$lib/helper';
 import { emptyUserInfo, storeUserInfo } from '$lib/stores/storeUser';
 import {
