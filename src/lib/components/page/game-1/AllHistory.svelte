@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<Text
-				class="absolute -right-10 top-5 bg-[#A881FC] text-white rotate-[40deg] w-[150px] text-center"
+				class="absolute -right-10 top-[0.9rem] bg-[#A881FC] text-white rotate-[40deg] w-[150px] text-center"
 				size="xl">Latest</Text
 			>
 		</div>

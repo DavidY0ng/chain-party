@@ -12,7 +12,7 @@ type APIResponse<T = any> = {
 export const api = async <T = any>(
 	method: string,
 	resource: string,
-	data?: T,
+	data?: any,
 	useToken: boolean = false
 ): Promise<APIResponse<T>> => {
 	let resp: APIResponse<T>;

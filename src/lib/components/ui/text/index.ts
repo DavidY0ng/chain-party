@@ -16,7 +16,8 @@ const labelVarient = tv({
 			xl: 'text-xl font-semibold',
 			'2xl': 'text-2xl font-semibold',
 			'3xl': 'text-3xl font-bold',
-			'4xl': 'text-4xl font-bold'
+			'4xl': 'text-4xl font-bold',
+			'5xl': 'text-5xl font-black'
 		}
 	},
 	defaultVariants: {

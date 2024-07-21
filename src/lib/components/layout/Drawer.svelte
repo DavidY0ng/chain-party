@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
-	import { Button } from '../ui/button';
-	import { Text } from '../ui/text';
-	import * as Sheet from '../ui/sheet';
 	import { goto } from '$app/navigation';
-	import { menuList } from './config';
 	import { page } from '$app/stores';
 	import { connectWallet } from '$lib/web3/wagmi';
+	import Icon from '@iconify/svelte';
+	import { Button } from '../ui/button';
+	import * as Sheet from '../ui/sheet';
+	import { Text } from '../ui/text';
+	import { menuList } from './config';
 
 	function onHandleRedirect(path: string) {
 		goto(path);

@@ -35,7 +35,7 @@ export const account = readable<GetAccountReturnType>(getAccount(wagmiConfig), (
 
 export const provider = readable<unknown | undefined>(undefined, (set) =>
 	watchAccount(wagmiConfig, {
-		onChange: async (account: any) => {
+		onChange: async (account: GetAccountReturnType) => {
 			if (!account.connector) return set(undefined);
 			set(await account.connector?.getProvider());
 		}
@@ -57,7 +57,7 @@ export async function onRequestSignMessage() {
 			});
 
 			if (res.success) {
-				message = res.data;
+				message = res.data as unknown as Hash;
 				await signMessage(wagmiConfig, { message }).then((signedMessage) => {
 					onVerifyMessage(signedMessage);
 				});
@@ -69,25 +69,21 @@ export async function onRequestSignMessage() {
 }
 
 async function onVerifyMessage(message: SignMessageReturnType) {
-	try {
-		if (!get(account).isConnected || !message) {
-			return toast.error('Please Request Sign Message First');
-		}
+	if (!get(account).isConnected || !message) {
+		return toast.error('Please Request Sign Message First');
+	}
 
-		const resp = await api('POST', '/auth/verify', {
-			address: get(account).address,
-			sign: message
+	const resp = await api('POST', '/auth/verify', {
+		address: get(account).address,
+		sign: message
+	});
+
+	if (!resp.success) {
+		toast.error('Verify Signed Message Failed');
+	} else {
+		Cookies.set('accessToken', resp.data.access_token, {
+			expires: new Date(new Date().getTime() + resp.data.expires_in * 1000)
 		});
-
-		if (!resp.success) {
-			toast.error('Verify Signed Message Failed');
-		} else {
-			Cookies.set('accessToken', resp.data.access_token, {
-				expires: new Date(new Date().getTime() + resp.data.expires_in * 1000)
-			});
-		}
-	} catch (error) {
-		throw error;
 	}
 }
 
