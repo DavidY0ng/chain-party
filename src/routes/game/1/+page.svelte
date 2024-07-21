@@ -1,20 +1,23 @@
 <script lang="ts">
-	import AllHistory from '$lib/components/page/game-1/AllHistory.svelte';
-	import YourHistory from '$lib/components/page/game-1/YourHistory.svelte';
+	import AllHistory from '$lib/components/page/game/1/AllHistory.svelte';
+	import YourHistory from '$lib/components/page/game/1/YourHistory.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import * as Table from '$lib/components/ui/table';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { Text } from '$lib/components/ui/text';
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
-	import * as Table from '$lib/components/ui/table';
-	import Icon from '@iconify/svelte';
 	import { truncateString } from '$lib/helper';
+	import Icon from '@iconify/svelte';
+
+	let showBuyTicketModal = true;
 </script>
 
 <div class="h-full w-full min-h-screen space-y-14">
 	<div id="Round Board" class="flex flex-col items-center justify-center space-y-5">
 		<Text size="5xl" class="font-bold">Finished Rounds</Text>
 
-		<Tabs.Root value="1" class="w-full flex flex-col items-center space-y-5">
+		<Tabs.Root value="0" class="w-full flex flex-col items-center space-y-5">
 			<Tabs.List class="bg-transparent border p-0 rounded-full overflow-hidden">
 				<Tabs.Trigger value="0" class="h-full rounded-full px-5 text-lg">All History</Tabs.Trigger>
 				<Tabs.Trigger value="1" class="h-full rounded-full px-5 text-lg">Your History</Tabs.Trigger>
@@ -26,7 +29,58 @@
 				<YourHistory />
 			</Tabs.Content>
 		</Tabs.Root>
-		<Button size="lg" class="text-2xl">Buy Ticket</Button>
+
+		<Dialog.Root bind:open={showBuyTicketModal}>
+			<Dialog.Trigger>
+				<Button size="lg" class="text-2xl">Buy Ticket</Button>
+			</Dialog.Trigger>
+			<Dialog.Content class="sm:max-w-[425px]">
+				<Dialog.Header class="border-b w-full pb-3 relative">
+					<Dialog.Title class="w-full text-center">Buy Ticket</Dialog.Title>
+					<Button
+						on:click={() => {
+							showBuyTicketModal = false;
+						}}
+						variant="ghost"
+						class="absolute p-0 w-10 hover:bg-accent/20 -top-5 -right-2"
+					>
+						<Icon icon="material-symbols:close" class="text-xl" />
+					</Button>
+				</Dialog.Header>
+				<table>
+					<tr>
+						<td class="py-1">Buy Ticket</td>
+						<td class="py-1 text-right">1</td>
+					</tr>
+					<tr>
+						<td class="py-1">Cost(EIC)</td>
+						<td class="py-1 text-right">0.5 EIC</td>
+					</tr>
+					<tr>
+						<td class="py-1">Cost(USDT)</td>
+						<td class="py-1 text-right">100 USDT</td>
+					</tr>
+					<tr>
+						<td class="py-1">Estimated Fees</td>
+						<td class="py-1 text-right">0.01 EIC</td>
+					</tr>
+				</table>
+				<Dialog.Footer class="w-full flex-col space-y-3 py-3 border-t">
+					<div class="w-full flex justify-between">
+						<Text class="text-white">You Pay</Text>
+						<Text class="text-white">You Pay</Text>
+					</div>
+					<Button class="w-full text-md">Pay Now</Button>
+					<div class="w-full">
+						<Text class="text-white font-bold">T&C:</Text>
+						<Text size="sm" class="text-white/50"
+							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias corrupti harum
+							vero! Animi atque quos unde consequatur magnam sit id?</Text
+						>
+					</div>
+				</Dialog.Footer>
+			</Dialog.Content>
+		</Dialog.Root>
 	</div>
 
 	<div id="My Reward">
