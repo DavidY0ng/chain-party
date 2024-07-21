@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
 /* Shadcn Default Config */
 /* Dont alter any of these */
 @layer base {
@@ -80,3 +85,25 @@
 }
 
 /* Write Your Own Css Global Variables */
+
+/* Remove all dialog and sheet close button */
+svg.lucide-icon.lucide.lucide-x {
+	display: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.5);
+}

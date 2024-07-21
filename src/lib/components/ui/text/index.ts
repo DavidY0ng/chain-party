@@ -9,13 +9,15 @@ const labelVarient = tv({
 			default: ''
 		},
 		size: {
-			default: 'text-[14px]',
-			sm: 'text-[12px]',
-			lg: 'text-[16px]',
-			xl: 'text-[18px] font-semibold',
-			_2xl: 'text-[20px] font-semibold',
-			_3xl: 'text-[22px] font-bold',
-			_4xl: 'text-[26px] font-bold'
+			default: 'text-md',
+			xs: 'text-xs',
+			sm: 'text-sm',
+			lg: 'text-lg',
+			xl: 'text-xl font-semibold',
+			'2xl': 'text-2xl font-semibold',
+			'3xl': 'text-3xl font-bold',
+			'4xl': 'text-4xl font-bold',
+			'5xl': 'text-5xl font-black'
 		}
 	},
 	defaultVariants: {

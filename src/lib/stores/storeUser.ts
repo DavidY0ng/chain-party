@@ -1,4 +1,3 @@
-import { persisted } from 'svelte-persisted-store';
 import { writable } from 'svelte/store';
 import { zeroAddress, type Address } from 'viem';
 
@@ -13,7 +12,5 @@ export const emptyUserInfo: IUserInfo = {
 };
 
 export const storeUserInfo = writable<IUserInfo>(emptyUserInfo);
-
-// export const storeUserInfo = persisted<IUserInfo>('storeUserInfo', emptyUserInfo);
 
 export type { IUserInfo };
