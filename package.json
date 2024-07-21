@@ -68,5 +68,9 @@
 		"vaul-svelte": "^0.3.2",
 		"viem": "^2.17.4",
 		"zod": "^3.23.8"
-	}
+	},
+	"optionalDependencies": {
+		"@rollup/rollup-linux-x64-gnu": "4.6.1"
+	},
+	"packageManager": "pnpm@9.1.1"
 }
