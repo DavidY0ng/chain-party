@@ -1,8 +1,15 @@
 <script lang="ts">
-	import UserAPI from '$lib/api/user';
-	import { onMount } from 'svelte';
+	import { Text } from '$lib/components/ui/text';
+	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-
-	onMount(async () => {
-	});
+	export let data;
+	$: ({ downlineList } = data);
 </script>
+
+<div class="h-full w-full min-h-screen space-y-10">
+	<Text size="xl">Your Referral: {$storeUserInfo.referral_code}</Text>
+	<div class="w-full">
+		<Text size="xl">Your Team:</Text>
+		<Treeview tree={downlineList} />
+	</div>
+</div>

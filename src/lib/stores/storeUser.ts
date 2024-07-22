@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { persisted } from 'svelte-persisted-store';
 import { zeroAddress, type Address } from 'viem';
 
 type TUserInfo = {
@@ -21,6 +21,6 @@ export const emptyUserInfo: TUserInfo = {
 	mission_completed: 0
 };
 
-export const storeUserInfo = writable<TUserInfo>(emptyUserInfo);
+export const storeUserInfo = persisted<TUserInfo>('storeUserInfo', emptyUserInfo);
 
 export type { TUserInfo };
