@@ -1,21 +1,16 @@
 <script lang="ts">
 	import Carousel from '$lib/components/page/home/Carousel.svelte';
-	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
 </script>
 
-<div class="h-full w-full min-h-screen p-3 xl:p-5 space-y-10">
+<div class="h-full w-full min-h-screen space-y-10">
 	<div id="Game List" class="space-y-5 flex flex-col items-center">
-		<div class="flex justify-between w-full">
-			<Text tag="h1" size="_4xl">Game List</Text>
-			<Button class=""><Text tag="p" size="lg" class="text-white">Bind Referral</Text></Button>
-		</div>
 		<Carousel />
 	</div>
 	<div id="Reward Pool" class="space-y-5">
-		<Text tag="h1" size="_4xl">Reward Pool</Text>
+		<Text tag="h1" size="3xl">Reward Pool</Text>
 
 		<div
 			class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 justify-items-center w-full gap-y-5 gap-x-5"
@@ -49,14 +44,14 @@
 		</div>
 	</div>
 	<div id="Jackpot Pool" class="space-y-5 flex flex-col items-center">
-		<Text tag="h1" size="_4xl" class="">Jackpot List</Text>
+		<Text tag="h1" size="3xl" class="text-left w-full">Jackpot Pool</Text>
 		<Card.Root class="w-full xl:w-1/4 flex flex-col justify-center items-center py-3">
 			<Text>Dividend Pool</Text>
-			<Text size="_4xl">$ 39,070,19</Text>
+			<Text size="3xl">$ 39,070,19</Text>
 		</Card.Root>
 
 		<Card.Root class="px-3 pb-3 w-full">
-			<Text tag="h1" size="_4xl" class="text-center">Jackpot List</Text>
+			<Text tag="h1" size="3xl" class="text-center py-2">Jackpot List</Text>
 			<div class="border">
 				<div class="flex justify-between items-center border-b px-3 py-2">
 					<Text tag="h1" size="xl" class="font-bold text-center">Address</Text>

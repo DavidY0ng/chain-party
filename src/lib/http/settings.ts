@@ -13,4 +13,4 @@ export const urlList = {
 	}
 };
 
-export let urls = import.meta.env.NODE_ENV === 'production' ? urlList.live : urlList.dev;
+export const urls = import.meta.env.NODE_ENV === 'production' ? urlList.live : urlList.dev;

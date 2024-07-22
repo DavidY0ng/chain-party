@@ -57,8 +57,8 @@
 
 <style>
 	progress {
-		--bar-color: rgba(255, 255, 255, 0.3);
-		--val-color: var(--button-color);
+		--bar-color: rgba(212, 13, 13, 0.3);
+		--val-color: blue;
 		position: fixed;
 		top: 0;
 		z-index: 99999;
@@ -69,21 +69,21 @@
 	}
 	/* bar: */
 	progress::-webkit-progress-bar {
-		background-color: var(--button-color);
+		background-color: blue;
 		width: 100%;
 	}
 	progress {
-		background-color: var(--button-color);
+		background-color: blue
 	}
 
 	/* value: */
 	progress::-webkit-progress-value {
-		background-color: var(--button-color) !important;
+		background-color: blue !important;
 	}
 	progress::-moz-progress-bar {
-		background-color: var(--button-color) !important;
+		background-color: blue !important;
 	}
 	progress {
-		color: var(--button-color);
+		color: blue
 	}
 </style>
