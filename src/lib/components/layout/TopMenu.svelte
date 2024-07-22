@@ -2,7 +2,13 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
 	import { connectWallet } from '$lib/web3/wagmi';
+	import { toast } from 'svelte-sonner';
 	import Drawer from './Drawer.svelte';
+
+	const onConnectWallet = async () => {
+		await connectWallet();
+		toast.success('Connected Wallet');
+	};
 </script>
 
 <div
@@ -10,9 +16,7 @@
 >
 	<div class="flex w-full xl:justify-end justify-between">
 		<Text size="4xl" class="text-center block xl:hidden text-blue-500">GAMEFI</Text>
-		<Button class="hidden xl:block" on:click={connectWallet}>
-			<Text class="text-white">Connect Wallet</Text>
-		</Button>
+		<Button class="hidden xl:block text-md" on:click={onConnectWallet}>Connect Wallet</Button>
 		<!-- Mobile Drawer -->
 		<Drawer />
 	</div>

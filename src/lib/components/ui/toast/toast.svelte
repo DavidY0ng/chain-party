@@ -1,15 +1,18 @@
 <script lang="ts">
 	import { Toaster, type ToasterProps as SonnerProps } from 'svelte-sonner';
 	import { mode } from 'mode-watcher';
+	import { useMediaQuery } from 'svelte-breakpoints';
 
 	type $$Props = SonnerProps;
+
+	const isDesktop = useMediaQuery('(min-width: 1280px)');
 </script>
 
 <!-- Visit https://www.shadcn-svelte.com/docs/components/sonner -->
 <!-- https://sonner.emilkowal.ski/    https://sonner.emilkowal.ski/styling -->
 <Toaster
 	richColors
-	position="top-center"
+	position={$isDesktop ? 'bottom-right' : 'top-center'}
 	theme={$mode}
 	class="toaster group"
 	toastOptions={{
