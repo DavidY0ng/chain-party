@@ -16,7 +16,7 @@ const UserAPI = {
 				if (!response.success) return response;
 
 				storeUserInfo.set(response.data);
-				
+
 				return response.data;
 			} catch (error) {
 				return error;

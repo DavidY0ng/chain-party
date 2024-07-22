@@ -12,21 +12,22 @@ import {
 	type GetChainIdReturnType
 } from '@wagmi/core';
 import Cookies from 'js-cookie';
+import { toast } from 'svelte-sonner';
 import { get, readable } from 'svelte/store';
-import { zeroAddress } from 'viem';
 import { wagmiConfig } from './client';
+import { goto } from '$app/navigation';
 
 export const chainId = readable<GetChainIdReturnType>(getChainId(wagmiConfig), (set) =>
 	watchChainId(wagmiConfig, { onChange: set })
 );
 
-export const account = readable<GetAccountReturnType>(getAccount(wagmiConfig), (set) =>
+export const account = readable(getAccount(wagmiConfig), (set) => {
 	watchAccount(wagmiConfig, {
-		onChange: (data) => {
+		onChange: async (data) => {
 			set(data);
 		}
-	})
-);
+	});
+});
 
 export const provider = readable<unknown | undefined>(undefined, (set) =>
 	watchAccount(wagmiConfig, {
@@ -45,23 +46,17 @@ export const onChange = async () => {
 	// To compare address in native mobile apps
 	// Tp wallet cant detect wallet change, so use this method
 
-	if (browser && get(storeUserInfo).web3_address != zeroAddress) {
-		let isChange = false;
+	if (browser && get(account).address !== get(storeUserInfo).web3_address) {
 		window.ethereum.on('accountsChanged', async () => {
 			onDisconnect();
-			return (isChange = true);
+			goto('/');
+			toast.warning('Account Changed... Please Login Again');
 		});
-		if (!isChange) {
-			const { address } = getAccount(wagmiConfig);
-			if (address !== get(storeUserInfo).web3_address) {
-				onDisconnect();
-			}
-		}
 	}
 };
 
 export const onDisconnect = async () => {
-	Cookies.remove('accessToken');
 	storeUserInfo.set(emptyUserInfo);
+	Cookies.remove('accessToken');
 	disconnect(wagmiConfig);
 };
