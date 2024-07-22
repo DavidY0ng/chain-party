@@ -2,7 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
 	import * as Card from '$lib/components/ui/card';
-	import { formatTimestamp } from '$lib/utils';
+	import { formatTimestamp } from '$lib/helper';
 	import Icon from '@iconify/svelte';
 	import { slide } from 'svelte/transition';
 
