@@ -9,7 +9,8 @@ const AuthAPI = {
 	requestMessage: async function (address: Address) {
 		try {
 			const response = await api.get('/dapp/auth/request', {
-				data: { address }
+				data: { address },
+				useToken: false
 			});
 
 			if (!response.data.message) throw new Error('No Message Received');
@@ -33,7 +34,8 @@ const AuthAPI = {
 				data: {
 					address,
 					signature
-				}
+				},
+				useToken: false
 			});
 
 			if (!response.data.token) {
@@ -54,7 +56,7 @@ const AuthAPI = {
 
 		if (!cookie) return goto('/');
 
-		await api.post('/dapp/auth/logout', { useToken: true });
+		await api.post('/dapp/auth/logout');
 		Cookies.remove('accessToken');
 		return goto('/');
 	}

@@ -65,3 +65,23 @@ export function filterInput(e: InputEvent): string | undefined {
 		return inputAmount;
 	}
 }
+
+export function formatTimestamp(timestamp: number) {
+	const date = new Date(timestamp);
+
+	// Define the formatting options with correct types
+	const options: Intl.DateTimeFormatOptions = {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: '2-digit',
+		hour12: true
+	};
+
+	// Create the formatter with the given options
+	const formatter = new Intl.DateTimeFormat('en-US', options);
+
+	// Format the date and return the result
+	return formatter.format(date);
+}

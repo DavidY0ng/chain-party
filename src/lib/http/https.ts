@@ -19,7 +19,7 @@ class API {
 	private async request<T = any>(
 		method: APIMethod,
 		resource: string, //url endpoint
-		{ data, useToken = false }: APIOptions = {}
+		{ data, useToken = true }: APIOptions = {}
 	): Promise<APIResponse<T>> {
 		try {
 			const queryString =
