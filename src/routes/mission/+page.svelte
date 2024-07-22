@@ -3,6 +3,13 @@
 	import * as Card from '$lib/components/ui/card';
 	import Text from '$lib/components/ui/text/text.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+    import { onMount } from 'svelte'
+    import MissionAPI from "$lib/api/mission";
+    import { toast } from 'svelte-sonner';
+
+    export let data;
+
+    $: ({ missionList } = data);
 
 	const statusList = [
 		{ name: 'Your Points', value: '1000' },
@@ -10,7 +17,11 @@
 		{ name: 'Ongoing Mission', value: '8' }
 	];
 
-	const sampleMissionData = ['Mission 1', 'Mission 2', 'Mission 3'];
+    function startMission (name:string) {
+        MissionAPI.takeMission(name)
+        toast.success("Mission started!")
+    }
+
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
@@ -49,12 +60,14 @@
 		<div id="Mission List" class="flex flex-col w-full space-y-5">
 			<Text tag="h1" size="3xl" class="font-bold ">Mission List</Text>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
-				{#each sampleMissionData as mission}
-					<Card.Root class="flex justify-between p-2 items-center rounded-sm">
-						<Text>{mission}</Text>
-						<Button size="sm" class="px-5 ">Start</Button>
-					</Card.Root>
-				{/each}
+				{#if missionList}
+                    {#each missionList as mission}
+                        <Card.Root class="flex justify-between p-2 items-center rounded-sm">
+                            <Text>{mission.name}</Text>
+                            <Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
+                        </Card.Root>
+                    {/each}
+                {/if}
 			</Card.Root>
 		</div>
 	</div>

@@ -12,17 +12,19 @@ const MissionAPI = {
                 data: {
                     size: 20,
                     page: 1,
-                    type
+                    type: type
                 },
+                useToken: true
 			});
 
-			if (!response.data.message) throw new Error('No Mission List');
+			if (!response.success) return response;
 
             if (response.success) {
                 return response.data;
             }
 
 		} catch (error) {
+
 			console.error('Error fetching message:', error);
 			return error;
 		}
@@ -35,9 +37,7 @@ const MissionAPI = {
 				},
 			});
 
-			if (!response.data.token) {
-				throw new Error('Mission Take Failed');
-			}
+			if (!response.success) return response;
 
             if (response.success) {
                 return response.data;
@@ -45,7 +45,7 @@ const MissionAPI = {
 
 		} catch (error) {
 			console.error('Error posting message:', error);
-			return false;
+			return error;
 		}
 	},
     claimMission: async function (sn: string,) {
@@ -56,9 +56,7 @@ const MissionAPI = {
 				},
 			});
 
-			if (!response.data.token) {
-				throw new Error('Mission Claim Failed');
-			}
+            if (!response.success) return response;
 
             if (response.success) {
                 return response.data;
@@ -66,7 +64,7 @@ const MissionAPI = {
 
 		} catch (error) {
 			console.error('Error posting message:', error);
-			return false;
+			return error;
 		}
 	},
 };
