@@ -42,6 +42,17 @@
 			toast.success('Bind Referral Successful');
 		}
 	}
+
+	$: if (!showModal) {
+		isChecked = {
+			value: false,
+			error: ''
+		};
+		referralCode = {
+			value: '',
+			error: ''
+		};
+	}
 </script>
 
 <Dialog.Root bind:open={showModal}>
