@@ -1,3 +1,3 @@
-import { writable } from "svelte/store";
+import { mediaQuery } from 'svelte-legos';
 
-export const sideMenuState = writable(false)
+export const isDesktop = mediaQuery('(min-width: 1280px)');

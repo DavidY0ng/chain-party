@@ -5,6 +5,7 @@
 	import { formatTimestamp } from '$lib/helper';
 	import Icon from '@iconify/svelte';
 	import { slide } from 'svelte/transition';
+	import { isDesktop } from '$lib/stores/storeCommon';
 
 	let openPricePot = false;
 	let cardView: HTMLDivElement;
@@ -17,7 +18,7 @@
 
 	function onHandleClosePrizePot() {
 		openPricePot = !openPricePot;
-		if (!openPricePot) {
+		if (!openPricePot && !$isDesktop) {
 			cardView.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
