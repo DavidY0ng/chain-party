@@ -6,18 +6,26 @@
 	import Icon from '@iconify/svelte';
 	import { slide } from 'svelte/transition';
 
+	let openPricePot = false;
+	let cardView: HTMLDivElement;
 	const currentDate = Date.now();
 
 	function generateRandomAngle() {
 		let rotationAngle = Math.round(Math.random() * 60) - 30;
 		return rotationAngle;
 	}
-	let openPricePot = false;
+
+	function onHandleClosePrizePot() {
+		openPricePot = !openPricePot;
+		if (!openPricePot) {
+			cardView.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
 </script>
 
 <Card.Root class="overflow-hidden">
 	<Card.Header class="border-b flex-row justify-between w-full">
-		<div>
+		<div bind:this={cardView}>
 			<div class="flex items-center gap-x-2">
 				<Text size="2xl" class="font-bold">Round</Text>
 				<div class=" px-4 py-[1px] border rounded-full">
@@ -92,9 +100,7 @@
 			</div>
 		{/if}
 		<Button
-			on:click={() => {
-				openPricePot = !openPricePot;
-			}}
+			on:click={onHandleClosePrizePot}
 			variant="ghost"
 			class="bg-transparent hover:bg-transparent text-lg flex items-center gap-x-2 py-7  hover:text-black/60 border-t text-black w-full rounded-none "
 			>Details
