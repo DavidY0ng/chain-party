@@ -19,7 +19,8 @@ export const load: LayoutLoad = async ({ url }) => {
 	await loadTranslations(initLocale, pathname);
 
 	if (token) {
-		await UserAPI.account.getInfo();
+		const user = await UserAPI.account.getInfo();
+		console.log(user);
 	}
 
 	return {};
