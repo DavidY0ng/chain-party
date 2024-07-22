@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Toaster, type ToasterProps as SonnerProps } from 'svelte-sonner';
 	import { mode } from 'mode-watcher';
-	import { useMediaQuery } from 'svelte-breakpoints';
+	import { mediaQuery } from 'svelte-legos';
 
 	type $$Props = SonnerProps;
 
-	const isDesktop = useMediaQuery('(min-width: 1280px)');
+	const isDesktop = mediaQuery('(min-width: 1280px)');
 </script>
 
 <!-- Visit https://www.shadcn-svelte.com/docs/components/sonner -->
