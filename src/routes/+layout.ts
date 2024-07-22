@@ -9,7 +9,7 @@ export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
 	let targetLocale = defaultLocale;
 	const token = Cookies.get('accessToken');
-	
+
 	onChange();
 
 	if (browser) {
@@ -20,8 +20,8 @@ export const load: LayoutLoad = async ({ url }) => {
 	const initLocale = locale.get() || targetLocale;
 
 	await loadTranslations(initLocale, pathname);
-
-	if (token) {
+	
+	if (token !== undefined) {
 		const user = await UserAPI.account.getInfo();
 		console.log(user);
 	}
