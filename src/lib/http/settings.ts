@@ -1,12 +1,20 @@
+import {
+	PUBLIC_NODE_ENV,
+	PUBLIC_STAG_API_BASE,
+	PUBLIC_STAG_WS_BASE,
+	PUBLIC_PROD_API_BASE,
+	PUBLIC_PROD_WS_BASE
+} from '$env/static/public';
+
 export const urlList = {
 	dev: {
-		apiBase: import.meta.env.STAG_API_BASE,
-		wsBase: import.meta.env.STAG_WS_BASE
+		apiBase: PUBLIC_STAG_API_BASE,
+		wsBase: PUBLIC_STAG_WS_BASE
 	},
 	live: {
-		apiBase: import.meta.env.PROD_API_BASE,
-		wsBase: import.meta.env.PROD_WS_BASE
+		apiBase: PUBLIC_PROD_API_BASE,
+		wsBase: PUBLIC_PROD_WS_BASE
 	}
 };
 
-export const urls = import.meta.env.NODE_ENV === 'production' ? urlList.live : urlList.dev;
+export const urls = PUBLIC_NODE_ENV === 'production' ? urlList.live : urlList.dev;
