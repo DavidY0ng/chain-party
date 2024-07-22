@@ -1,16 +1,26 @@
 import { writable } from 'svelte/store';
 import { zeroAddress, type Address } from 'viem';
 
-interface IUserInfo {
+type TUserInfo = {
 	user_id: string;
 	web3_address: Address;
-}
-
-export const emptyUserInfo: IUserInfo = {
-	user_id: '',
-	web3_address: zeroAddress
+	upline: string;
+	referral_code: string;
+	point: number;
+	mission_ongoing: number;
+	mission_completed: number;
 };
 
-export const storeUserInfo = writable<IUserInfo>(emptyUserInfo);
+export const emptyUserInfo: TUserInfo = {
+	user_id: '',
+	web3_address: zeroAddress,
+	upline: '',
+	referral_code: '',
+	point: 0,
+	mission_ongoing: 0,
+	mission_completed: 0
+};
 
-export type { IUserInfo };
+export const storeUserInfo = writable<TUserInfo>(emptyUserInfo);
+
+export type { TUserInfo };
