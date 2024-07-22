@@ -7,13 +7,22 @@
 	import * as Sheet from '../ui/sheet';
 	import { Text } from '../ui/text';
 	import { menuList } from './config';
+	import { toast } from 'svelte-sonner';
+
+	let drawerOpen = false;
 
 	function onHandleRedirect(path: string) {
 		goto(path);
 	}
+
+	const onConnectWallet = async () => {
+		await connectWallet();
+		drawerOpen = false;
+		toast.success('Connected Wallet');
+	};
 </script>
 
-<Sheet.Root>
+<Sheet.Root bind:open={drawerOpen}>
 	<Sheet.Trigger asChild let:builder>
 		<Button builders={[builder]} variant="ghost" class="block xl:hidden">
 			<Icon icon="material-symbols:menu" class="text-2xl" />
@@ -39,7 +48,7 @@
 			</Sheet.Close>
 		{/each}
 		<div class="flex flex-col justify-end flex-grow pb-3">
-			<Button class="text-md" on:click={connectWallet}>Connect Wallet</Button>
+			<Button class="text-md" on:click={onConnectWallet}>Connect Wallet</Button>
 		</div>
 	</Sheet.Content>
 </Sheet.Root>
