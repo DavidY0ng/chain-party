@@ -8,15 +8,15 @@ import { goto } from '$app/navigation';
 const AuthAPI = {
 	requestMessage: async function (address: Address) {
 		try {
-			const response = await api.get('/dapp/auth/request', {
+			const response = await api.post('/dapp/auth/request', {
 				data: { address },
 				useToken: false
 			});
 
-			if (!response.data.message) throw new Error('No Message Received');
+			if (!response.data) throw new Error('No Message Received');
 
 			const signature = await signMessage(wagmiConfig, {
-				message: { raw: response.data.message }
+				message: { raw: response.data }
 			});
 
 			if (signature) {
@@ -33,17 +33,17 @@ const AuthAPI = {
 			const response = await api.post('/dapp/auth/verify', {
 				data: {
 					address,
-					signature
+					sign: signature
 				},
 				useToken: false
 			});
 
-			if (!response.data.token) {
+			if (!response.data.access_token) {
 				throw new Error('No Token Received');
 			}
 
-			Cookies.set('accessToken', response.data.token, {
-				expires: response.data.expires
+			Cookies.set('accessToken', response.data.access_token, {
+				expires: response.data.expires_in
 			});
 			return true;
 		} catch (error) {
