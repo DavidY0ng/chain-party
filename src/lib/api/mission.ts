@@ -44,7 +44,7 @@ const MissionAPI = {
 
 		} catch (error) {
 			console.error(error)
-			return error
+			return { success: false, data: {} as TMission, msg: (error as Error).message };
 		}
 	},
 	takeMission: async function (name: TMission['name']) {
@@ -59,7 +59,7 @@ const MissionAPI = {
 
 		} catch (error) {
 			console.error('Error posting message:', error);
-			return error;
+			return { success: false, data: {} as TMission, msg: (error as Error).message };
 		}
 	},
 	claimMission: async function (sn: TMission['sn']) {
@@ -78,7 +78,7 @@ const MissionAPI = {
 
 		} catch (error) {
 			console.error('Error posting message:', error);
-			return error;
+			return { success: false, data: {} as TMission, msg: (error as Error).message };
 		}
 	},
 };
