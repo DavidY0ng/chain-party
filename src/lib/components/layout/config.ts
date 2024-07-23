@@ -4,5 +4,7 @@ export const menuList = [
 	{ name: 'Stake', path: '/stake' },
 	{ name: 'Mission', path: '/mission' },
 	{ name: 'Leaderboard', path: '/leaderboard' },
-	{ name: 'Referral', path: '/referral' }
+	{ name: 'Referral', path: '/referral' },
+	{ name: 'Donate', path: '/donate' },
+	{ name: 'History', path: '/history' }
 ];

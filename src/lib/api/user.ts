@@ -1,5 +1,5 @@
-import { api } from '$lib/http/https';
-import { storeUserInfo, type TUserInfo } from '$lib/stores/storeUser';
+import { api, type APIResponse } from '$lib/http/https';
+import { type TUserInfo } from '$lib/stores/storeUser';
 
 type TWallet = {
 	image: string;
@@ -9,22 +9,18 @@ type TWallet = {
 
 const UserAPI = {
 	account: {
-		getInfo: async function () {
+		getInfo: async function (): Promise<APIResponse<TUserInfo>> {
 			try {
 				const response = await api.get<TUserInfo>('/dapp/user/account/info');
 
-				if (!response.success) return response;
-
-				storeUserInfo.set(response.data);
-
-				return response.data;
+				return response;
 			} catch (error) {
-				return error;
+				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		}
 	},
 	team: {
-		bindUpline: async function (referral: TUserInfo['referral_code']) {
+		bindUpline: async function (referral: TUserInfo['referral_code']): Promise<APIResponse> {
 			try {
 				const response = await api.post('/dapp/user/team/bind/upline', {
 					data: {
@@ -32,14 +28,12 @@ const UserAPI = {
 					}
 				});
 
-				if (!response.success) return response;
-
-				return response.data;
+				return response;
 			} catch (error) {
-				return error;
+				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		},
-		getDownline: async function (search_user: TUserInfo['web3_address']) {
+		getDownline: async function (search_user: TUserInfo['web3_address']): Promise<APIResponse> {
 			try {
 				const response = await api.get('/dapp/user/team/downline', {
 					data: {
@@ -47,27 +41,23 @@ const UserAPI = {
 					}
 				});
 
-				if (!response.success) return response;
-
-				return response.data;
+				return response;
 			} catch (error) {
-				return error;
+				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		}
 	},
 	wallet: {
-		getList: async function () {
+		getList: async function (): Promise<APIResponse> {
 			try {
 				const response = await api.get<TWallet[]>('/dapp/user/wallet/list');
 
-				if (!response.success) return response;
-
-				return response.data;
+				return response;
 			} catch (error) {
-				return error;
+				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		},
-		getBalance: async function (wallet: TWallet['code']) {
+		getBalance: async function (wallet: TWallet['code']): Promise<APIResponse> {
 			try {
 				const response = await api.get<TWallet>('/dapp/user/wallet/balance', {
 					data: {
@@ -75,11 +65,9 @@ const UserAPI = {
 					}
 				});
 
-				if (!response.success) return response;
-
-				return response.data;
+				return response;
 			} catch (error) {
-				return error;
+				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		}
 	}

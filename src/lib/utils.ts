@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
+import UserAPI from './api/user';
+import { storeUserInfo } from './stores/storeUser';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -54,3 +56,12 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
+
+export async function getUserProfile() {
+	const result = await UserAPI.account.getInfo();
+	if (result.success) {
+		storeUserInfo.set(result.data);
+	} else {
+		console.error('Failed to fetch user profile');
+	}
+}
