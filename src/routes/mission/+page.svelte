@@ -3,13 +3,11 @@
 	import * as Card from '$lib/components/ui/card';
 	import Text from '$lib/components/ui/text/text.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import { onMount } from 'svelte';
 	import MissionAPI, { type TMission } from '$lib/api/mission';
 	import { toast } from 'svelte-sonner';
 	import { storeUserInfo } from '$lib/stores/storeUser.js';
 	import UserAPI from '$lib/api/user.js';
 	import Icon from '@iconify/svelte';
-	import { boolean } from 'zod';
 	import type { APIResponse } from '$lib/http/https.js';
 	import { getUserProfile } from '$lib/utils.js';
 	import { zeroAddress } from 'viem';
