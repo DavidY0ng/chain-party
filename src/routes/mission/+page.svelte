@@ -12,6 +12,8 @@
 	import { boolean } from 'zod';
 	import type { APIResponse } from '$lib/http/https.js';
 	import { getUserProfile } from '$lib/utils.js';
+	import { zeroAddress } from 'viem';
+	import ConnectWallet from '$lib/components/shared/ConnectWallet.svelte';
 
     export let data;
 
@@ -99,28 +101,36 @@
 		<div id="Mission List" class="flex flex-col w-full space-y-5">
 			<Text tag="h1" size="3xl" class="font-bold ">Mission List</Text>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
-				{#if missionList}
-                    {#each missionList as mission}
-                        <Card.Root class="flex justify-between p-2 items-center rounded-sm">
-                            <Text>{mission.name}</Text>
-							{#if mission.status === 'in_progress'}
-								<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 " disabled>In Progress</Button>
-							{:else if mission.status === 'completed'}
-								{#if missionList}
-									{#each mission.reward as reward}
-									<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
-									{/each}
+				{#if $storeUserInfo.web3_address !== zeroAddress}
+					{#if missionList}
+						{#each missionList as mission}
+							<Card.Root class="flex justify-between p-2 items-center rounded-sm">
+								<Text>{mission.name}</Text>
+								{#if mission.status === 'in_progress'}
+									<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 " disabled>In Progress</Button>
+								{:else if mission.status === 'completed'}
+									{#if missionList}
+										{#each mission.reward as reward}
+										<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
+										{/each}
+									{/if}
+								{:else if mission.status === 'claimed'}
+									<div class='text-green-500'>
+										<Icon icon="subway:tick" width="1.2em" height="1.2em" />
+									</div>
+								{:else}
+									<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
 								{/if}
-							{:else if mission.status === 'claimed'}
-								<div class='text-green-500'>
-									<Icon icon="subway:tick" width="1.2em" height="1.2em" />
-								</div>
-							{:else}
-								<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
-							{/if}
-                        </Card.Root>
-                    {/each}
-                {/if}
+							</Card.Root>
+						{/each}
+					{/if}
+				{:else}
+				<div class="flex flex-col items-center justify-center min-h-[10rem] space-y-6">
+					<Text size="xl" class='text-center'>Connect your wallet to check your mission</Text>
+					<ConnectWallet class="text-lg" />
+				</div>
+					
+				{/if}
 			</Card.Root>
 		</div>
 
