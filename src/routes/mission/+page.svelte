@@ -9,6 +9,7 @@
     import { storeUserInfo } from '$lib/stores/storeUser.js';
     import UserAPI from '$lib/api/user.js';
 	import Icon from '@iconify/svelte';
+	import { boolean } from 'zod';
 
     export let data;
 
@@ -20,21 +21,39 @@
 		{ name: 'Ongoing Mission', value:  $storeUserInfo.mission_ongoing  }
 	];
 
-    async function startMission (name:string) {
-        MissionAPI.takeMission(name)
-        toast.success("Mission started!")
-        UserAPI.account.getInfo()
-		MissionAPI.missionList('')
-    }
+	$: if (missionList) {
+    		console.log(missionList);
+		} else {
+			console.log("missionList.data is undefined");
+		}
+
+    async function startMission(name: string) {
+		try {
+			const response = await MissionAPI.takeMission(name);
+			if (response.success) {
+				toast.success("Mission started!");
+				await UserAPI.account.getInfo();
+				const updatedList = await MissionAPI.missionList();
+				missionList = updatedList.data.data
+				console.log(missionList);
+
+			} else {
+				throw new Error("Failed to start mission");
+			}
+		} catch (error) {
+			console.error("Error in startMission:", error);
+			toast.error("Failed to start mission");
+		}
+	}
 
 	async function claimReward(sn: string) {
 		try {
-			const claimResult = await MissionAPI.claimMission(sn);
-			console.log(claimResult)
-			if (claimResult.success) {  
+			const response = await MissionAPI.claimMission(sn);
+			if (response.success) {  
 				toast.success("Rewards claimed");
 				await UserAPI.account.getInfo();
-				const updatedMissionList = await MissionAPI.missionList('');
+				const updatedList = await MissionAPI.missionList();
+				missionList = updatedList.data.data
 			} else {
 				throw new Error("Mission claim failed");
 			}
@@ -43,6 +62,7 @@
 			toast.error("Failed to claim rewards");
 		}
 	}
+
 
 </script>
 
@@ -89,9 +109,11 @@
 							{#if mission.status === 'in_progress'}
 								<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 " disabled>In Progress</Button>
 							{:else if mission.status === 'completed'}
-								{#each mission.reward as reward}
-								<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
-								{/each}
+								{#if missionList}
+									{#each mission.reward as reward}
+									<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
+									{/each}
+								{/if}
 							{:else if mission.status === 'claimed'}
 								<div class='text-green-500'>
 									<Icon icon="subway:tick" width="1.2em" height="1.2em" />

@@ -1,35 +1,53 @@
 import { type Address } from 'viem';
-import { api } from '../http/https';
+import { api, type APIResponse } from '../http/https';
 import Cookies from 'js-cookie';
 import { signMessage } from '@wagmi/core';
 import { wagmiConfig } from '../web3/client';
 import { goto } from '$app/navigation';
 
+type TMission = {
+	sn: string,
+	name: string,
+	description: string,
+	reward: [
+		{
+			wallet: string,
+			amount: string
+		}
+	],
+	action: string,
+	type: "daily" | "weekly" | "permanent" | "",
+	status: string,
+	progress: number,
+	current: number,
+	requirement: number,
+	auto_take: number
+}
+
 const MissionAPI = {
-	missionList: async function (type?:string) {
+	missionList: async function (type: TMission['type'] = '') {
 		try {
-			const response = await api.get('/dapp/mission/list', {
-                data: {
-                    size: 20,
-                    page: 1,
-                    type: type
-                },
-                useToken: true
+
+			const data: any = {
+				size: 20,
+				page: 1,
+				type
+			};
+
+			const response = await api.get<TMission[]>('/dapp/mission/list', {
+				data: data,
+				useToken: true
 			});
 
-			if (!response.success) return response;
 
-            if (response.success) {
-                return response.data;
-            }
+			return response;
 
 		} catch (error) {
-
-			console.error('Error fetching message:', error);
-			return error;
+			console.error(error)
+			return error
 		}
 	},
-	takeMission: async function (name: string,) {
+	takeMission: async function (name: TMission['name']) {
 		try {
 			const response = await api.post('/dapp/mission/take', {
 				data: {
@@ -39,16 +57,16 @@ const MissionAPI = {
 
 			if (!response.success) return response;
 
-            if (response.success) {
-                return response.data;
-            }
+			if (response.success) {
+				return response;
+			}
 
 		} catch (error) {
 			console.error('Error posting message:', error);
 			return error;
 		}
 	},
-    claimMission: async function (sn: string,) {
+	claimMission: async function (sn: TMission['sn']) {
 		try {
 			const response = await api.post('/dapp/mission/claim', {
 				data: {
@@ -56,11 +74,11 @@ const MissionAPI = {
 				},
 			});
 
-            if (!response.success) return response;
+			if (!response.success) return response;
 
-            if (response.success) {
-                return response.data;
-            }
+			if (response.success) {
+				return response
+			}
 
 		} catch (error) {
 			console.error('Error posting message:', error);
@@ -70,3 +88,4 @@ const MissionAPI = {
 };
 
 export default MissionAPI;
+export type { TMission }
