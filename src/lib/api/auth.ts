@@ -18,7 +18,7 @@ const AuthAPI = {
 			const signature = await signMessage(wagmiConfig, {
 				message: { raw: response.data }
 			});
-
+			
 			if (signature) {
 				const verified = await this.verifyMessage(signature, address);
 				return verified;
