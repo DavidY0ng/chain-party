@@ -8,19 +8,18 @@ export const load: PageLoad = async () => {
 	const token = Cookies.get('accessToken');
 
 	async function getDownline() {
-		if (token) {
-			const response = await UserAPI.team.getDownline(get(storeUserInfo).web3_address);
+		if (!token) return [];
+		const response = await UserAPI.team.getDownline(get(storeUserInfo).web3_address);
 
+		if (response.success) {
 			const treeData = {
 				web3_address: get(storeUserInfo).web3_address,
-				downline_count: response.length,
+				downline_count: response.data.length,
 				children: []
 			};
 			console.log(response)
 
 			return treeData;
-		} else {
-			return [];
 		}
 	}
 

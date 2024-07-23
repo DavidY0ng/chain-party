@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import AuthAPI from '$lib/api/auth';
-	import UserAPI from '$lib/api/user';
 	import { Button, type Props } from '$lib/components/ui/button';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { cn } from '$lib/utils';
+	import { cn, getUserProfile } from '$lib/utils';
 	import { account, connectWallet, onDisconnect } from '$lib/web3/wagmi';
 	import { toast } from 'svelte-sonner';
 	import { zeroAddress } from 'viem';
@@ -16,13 +16,14 @@
 	const onConnectWallet = async () => {
 		await connectWallet();
 		const auth = await AuthAPI.requestMessage($account.address!);
-		await UserAPI.account.getInfo();
+		await getUserProfile();
 		if (auth) toast.success('Connected Wallet');
 	};
 
 	const onHandleDisconnect = async () => {
 		await AuthAPI.logout();
 		await onDisconnect();
+		goto('/');
 	};
 </script>
 
