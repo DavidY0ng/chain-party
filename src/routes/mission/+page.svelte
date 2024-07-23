@@ -11,6 +11,7 @@
 	import Icon from '@iconify/svelte';
 	import { boolean } from 'zod';
 	import type { APIResponse } from '$lib/http/https.js';
+	import { getUserProfile } from '$lib/utils.js';
 
     export let data;
 
@@ -28,6 +29,7 @@
 			if (response.success) {
 				toast.success("Mission started!");
 				await UserAPI.account.getInfo();
+				await getUserProfile()
 				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
 				missionList = updatedList.data
 
@@ -46,6 +48,7 @@
 			if (response.success) {  
 				toast.success("Rewards claimed");
 				await UserAPI.account.getInfo();
+				await getUserProfile()
 				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
 				missionList = updatedList.data
 			} else {
