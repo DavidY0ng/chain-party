@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
-	const _expansionState: Record<string, boolean> = {};
+	let _expansionState: Record<string, boolean> = {};
 </script>
 
 <script lang="ts">
 	import UserAPI from '$lib/api/user';
 	import Icon from '@iconify/svelte';
+	import { onDestroy } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import type { Address } from 'viem';
 
@@ -15,7 +16,7 @@
 
 	let expanded = _expansionState[web3_address] || false;
 	let hasFetchedChildren = false; // Track if children have been fetched
-	
+
 	const onFetchChildren = async () => {
 		if (hasFetchedChildren) return; // Prevent fetching if already fetched
 
@@ -81,6 +82,11 @@
 	};
 
 	$: arrowDown = expanded;
+
+	onDestroy(() => {
+		// clear expansionState when navigate away
+		_expansionState = {};
+	});
 </script>
 
 <div
@@ -114,7 +120,7 @@
 		<!-- Leaf node without children -->
 		<span class="flex gap-x-3 items-center pl-[1rem] py-3 hover:bg-white/10 rounded-lg w-full">
 			<Icon icon="octicon:dash-16" class="inline-block text-white/20 text-sm" />
-			{web3_address}
+			{web3_address || 'None'}
 		</span>
 	{/if}
 </div>
