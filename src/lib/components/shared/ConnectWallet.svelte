@@ -9,9 +9,7 @@
 	import { toast } from 'svelte-sonner';
 	import { zeroAddress } from 'viem';
 
-	type $$Props = Props & { drawerOpen: boolean };
-
-	let className: $$Props['class'] = undefined;
+	let className: string | undefined = undefined;
 	export { className as class };
 	export let drawerOpen: boolean = false;
 
