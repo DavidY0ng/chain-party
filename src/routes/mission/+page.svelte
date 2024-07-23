@@ -25,7 +25,6 @@
     async function startMission(name: string) {
 		try {
 			const response = await MissionAPI.takeMission(name) as APIResponse<TMission[]>;
-			console.log(response)
 			if (response.success) {
 				toast.success("Mission started!");
 				await UserAPI.account.getInfo();
