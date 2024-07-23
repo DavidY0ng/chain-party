@@ -3,11 +3,11 @@
 	import * as Card from '$lib/components/ui/card';
 	import Text from '$lib/components/ui/text/text.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-    import { onMount } from 'svelte'
-    import MissionAPI, { type TMission } from "$lib/api/mission";
-    import { toast } from 'svelte-sonner';
-    import { storeUserInfo } from '$lib/stores/storeUser.js';
-    import UserAPI from '$lib/api/user.js';
+	import { onMount } from 'svelte';
+	import MissionAPI, { type TMission } from '$lib/api/mission';
+	import { toast } from 'svelte-sonner';
+	import { storeUserInfo } from '$lib/stores/storeUser.js';
+	import UserAPI from '$lib/api/user.js';
 	import Icon from '@iconify/svelte';
 	import { boolean } from 'zod';
 	import type { APIResponse } from '$lib/http/https.js';
@@ -15,54 +15,51 @@
 	import { zeroAddress } from 'viem';
 	import ConnectWallet from '$lib/components/shared/ConnectWallet.svelte';
 
-    export let data;
+	export let data;
 
-    $: ({ missionData } = data);
-	$: missionList = missionData.data
+	$: ({ missionData } = data);
+	$: missionList = missionData.data;
 	$: statusList = [
 		{ name: 'Your Points', value: $storeUserInfo.point },
 		{ name: 'Completed Mission', value: $storeUserInfo.mission_completed },
-		{ name: 'Ongoing Mission', value:  $storeUserInfo.mission_ongoing  }
+		{ name: 'Ongoing Mission', value: $storeUserInfo.mission_ongoing }
 	];
 
-    async function startMission(name: string) {
+	async function startMission(name: string) {
 		try {
-			const response = await MissionAPI.takeMission(name) as APIResponse<TMission[]>;
+			const response = (await MissionAPI.takeMission(name)) as APIResponse<TMission[]>;
 			if (response.success) {
-				toast.success("Mission started!");
+				toast.success('Mission started!');
 				await UserAPI.account.getInfo();
-				await getUserProfile()
+				await getUserProfile();
 				const updatedList = await MissionAPI.missionList();
-				missionData = updatedList.data
-
+				missionData = updatedList.data;
 			} else {
-				throw new Error("Failed to start mission");
+				throw new Error('Failed to start mission');
 			}
 		} catch (error) {
-			console.error("Error in startMission:", error);
-			toast.error("Failed to start mission");
+			console.error('Error in startMission:', error);
+			toast.error('Failed to start mission');
 		}
 	}
 
 	async function claimReward(sn: string) {
 		try {
-			const response = await MissionAPI.claimMission(sn) as APIResponse<TMission[]>;
-			if (response.success) {  
-				toast.success("Rewards claimed");
+			const response = (await MissionAPI.claimMission(sn)) as APIResponse<TMission[]>;
+			if (response.success) {
+				toast.success('Rewards claimed');
 				await UserAPI.account.getInfo();
-				await getUserProfile()
+				await getUserProfile();
 				const updatedList = await MissionAPI.missionList();
-				missionData = updatedList.data
+				missionData = updatedList.data;
 			} else {
-				throw new Error("Mission claim failed");
+				throw new Error('Mission claim failed');
 			}
 		} catch (error) {
-			console.error("Error in claimReward:", error);
-			toast.error("Failed to claim rewards");
+			console.error('Error in claimReward:', error);
+			toast.error('Failed to claim rewards');
 		}
 	}
-
-
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
@@ -107,32 +104,39 @@
 							<Card.Root class="flex justify-between p-2 items-center rounded-sm">
 								<Text>{mission.name}</Text>
 								{#if mission.status === 'in_progress'}
-									<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 " disabled>In Progress</Button>
+									<Button
+										on:click={() => startMission(mission.name)}
+										size="sm"
+										class="px-5 "
+										disabled>In Progress</Button
+									>
 								{:else if mission.status === 'completed'}
 									{#if missionList}
 										{#each mission.reward as reward}
-										<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
+											<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 "
+												>Claim {reward.amount}</Button
+											>
 										{/each}
 									{/if}
 								{:else if mission.status === 'claimed'}
-									<div class='text-green-500'>
+									<div class="text-green-500">
 										<Icon icon="subway:tick" width="1.2em" height="1.2em" />
 									</div>
 								{:else}
-									<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
+									<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 "
+										>Start</Button
+									>
 								{/if}
 							</Card.Root>
 						{/each}
 					{/if}
 				{:else}
-				<div class="flex flex-col items-center justify-center min-h-[10rem] space-y-6">
-					<Text size="xl" class='text-center'>Connect your wallet to check your mission</Text>
-					<ConnectWallet class="text-lg" />
-				</div>
-					
+					<div class="flex flex-col items-center justify-center min-h-[10rem] space-y-6">
+						<Text size="xl" class="text-center">Connect your wallet to check your mission</Text>
+						<ConnectWallet class="text-lg" />
+					</div>
 				{/if}
 			</Card.Root>
 		</div>
-
 	</div>
 </div>
