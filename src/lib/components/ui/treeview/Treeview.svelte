@@ -12,7 +12,7 @@
 	export let tree: any;
 	export let isChild = false;
 
-	const { web3_address, downline_count, children } = tree;
+	const { web3_address, downline_count, children } = tree || {};
 
 	let expanded = _expansionState[web3_address] || false;
 	let hasFetchedChildren = false; // Track if children have been fetched
@@ -22,7 +22,7 @@
 
 		const response = await UserAPI.team.getDownline(web3_address as Address);
 		if (response) {
-			const newChildren = response.map((child: any) => ({
+			const newChildren = response.data.map((child: any) => ({
 				web3_address: child.web3_address,
 				downline_count: child.downline_count,
 				children: []

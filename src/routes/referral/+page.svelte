@@ -2,7 +2,6 @@
 	import { Text } from '$lib/components/ui/text';
 	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { onMount } from 'svelte';
 	export let data;
 	$: ({ downlineList } = data);
 </script>
@@ -12,6 +11,6 @@
 	<div class="w-full">
 		<Text size="xl">Your Team:</Text>
 		<!-- Use the key to force rerendering -->
-		<Treeview tree={downlineList} />
+		<Treeview bind:tree={downlineList} />
 	</div>
 </div>

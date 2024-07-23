@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie';
 import { urls } from './settings';
 
-type APIResponse<T = any> = {
+export type APIResponse<T = any> = {
 	success: boolean;
 	data: T;
 	msg: string;

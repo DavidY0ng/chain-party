@@ -1,7 +1,7 @@
+import { signMessage } from '@wagmi/core';
+import Cookies from 'js-cookie';
 import { type Address } from 'viem';
 import { api } from '../http/https';
-import Cookies from 'js-cookie';
-import { signMessage } from '@wagmi/core';
 import { wagmiConfig } from '../web3/client';
 import { goto } from '$app/navigation';
 
@@ -18,7 +18,7 @@ const AuthAPI = {
 			const signature = await signMessage(wagmiConfig, {
 				message: { raw: response.data }
 			});
-			
+
 			if (signature) {
 				const verified = await this.verifyMessage(signature, address);
 				return verified;
@@ -58,7 +58,7 @@ const AuthAPI = {
 
 		await api.post('/dapp/auth/logout');
 		Cookies.remove('accessToken');
-		return goto('/');
+		goto('/');
 	}
 };
 
