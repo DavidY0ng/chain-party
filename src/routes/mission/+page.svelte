@@ -4,12 +4,13 @@
 	import Text from '$lib/components/ui/text/text.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
     import { onMount } from 'svelte'
-    import MissionAPI from "$lib/api/mission";
+    import MissionAPI, { type TMission } from "$lib/api/mission";
     import { toast } from 'svelte-sonner';
     import { storeUserInfo } from '$lib/stores/storeUser.js';
     import UserAPI from '$lib/api/user.js';
 	import Icon from '@iconify/svelte';
 	import { boolean } from 'zod';
+	import type { APIResponse } from '$lib/http/https.js';
 
     export let data;
 
@@ -21,21 +22,15 @@
 		{ name: 'Ongoing Mission', value:  $storeUserInfo.mission_ongoing  }
 	];
 
-	$: if (missionList) {
-    		console.log(missionList);
-		} else {
-			console.log("missionList.data is undefined");
-		}
-
     async function startMission(name: string) {
 		try {
-			const response = await MissionAPI.takeMission(name);
+			const response = await MissionAPI.takeMission(name) as APIResponse<TMission[]>;
+			console.log(response)
 			if (response.success) {
 				toast.success("Mission started!");
 				await UserAPI.account.getInfo();
-				const updatedList = await MissionAPI.missionList();
-				missionList = updatedList.data.data
-				console.log(missionList);
+				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
+				missionList = updatedList.data
 
 			} else {
 				throw new Error("Failed to start mission");
@@ -48,12 +43,12 @@
 
 	async function claimReward(sn: string) {
 		try {
-			const response = await MissionAPI.claimMission(sn);
+			const response = await MissionAPI.claimMission(sn) as APIResponse<TMission[]>;
 			if (response.success) {  
 				toast.success("Rewards claimed");
 				await UserAPI.account.getInfo();
-				const updatedList = await MissionAPI.missionList();
-				missionList = updatedList.data.data
+				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
+				missionList = updatedList.data
 			} else {
 				throw new Error("Mission claim failed");
 			}

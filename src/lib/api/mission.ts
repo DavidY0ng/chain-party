@@ -40,7 +40,7 @@ const MissionAPI = {
 			});
 
 
-			return response;
+			return response.data;
 
 		} catch (error) {
 			console.error(error)
@@ -55,11 +55,7 @@ const MissionAPI = {
 				},
 			});
 
-			if (!response.success) return response;
-
-			if (response.success) {
-				return response;
-			}
+			return response
 
 		} catch (error) {
 			console.error('Error posting message:', error);

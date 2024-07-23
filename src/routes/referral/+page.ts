@@ -16,6 +16,7 @@ export const load: PageLoad = async () => {
 				downline_count: response.length,
 				children: []
 			};
+			console.log(response)
 
 			return treeData;
 		} else {
