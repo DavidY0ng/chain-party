@@ -6,21 +6,43 @@
     import { onMount } from 'svelte'
     import MissionAPI from "$lib/api/mission";
     import { toast } from 'svelte-sonner';
+    import { storeUserInfo } from '$lib/stores/storeUser.js';
+    import UserAPI from '$lib/api/user.js';
+	import Icon from '@iconify/svelte';
 
     export let data;
 
     $: ({ missionList } = data);
 
-	const statusList = [
-		{ name: 'Your Points', value: '1000' },
-		{ name: 'Completed Mission', value: '10' },
-		{ name: 'Ongoing Mission', value: '8' }
+	$: statusList = [
+		{ name: 'Your Points', value: $storeUserInfo.point },
+		{ name: 'Completed Mission', value: $storeUserInfo.mission_completed },
+		{ name: 'Ongoing Mission', value:  $storeUserInfo.mission_ongoing  }
 	];
 
-    function startMission (name:string) {
+    async function startMission (name:string) {
         MissionAPI.takeMission(name)
         toast.success("Mission started!")
+        UserAPI.account.getInfo()
+		MissionAPI.missionList('')
     }
+
+	async function claimReward(sn: string) {
+		try {
+			const claimResult = await MissionAPI.claimMission(sn);
+			console.log(claimResult)
+			if (claimResult.success) {  
+				toast.success("Rewards claimed");
+				await UserAPI.account.getInfo();
+				const updatedMissionList = await MissionAPI.missionList('');
+			} else {
+				throw new Error("Mission claim failed");
+			}
+		} catch (error) {
+			console.error("Error in claimReward:", error);
+			toast.error("Failed to claim rewards");
+		}
+	}
 
 </script>
 
@@ -64,11 +86,24 @@
                     {#each missionList as mission}
                         <Card.Root class="flex justify-between p-2 items-center rounded-sm">
                             <Text>{mission.name}</Text>
-                            <Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
+							{#if mission.status === 'in_progress'}
+								<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 " disabled>In Progress</Button>
+							{:else if mission.status === 'completed'}
+								{#each mission.reward as reward}
+								<Button on:click={() => claimReward(mission.sn)} size="sm" class="px-5 ">Claim {reward.amount}</Button>
+								{/each}
+							{:else if mission.status === 'claimed'}
+								<div class='text-green-500'>
+									<Icon icon="subway:tick" width="1.2em" height="1.2em" />
+								</div>
+							{:else}
+								<Button on:click={() => startMission(mission.name)} size="sm" class="px-5 ">Start</Button>
+							{/if}
                         </Card.Root>
                     {/each}
                 {/if}
 			</Card.Root>
 		</div>
+
 	</div>
 </div>
