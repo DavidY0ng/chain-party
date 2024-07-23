@@ -1,9 +1,4 @@
-import { type Address } from 'viem';
 import { api, type APIResponse } from '../http/https';
-import Cookies from 'js-cookie';
-import { signMessage } from '@wagmi/core';
-import { wagmiConfig } from '../web3/client';
-import { goto } from '$app/navigation';
 
 type TMission = {
 	sn: string,
@@ -25,29 +20,27 @@ type TMission = {
 }
 
 const MissionAPI = {
-	missionList: async function (type: TMission['type'] = '') {
+	missionList: async function (type: TMission['type'] = ''): Promise<APIResponse> {
 		try {
 
-			const data: any = {
-				size: 20,
-				page: 1,
-				type
-			};
-
 			const response = await api.get<TMission[]>('/dapp/mission/list', {
-				data: data,
+				data: {
+					size: 20,
+					page: 1,
+					type
+				},
 				useToken: true
 			});
 
 
-			return response.data;
+			return response;
 
 		} catch (error) {
 			console.error(error)
 			return { success: false, data: {} as TMission, msg: (error as Error).message };
 		}
 	},
-	takeMission: async function (name: TMission['name']) {
+	takeMission: async function (name: TMission['name']): Promise<APIResponse> {
 		try {
 			const response = await api.post('/dapp/mission/take', {
 				data: {
@@ -62,7 +55,7 @@ const MissionAPI = {
 			return { success: false, data: {} as TMission, msg: (error as Error).message };
 		}
 	},
-	claimMission: async function (sn: TMission['sn']) {
+	claimMission: async function (sn: TMission['sn']): Promise<APIResponse> {
 		try {
 			const response = await api.post('/dapp/mission/claim', {
 				data: {
@@ -70,11 +63,7 @@ const MissionAPI = {
 				},
 			});
 
-			if (!response.success) return response;
-
-			if (response.success) {
-				return response
-			}
+			return response
 
 		} catch (error) {
 			console.error('Error posting message:', error);

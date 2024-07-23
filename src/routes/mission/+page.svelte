@@ -15,8 +15,8 @@
 
     export let data;
 
-    $: ({ missionList } = data);
-
+    $: ({ missionData } = data);
+	$: missionList = missionData.data
 	$: statusList = [
 		{ name: 'Your Points', value: $storeUserInfo.point },
 		{ name: 'Completed Mission', value: $storeUserInfo.mission_completed },
@@ -30,8 +30,8 @@
 				toast.success("Mission started!");
 				await UserAPI.account.getInfo();
 				await getUserProfile()
-				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
-				missionList = updatedList.data
+				const updatedList = await MissionAPI.missionList();
+				missionData = updatedList.data
 
 			} else {
 				throw new Error("Failed to start mission");
@@ -49,8 +49,8 @@
 				toast.success("Rewards claimed");
 				await UserAPI.account.getInfo();
 				await getUserProfile()
-				const updatedList = await MissionAPI.missionList() as APIResponse<TMission[]>;
-				missionList = updatedList.data
+				const updatedList = await MissionAPI.missionList();
+				missionData = updatedList.data
 			} else {
 				throw new Error("Mission claim failed");
 			}
