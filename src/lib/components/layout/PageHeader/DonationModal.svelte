@@ -5,7 +5,7 @@
 	import { filterInput } from '$lib/helper';
 	import { Button, buttonVariants } from '../../ui/button';
 
-	let showModal = true;
+	let showModal = false;
 	let donationAmount: string | undefined = undefined;
 	let donationError: string | undefined = undefined;
 
