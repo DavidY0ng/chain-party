@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { type Address } from 'viem';
 import { api } from '../http/https';
 import { wagmiConfig } from '../web3/client';
-import { goto } from '$app/navigation';
 
 const AuthAPI = {
 	requestMessage: async function (address: Address) {
@@ -54,11 +53,10 @@ const AuthAPI = {
 	logout: async function () {
 		const cookie = Cookies.get('accessToken');
 
-		if (!cookie) return goto('/');
+		if (!cookie) return Cookies.remove('accessToken');
 
 		await api.post('/dapp/auth/logout');
 		Cookies.remove('accessToken');
-		goto('/');
 	}
 };
 

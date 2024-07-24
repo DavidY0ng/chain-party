@@ -2,7 +2,6 @@ import { browser } from '$app/environment';
 import { emptyUserInfo, storeUserInfo } from '$lib/stores/storeUser';
 import {
 	connect,
-	disconnect,
 	getAccount,
 	getChainId,
 	injected,
@@ -15,7 +14,6 @@ import Cookies from 'js-cookie';
 import { toast } from 'svelte-sonner';
 import { get, readable } from 'svelte/store';
 import { wagmiConfig } from './client';
-import { goto } from '$app/navigation';
 
 export const chainId = readable<GetChainIdReturnType>(getChainId(wagmiConfig), (set) =>
 	watchChainId(wagmiConfig, { onChange: set })
@@ -49,7 +47,6 @@ export const onChange = async () => {
 	if (browser && get(account).address !== get(storeUserInfo).web3_address) {
 		window.ethereum.on('accountsChanged', async () => {
 			onDisconnect();
-			goto('/');
 			toast.warning('Account Changed... Please Login Again');
 		});
 	}
@@ -58,5 +55,4 @@ export const onChange = async () => {
 export const onDisconnect = async () => {
 	storeUserInfo.set(emptyUserInfo);
 	Cookies.remove('accessToken');
-	disconnect(wagmiConfig);
 };

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Button } from '$lib/components/ui/button';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { Text } from '../../ui/text';
 	import { menuList } from '../config';
 	import BindReferralModal from './BindReferralModal.svelte';
+	import DonationModal from './DonationModal.svelte';
 
 	function onHandlePathName(path: string | null) {
 		if (!path) return null;
@@ -18,7 +18,7 @@
 	<Text tag="h1" size="3xl">{onHandlePathName($page.route.id)}</Text>
 	<div class="flex gap-x-5">
 		{#if $page.route.id === '/donate'}
-			<Button class="text-md">Donate</Button>
+			<DonationModal />
 		{/if}
 		{#if $storeUserInfo.upline === ''}
 			<BindReferralModal />
