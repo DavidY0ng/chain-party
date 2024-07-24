@@ -1,5 +1,4 @@
 import { browser } from '$app/environment';
-import { goto } from '$app/navigation';
 import { emptyUserInfo, storeUserInfo } from '$lib/stores/storeUser';
 import {
 	connect,
@@ -48,7 +47,6 @@ export const onChange = async () => {
 	if (browser && get(account).address !== get(storeUserInfo).web3_address) {
 		window.ethereum.on('accountsChanged', async () => {
 			onDisconnect();
-			goto('/');
 			toast.warning('Account Changed... Please Login Again');
 		});
 	}

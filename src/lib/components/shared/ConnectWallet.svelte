@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import AuthAPI from '$lib/api/auth';
-	import { Button, type Props } from '$lib/components/ui/button';
+	import { Button } from '$lib/components/ui/button';
 	import { isDesktop } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { cn, getUserProfile } from '$lib/utils';
@@ -29,7 +28,6 @@
 		await AuthAPI.logout();
 		await onDisconnect();
 		if (!$isDesktop) drawerOpen = false;
-		goto('/');
 	};
 </script>
 

@@ -1,9 +1,49 @@
 <script lang="ts">
+	import UserAPI from '$lib/api/user';
 	import { Text } from '$lib/components/ui/text';
 	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
+	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	export let data;
-	$: ({ downlineList } = data);
+	import { onMount } from 'svelte';
+	import { zeroAddress } from 'viem';
+
+	let downlineList = {
+		web3_address: 'None',
+		downline_count: 0,
+		children: []
+	};
+
+	async function getDownline() {
+		if (!$isToken) return [];
+		const response = await UserAPI.team.getDownline($storeUserInfo.web3_address);
+
+		if (response.success) {
+			const treeData = {
+				web3_address: $storeUserInfo.web3_address,
+				downline_count: response.data.length,
+				children: []
+			};
+
+			return (downlineList = treeData);
+		}
+	}
+
+	storeUserInfo.subscribe(async (value) => {
+		if (value.web3_address !== zeroAddress) {
+			await getDownline();
+		} else {
+			downlineList = {
+				web3_address: 'None',
+				downline_count: 0,
+				children: []
+			};
+		}
+		rerender.set(!$rerender);
+	});
+
+	onMount(async () => {
+		await getDownline();
+	});
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
@@ -11,6 +51,8 @@
 	<div class="w-full">
 		<Text size="xl">Your Team:</Text>
 		<!-- Use the key to force rerendering -->
-		<Treeview bind:tree={downlineList} />
+		{#key $rerender}
+			<Treeview bind:tree={downlineList} />
+		{/key}
 	</div>
 </div>

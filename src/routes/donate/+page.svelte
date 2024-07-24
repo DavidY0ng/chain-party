@@ -5,16 +5,21 @@
 	import * as Table from '$lib/components/ui/table';
 </script>
 
-<div class="h-full w-full min-h-screen space-y-10">
-	<div class="grid grid-cols-2 justify-items-center mx-auto w-[80%] gap-5">
+<div class="h-full w-full min-h-screen space-y-5 xl:space-y-10">
+	<div class="grid grid-cols-2 justify-items-center mx-auto xl:w-[80%] gap-5">
 		{#each Array(3) as _, i}
 			<Card.Root
-				class="p-5 flex gap-x-5 border-none bg-gradient-to-l from-black/10 {i === 0
-					? 'col-span-full w-1/2'
+				class="xl:p-5 flex xl:flex-row flex-col items-center gap-x-5 border-none xl:bg-gradient-to-l from-black/10 {i ===
+				0
+					? 'col-span-full w-1/2 '
 					: 'w-full'}"
 			>
-				<Icon icon="emojione:sports-medal" class="text-[120px]" />
-				<div class="w-full relative space-y-2">
+				<div class="border rounded-full p-5 xl:p-0 xl:border-none xl:rounded-none">
+					<Icon icon="emojione:sports-medal" class="text-[70px] xl:text-[120px]" />
+				</div>
+				<Text size="xl" class="block xl:hidden">Address {i + 1}</Text>
+
+				<div class="w-full relative space-y-2 hidden xl:block">
 					<Text size="3xl">Dummy {i + 1}</Text>
 					<div class="w-full flex items-center">
 						<div class="w-full">
@@ -31,7 +36,9 @@
 			</Card.Root>
 		{/each}
 	</div>
-	<Table.Root class="">
+
+	<!-- Desktop Leaderboard list -->
+	<Table.Root class="hidden xl:block">
 		<Table.Header>
 			<Table.Row class="hover:bg-transparent text-lg border-none">
 				<Table.Head class="w-[25%]">Rank</Table.Head>
@@ -63,4 +70,19 @@
 			{/each}
 		</Table.Body>
 	</Table.Root>
+
+	<!-- Mobile Leaderboard list -->
+	<div id="Mobile Leaderboard List" class="space-y-3">
+		<Text size="xl" class="text-black">Leaderboard List</Text>
+		<Card.Root class="flex justify-between items-center px-2 py-3">
+			<Text size="lg" class="text-black font-semibold">My Address</Text>
+			<Text size="lg" class="text-black font-semibold">10,000 EIC</Text>
+		</Card.Root>
+		{#each Array(3) as _, i}
+			<Card.Root class="flex justify-between items-center px-2 py-3">
+				<Text size="lg" class="text-black font-semibold">Player {i + 1}</Text>
+				<Text size="lg" class="text-black font-semibold">10,000 EIC</Text>
+			</Card.Root>
+		{/each}
+	</div>
 </div>
