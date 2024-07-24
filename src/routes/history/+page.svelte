@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Filter from '$lib/components/page/history/Filter.svelte';
+	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import * as Table from '$lib/components/ui/table';
 
@@ -12,11 +12,8 @@
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
-	<Filter
-		bind:from={filterOption.from}
-		bind:to={filterOption.to}
-		bind:selectedStatus={filterOption.status}
-		bind:selectedType={filterOption.type}
+	<FilterMenu
+		bind:filterOption
 		on:search={() => {
 			console.log(filterOption);
 		}}
