@@ -15,16 +15,18 @@
 
 	async function getDownline() {
 		if (!$isToken) return [];
-		const response = await UserAPI.team.getDownline($storeUserInfo.web3_address);
+		const result = await UserAPI.team.getDownline($storeUserInfo.web3_address);
 
-		if (response.success) {
+		if (result.success) {
 			const treeData = {
 				web3_address: $storeUserInfo.web3_address,
-				downline_count: response.data.length,
+				downline_count: result.data.length,
 				children: []
 			};
 
 			return (downlineList = treeData);
+		} else {
+			throw new Error(`Failed to fetch initial downline : ${result}`);
 		}
 	}
 

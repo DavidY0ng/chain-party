@@ -1,12 +1,17 @@
 import { api, type APIResponse } from '$lib/http/https';
 
-type TTransaction = {
+export type TTransaction = {
 	date: string;
 	sn: string;
 	type: string;
 	status: string;
 	amount: number;
 	wallet: string;
+};
+
+export type TTransactionType = {
+	id: number;
+	code: string;
 };
 
 const TransactionAPI = {
@@ -28,6 +33,14 @@ const TransactionAPI = {
 			} catch (error) {
 				return { success: false, data: {} as TTransaction[], msg: (error as Error).message };
 			}
+		}
+	},
+	getTypes: async function (): Promise<APIResponse<TTransactionType[]>> {
+		try {
+			const response = await api.get<TTransactionType[]>('/dapp/transaction/type');
+			return response;
+		} catch (error) {
+			return { success: false, data: {} as TTransactionType[], msg: (error as Error).message };
 		}
 	}
 };

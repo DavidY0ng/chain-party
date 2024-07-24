@@ -20,9 +20,9 @@
 	const onFetchChildren = async () => {
 		if (hasFetchedChildren) return; // Prevent fetching if already fetched
 
-		const response = await UserAPI.team.getDownline(web3_address as Address);
-		if (response) {
-			const newChildren = response.data.map((child: any) => ({
+		const result = await UserAPI.team.getDownline(web3_address as Address);
+		if (result.success) {
+			const newChildren = result.data.map((child: any) => ({
 				web3_address: child.web3_address,
 				downline_count: child.downline_count,
 				children: []
@@ -34,6 +34,8 @@
 			}
 
 			hasFetchedChildren = true; // Mark children as fetched
+		} else {
+			throw new Error(`Failed to fetch Children Node : ${result}`);
 		}
 	};
 
