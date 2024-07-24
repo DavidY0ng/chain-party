@@ -6,32 +6,39 @@
 	import MissionAPI, { type TMission } from '$lib/api/mission';
 	import { toast } from 'svelte-sonner';
 	import { storeUserInfo } from '$lib/stores/storeUser.js';
-	import UserAPI from '$lib/api/user.js';
 	import Icon from '@iconify/svelte';
 	import type { APIResponse } from '$lib/http/https.js';
 	import { getUserProfile } from '$lib/utils.js';
 	import { zeroAddress } from 'viem';
 	import ConnectWallet from '$lib/components/shared/ConnectWallet.svelte';
-
-	export let data;
-
-	$: ({ missionData } = data);
-	$: missionList = missionData.data;
+	import { isToken } from '$lib/stores/storeCommon'
+	import { onMount } from 'svelte';
+	
+	let missionList: TMission[];
 	$: statusList = [
 		{ name: 'Your Points', value: $storeUserInfo.point },
 		{ name: 'Completed Mission', value: $storeUserInfo.mission_completed },
 		{ name: 'Ongoing Mission', value: $storeUserInfo.mission_ongoing }
 	];
 
+	async function getMissionList() {
+        if (!$isToken) return [];
+        const response = await MissionAPI.missionList();
+
+        if (response.success) {
+
+            return (missionList = response.data.data)
+        }
+    }
+
 	async function startMission(name: string) {
 		try {
 			const response = (await MissionAPI.takeMission(name)) as APIResponse<TMission[]>;
 			if (response.success) {
 				toast.success('Mission started!');
-				await UserAPI.account.getInfo();
 				await getUserProfile();
 				const updatedList = await MissionAPI.missionList();
-				missionData = updatedList.data;
+				missionList = updatedList.data.data;
 			} else {
 				throw new Error('Failed to start mission');
 			}
@@ -46,10 +53,9 @@
 			const response = (await MissionAPI.claimMission(sn)) as APIResponse<TMission[]>;
 			if (response.success) {
 				toast.success('Rewards claimed');
-				await UserAPI.account.getInfo();
 				await getUserProfile();
 				const updatedList = await MissionAPI.missionList();
-				missionData = updatedList.data;
+				missionList = updatedList.data.data;
 			} else {
 				throw new Error('Mission claim failed');
 			}
@@ -58,6 +64,10 @@
 			toast.error('Failed to claim rewards');
 		}
 	}
+
+	onMount(async () => {
+		await getMissionList();
+	});
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
