@@ -4,7 +4,7 @@ import en from './en';
 
 /** @type {import('sveltekit-i18n').Config} */
 const config = {
-	// fallbackLocale: 'en',
+	fallbackLocale: 'en',
 	translations: {
 		en: { lang }
 	},
