@@ -12,9 +12,9 @@
 	export let tree: any;
 	export let isChild = false;
 
-	const { web3_address, downline_count, children } = tree || {};
+	const { web3_address, downline_count, children } = tree;
 
-	let expanded = _expansionState[web3_address] || false;
+	let expanded = _expansionState[web3_address];
 	let hasFetchedChildren = false; // Track if children have been fetched
 
 	const onFetchChildren = async () => {
