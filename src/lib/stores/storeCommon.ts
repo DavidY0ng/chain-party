@@ -5,7 +5,6 @@ import { zeroAddress } from 'viem';
 import { storeUserInfo } from './storeUser';
 
 export const isDesktop = mediaQuery('(min-width: 1280px)');
-export const isLgMobile = mediaQuery('(max-width: 426px)')
 export const isToken = writable<string | undefined>(undefined);
 export const rerender = writable<boolean>(false);
 

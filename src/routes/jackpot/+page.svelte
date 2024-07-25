@@ -5,7 +5,7 @@
 	import Separator from '$lib/components/ui/separator/separator.svelte';
     import * as Table from '$lib/components/ui/table';
 	import { truncateString } from '$lib/helper';
-    import { isLgMobile } from '$lib/stores/storeCommon'
+    import { isDesktop, isLgMobile } from '$lib/stores/storeCommon'
     import Icon from '@iconify/svelte';
 </script>
 
@@ -57,13 +57,13 @@
 				<Table.Body>
 					{#each Array(3) as _, i (i)}
 						<Table.Row>
-                            {#if !$isLgMobile}
+                            {#if $isDesktop}
                                 <Table.Cell class="font-bold text-black text-lg"
                                     >0x9693cd9713496b0712f52e5f0c7b8948abda824d</Table.Cell
                                 >
                             {:else}
                                 <Table.Cell class="font-bold text-black text-lg"
-                                    >{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 6,6)}</Table.Cell
+                                    >{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 7,7)}</Table.Cell
                                 >
                             {/if}
 							<Table.Cell class="text-right text-black font-bold text-lg">4</Table.Cell>
@@ -83,13 +83,13 @@
 				<Table.Body>
 					{#each Array(3) as _, i (i)}
 						<Table.Row>
-							{#if !$isLgMobile}
+                            {#if $isDesktop}
                                 <Table.Cell class="font-bold text-black text-lg"
                                     >0x9693cd9713496b0712f52e5f0c7b8948abda824d</Table.Cell
                                 >
                             {:else}
                                 <Table.Cell class="font-bold text-black text-lg"
-                                    >{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 10,10)}</Table.Cell
+                                    >{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 7,7)}</Table.Cell
                                 >
                             {/if}
 						</Table.Row>
