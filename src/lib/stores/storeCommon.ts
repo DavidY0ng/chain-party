@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { mediaQuery } from 'svelte-legos';
-import { get, writable } from 'svelte/store';
-import { storeUserInfo } from './storeUser';
+import { writable } from 'svelte/store';
 import { zeroAddress } from 'viem';
+import { storeUserInfo } from './storeUser';
 
 export const isDesktop = mediaQuery('(min-width: 1280px)');
 export const isToken = writable<string | undefined>(undefined);
@@ -13,7 +13,8 @@ storeUserInfo.subscribe((status) => {
 	// Update the isToken store whenever storeUserInfo changes
 	if (status.web3_address !== zeroAddress) {
 		const token = Cookies.get('accessToken');
-		isToken.set(token!);
-		console.log(get(isToken));
+		isToken.update(() => {
+			return token;
+		});
 	}
 });

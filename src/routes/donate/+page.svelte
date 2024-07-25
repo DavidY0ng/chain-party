@@ -38,13 +38,13 @@
 	</div>
 
 	<!-- Desktop Leaderboard list -->
-	<Table.Root class="hidden xl:block">
+	<Table.Root class="hidden xl:table">
 		<Table.Header>
-			<Table.Row class="hover:bg-transparent text-lg border-none">
-				<Table.Head class="w-[25%]">Rank</Table.Head>
-				<Table.Head class="w-[25%]">Username</Table.Head>
-				<Table.Head class="w-[25%]">Token Holding</Table.Head>
-				<Table.Head class="w-[12.5%]">Reward Claimed</Table.Head>
+			<Table.Row class="hover:bg-transparent text-lg border-none w-full">
+				<Table.Head class="">Rank</Table.Head>
+				<Table.Head class="">Username</Table.Head>
+				<Table.Head class="">Token Holding</Table.Head>
+				<Table.Head class="]">Reward Claimed</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body class="">
@@ -72,7 +72,7 @@
 	</Table.Root>
 
 	<!-- Mobile Leaderboard list -->
-	<div id="Mobile Leaderboard List" class="space-y-3">
+	<div id="Mobile Leaderboard List" class="space-y-3 xl:hidden">
 		<Text size="xl" class="text-black">Leaderboard List</Text>
 		<Card.Root class="flex justify-between items-center px-2 py-3">
 			<Text size="lg" class="text-black font-semibold">My Address</Text>

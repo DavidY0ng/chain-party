@@ -41,8 +41,10 @@ const AuthAPI = {
 				throw new Error('No Token Received');
 			}
 
+			const expires = new Date(new Date().getTime() + response.data.expires_in * 1000);
+
 			Cookies.set('accessToken', response.data.access_token, {
-				expires: response.data.expires_in
+				expires
 			});
 			return true;
 		} catch (error) {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AuthAPI from '$lib/api/auth';
 	import { Button } from '$lib/components/ui/button';
-	import { isDesktop } from '$lib/stores/storeCommon';
+	import { isDesktop, isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { cn, getUserProfile } from '$lib/utils';
 	import { account, connectWallet, onDisconnect } from '$lib/web3/wagmi';
@@ -31,7 +31,7 @@
 	};
 </script>
 
-{#if $storeUserInfo.web3_address === zeroAddress}
+{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
 	<Button class={cn('text-lg xl:text-md', className)} on:click={onConnectWallet}>
 		Connect Wallet
 	</Button>

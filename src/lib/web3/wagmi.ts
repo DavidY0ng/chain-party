@@ -13,7 +13,7 @@ import {
 import Cookies from 'js-cookie';
 import { toast } from 'svelte-sonner';
 import { get, readable } from 'svelte/store';
-import { wagmiConfig } from './client';
+import { bscChain, wagmiConfig } from './client';
 
 export const chainId = readable<GetChainIdReturnType>(getChainId(wagmiConfig), (set) =>
 	watchChainId(wagmiConfig, { onChange: set })
@@ -37,7 +37,10 @@ export const provider = readable<unknown | undefined>(undefined, (set) =>
 );
 
 export async function connectWallet() {
-	await connect(wagmiConfig, { connector: injected() });
+	await connect(wagmiConfig, {
+		chainId: bscChain.id,
+		connector: injected()
+	});
 }
 
 export const onChange = async () => {
