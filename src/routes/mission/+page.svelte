@@ -11,9 +11,9 @@
 	import { getUserProfile } from '$lib/utils.js';
 	import { zeroAddress } from 'viem';
 	import ConnectWallet from '$lib/components/shared/ConnectWallet.svelte';
-	import { isToken } from '$lib/stores/storeCommon'
+	import { isToken } from '$lib/stores/storeCommon';
 	import { onMount } from 'svelte';
-	
+
 	let missionList: TMission[];
 	$: statusList = [
 		{ name: 'Your Points', value: $storeUserInfo.point },
@@ -22,14 +22,13 @@
 	];
 
 	async function getMissionList() {
-        if (!$isToken) return [];
-        const response = await MissionAPI.missionList();
+		if ($isToken === undefined) return [];
+		const response = await MissionAPI.missionList();
 
-        if (response.success) {
-
-            return (missionList = response.data.data)
-        }
-    }
+		if (response.success) {
+			return (missionList = response.data.data);
+		}
+	}
 
 	async function startMission(name: string) {
 		try {
@@ -109,7 +108,7 @@
 				<Button size='sm' class="md:flex hidden">How to join</Button>
 			</div>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
-				{#if $storeUserInfo.web3_address !== zeroAddress}
+				{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
 					{#if missionList}
 						{#each missionList as mission}
 							<Card.Root class="flex justify-between p-2 items-center rounded-sm">

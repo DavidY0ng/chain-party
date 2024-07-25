@@ -3,7 +3,7 @@ import { createPublicClient, createWalletClient, custom, http, type WalletClient
 import { bsc, bscTestnet } from 'viem/chains';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const bscChain = isProduction ? bsc : bscTestnet;
+export const bscChain = isProduction ? bsc : bscTestnet;
 
 export const wagmiConfig = createConfig({
 	chains: [bscChain],

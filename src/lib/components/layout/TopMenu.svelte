@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
 	import ConnectWallet from '../shared/ConnectWallet.svelte';
 	import Drawer from './Drawer.svelte';
