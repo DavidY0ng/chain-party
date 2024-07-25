@@ -1,3 +1,0 @@
-<div>
-    Leaderboard
-</div>
