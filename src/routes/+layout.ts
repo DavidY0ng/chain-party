@@ -19,11 +19,10 @@ export const load: LayoutLoad = async ({ url }) => {
 	if (browser) {
 		const getLocal = JSON.parse(localStorage.getItem('storeLocal') || '{}');
 		if (getLocal.lang != undefined) targetLocale = getLocal.lang;
+		const initLocale = locale.get() || targetLocale;
+
+		await loadTranslations(initLocale, pathname);
 	}
-
-	const initLocale = locale.get() || targetLocale;
-
-	await loadTranslations(initLocale, pathname);
 
 	isToken.update(() => {
 		return token;
