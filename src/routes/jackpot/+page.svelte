@@ -5,7 +5,7 @@
 	import Separator from '$lib/components/ui/separator/separator.svelte';
     import * as Table from '$lib/components/ui/table';
 	import { truncateString } from '$lib/helper';
-    import { isDesktop, isLgMobile } from '$lib/stores/storeCommon'
+    import { isDesktop } from '$lib/stores/storeCommon'
     import Icon from '@iconify/svelte';
 </script>
 
