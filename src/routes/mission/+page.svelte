@@ -106,7 +106,7 @@
 		<div id="Mission List" class="flex flex-col w-full">
 			<div class='flex justify-between items-center pb-3'>
 				<Text size='3xl'>Mission List</Text>
-				<Button size='sm'>How to join</Button>
+				<Button size='sm' class="md:flex hidden">How to join</Button>
 			</div>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
 				{#if $storeUserInfo.web3_address !== zeroAddress}

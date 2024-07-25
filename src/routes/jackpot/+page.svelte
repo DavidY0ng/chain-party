@@ -12,7 +12,7 @@
 <div class="h-full w-full min-h-screen space-y-10">
 
     <!-- Mobile top donor -->
-	<div class="grid grid-cols-2 justify-items-center mx-auto xl:hidden gap-5">
+	<div class="grid grid-cols-2 justify-items-center mx-auto md:hidden gap-5">
 		{#each Array(3) as _, i}
 			<Card.Root
 				class="xl:p-5 flex xl:flex-row flex-col items-center gap-x-5 border-none xl:bg-gradient-to-l from-black/10 {i ===
@@ -29,12 +29,12 @@
 	</div>
 
     <!-- Desktop dashboard view -->
-    <div id='dashboard' class="justify-center hidden xl:flex">
+    <div id='dashboard' class="justify-center hidden md:flex">
         <div class="grid grid-cols-3 h-[100px] w-[80%]">
                 <div class="flex flex-col items-center gap-3">
                     <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">Prize for Jackpot:</Text
                     >
-                    <Text tag="h1" size="4xl" class="font-bold text-[35px]">10,000,000 EIC</Text>
+                    <Text tag="h1" size="4xl" class="font-bold text-[35px] whitespace-nowrap overflow-hidden">10,000,000 EIC</Text>
                 </div>
                 <div class="flex justify-center h-full">
                     <Separator orientation="vertical" class="h-full bg-gray-300 max-w-[1px]" />
@@ -42,7 +42,7 @@
                 <div class="flex flex-col items-center gap-3">
                     <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">Total Game Won Times:</Text
                     >
-                    <Text tag="h1" size="4xl" class="font-bold text-[35px]">0</Text>
+                    <Text tag="h1" size="4xl" class="font-bold text-[35px] whitespace-nowrap overflow-hidden">0/5</Text>
                 </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
     <div id='address list' class="flex flex-col w-full">
         <div class='flex justify-between items-center pb-3'>
             <Text size='3xl'>Address List</Text>
-            <Button size='sm'>How to join</Button>
+            <Button size='sm' class="md:flex hidden">How to join</Button>
         </div>
         <Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
             <Table.Root class="border ">
