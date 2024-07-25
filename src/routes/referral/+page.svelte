@@ -14,7 +14,7 @@
 	};
 
 	async function getDownline() {
-		if (!$isToken) return [];
+		if ($isToken === undefined) return [];
 		const result = await UserAPI.team.getDownline($storeUserInfo.web3_address);
 
 		if (result.success) {
@@ -26,7 +26,7 @@
 
 			return (downlineList = treeData);
 		} else {
-			throw new Error(`Failed to fetch initial downline : ${result}`);
+			throw new Error(`Failed to fetch initial downline`);
 		}
 	}
 
