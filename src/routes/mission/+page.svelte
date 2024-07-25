@@ -102,14 +102,17 @@
 			</div>
 		</div>
 
-		<div id="Mission List" class="flex flex-col w-full space-y-5">
-			<Text tag="h1" size="3xl" class="font-bold ">Mission List</Text>
+		<div id="Mission List" class="flex flex-col w-full">
+			<div class='flex justify-between items-center pb-3'>
+				<Text size='3xl'>Mission List</Text>
+				<Button size='sm' class="md:flex hidden">How to join</Button>
+			</div>
 			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
 				{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
 					{#if missionList}
 						{#each missionList as mission}
 							<Card.Root class="flex justify-between p-2 items-center rounded-sm">
-								<Text>{mission.name}</Text>
+								<Text class='font-bold'>{mission.name}</Text>
 								{#if mission.status === 'in_progress'}
 									<Button
 										on:click={() => startMission(mission.name)}
