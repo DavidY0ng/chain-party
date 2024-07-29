@@ -1,0 +1,23 @@
+import { api, type APIResponse } from '$lib/http/https';
+
+export type TDashboardGame = {
+	name: string;
+	image: string;
+};
+
+const DashboardAPI = {
+	game: {
+		getList: async function (): Promise<APIResponse<TDashboardGame[]>> {
+			try {
+				const response = await api.get<TDashboardGame[]>('/dapp/dashboard/game/list', {
+					useToken: false
+				});
+				return response;
+			} catch (error) {
+				return { success: false, data: {} as TDashboardGame[], msg: (error as Error).message };
+			}
+		}
+	}
+};
+
+export default DashboardAPI;
