@@ -5,64 +5,64 @@
 	import { truncateString } from '$lib/helper';
 </script>
 
-<div class="h-full w-full min-h-screen space-y-10">
-	<div id="Game List" class="space-y-5 flex flex-col items-center">
+<div class="h-full min-h-screen w-full space-y-10">
+	<div id="Game List" class="flex flex-col items-center space-y-5">
 		<Carousel />
 	</div>
 	<div id="Reward Pool" class="space-y-5">
 		<Text tag="h1" size="3xl">Reward Pool</Text>
 
 		<div
-			class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 justify-items-center w-full gap-y-5 gap-x-5"
+			class="grid w-full grid-cols-2 grid-rows-2 justify-items-center gap-x-5 gap-y-5 md:grid-cols-4"
 		>
 			{#each Array(5) as _, i}
 				<Card.Root
-					class="w-full md:w-[80%] h-[150px] md:h-[130px] {i == 0
+					class="h-[150px] w-full md:h-[130px] md:w-[80%] {i == 0
 						? 'col-span-full w-[80%] md:w-1/4'
 						: ''}"
 				>
 					<Text
 						tag="p"
 						size="xl"
-						class="border-b w-full text-center h-1/3 flex font-bold items-center justify-center"
+						class="flex h-1/3 w-full items-center justify-center border-b text-center font-bold"
 						>Pool {i + 1}</Text
 					>
 					<Text
 						tag="p"
 						size="lg"
-						class="border-b font-normal w-full text-center h-1/3 flex items-center justify-center"
+						class="flex h-1/3 w-full items-center justify-center border-b text-center font-normal"
 						>500 / 1000</Text
 					>
 					<Text
 						tag="p"
 						size="lg"
-						class="w-full font-normal text-center h-1/3 flex items-center justify-center"
+						class="flex h-1/3 w-full items-center justify-center text-center font-normal"
 						>Total Reward: 10,000 USDT</Text
 					>
 				</Card.Root>
 			{/each}
 		</div>
 	</div>
-	<div id="Jackpot Pool" class="space-y-5 flex flex-col items-center">
-		<Text tag="h1" size="3xl" class="text-left w-full">Jackpot Pool</Text>
-		<Card.Root class="w-full xl:w-1/4 flex flex-col justify-center items-center py-3">
+	<div id="Jackpot Pool" class="flex flex-col items-center space-y-5">
+		<Text tag="h1" size="3xl" class="w-full text-left">Jackpot Pool</Text>
+		<Card.Root class="flex w-full flex-col items-center justify-center py-3 xl:w-1/4">
 			<Text>Dividend Pool</Text>
 			<Text size="3xl">$ 39,070,19</Text>
 		</Card.Root>
 
-		<Card.Root class="px-3 pb-3 w-full">
-			<Text tag="h1" size="3xl" class="text-center py-2">Jackpot List</Text>
+		<Card.Root class="w-full px-3 pb-3">
+			<Text tag="h1" size="3xl" class="py-2 text-center">Jackpot List</Text>
 			<div class="border">
-				<div class="flex justify-between items-center border-b px-3 py-2">
-					<Text tag="h1" size="xl" class="font-bold text-center">Address</Text>
-					<Text tag="h1" size="xl" class="font-bold text-center">Won Times</Text>
+				<div class="flex items-center justify-between border-b px-3 py-2">
+					<Text tag="h1" size="xl" class="text-center font-bold">Address</Text>
+					<Text tag="h1" size="xl" class="text-center font-bold">Won Times</Text>
 				</div>
 				{#each Array(5) as _, i}
-					<div class="flex justify-between items-center {i < 4 ? 'border-b' : ''} px-3 py-2">
-						<Text tag="h1" size="xl" class="font-bold text-center"
+					<div class="flex items-center justify-between {i < 4 ? 'border-b' : ''} px-3 py-2">
+						<Text tag="h1" size="xl" class="text-center font-bold"
 							>{truncateString('0x9693cd9713496b0712f52e5f0c7b8948abda824d', 8, 8)}</Text
 						>
-						<Text tag="h1" size="xl" class="font-bold text-center">{i + 2}</Text>
+						<Text tag="h1" size="xl" class="text-center font-bold">{i + 2}</Text>
 					</div>
 				{/each}
 			</div>
