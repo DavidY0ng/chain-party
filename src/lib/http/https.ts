@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie';
 import { urls } from './settings';
 
-export type APIResponse<T = any> = {
+type APIResponse<T = any> = {
 	success: boolean;
 	data: T;
 	msg: string;
@@ -72,3 +72,4 @@ class API {
 }
 
 export const api = new API();
+export type { APIResponse };

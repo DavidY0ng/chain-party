@@ -7,7 +7,7 @@ type TWallet = {
 	amount: number;
 };
 
-export type TDownline = {
+type TDownline = {
 	web3_address: string;
 	downline_count: number;
 };
@@ -38,7 +38,9 @@ const UserAPI = {
 				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		},
-		getDownline: async function (search_user: TUserInfo['web3_address']): Promise<APIResponse<TDownline[]>> {
+		getDownline: async function (
+			search_user: TUserInfo['web3_address']
+		): Promise<APIResponse<TDownline[]>> {
 			try {
 				const response = await api.get<TDownline[]>('/dapp/user/team/downline', {
 					data: {
@@ -79,3 +81,4 @@ const UserAPI = {
 };
 
 export default UserAPI;
+export type { TDownline, TWallet };

@@ -1,6 +1,6 @@
 import { api, type APIResponse } from '$lib/http/https';
 
-export type TTransaction = {
+type TTransaction = {
 	date: string;
 	sn: string;
 	type: string;
@@ -9,7 +9,7 @@ export type TTransaction = {
 	wallet: string;
 };
 
-export type TTransactionType = {
+type TTransactionType = {
 	id: number;
 	code: string;
 };
@@ -46,3 +46,4 @@ const TransactionAPI = {
 };
 
 export default TransactionAPI;
+export type { TTransaction, TTransactionType };
