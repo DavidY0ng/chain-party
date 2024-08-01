@@ -1,30 +1,47 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import GameAPI from '$lib/api/game';
+	import GameAPI, { type TGameRound } from '$lib/api/game';
 	import * as Game from '$lib/components/page/game/1/index';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { Text } from '$lib/components/ui/text';
-	import { onBindWebsocket, WebSocketService } from '$lib/http/websocket';
-	import { isToken } from '$lib/stores/storeCommon';
-	import { onMount } from 'svelte';
+	import { onMount, type ComponentEvents } from 'svelte';
 
 	let gameRoundPage: number = 0;
+	let gameRound: TGameRound;
 
-	async function getGameRound() {
-		gameRoundPage++;
-		// const response = await GameAPI.getRound(gameRoundPage);
+	async function getGameRound(event?: ComponentEvents<Game.AllHistory>['paginate]'] | undefined) {
+		switch (event?.detail) {
+			case 'next':
+				gameRoundPage > 1 ? gameRoundPage-- : (gameRoundPage = 1);
+				break;
+			case 'previous':
+				gameRoundPage++;
+				break;
+			case 'end':
+				gameRoundPage = 1;
+				break;
+		}
+
+		const result = await GameAPI.getRound(gameRoundPage, 'lottery');
+		if (result.success) {
+			gameRound = result.data;
+		} else {
+			throw new Error('Failed to fetch game round');
+		}
 	}
 
 	onMount(() => {
-		if (browser && $isToken !== undefined) {
-			onBindWebsocket();
-		}
+		gameRoundPage++;
+		getGameRound();
 
-		return () => {
-			WebSocketService.close();
-		};
+		// if (browser && $isToken !== undefined) {
+		// 	onBindWebsocket();
+		// }
+
+		// return () => {
+		// 	WebSocketService.close();
+		// };
 	});
 </script>
 
@@ -38,7 +55,7 @@
 				<Tabs.Trigger value="1" class="h-full rounded-full px-5 text-lg">Your History</Tabs.Trigger>
 			</Tabs.List>
 			<Tabs.Content value="0" class="w-full xl:w-[60%]">
-				<Game.AllHistory />
+				<Game.AllHistory bind:gameRound on:paginate={getGameRound} bind:gameRoundPage />
 			</Tabs.Content>
 			<Tabs.Content value="1" class="w-full xl:w-[60%]">
 				<Game.YourHistory />

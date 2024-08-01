@@ -45,53 +45,52 @@
 	});
 </script>
 
-{#key $rerender}
-	<Carousel.Root
-		bind:api
-		plugins={[
-			Autoplay({
-				delay: 5000
-			})
-		]}
-		class="w-full md:max-w-[90%]"
-	>
-		<Carousel.Content class="-ml-1">
-			{#if gameList.length > 0}
-				{#each gameList as game, i (i)}
-					<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
-						<div class="p-1">
-							<Card.Root>
-								<Card.Content
-									class="flex aspect-square h-[250px] w-full items-center justify-center overflow-hidden p-0"
-								>
-									<img src={game.image} class="h-full w-full" alt="" />
-								</Card.Content>
-							</Card.Root>
-						</div>
-					</Carousel.Item>
-				{/each}
-			{:else}
-				{#each Array(3) as _, i (i)}
-					<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
-						<div class="p-1">
-							<Card.Root class="border-none">
-								<Card.Content
-									class="flex aspect-square h-[250px] w-full items-center justify-center overflow-hidden p-0"
-								>
-									<Skeleton class="h-full w-full" />
-								</Card.Content>
-							</Card.Root>
-						</div>
-					</Carousel.Item>
-				{/each}
-			{/if}
-		</Carousel.Content>
-		<div class="absolute bottom-5 left-[50%] flex -translate-x-[50%] gap-x-1 md:hidden">
-			{#each Array(5) as _, i}
-				<Carousel.Dot index={i} bind:selectedIndex />
+<Carousel.Root
+	bind:api
+	plugins={[
+		Autoplay({
+			delay: 5000
+		})
+	]}
+	class="w-full md:max-w-[90%]"
+>
+	<Carousel.Content class="-ml-1 transition">
+		{#if gameList.length > 0}
+			{#each gameList as game, i (i)}
+				<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
+					<div class="p-1">
+						<Card.Root>
+							<Card.Content
+								class="flex aspect-square h-[250px] w-full items-center justify-center overflow-hidden p-0"
+							>
+								<img src={game.image} class="h-full w-full" alt="" />
+							</Card.Content>
+						</Card.Root>
+					</div>
+				</Carousel.Item>
 			{/each}
-		</div>
-		<Carousel.Previous class="hidden md:flex" />
-		<Carousel.Next class="hidden md:flex" />
-	</Carousel.Root>
-{/key}
+		{:else}
+			{#each Array(3) as _, i (i)}
+				<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
+					<div class="p-1">
+						<Card.Root class="border-none">
+							<Card.Content
+								class="flex aspect-square h-[250px] w-full items-center justify-center overflow-hidden p-0"
+							>
+								<Skeleton class="h-full w-full" />
+							</Card.Content>
+						</Card.Root>
+					</div>
+				</Carousel.Item>
+			{/each}
+		{/if}
+	</Carousel.Content>
+
+	<div class="absolute bottom-5 left-[50%] flex -translate-x-[50%] gap-x-1 md:hidden">
+		{#each Array(5) as _, i}
+			<Carousel.Dot index={i} bind:selectedIndex />
+		{/each}
+	</div>
+	<Carousel.Previous class="hidden md:flex" />
+	<Carousel.Next class="hidden md:flex" />
+</Carousel.Root>

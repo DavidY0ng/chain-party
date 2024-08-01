@@ -1,5 +1,6 @@
 import { api, type APIResponse } from '$lib/http/https';
 import type { Address } from 'viem';
+import type { TDashboardGame } from './dashboard';
 
 type TGameList = {
 	date: string;
@@ -10,12 +11,18 @@ type TGameList = {
 };
 
 type TGameRound = {
-	round_id: string;
-	date_time_start: string;
-	date_time_end: string;
-	winner_slot: number[];
-	status: string;
-	slot: number;
+	count: number;
+	data: [
+		{
+			round_id: string;
+			date_time_start: string;
+			date_time_end: string;
+			winner_slot: number[];
+			status: string;
+			slot: number;
+		}
+	];
+	last_page: number;
 };
 
 type TGameSlot = {
@@ -30,14 +37,23 @@ type TGameStatus = {
 	code: 'pending' | 'win' | 'lose' | 'refunded';
 };
 
+// ***************** Interface *************
+
+interface IGetListParams {
+	size: number;
+	page: number;
+	created_at_start: string;
+	created_at_end: string;
+	status: TGameStatus;
+}
+
 const GameAPI = {
 	history: {
-		getList: async function (page: number, game_name: string): Promise<APIResponse<TGameList[]>> {
+		getList: async function (params: IGetListParams): Promise<APIResponse<TGameList[]>> {
 			try {
-				const response = await api.get<TGameList[]>('/dapp/game/round', {
+				const response = await api.get<TGameList[]>('/dapp/game/history/list', {
 					data: {
-						page,
-						game_name
+						...params
 					}
 				});
 				return response;
@@ -46,9 +62,12 @@ const GameAPI = {
 			}
 		}
 	},
-	getRound: async function (page: number, game_name: string): Promise<APIResponse<TGameRound[]>> {
+	getRound: async function (
+		page: number,
+		game_name: TDashboardGame['name']
+	): Promise<APIResponse<TGameRound>> {
 		try {
-			const response = await api.get<TGameRound[]>('/dapp/game/round', {
+			const response = await api.get<TGameRound>('/dapp/game/round', {
 				data: {
 					page,
 					game_name
@@ -57,11 +76,11 @@ const GameAPI = {
 
 			return response;
 		} catch (error) {
-			return { success: false, data: {} as TGameRound[], msg: (error as Error).message };
+			return { success: false, data: {} as TGameRound, msg: (error as Error).message };
 		}
 	},
 	getSlot: async function (
-		game_name: string,
+		game_name: TDashboardGame['name'],
 		slot: number,
 		round_id: number
 	): Promise<APIResponse<TGameSlot[]>> {
@@ -90,4 +109,4 @@ const GameAPI = {
 };
 
 export default GameAPI;
-export type { TGameList };
+export type { TGameList, TGameRound, TGameStatus, TGameSlot, IGetListParams };
