@@ -1,8 +1,10 @@
 <script>
-     import Text from '$lib/components/ui/text/text.svelte';
+    import Text from '$lib/components/ui/text/text.svelte';
+    import { isDesktop } from '$lib/stores/storeCommon';
 </script>
 
 <div class="flex flex-col items-center gap-5">
+    {#if $isDesktop}
     <div class="flex gap-5">
         {#each Array(16) as _ ,i}
             <div class="bg-gray-500 h-[60px] w-[60px]">
@@ -17,6 +19,29 @@
             </div>
         {/each}
     </div>
+    {:else}
+    <div class="flex gap-5">
+        {#each Array(6) as _ ,i}
+            <div class="bg-gray-500 h-[35px] w-[35px]">
+                <img src='' class='' alt='mascot'>
+            </div>
+        {/each}
+    </div>
+    <div class="flex gap-5">
+        {#each Array(7) as _ ,i}
+            <div class="bg-gray-500 h-[35px] w-[35px]">
+                <img src='' class='' alt='mascot'>
+            </div>
+        {/each}
+    </div>
+    <div class="flex gap-5 mb-5">
+        {#each Array(6) as _ ,i}
+            <div class="bg-gray-500 h-[35px] w-[35px]">
+                <img src='' class='' alt='mascot'>
+            </div>
+        {/each}
+    </div>
+    {/if}
 
     <Text size='2xl'>
         170+ REGISTERED USERS

@@ -48,9 +48,9 @@
 			alt="roadmap-bg"
 			class="absolute inset-0 w-full h-full object-cover"
 		/>
-		<div class="grid grid-cols-2 gap-[100px] relative z-10">
+		<div class="grid xl:grid-cols-2 gap-[100px] relative z-10">
 			{#each roadmaps as roadmap}
-				<div class="border w-[500px]">
+				<div class="border xl:w-[500px]">
 			
 					<ul class="list-disc pl-5">
 						{#each roadmap.description as item}

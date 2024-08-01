@@ -17,18 +17,21 @@
 	<ComingSoon />
 {:else}
 	<!-- landing page -->
-	<div>
+	<div class="w-full flex justify-center">
 		<Intro />
 	</div>
 	<div class=" mt-[150px]">
 		<Cards />
 	</div>
 	<!-- mascot image -->
-	<div class="flex flex-col gap-5 mt-[100px] mb-[200px]">
-		<div class="bg-gray-500 h-[400px] w-[600px]">
-			<img src="" class="" alt="chain_party_mascot" />
-		</div>
-	</div>
+    <div class='w-full flex justify-center'>
+        <div class="flex flex-col items-center gap-5 mt-[100px] mb-[200px] w-full">
+            <div class="bg-gray-500 h-[400px] xl:w-[600px] w-full">
+                <img src="" class="" alt="chain_party_mascot" />
+            </div>
+        </div>
+    </div>
+	
 	<!-- incubator -->
 	<div class="flex flex-col items-center mb-20">
 		<div class="mb-20">
@@ -48,7 +51,7 @@
 	<div class="mb-[100px]">
 		<Community />
 	</div>
-	<div>
+	<div class="mb-[80px]">
 		<ChainPartyMascots />
 	</div>
 {/if}

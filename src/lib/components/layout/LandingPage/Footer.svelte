@@ -8,7 +8,7 @@
     <div class="bg-gray-200 h-[100px] w-[200px] mb-10">
         <img src='' alt="chain_party_logo">
     </div>
-    <div class="flex gap-10">
+    <div class="hidden xl:flex gap-10">
         {#each navLinks as link}
         <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
             <Text size='2xl' class="">

@@ -10,9 +10,9 @@
         </Text>
     </div>
     
-    <div class="grid grid-cols-3 gap-5">
+    <div class="grid xl:grid-cols-3 grid-cols-2 gap-5 w-full">
         {#each Array(9) as _ ,i}
-        <div class="bg-gray-500 h-[100px] w-[300px]">
+        <div class="bg-gray-500 h-[100px] xl:w-[300px]">
             <img src='' class='' alt='partner'>
         </div>
         {/each}

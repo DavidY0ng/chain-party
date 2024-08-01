@@ -7,7 +7,7 @@
 <div class="h-full flex flex-col flex-grow">
     <TopNav />
     <div class="overflow-y-scroll flex flex-col flex-grow {$isComingSoon? 'justify-center': ''}">
-        <div class='flex flex-col items-center p-10'>
+        <div class='flex flex-col items-center xl:p-10'>
             <slot/>
         </div>
         {#if !$isComingSoon}

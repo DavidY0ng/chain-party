@@ -19,9 +19,9 @@
     </Text>
 </div>
 
-<div class="grid grid-cols-2 gap-5">
+<div class="grid xl:grid-cols-2 gap-5 p-5 xl:p-0">
     {#each cards as card}
-        <div class='border w-[500px] p-5 rounded-lg pb-20'>
+        <div class='border xl:w-[500px] p-5 rounded-lg h-[200px]'>
             <Text tag='h3' size='2xl' class='font-bold'>
                 {card.name}
             </Text>
