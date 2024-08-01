@@ -10,6 +10,15 @@
     ]
 </script>
 
+<div class="flex flex-col items-center mb-[50px]">
+    <Text size='3xl'>
+        What is Chain Party?
+    </Text>
+    <Text size='xl'>
+        Where Fun Meets Fair Play
+    </Text>
+</div>
+
 <div class="grid grid-cols-2 gap-5">
     {#each cards as card}
         <div class='border w-[500px] p-5 rounded-lg pb-20'>
