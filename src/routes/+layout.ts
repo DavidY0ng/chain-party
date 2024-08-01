@@ -9,6 +9,7 @@ import { get } from 'svelte/store';
 import { zeroAddress } from 'viem';
 import { toast } from 'svelte-sonner';
 
+
 export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
 	const token = Cookies.get('accessToken');

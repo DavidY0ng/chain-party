@@ -7,6 +7,7 @@ import { storeUserInfo } from './storeUser';
 export const isDesktop = mediaQuery('(min-width: 1280px)');
 export const isToken = writable<string | undefined>(undefined);
 export const rerender = writable<boolean>(false);
+export const isComingSoon = writable<boolean>(true);
 
 // Subscribe to storeUserInfo changes
 storeUserInfo.subscribe((status) => {

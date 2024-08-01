@@ -2,6 +2,12 @@
 	import { Text } from '$lib/components/ui/text';
 	import ConnectWallet from '../../shared/ConnectWallet.svelte';
     import { navLinks } from './navLinks';
+    import { isComingSoon } from '$lib/stores/storeCommon';
+
+    $: modifiedNavLinks = navLinks.map(link => ({
+        ...link,
+        path: link.path === '/home' && $isComingSoon ? '/' : link.path
+    }));
 
 </script>
 
@@ -11,7 +17,7 @@
 	<div class="flex w-full justify-between items-center">
 		<Text size="2xl" class="text-center block text-blue-500">GAMEFI</Text>
         <div class="flex gap-10">
-            {#each navLinks as link}
+            {#each modifiedNavLinks as link}
                 <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
                     <Text size='2xl' class="">
                         {link.name} 
