@@ -1,5 +1,5 @@
 export const menuList = [
-	{ name: 'Home', path: '/' },
+	{ name: 'Home', path: '/home' },
 	{ name: 'Game #1', path: '/game/1' },
 	{ name: 'Stake', path: '/stake' },
 	{ name: 'Mission', path: '/mission' },
