@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="bg-gray-600 px-3 py-3 flex justify-between items-center w-full sticky top-0 z-20 shadow-sm"
+	class="px-3 py-3 flex justify-between items-center w-full top-0 z-20 shadow-md"
 >
 	<div class="flex w-full justify-between items-center">
 		<Text size="2xl" class="text-center block text-blue-500">GAMEFI</Text>

@@ -1,0 +1,38 @@
+{
+    "card": {
+        "innovative": "Innovative",
+        "innovative_description": "As the first game after the launch of the EiChainmainnet, the innovative game mode of Chain Party pioneers a new era of global decentralized gaming.",
+        "decentralised": "Decentralised",
+        "decentralised_description": "The game is entirely based on blockchain technology and smart contract operations, ensuring that every PvP game is open and transparent.",
+        "profitable": "Profitable",
+        "profitable_description": "No matter players win or lose, every player will be benefited from the game.",
+        "safety": "Safety",
+        "safety_description": "Player's fund are in their own custody"
+    },
+    "roadmap": {
+        "2024_Q1": {
+            "a": "Chain Party Idea Incubation",
+            "b": "Binance Smart Chain Integration",
+            "c": "EiChain Integration",
+            "d": "Onboarding First Batch of Partners on Eichain Ecosystem"
+        },
+        "2024_Q2": {
+            "a": "Chain Part Beta Testing",
+            "b": "Launch of First GameFi on EiChain"
+        },
+        "2024_Q3": {
+            "a": "Chain Part Public Testing",
+            "b": "Chain Party Games Launch",
+            "c": "Batch Management System Introduction",
+            "d": "Institutional & Game Studio Onboarding Web3 Games Publisher"
+        },
+        "2025-2026": {
+            "a": "Cross-IP & Interoperable Assets Implementation Further Diversify Metaverse Economy & Interaction Across Communities & Projects",
+            "b": "Building Web3 Flagship GameFi Platform",
+            "c": "More"
+        }
+    }
+    
+
+   
+}
