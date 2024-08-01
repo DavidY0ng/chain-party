@@ -1,12 +1,7 @@
 <script>
-    import { t } from '$lib/i18n';
 	import Text from '$lib/components/ui/text/text.svelte';
+    import { navLinks } from './navLinks';
 
-    const navLinks = [
-		{ name: 'Home', path: '/' },
-		{ name: 'Mechanism', path: '/mechanism' },
-		{ name: 'Game', path: '/home' }
-	];
 </script>
 
 <div class="bg-gray-500 flex flex-col items-center p-10">
@@ -15,7 +10,7 @@
     </div>
     <div class="flex gap-10">
         {#each navLinks as link}
-        <a href={link.path}>
+        <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
             <Text size='2xl' class="">
                 {link.name} 
             </Text>
