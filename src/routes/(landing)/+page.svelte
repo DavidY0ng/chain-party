@@ -26,7 +26,7 @@
 	<!-- mascot image -->
     <div class='w-full flex justify-center'>
         <div class="flex flex-col items-center gap-5 mt-[100px] mb-[200px] w-full">
-            <div class="bg-gray-500 h-[400px] xl:w-[600px] w-full">
+            <div class="bg-gray-500 h-[400px] max-w-[600px] w-full">
                 <img src="" class="" alt="chain_party_mascot" />
             </div>
         </div>
