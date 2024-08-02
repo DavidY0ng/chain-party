@@ -8,7 +8,7 @@
 
 	function onHandlePathName(path: string | null) {
 		if (!path) return null;
-		if (path === '/(app)/home') return 'Game List';
+		if (path === '/home') return 'Game List';
 		const menuItem = menuList.find((item) => item.path === path);
 		return menuItem ? menuItem.name : null;
 	
@@ -16,9 +16,9 @@
 </script>
 
 <div class="flex justify-between w-full mb-5">
-	<Text tag="h1" size="3xl">{onHandlePathName($page.route.id)}</Text>
+	<Text tag="h1" size="3xl">{onHandlePathName($page.url.pathname)}</Text>
 	<div class="flex gap-x-5">
-		{#if $page.route.id === '/donate'}
+		{#if $page.url.pathname === '/donate'}
 			<DonationModal />
 		{/if}
 		{#if $storeUserInfo.upline === ''}
