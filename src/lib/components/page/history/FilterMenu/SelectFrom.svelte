@@ -20,7 +20,7 @@
 		<Button
 			variant="outline"
 			class={cn(
-				'w-full justify-start text-left bg-transparent font-normal hover:bg-black/50 text-black text-lg',
+				'w-full justify-start bg-transparent text-left text-lg font-normal text-black hover:bg-black/50',
 				!selectedDateFrom && 'text-muted-foreground'
 			)}
 			builders={[builder]}
@@ -29,7 +29,7 @@
 			{selectedDateFrom ? df.format(selectedDateFrom.toDate(getLocalTimeZone())) : 'Select a date'}
 		</Button>
 	</Popover.Trigger>
-	<Popover.Content class="w-auto p-0 bg-white">
+	<Popover.Content class="w-auto bg-white p-0">
 		<Calendar class="text-black" bind:value={selectedDateFrom} initialFocus />
 	</Popover.Content>
 </Popover.Root>

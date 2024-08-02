@@ -6,12 +6,7 @@
 	import { t } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
-	export let selectedType;
-	// const types = [
-	// 	{ value: 'stake', label: 'Stake' },
-	// 	{ value: 'donate', label: 'Donate' },
-	// 	{ value: 'game', label: 'Game' }
-	// ];
+	export let selectedType: TTransactionType['code'] | undefined;
 
 	let types: TTransactionType[] = [];
 
@@ -20,18 +15,17 @@
 		if (result.success) {
 			types = result.data;
 		} else {
-			throw new Error(`Failed to fetch Transaction Types : ${result}`);
 		}
 	}
 
-	// onMount(async () => {
-	// 	await onGetTransactionTypes();
-	// });
+	onMount(() => {
+		onGetTransactionTypes();
+	});
 </script>
 
 <Text size="lg" class="font-semibold">Type:</Text>
 <Select.Root>
-	<Select.Trigger class="w-full bg-transparent text-black text-lg">
+	<Select.Trigger class="w-full bg-transparent text-lg text-black">
 		<Select.Value placeholder="Select a Type" />
 	</Select.Trigger>
 	<Select.Content class="bg-white text-black">
@@ -40,11 +34,11 @@
 			{#each types as type}
 				<Select.Item
 					on:click={() => {
-						selectedType = type.id;
+						selectedType = type.code;
 					}}
-					value={type.id}
-					label={type.code}>{$t(`transaction.type.${type.code}`)}</Select.Item
-				>
+					value={type.code}
+					label={$t(`transaction.type.${type.code}`)}
+				/>
 			{/each}
 		</Select.Group>
 	</Select.Content>

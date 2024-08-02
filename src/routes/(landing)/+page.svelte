@@ -1,23 +1,21 @@
-<script lang='ts'>
-	import { Text } from '$lib/components/ui/text';
-	import { isComingSoon } from '$lib/stores/storeCommon';
-	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
+<script lang="ts">
 	import Cards from '$lib/components/page/landing/Cards.svelte';
-	import Community from '$lib/components/page/landing/Community.svelte';
-	import Intro from '$lib/components/page/landing/Intro.svelte';
-	import Ecosystem from '$lib/components/page/landing/Ecosystem.svelte';
 	import ChainPartyMascots from '$lib/components/page/landing/ChainPartyMascots.svelte';
 	import ComingSoon from '$lib/components/page/landing/ComingSoon.svelte';
+	import Community from '$lib/components/page/landing/Community.svelte';
+	import Ecosystem from '$lib/components/page/landing/Ecosystem.svelte';
+	import Intro from '$lib/components/page/landing/Intro.svelte';
+	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
+	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
-	import { Button } from '$lib/components/ui/button'
+	import { isComingSoon } from '$lib/stores/storeCommon';
 </script>
 
 <!-- coming soon page can be control at store common -->
 {#if $isComingSoon}
-	<div class="w-full flex justify-center">
+	<div class="flex w-full justify-center">
 		<ComingSoon />
 	</div>
-		
 {:else}
 	<!-- landing page -->
 	<div class="w-full flex justify-center">
@@ -28,21 +26,21 @@
 		<Cards />
 	</div>
 	<!-- mascot image -->
-    <div class='w-full flex justify-center'>
-        <div class="flex flex-col items-center gap-5 mt-[100px] mb-[200px] w-full">
-            <div class="bg-gray-500 h-[400px] max-w-[600px] w-full">
-                <img src="" class="" alt="chain_party_mascot" />
-            </div>
-        </div>
-    </div>
-	
+	<div class="flex w-full justify-center">
+		<div class="mb-[200px] mt-[100px] flex w-full flex-col items-center gap-5">
+			<div class="h-[400px] w-full max-w-[600px] bg-gray-500">
+				<img src="" class="" alt="chain_party_mascot" />
+			</div>
+		</div>
+	</div>
+
 	<!-- incubator -->
-	<div class="flex flex-col items-center mb-20">
+	<div class="mb-20 flex flex-col items-center">
 		<div class="mb-20">
 			<Text size="3xl">{$t('landing.incubator')}</Text>
 		</div>
 
-		<div class="bg-gray-500 h-[100px] w-[300px]">
+		<div class="h-[100px] w-[300px] bg-gray-500">
 			<img src="" class="" alt="EIC_Lab_Logo" />
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 import { api, type APIResponse } from '$lib/http/https';
 
-export type TDashboardGame = {
-	name: string;
+type TDashboardGame = {
+	name: 'lottery';
 	image: string;
 };
 
@@ -21,3 +21,4 @@ const DashboardAPI = {
 };
 
 export default DashboardAPI;
+export type { TDashboardGame };

@@ -1,14 +1,13 @@
 import { browser } from '$app/environment';
 import { defaultLocale, loadTranslations, locale } from '$lib/i18n';
 import { isToken } from '$lib/stores/storeCommon';
+import { storeUserInfo } from '$lib/stores/storeUser';
 import { onChange, onDisconnect } from '$lib/web3/wagmi';
 import Cookies from 'js-cookie';
-import type { LayoutLoad } from './$types';
-import { storeUserInfo } from '$lib/stores/storeUser';
-import { get } from 'svelte/store';
-import { zeroAddress } from 'viem'
 import { toast } from 'svelte-sonner';
-
+import { get } from 'svelte/store';
+import { zeroAddress } from 'viem';
+import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
