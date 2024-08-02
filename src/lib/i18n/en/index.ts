@@ -20,5 +20,5 @@ export default [
 		locale: lang,
 		key: 'app',
 		loader: async () => (await import('./app.json')).default
-	}
+	},
 ];

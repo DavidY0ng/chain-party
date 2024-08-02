@@ -2,6 +2,7 @@
 	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import * as Table from '$lib/components/ui/table';
+	import { t } from '$lib/i18n';
 
 	let filterOption = {
 		from: undefined,
@@ -20,15 +21,15 @@
 	/>
 
 	<div>
-		<Text size="2xl">History List</Text>
+		<Text size="2xl">{$t('app.history.history_list')}</Text>
 		<Table.Root>
-			<Table.Caption>A list of your recent invoices.</Table.Caption>
+			<Table.Caption>{$t('app.history.history_info')}</Table.Caption>
 			<Table.Header>
 				<Table.Row>
-					<Table.Head class="w-1/4">GAME</Table.Head>
-					<Table.Head class="w-1/4">TYPE</Table.Head>
-					<Table.Head class="w-1/4">STATUS</Table.Head>
-					<Table.Head class="w-1/4">TIMESTAMP</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('app.history.game')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('app.history.type')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('app.history.status')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('app.history.timestamp')}</Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>

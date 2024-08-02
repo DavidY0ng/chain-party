@@ -1,11 +1,13 @@
 {
-    "donate": {
-        "token_holding": "Token Holding",
-        "rank": "Rank",
-        "username": "Username",
-        "reward_claimed": "Reward Claimed",
-        "leaderboard_list": "Leaderboard List",
-        "my_address": "My Address"
+    "home": {
+        "reward_pool": "Reward Pool",
+        "pool": "Pool",
+        "total_reward": "Total Reward",
+        "jackpot_pool": "Jackpot Pool",
+        "dividend_pool": "Dividend Pool",
+        "jackpot_list": "Jackpot List",
+        "address": "Address",
+        "won_times": "Won Times"
     },
     "game": {
         "finished_rounds": "Finished Rounds",
@@ -70,5 +72,53 @@
         "rollover_prizes_info": "After every round, if nobody wins in one of the prize brackets, the unclaimed CAKE for that bracket rolls over into the next round and are redistributed among the prize pools.",
         "injections": "Injections",
         "injection_info": "An average total of 35,000 CAKE from the treasury is added to lottery rounds over the course of a week. This CAKE is of course also included in rollovers! Read more in our guide to CAKE Tokenomics"
+    },
+    "stake": {
+        "stake": "Stake",
+        "balance": "Balance",
+        "total_stake": "Total Stake",
+        "my_stake": "My Stake",
+        "apr": "APR",
+        "how_to_stake": "How To Stake",
+        "my_reward": "My Reward",
+        "your_reward": "Your Reward",
+        "claim_reward": "Claim Reward",
+        "claim": "Claim"
+    },
+    "jackpot": {
+        "prize_for_jackpot": "Prize for Jackpot",
+        "total_game_won_times": "Total Game Won Times",
+        "address_list": "Address List",
+        "winner_list": "Winner List",
+        "how_to_join": "How to join"
+    },
+    "referral": {
+        "your_referral": "Your Referral",
+        "your_team": "Your Team",
+        "none": "None"
+    },
+    "donate": {
+        "token_holding": "Token Holding",
+        "rank": "Rank",
+        "username": "Username",
+        "reward_claimed": "Reward Claimed",
+        "leaderboard_list": "Leaderboard List",
+        "my_address": "My Address"
+    },
+    
+    "history": {
+        "history": "History",
+        "history_list": "History List",
+        "history_info": "A list of your recent invoices.",
+        "game": "Game",
+        "type": "Type",
+        "status": "Status",
+        "timestamp": "Timestamp",
+        "chain_party": "Chain Party",
+        "result": "Result",
+        "search": "Search",
+        "from": "From",
+        "to": "To"
     }
+
 }

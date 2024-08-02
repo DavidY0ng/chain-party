@@ -7,6 +7,7 @@
 	import { truncateString } from '$lib/helper';
     import { isDesktop } from '$lib/stores/storeCommon'
     import Icon from '@iconify/svelte';
+    import { t } from '$lib/i18n';
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
@@ -32,7 +33,7 @@
     <div id='dashboard' class="justify-center hidden md:flex">
         <div class="grid grid-cols-3 h-[100px] w-[80%]">
                 <div class="flex flex-col items-center gap-3">
-                    <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">Prize for Jackpot:</Text
+                    <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">{$t('app.jackpot.prize_for_jackpot')}:</Text
                     >
                     <Text tag="h1" size="4xl" class="font-bold text-[35px] whitespace-nowrap overflow-hidden">10,000,000 EIC</Text>
                 </div>
@@ -40,7 +41,7 @@
                     <Separator orientation="vertical" class="h-full bg-gray-300 max-w-[1px]" />
                 </div>
                 <div class="flex flex-col items-center gap-3">
-                    <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">Total Game Won Times:</Text
+                    <Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">{$t('app.jackpot.total_game_won_times')}:</Text
                     >
                     <Text tag="h1" size="4xl" class="font-bold text-[35px] whitespace-nowrap overflow-hidden">0/5</Text>
                 </div>
@@ -49,8 +50,8 @@
     
     <div id='address list' class="flex flex-col w-full">
         <div class='flex justify-between items-center pb-3'>
-            <Text size='3xl'>Address List</Text>
-            <Button size='sm' class="md:flex hidden">How to join</Button>
+            <Text size='3xl'>{$t('app.jackpot.address_list')}</Text>
+            <Button size='sm' class="md:flex hidden">{$t('app.jackpot.how_to_join')}</Button>
         </div>
         <Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
             <Table.Root class="border ">
@@ -76,7 +77,7 @@
 
     <div id='winner list'>
         <div class='flex justify-between items-center pb-3'>
-            <Text size='3xl'>Winner List</Text>
+            <Text size='3xl'>{$t('app.jackpot.winner_list')}</Text>
         </div>
         <Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
             <Table.Root class="border ">

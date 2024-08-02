@@ -6,6 +6,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
+	import { t } from '$lib/i18n';
 
 	let downlineList = {
 		web3_address: 'None',
@@ -49,9 +50,9 @@
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
-	<Text size="xl">Your Referral: {$storeUserInfo.referral_code}</Text>
+	<Text size="xl">{$t('app.referral.your_referral')}: {$storeUserInfo.referral_code}</Text>
 	<div class="w-full">
-		<Text size="xl">Your Team:</Text>
+		<Text size="xl">{$t('app.referral.your_team')}:</Text>
 		<!-- Use the key to force rerendering -->
 		{#key $rerender}
 			<Treeview bind:tree={downlineList} />

@@ -6,6 +6,7 @@
 	import SelectStatus from './SelectStatus.svelte';
 	import SelectTo from './SelectTo.svelte';
 	import SelectTransactionType from './SelectTransactionType.svelte';
+	import { t } from '$lib/i18n';
 
 	const dispatch = createEventDispatcher();
 
@@ -39,5 +40,5 @@
 		</div>
 	</div>
 
-	<Button on:click={onSearch} class="w-full xl:w-[150px] text-lg mt-5 md:mt-0">Search</Button>
+	<Button on:click={onSearch} class="w-full xl:w-[150px] text-lg mt-5 md:mt-0">{$t('app.history.search')}</Button>
 </div>
