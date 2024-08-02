@@ -31,7 +31,7 @@
                     </a>
                 {/each}
             </div>
-		<ConnectWallet class="hidden xl:flex" />
+		<ConnectWallet class="hidden xl:flex text-md" />
        
 	</div>
     <Drawer />
