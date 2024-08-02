@@ -8,9 +8,10 @@
 
 	function onHandlePathName(path: string | null) {
 		if (!path) return null;
-		if (path === '/') return 'Game List';
+		if (path === '/(app)/home') return 'Game List';
 		const menuItem = menuList.find((item) => item.path === path);
 		return menuItem ? menuItem.name : null;
+	
 	}
 </script>
 

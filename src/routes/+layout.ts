@@ -8,6 +8,9 @@ import { toast } from 'svelte-sonner';
 import { get } from 'svelte/store';
 import { zeroAddress } from 'viem';
 import type { LayoutLoad } from './$types';
+import { zeroAddress } from 'viem'
+import { toast } from 'svelte-sonner';
+
 
 export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
