@@ -6,8 +6,9 @@ import Cookies from 'js-cookie';
 import type { LayoutLoad } from './$types';
 import { storeUserInfo } from '$lib/stores/storeUser';
 import { get } from 'svelte/store';
-import { zeroAddress } from 'viem';
+import { zeroAddress } from 'viem'
 import { toast } from 'svelte-sonner';
+
 
 export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
