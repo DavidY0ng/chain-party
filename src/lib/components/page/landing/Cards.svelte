@@ -12,10 +12,10 @@
 
 <div class="flex flex-col items-center mb-[50px]">
     <Text size='3xl'>
-        What is Chain Party?
+        {$t('landing.card_title.1')}?
     </Text>
     <Text size='xl'>
-        Where Fun Meets Fair Play
+        {$t('landing.card_title.2')}
     </Text>
 </div>
 

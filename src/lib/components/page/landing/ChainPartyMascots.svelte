@@ -1,6 +1,7 @@
 <script lang='ts'>
     import Text from '$lib/components/ui/text/text.svelte';
     import { isDesktop } from '$lib/stores/storeCommon';
+    import { t } from '$lib/i18n';
 </script>
 
 <div class="flex flex-col items-center gap-5">
@@ -44,6 +45,6 @@
     {/if}
 
     <Text size='2xl'>
-        170+ REGISTERED USERS
+        170+ {$t('landing.registered_user')}
     </Text>
 </div>

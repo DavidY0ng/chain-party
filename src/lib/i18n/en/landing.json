@@ -1,4 +1,11 @@
 {
+    "coming_soon": {
+        "title": "We are cooking up something exciting!"
+    },
+    "card_title": {
+        "1": "What is Chain Party",
+        "2": "Where Fun Meets Fair Play"
+    },
     "card": {
         "innovative": "Innovative",
         "innovative_description": "As the first game after the launch of the EiChainmainnet, the innovative game mode of Chain Party pioneers a new era of global decentralized gaming.",
@@ -9,7 +16,11 @@
         "safety": "Safety",
         "safety_description": "Player's fund are in their own custody"
     },
+    "incubator": "Incubator",
+    "ecosystem_partner": "ECOSYSTM PARTNER",
+
     "roadmap": {
+        "title": "ROADMAP",
         "2024_Q1": {
             "a": "Chain Party Idea Incubation",
             "b": "Binance Smart Chain Integration",
@@ -31,7 +42,10 @@
             "b": "Building Web3 Flagship GameFi Platform",
             "c": "More"
         }
-    }
+    },
+    "join_the_community": "JOIN THE COMMUNITY",
+    "registered_user": "Registered Users"
+    
     
 
    

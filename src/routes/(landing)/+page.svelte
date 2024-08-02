@@ -8,6 +8,7 @@
 	import Ecosystem from '$lib/components/page/landing/Ecosystem.svelte';
 	import ChainPartyMascots from '$lib/components/page/landing/ChainPartyMascots.svelte';
 	import ComingSoon from '$lib/components/page/landing/ComingSoon.svelte';
+	import { t } from '$lib/i18n';
 </script>
 
 <!-- coming soon page can be control at store common -->
@@ -36,7 +37,7 @@
 	<!-- incubator -->
 	<div class="flex flex-col items-center mb-20">
 		<div class="mb-20">
-			<Text size="3xl">INCUBATOR</Text>
+			<Text size="3xl">{$t('landing.incubator')}</Text>
 		</div>
 
 		<div class="bg-gray-500 h-[100px] w-[300px]">

@@ -40,7 +40,7 @@
 
 <div class="flex flex-col relative items-center">
 	<div class="pb-10">
-		<Text tag="h1" size="3xl">ROADMAP</Text>
+		<Text tag="h1" size="3xl">{$t('landing.roadmap.title')}</Text>
 	</div>
 	<div class="bg-gray-300 relative p-10">
 		<img
