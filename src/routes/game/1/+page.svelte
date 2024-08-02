@@ -7,7 +7,8 @@
 	import { Text } from '$lib/components/ui/text';
 	import { onMount, type ComponentEvents } from 'svelte';
 
-	let gameRoundPage: number = 0;
+	let gameRoundPage: number = 0,
+		gameSlotPage: number = 0;
 	let gameRound: TGameRound;
 
 	async function getGameRound(event?: ComponentEvents<Game.AllHistory>['paginate]'] | undefined) {
@@ -26,13 +27,19 @@
 		const result = await GameAPI.getRound(gameRoundPage, 'lottery');
 		if (result.success) {
 			gameRound = result.data;
+			getGameSlot(gameRound.data[0].round_id);
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
 	}
 
+	async function getGameSlot(round_id: string) {
+		const result = await GameAPI.getSlot('lottery', gameSlotPage, round_id);
+	}
+
 	onMount(() => {
 		gameRoundPage++;
+		gameSlotPage++;
 		getGameRound();
 
 		// if (browser && $isToken !== undefined) {

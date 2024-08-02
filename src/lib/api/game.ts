@@ -17,7 +17,7 @@ type TGameRound = {
 			round_id: string;
 			date_time_start: string;
 			date_time_end: string;
-			winner_slot: number[];
+			winner_position: number[];
 			status: string;
 			slot: number;
 		}
@@ -82,7 +82,7 @@ const GameAPI = {
 	getSlot: async function (
 		game_name: TDashboardGame['name'],
 		slot: number,
-		round_id: number
+		round_id: string
 	): Promise<APIResponse<TGameSlot[]>> {
 		try {
 			const response = await api.get<TGameSlot[]>('/dapp/game/slot', {

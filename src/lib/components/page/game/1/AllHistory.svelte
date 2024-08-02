@@ -7,25 +7,30 @@
 	import { formatTimestamp } from '$lib/helper';
 	import { isDesktop } from '$lib/stores/storeCommon';
 	import Icon from '@iconify/svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { createEventDispatcher } from 'svelte';
 
 	export let gameRound: TGameRound,
 		gameRoundPage: number = 0;
 
 	let openPricePot = false,
 		cardView: HTMLDivElement,
-		gameData: TGameRound['data'][0];
+		gameData: TGameRound['data'][0],
+		rotatePosition: number[] = [];
 
-	//assign gameData with gameRound.data
+	// Assign gameData with gameRound.data
 	$: gameData = gameRound?.data[0];
 
 	const dispatch = createEventDispatcher();
 	const currentDate = Date.now();
 
 	function generateRandomAngle() {
-		let rotationAngle = Math.round(Math.random() * 60) - 30;
-		return rotationAngle;
+		const newRotatePosition = [];
+		for (let i = 0; i < 2; i++) {
+			let rotationAngle = Math.round(Math.random() * 60) - 30;
+			newRotatePosition.push(rotationAngle);
+		}
+		rotatePosition = newRotatePosition;
 	}
 
 	function onHandleClosePrizePot() {
@@ -34,6 +39,10 @@
 			cardView.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
+
+	onMount(() => {
+		generateRandomAngle();
+	});
 </script>
 
 <Card.Root class="overflow-hidden">
@@ -42,38 +51,51 @@
 			<div class="flex items-center gap-x-2">
 				<Text size="2xl" class="font-bold">Round</Text>
 				{#if gameData?.round_id}
-					<div class=" rounded-full border px-4 py-[1px]">
+					<div class="rounded-full border px-4 py-[1px]">
 						<Text size="lg" class="-translate-x-[3px] font-bold">{gameData?.round_id}</Text>
 					</div>
 				{:else}
 					<Skeleton class="w-full rounded-full py-3" />
 				{/if}
 			</div>
-			<Text class="font-semibold">Drawn {formatTimestamp(currentDate)}</Text>
+			{#if gameData?.date_time_end}
+				<Text class="font-semibold">Drawn {formatTimestamp(+gameData?.date_time_end)}</Text>
+			{:else}
+				<Skeleton class="w-full rounded-full py-2" />
+			{/if}
 		</div>
 		<div class="flex gap-x-1">
 			<Button
 				aria-label="paginatePrevious"
-				disabled={gameRoundPage === gameRound?.last_page ? true : false}
-				on:click={() => dispatch('paginate', 'previous')}
+				disabled={gameRoundPage === gameRound?.last_page}
+				on:click={() => {
+					dispatch('paginate', 'previous');
+					generateRandomAngle();
+				}}
 				variant="ghost"
 				class="h-8 w-8 rounded-full p-0 hover:bg-accent/20"
 			>
 				<Icon icon="tabler:arrow-left" class="text-xl text-black" />
 			</Button>
 			<Button
-				disabled={gameRoundPage === 1 ? true : false}
+				disabled={gameRoundPage === 1}
 				aria-label="paginateNext"
-				on:click={() => dispatch('paginate', 'next')}
+				on:click={() => {
+					dispatch('paginate', 'next');
+					generateRandomAngle();
+				}}
 				variant="ghost"
 				class="h-8 w-8 rounded-full p-0 hover:bg-accent/20"
 			>
 				<Icon icon="tabler:arrow-right" class="text-xl text-black" />
 			</Button>
 			<Button
-				disabled={gameRoundPage === 1 ? true : false}
+				disabled={gameRoundPage === 1}
 				aria-label="paginateEnd"
-				on:click={() => dispatch('paginate', 'end')}
+				on:click={() => {
+					dispatch('paginate', 'end');
+					generateRandomAngle();
+				}}
 				variant="ghost"
 				class="h-8 w-8 rounded-full p-0 hover:bg-accent/20"
 			>
@@ -87,35 +109,37 @@
 		>
 			<Text size="xl" class="font-bold">Winning Number</Text>
 			<div class="flex gap-x-1 xl:pr-20">
-				{#if gameData?.winner_slot[0]?.toString().split('')[0]}
+				{#if gameData?.winner_position[0]}
 					<div
 						class="flex h-16 w-16 items-center justify-center rounded-full border"
-						style="transform: rotate({generateRandomAngle()}deg);"
+						style="transform: rotate({rotatePosition[0]}deg);"
 					>
 						<Text size="4xl" class="font-bold"
-							>{gameData?.winner_slot[0]?.toString().split('')[0]}</Text
+							>{gameData?.winner_position[0]?.toString().split('')[0]}</Text
 						>
 					</div>
 				{:else}
 					<Skeleton class="h-16 w-16 rounded-full" />
 				{/if}
-				{#if gameData?.winner_slot[0]?.toString().split('')[1]}
+				{#if gameData?.winner_position[0]}
 					<div
 						class="flex h-16 w-16 items-center justify-center rounded-full border"
-						style="transform: rotate({generateRandomAngle()}deg);"
+						style="transform: rotate({rotatePosition[1]}deg);"
 					>
 						<Text size="4xl" class="font-bold"
-							>{gameData?.winner_slot[0]?.toString().split('')[1]}</Text
+							>{gameData?.winner_position[0]?.toString().split('')[1]}</Text
 						>
 					</div>
 				{:else}
 					<Skeleton class="h-16 w-16 rounded-full" />
 				{/if}
 			</div>
-			<Text
-				class="absolute -right-10 top-[0.9rem] w-[150px] rotate-[40deg] bg-[#A881FC] text-center text-white"
-				size="xl">Latest</Text
-			>
+			{#if gameRoundPage === 1}
+				<Text
+					class="absolute -right-10 top-[0.9rem] w-[150px] rotate-[40deg] bg-[#A881FC] text-center text-white"
+					size="xl">Latest</Text
+				>
+			{/if}
 		</div>
 
 		{#if openPricePot}
@@ -134,9 +158,9 @@
 					>
 					<div class="grid grid-cols-2 gap-y-5 xl:grid-cols-4">
 						{#each Array(7) as _, i}
-							<div class="">
-								<Text size="lg" class="font-bold ">Match first {i + 1}</Text>
-								<Text size="2xl" class="font-extrabold ">255 CAKE</Text>
+							<div>
+								<Text size="lg" class="font-bold">Match first {i + 1}</Text>
+								<Text size="2xl" class="font-extrabold">255 CAKE</Text>
 								<Text class="mt-2 text-[12px] font-semibold leading-tight">~$508</Text>
 								<Text class="text-[12px] font-semibold leading-tight">7.96 CAKE each</Text>
 								<Text class="text-[12px] font-semibold leading-tight">32 Winning Tickets</Text>
@@ -149,8 +173,9 @@
 		<Button
 			on:click={onHandleClosePrizePot}
 			variant="ghost"
-			class="flex w-full items-center gap-x-2 rounded-none border-t bg-transparent  py-7 text-lg text-black hover:bg-transparent hover:text-black/60 "
-			>Details
+			class="flex w-full items-center gap-x-2 rounded-none border-t bg-transparent py-7 text-lg text-black hover:bg-transparent hover:text-black/60"
+		>
+			Details
 			<Icon icon={openPricePot ? 'tabler:chevron-up' : 'tabler:chevron-down'} class="" />
 		</Button>
 	</Card.Content>
