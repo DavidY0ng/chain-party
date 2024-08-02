@@ -1,4 +1,9 @@
 {
+    "nav_links": {
+        "home": "Home",
+        "mechanism": "Mechanism",
+        "game": "Game"
+    },
     "coming_soon": {
         "title": "We are cooking up something exciting!"
     },
