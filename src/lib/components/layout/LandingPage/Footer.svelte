@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import Text from '$lib/components/ui/text/text.svelte';
     import { navLinks } from './navLinks';
 

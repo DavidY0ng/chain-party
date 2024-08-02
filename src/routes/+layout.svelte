@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
     import '../app.postcss';
     import { isComingSoon } from '$lib/stores/storeCommon';
     import { page } from '$app/stores';

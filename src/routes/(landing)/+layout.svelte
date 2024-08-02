@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
     import TopNav from "$lib/components/layout/LandingPage/TopNav.svelte";
     import Footer from "$lib/components/layout/LandingPage/Footer.svelte";
     import { isComingSoon } from "$lib/stores/storeCommon";

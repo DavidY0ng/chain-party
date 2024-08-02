@@ -1,11 +1,9 @@
-<script>
+<script lang='ts'>
 	import { Text } from '$lib/components/ui/text';
-	import { t } from '$lib/i18n';
 	import { isComingSoon } from '$lib/stores/storeCommon';
 	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
 	import Cards from '$lib/components/page/landing/Cards.svelte';
 	import Community from '$lib/components/page/landing/Community.svelte';
-	import Footer from '$lib/components/layout/LandingPage/Footer.svelte';
 	import Intro from '$lib/components/page/landing/Intro.svelte';
 	import Ecosystem from '$lib/components/page/landing/Ecosystem.svelte';
 	import ChainPartyMascots from '$lib/components/page/landing/ChainPartyMascots.svelte';

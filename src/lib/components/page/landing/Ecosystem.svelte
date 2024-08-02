@@ -1,6 +1,5 @@
-<script>
+<script lang='ts'>
         import { Text } from '$lib/components/ui/text';
-        import { t } from '$lib/i18n';
 </script>
 
 <div class="flex flex-col gap-5 items-center">

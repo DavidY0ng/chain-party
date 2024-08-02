@@ -21,7 +21,7 @@
                 GAMEFI
             </a>
         </Text>
-            <div class="flex gap-10 hidden xl:flex">
+            <div class="gap-10 hidden xl:flex">
                 {#each modifiedNavLinks as link}
                     <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
                         <Text size='2xl' class="">

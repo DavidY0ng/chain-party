@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
     	import { t } from '$lib/i18n';
         import Text from '$lib/components/ui/text/text.svelte';
 
