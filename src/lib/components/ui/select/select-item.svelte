@@ -3,13 +3,14 @@
 	import { Select as SelectPrimitive } from 'bits-ui';
 	import { cn } from '$lib/utils.js';
 
-	type $$Props = SelectPrimitive.ItemProps;
+	type $$Props = SelectPrimitive.ItemProps & any;
 	type $$Events = SelectPrimitive.ItemEvents;
 
 	let className: $$Props['class'] = undefined;
 	export let value: $$Props['value'];
 	export let label: $$Props['label'] = undefined;
 	export let disabled: $$Props['disabled'] = undefined;
+	export let selectedItem: any = '';
 	export { className as class };
 </script>
 

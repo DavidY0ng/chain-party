@@ -1,3 +1,4 @@
+import type { DateValue } from '@internationalized/date';
 import { toast } from 'svelte-sonner';
 import { InsufficientFundsError } from 'viem';
 
@@ -84,4 +85,9 @@ export function formatTimestamp(timestamp: number) {
 
 	// Format the date and return the result
 	return formatter.format(date);
+}
+
+export function concatinateDate(date: DateValue | undefined) {
+	if (date === undefined) return console.error('No date can be concatinate');
+	return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`;
 }

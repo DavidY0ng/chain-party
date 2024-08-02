@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { TTransactionType } from '$lib/api/transaction';
 	import { Button } from '$lib/components/ui/button';
-	import { type DateValue } from '@internationalized/date';
 	import { createEventDispatcher } from 'svelte';
 	import SelectFrom from './SelectFrom.svelte';
 	import SelectStatus from './SelectStatus.svelte';
 	import SelectTo from './SelectTo.svelte';
 	import SelectTransactionType from './SelectTransactionType.svelte';
+	import type { DateValue } from '@internationalized/date';
 
 	const dispatch = createEventDispatcher();
 
@@ -13,7 +14,7 @@
 		from: undefined as DateValue | undefined,
 		to: undefined as DateValue | undefined,
 		status: undefined as string | undefined,
-		type: undefined as number | undefined
+		type: undefined as TTransactionType['code'] | undefined
 	};
 
 	async function onSearch() {
@@ -21,16 +22,16 @@
 	}
 </script>
 
-<div class="w-full flex flex-col xl:flex-row gap-y-2 xl:gap-x-8 items-end">
-	<div class="flex gap-x-5 w-full">
+<div class="flex w-full flex-col items-end gap-y-2 xl:flex-row xl:gap-x-8">
+	<div class="flex w-full gap-x-5">
 		<div class="w-full space-y-2">
 			<SelectFrom bind:selectedDateFrom={filterOption.from} />
 		</div>
 		<div class="w-full space-y-2">
-			<SelectTo bind:selectedDateTo={filterOption.to} />
+			<SelectTo bind:selectedDateFrom={filterOption.from} bind:selectedDateTo={filterOption.to} />
 		</div>
 	</div>
-	<div class="flex flex-col xl:flex-row gap-2 w-full">
+	<div class="flex w-full flex-col gap-2 xl:flex-row">
 		<div class="w-full space-y-2">
 			<SelectStatus bind:selectedStatus={filterOption.status} />
 		</div>
@@ -39,5 +40,5 @@
 		</div>
 	</div>
 
-	<Button on:click={onSearch} class="w-full xl:w-[150px] text-lg mt-5 md:mt-0">Search</Button>
+	<Button on:click={onSearch} class="mt-5 w-full text-lg md:mt-0 xl:w-[150px]">Search</Button>
 </div>

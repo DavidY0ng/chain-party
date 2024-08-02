@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	import { Text } from '$lib/components/ui/text';
 	import { isComingSoon } from '$lib/stores/storeCommon';
 	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
@@ -13,34 +13,33 @@
 
 <!-- coming soon page can be control at store common -->
 {#if $isComingSoon}
-	<div class="w-full flex justify-center">
+	<div class="flex w-full justify-center">
 		<ComingSoon />
 	</div>
-		
 {:else}
 	<!-- landing page -->
-	<div class="w-full flex justify-center">
+	<div class="flex w-full justify-center">
 		<Intro />
 	</div>
 	<div class=" mt-[150px]">
 		<Cards />
 	</div>
 	<!-- mascot image -->
-    <div class='w-full flex justify-center'>
-        <div class="flex flex-col items-center gap-5 mt-[100px] mb-[200px] w-full">
-            <div class="bg-gray-500 h-[400px] max-w-[600px] w-full">
-                <img src="" class="" alt="chain_party_mascot" />
-            </div>
-        </div>
-    </div>
-	
+	<div class="flex w-full justify-center">
+		<div class="mb-[200px] mt-[100px] flex w-full flex-col items-center gap-5">
+			<div class="h-[400px] w-full max-w-[600px] bg-gray-500">
+				<img src="" class="" alt="chain_party_mascot" />
+			</div>
+		</div>
+	</div>
+
 	<!-- incubator -->
-	<div class="flex flex-col items-center mb-20">
+	<div class="mb-20 flex flex-col items-center">
 		<div class="mb-20">
 			<Text size="3xl">{$t('landing.incubator')}</Text>
 		</div>
 
-		<div class="bg-gray-500 h-[100px] w-[300px]">
+		<div class="h-[100px] w-[300px] bg-gray-500">
 			<img src="" class="" alt="EIC_Lab_Logo" />
 		</div>
 	</div>

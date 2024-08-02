@@ -6,12 +6,7 @@
 	import { t } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
-	export let selectedType: number | undefined;
-	// const types = [
-	// 	{ value: 'stake', label: 'Stake' },
-	// 	{ value: 'donate', label: 'Donate' },
-	// 	{ value: 'game', label: 'Game' }
-	// ];
+	export let selectedType: TTransactionType['code'] | undefined;
 
 	let types: TTransactionType[] = [];
 
@@ -20,7 +15,6 @@
 		if (result.success) {
 			types = result.data;
 		} else {
-			throw new Error(`Failed to fetch Transaction Types : ${result}`);
 		}
 	}
 
@@ -40,9 +34,9 @@
 			{#each types as type}
 				<Select.Item
 					on:click={() => {
-						selectedType = type.id;
+						selectedType = type.code;
 					}}
-					value={type.id}
+					value={type.code}
 					label={$t(`transaction.type.${type.code}`)}
 				/>
 			{/each}
