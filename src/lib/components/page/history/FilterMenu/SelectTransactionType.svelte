@@ -6,7 +6,7 @@
 	import { t } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
-	export let selectedType;
+	export let selectedType: number | undefined;
 	// const types = [
 	// 	{ value: 'stake', label: 'Stake' },
 	// 	{ value: 'donate', label: 'Donate' },
@@ -24,14 +24,14 @@
 		}
 	}
 
-	// onMount(async () => {
-	// 	await onGetTransactionTypes();
-	// });
+	onMount(() => {
+		onGetTransactionTypes();
+	});
 </script>
 
 <Text size="lg" class="font-semibold">Type:</Text>
 <Select.Root>
-	<Select.Trigger class="w-full bg-transparent text-black text-lg">
+	<Select.Trigger class="w-full bg-transparent text-lg text-black">
 		<Select.Value placeholder="Select a Type" />
 	</Select.Trigger>
 	<Select.Content class="bg-white text-black">
@@ -43,8 +43,8 @@
 						selectedType = type.id;
 					}}
 					value={type.id}
-					label={type.code}>{$t(`transaction.type.${type.code}`)}</Select.Item
-				>
+					label={$t(`transaction.type.${type.code}`)}
+				/>
 			{/each}
 		</Select.Group>
 	</Select.Content>

@@ -13,7 +13,7 @@
 		from: undefined as DateValue | undefined,
 		to: undefined as DateValue | undefined,
 		status: undefined as string | undefined,
-		type: undefined as string | undefined
+		type: undefined as number | undefined
 	};
 
 	async function onSearch() {
