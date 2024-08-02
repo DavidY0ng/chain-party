@@ -4,6 +4,7 @@
     import { navLinks } from './navLinks';
     import { isComingSoon } from '$lib/stores/storeCommon';
     import Drawer from './Drawer.svelte';
+    import { t } from '$lib/i18n';
 
     $: modifiedNavLinks = navLinks.map(link => ({
         ...link,
@@ -25,7 +26,7 @@
                 {#each modifiedNavLinks as link}
                     <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
                         <Text size='2xl' class="">
-                            {link.name} 
+                            {$t(`landing.nav_links.${link.name}`)} 
                         </Text>
                     </a>
                 {/each}

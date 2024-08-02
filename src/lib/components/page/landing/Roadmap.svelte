@@ -35,7 +35,6 @@
 		}
 	];
 
-	$: console.log($t('landing.roadmap.2024_Q1.a'));
 </script>
 
 <div class="flex flex-col relative items-center">
