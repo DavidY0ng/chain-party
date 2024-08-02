@@ -32,6 +32,7 @@
                 {/each}
             </div>
 		<ConnectWallet class="hidden xl:flex" />
-        <Drawer />
+       
 	</div>
+    <Drawer />
 </div>
