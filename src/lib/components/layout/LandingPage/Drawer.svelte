@@ -8,6 +8,7 @@
 	import { navLinks } from './navLinks';
 	import ConnectWallet from '../../shared/ConnectWallet.svelte';
 	import { isComingSoon } from '$lib/stores/storeCommon';
+	import { t } from '$lib/i18n';
 
 	let drawerOpen = false;
 
@@ -44,7 +45,7 @@
 							? 'bg-gray-700/50  rounded-md'
 							: 'hover:text-gray-300 '}"
 					>
-						{menu.name}
+					{$t(`landing.nav_links.${menu.name}`)} 
 					</Button>
 				</Sheet.Close>
 			{/each}

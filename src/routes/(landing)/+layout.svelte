@@ -2,8 +2,10 @@
     import TopNav from "$lib/components/layout/LandingPage/TopNav.svelte";
     import Footer from "$lib/components/layout/LandingPage/Footer.svelte";
     import { isComingSoon } from "$lib/stores/storeCommon";
+	import { Toaster } from '$lib/components/ui/toast';
 </script>
 
+<Toaster />
 <div class="h-full flex flex-col flex-grow">
     <TopNav />
     <div class="overflow-y-scroll flex flex-col flex-grow {$isComingSoon? 'justify-center': ''}">

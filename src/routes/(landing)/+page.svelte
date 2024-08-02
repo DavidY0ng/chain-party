@@ -9,6 +9,7 @@
 	import ChainPartyMascots from '$lib/components/page/landing/ChainPartyMascots.svelte';
 	import ComingSoon from '$lib/components/page/landing/ComingSoon.svelte';
 	import { t } from '$lib/i18n';
+	import { Button } from '$lib/components/ui/button'
 </script>
 
 <!-- coming soon page can be control at store common -->
@@ -20,6 +21,7 @@
 {:else}
 	<!-- landing page -->
 	<div class="w-full flex justify-center">
+		
 		<Intro />
 	</div>
 	<div class=" mt-[150px]">
