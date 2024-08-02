@@ -15,5 +15,10 @@ export default [
 		locale: lang,
 		key: 'landing',
 		loader: async () => (await import('./landing.json')).default
+	},
+	{
+		locale: lang,
+		key: 'app',
+		loader: async () => (await import('./app.json')).default
 	}
 ];
