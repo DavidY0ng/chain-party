@@ -14,7 +14,10 @@
 
 <!-- coming soon page can be control at store common -->
 {#if $isComingSoon}
-	<ComingSoon />
+	<div class="w-full flex justify-center">
+		<ComingSoon />
+	</div>
+		
 {:else}
 	<!-- landing page -->
 	<div class="w-full flex justify-center">
