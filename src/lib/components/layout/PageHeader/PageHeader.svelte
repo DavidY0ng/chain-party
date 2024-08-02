@@ -19,7 +19,7 @@
 <div class="mb-5 flex w-full justify-between">
 	<Text tag="h1" size="3xl">{onHandlePathName($page.route.id)}</Text>
 	<div class="flex gap-x-5">
-		{#if $page.route.id === '/donate'}
+		{#if $page.url.pathname === '/donate'}
 			<DonationModal />
 		{/if}
 		{#if $storeUserInfo.upline === ''}

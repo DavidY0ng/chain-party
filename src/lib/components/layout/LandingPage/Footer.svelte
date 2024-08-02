@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import Text from '$lib/components/ui/text/text.svelte';
     import { navLinks } from './navLinks';
+    import { t } from '$lib/i18n';
 
 </script>
 
@@ -12,7 +13,7 @@
         {#each navLinks as link}
         <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
             <Text size='2xl' class="">
-                {link.name} 
+                {$t(`landing.nav_links.${link.name}`)}
             </Text>
         </a>
         {/each}
