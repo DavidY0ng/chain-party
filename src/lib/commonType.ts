@@ -18,3 +18,9 @@ export interface IPagination {
 	page: number;
 	size: number;
 }
+
+
+export interface IGetErrorType {
+	walk: (callback: (e: unknown) => boolean) => boolean;
+	shortMessage: string;
+}

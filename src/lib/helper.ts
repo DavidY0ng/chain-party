@@ -1,14 +1,10 @@
 import type { DateValue } from '@internationalized/date';
 import { toast } from 'svelte-sonner';
 import { InsufficientFundsError } from 'viem';
-
-interface GetErrorType {
-	walk: (callback: (e: unknown) => boolean) => boolean;
-	shortMessage: string;
-}
+import type { IGetErrorType } from './commonType';
 
 export const onTranslateErrMsg = (e: unknown) => {
-	const error = e as GetErrorType;
+	const error = e as IGetErrorType;
 	const isInsufficientFundsError = error.walk((e: unknown) => e instanceof InsufficientFundsError);
 
 	if (isInsufficientFundsError) {
