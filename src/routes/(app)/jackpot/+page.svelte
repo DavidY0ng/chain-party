@@ -9,6 +9,7 @@
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import JackpotAPI from '$lib/api/jackpot';
+	import { fade } from 'svelte/transition';
 
 	let winnerListPagination = {
 			page: 1,
@@ -33,7 +34,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
 	<!-- Mobile top donor -->
 	<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
 		{#each Array(3) as _, i}

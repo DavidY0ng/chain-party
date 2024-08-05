@@ -10,20 +10,36 @@
 		const splitPath = path?.split('(app)')[1];
 
 		if (!splitPath) return null;
-		if (splitPath === '/home') return 'Game List';
 		const menuItem = menuList.find((item) => item.path === splitPath);
-		return menuItem ? menuItem.name : null;
+		return menuItem ? menuItem.title : null;
+	}
+
+	function onHandleSubTitle(path: string | null) {
+		const splitPath = path?.split('(app)')[1];
+
+		if (!splitPath) return null;
+		const menuItem = menuList.find((item) => item.path === splitPath);
+		return menuItem ? menuItem.desc : null;
 	}
 </script>
 
-<div class="mb-5 flex w-full justify-between">
-	<Text tag="h1" size="3xl">{onHandlePathName($page.route.id)}</Text>
-	<div class="flex gap-x-5">
-		{#if $page.url.pathname === '/donate'}
-			<DonationModal />
-		{/if}
-		{#if $storeUserInfo.upline === ''}
-			<BindReferralModal />
-		{/if}
+{#if $page.url.pathname !== '/game/1' && $page.url.pathname !== '/jackpot'}
+	<div
+		class="z-[99] mb-5 flex w-full max-w-[1400px] justify-between p-3 xl:p-10 xl:pb-0 xl:pt-[90px]"
+	>
+		<div class="space-y-1">
+			<Text tag="p" class="font-normal text-white/50">{onHandleSubTitle($page.route.id)}</Text>
+			<Text tag="h1" size="3xl" class="border-b-2 border-white "
+				>{onHandlePathName($page.route.id)}</Text
+			>
+		</div>
+		<div class="flex gap-x-5">
+			{#if $page.url.pathname === '/donate'}
+				<DonationModal />
+			{/if}
+			{#if $storeUserInfo.upline === '/referral'}
+				<BindReferralModal />
+			{/if}
+		</div>
 	</div>
-</div>
+{/if}

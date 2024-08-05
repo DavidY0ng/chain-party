@@ -11,6 +11,10 @@
 	export { className as class };
 </script>
 
-<svelte:element this={tag} class={cn(labelVarient({ variant, size, className }))} {...$$restProps}>
+<svelte:element
+	this={tag}
+	class={cn('transition', labelVarient({ variant, size, className }))}
+	{...$$restProps}
+>
 	<slot />
 </svelte:element>

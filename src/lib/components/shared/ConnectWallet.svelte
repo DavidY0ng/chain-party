@@ -32,11 +32,18 @@
 </script>
 
 {#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
-	<Button class={cn('text-lg xl:text-md', className)} on:click={onConnectWallet}>
-		Connect Wallet
+	<Button
+		class={cn('bg-[#29193D] px-[20px] py-[10px] font-bold  ', className)}
+		on:click={onConnectWallet}
+	>
+		<div class="flex items-center gap-x-2">
+			<img src="/img/desktopNav/wallet.png" alt="wallet" class="-translate-y-[1px]" />
+			<p>Connect Wallet</p>
+		</div>
 	</Button>
 {:else}
-	<Button class={cn('text-lg xl:text-md', className)} on:click={onHandleDisconnect}>
-		Disconnect
-	</Button>
+	<Button
+		class={cn('bg-[#29193D] px-[20px] py-[10px] font-bold', className)}
+		on:click={onHandleDisconnect}>Disconnect</Button
+	>
 {/if}

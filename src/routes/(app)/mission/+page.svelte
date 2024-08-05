@@ -13,6 +13,7 @@
 	import { isToken } from '$lib/stores/storeCommon';
 	import { onMount } from 'svelte';
 	import type { APIResponse } from '$lib/type/commonType';
+	import { fade } from 'svelte/transition';
 
 	let missionList: TMission[];
 	$: statusList = [
@@ -69,7 +70,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
 	<div id="Mission" class=" flex w-full flex-col space-y-5">
 		<!-- mobile view of status-->
 		<div id="Status" class="flex flex-col md:hidden">
