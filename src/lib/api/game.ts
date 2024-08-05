@@ -1,6 +1,7 @@
-import { api, type APIResponse } from '$lib/http/https';
+import { api } from '$lib/http/https';
 import type { Address } from 'viem';
 import type { TDashboardGame } from './dashboard';
+import type { APIResponse, IPagination } from '$lib/commonType';
 
 type TGameList = {
 	date: string;
@@ -44,9 +45,7 @@ type TGameStatus = {
 
 // ***************** Interface *************
 
-interface IGetListParams {
-	size: number;
-	page: number;
+interface IGetListParams extends IPagination {
 	created_at_start: string;
 	created_at_end: string;
 	status: TGameStatus;
@@ -54,12 +53,10 @@ interface IGetListParams {
 
 const GameAPI = {
 	history: {
-		getList: async function (params: IGetListParams): Promise<APIResponse<TGameList[]>> {
+		getList: async function (data: IGetListParams): Promise<APIResponse<TGameList[]>> {
 			try {
 				const response = await api.get<TGameList[]>('/dapp/game/history/list', {
-					data: {
-						...params
-					}
+					data
 				});
 				return response;
 			} catch (error) {

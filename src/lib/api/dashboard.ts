@@ -1,4 +1,5 @@
-import { api, type APIResponse } from '$lib/http/https';
+import type { APIResponse } from '$lib/commonType';
+import { api } from '$lib/http/https';
 
 type TDashboardGame = {
 	name: 'lottery';
