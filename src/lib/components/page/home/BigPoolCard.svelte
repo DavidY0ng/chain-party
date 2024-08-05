@@ -43,7 +43,7 @@
 					/>
 				</div>
 			</div>
-			<div class="mx-auto my-5 max-w-[300px]">
+			<div class="mx-auto my-5 w-full max-w-[80%]">
 				<Button class="w-full bg-[#251235]">Claim Reward</Button>
 			</div>
 			<div

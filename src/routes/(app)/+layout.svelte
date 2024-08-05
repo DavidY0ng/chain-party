@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Footer from '$lib/components/layout/Footer.svelte';
 	import Pageheader from '$lib/components/layout/PageHeader/PageHeader.svelte';
 	import SideMenu from '$lib/components/layout/SideMenu.svelte';
 	import TopMenu from '$lib/components/layout/TopMenu.svelte';
@@ -15,9 +16,12 @@
 	<SideMenu />
 	<div class="relative flex h-full w-full flex-col xl:w-[85%]">
 		<TopMenu />
-		<div class="flex flex-grow flex-col items-center overflow-y-scroll p-3 xl:p-10 xl:pt-[90px]">
+		<div class="flex h-full flex-grow flex-col items-center overflow-y-scroll">
 			<Pageheader />
-			<slot />
+			<div class="mb-10 flex w-full flex-col p-3 pt-0 xl:p-10">
+				<slot />
+			</div>
+			<Footer />
 		</div>
 	</div>
 </div>
