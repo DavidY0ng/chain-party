@@ -10,6 +10,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
 	import { rerender } from '$lib/stores/storeCommon';
+	import { fade } from 'svelte/transition';
 
 	let filterOption = {
 		from: '' as unknown as DateValue,
@@ -51,7 +52,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
 	<FilterMenu bind:filterOption on:search={onSearchTransaction} />
 
 	<div>

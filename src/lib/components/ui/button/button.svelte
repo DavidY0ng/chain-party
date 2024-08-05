@@ -15,7 +15,7 @@
 
 <div
 	class={variant === 'default'
-		? 'rounded-lg bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] p-[1px] transition'
+		? 'rounded-lg bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] p-[1px] '
 		: ''}
 >
 	<ButtonPrimitive.Root

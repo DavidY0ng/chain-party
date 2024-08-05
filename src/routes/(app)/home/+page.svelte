@@ -2,11 +2,12 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
+	import { fade } from 'svelte/transition';
 </script>
 
-<div class="relative h-full min-h-screen w-full">
+<div in:fade class="relative h-full min-h-screen w-full">
 	<div id="background-eclipse-1" />
-	<div class="z-[99] relative max-w-[1400px] space-y-10 m-auto">
+	<div class="relative z-[99] m-auto max-w-[1400px] space-y-10">
 		<div id="Game List" class="flex flex-col items-center space-y-5">
 			<!-- <Carousel /> -->
 		</div>

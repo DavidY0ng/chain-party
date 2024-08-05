@@ -5,6 +5,7 @@
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
 	let downlineList = {
@@ -48,7 +49,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
 	<Text size="xl">Your Referral: {$storeUserInfo.referral_code}</Text>
 	<div class="w-full">
 		<Text size="xl">Your Team:</Text>

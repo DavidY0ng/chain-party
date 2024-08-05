@@ -8,6 +8,7 @@
 	import { rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount, type ComponentEvents } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
 	let gameRoundPage: number = 0,
@@ -72,7 +73,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-14">
+<div in:fade class="h-full min-h-screen w-full space-y-14">
 	<div id="Round Board" class="flex flex-col items-center justify-center space-y-5">
 		<Text size="5xl" class="font-bold">Finished Rounds</Text>
 		{#key $rerender}

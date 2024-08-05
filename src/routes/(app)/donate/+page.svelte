@@ -5,6 +5,7 @@
 	import * as Table from '$lib/components/ui/table';
 	import DonationAPI, { type TDonationLeaderboard } from '$lib/api/donation';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -23,7 +24,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
 	<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 xl:w-[80%]">
 		{#each Array(3) as _, i}
 			<Card.Root
