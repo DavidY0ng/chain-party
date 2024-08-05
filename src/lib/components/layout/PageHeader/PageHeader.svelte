@@ -16,7 +16,7 @@
 	}
 </script>
 
-<div class="mb-5 flex w-full justify-between">
+<div class="z-[99] mb-5 flex w-full justify-between max-w-[1400px]">
 	<Text tag="h1" size="3xl">{onHandlePathName($page.route.id)}</Text>
 	<div class="flex gap-x-5">
 		{#if $page.url.pathname === '/donate'}

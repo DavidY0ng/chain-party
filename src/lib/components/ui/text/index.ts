@@ -6,7 +6,7 @@ const labelVarient = tv({
 	base: 'leading-normal tracking-normal text-black',
 	variants: {
 		variant: {
-			default: ''
+			default: 'text-white'
 		},
 		size: {
 			default: 'text-md',

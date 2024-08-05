@@ -5,15 +5,13 @@
 </script>
 
 <div
-	class="bg-gray-600 px-3 md:px-5 py-3 flex justify-between items-center w-full sticky top-0 z-20"
+	class="absolute top-0 z-[999] backdrop-blur-sm flex w-full items-center justify-between bg-gradient-to-l from-[#29193D] via-[#29193D] to-transparent px-3 py-3 md:px-5"
 >
-	<div class="flex w-full xl:justify-end justify-between">
-		<Text size="4xl" class="text-center block xl:hidden text-blue-500">
-			<a href='/' class="">
-				GAMEFI
-			</a>
+	<div class="flex w-full justify-between xl:justify-end">
+		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
+			<a href="/" class=""> GAMEFI </a>
 		</Text>
-		<ConnectWallet class="hidden xl:block text-md" />
+		<ConnectWallet class="hidden xl:block" />
 		<!-- Mobile Drawer -->
 		<Drawer />
 	</div>
