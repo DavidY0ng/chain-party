@@ -1,16 +1,6 @@
-import type { APIResponse, IPagination } from '$lib/commonType';
 import { api } from '$lib/http/https';
-import type { Address } from 'viem';
-
-type TCurrentList = {
-	address: Address;
-	count: number;
-	is_self: boolean;
-};
-
-type TWinnerList = {
-	address: Address;
-};
+import type { APIResponse, IPagination } from '$lib/type/commonType';
+import type { TCurrentList, TWinnerList } from '$lib/type/jackpotType';
 
 const JackpotAPI = {
 	getCurrentList: async function (data: IPagination): Promise<APIResponse<TCurrentList[]>> {

@@ -1,7 +1,7 @@
 import type { DateValue } from '@internationalized/date';
 import { toast } from 'svelte-sonner';
 import { InsufficientFundsError } from 'viem';
-import type { IGetErrorType } from './commonType';
+import type { IGetErrorType } from './type/commonType';
 
 export const onTranslateErrMsg = (e: unknown) => {
 	const error = e as IGetErrorType;

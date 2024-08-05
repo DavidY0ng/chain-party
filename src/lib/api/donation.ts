@@ -1,15 +1,6 @@
-import type { APIResponse } from '$lib/commonType';
 import { api } from '$lib/http/https';
-
-type TDonationLeaderboard = {
-	data: {
-		rank: number;
-		address: string;
-		amount: string;
-		is_self: boolean;
-	}[];
-	count: number;
-};
+import type { APIResponse } from '$lib/type/commonType';
+import type { TDonationLeaderboard } from '$lib/type/donationType';
 
 const DonationAPI = {
 	getLeaderboard: async function (size: number): Promise<APIResponse<TDonationLeaderboard>> {

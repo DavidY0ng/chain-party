@@ -1,24 +1,6 @@
-import type { APIResponse } from '$lib/commonType';
+import type { APIResponse } from '$lib/type/commonType';
+import type { TMission } from '$lib/type/missionType';
 import { api } from '../http/https';
-
-type TMission = {
-	sn: string;
-	name: string;
-	description: string;
-	reward: [
-		{
-			wallet: string;
-			amount: string;
-		}
-	];
-	action: string;
-	type: 'daily' | 'weekly' | 'permanent' | '';
-	status: string;
-	progress: number;
-	current: number;
-	requirement: number;
-	auto_take: number;
-};
 
 const MissionAPI = {
 	missionList: async function (type: TMission['type'] = ''): Promise<APIResponse> {

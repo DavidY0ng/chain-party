@@ -1,55 +1,7 @@
 import { api } from '$lib/http/https';
-import type { Address } from 'viem';
+import type { APIResponse } from '$lib/type/commonType';
+import type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameStatus } from '$lib/type/gameType';
 import type { TDashboardGame } from './dashboard';
-import type { APIResponse, IPagination } from '$lib/commonType';
-
-type TGameList = {
-	date: string;
-	round_id: string;
-	user_position: string;
-	slot: string;
-	status: string;
-};
-
-type TGameRound = {
-	count: number;
-	data: [
-		{
-			round_id: string;
-			date_time_start: string;
-			date_time_end: string;
-			winner_position: number[];
-			status: string;
-			slot: number;
-		}
-	];
-	last_page: number;
-};
-
-type TGameSlot = {
-	data: {
-		address: Address;
-		user_position: number;
-		slot: number;
-		status: string;
-		is_self: boolean;
-	}[];
-	count: number;
-	last_slot: number;
-	self_position: string;
-};
-
-type TGameStatus = {
-	code: 'pending' | 'win' | 'lose' | 'refunded';
-};
-
-// ***************** Interface *************
-
-interface IGetListParams extends IPagination {
-	created_at_start: string;
-	created_at_end: string;
-	status: TGameStatus;
-}
 
 const GameAPI = {
 	history: {
@@ -111,4 +63,5 @@ const GameAPI = {
 };
 
 export default GameAPI;
-export type { TGameList, TGameRound, TGameStatus, TGameSlot, IGetListParams };
+export type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameStatus };
+

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from 'js-cookie';
 import { urls } from './settings';
-import type { APIMethod, APIOptions, APIResponse } from '$lib/type';
+import type { APIMethod, APIOptions, APIResponse } from '$lib/type/commonType';
 
 class API {
 	private async request<T = any>(

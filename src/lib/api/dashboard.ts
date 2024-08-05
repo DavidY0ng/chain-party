@@ -1,10 +1,6 @@
-import type { APIResponse } from '$lib/commonType';
 import { api } from '$lib/http/https';
-
-type TDashboardGame = {
-	name: 'lottery';
-	image: string;
-};
+import type { APIResponse } from '$lib/type/commonType';
+import type { TDashboardGame } from '$lib/type/dashboardType';
 
 const DashboardAPI = {
 	game: {
