@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GameAPI, { type TGameRound } from '$lib/api/game';
+	import GameAPI, { type TGameRound, type TGameSlot } from '$lib/api/game';
 	import * as Game from '$lib/components/page/game/1/index';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
@@ -12,9 +12,11 @@
 
 	let gameRoundPage: number = 0,
 		gameSlotPage: number = 0;
-	let gameRound: TGameRound;
+
+	let gameRound: TGameRound, gameslot: TGameSlot;
 
 	async function getGameRound(event?: ComponentEvents<Game.AllHistory>['paginate]'] | undefined) {
+		// event derived from event dispatched from component
 		switch (event?.detail) {
 			case 'next':
 				gameRoundPage > 1 ? gameRoundPage-- : (gameRoundPage = 1);
@@ -30,14 +32,22 @@
 		const result = await GameAPI.getRound(gameRoundPage, 'lottery');
 		if (result.success) {
 			gameRound = result.data;
-			getGameSlot(gameRound.data[0].round_id);
+			// getGameSlot(gameRound?.data[0].round_id);
+			getGameSlot('0001');
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
 	}
 
 	async function getGameSlot(round_id: string) {
+		if (!round_id) return console.error('No Game Round ID Received !');
+
 		const result = await GameAPI.getSlot('lottery', gameSlotPage, round_id);
+		if (result.success) {
+			gameslot = result.data;
+		} else {
+			throw new Error('Failed to fetch game slot');
+		}
 	}
 
 	storeUserInfo.subscribe(async (value) => {
@@ -104,7 +114,7 @@
 		</Card.Root>
 	</div>
 
-	<Game.Slot />
+	<Game.Slot bind:gameslot bind:gameSlotPage />
 
 	<Game.GameRules />
 </div>

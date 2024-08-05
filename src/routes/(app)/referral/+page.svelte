@@ -43,17 +43,17 @@
 		rerender.set(!$rerender);
 	});
 
-	onMount(async () => {
-		await getDownline();
+	onMount(() => {
+		getDownline();
 	});
 </script>
 
-<div class="h-full w-full min-h-screen space-y-10">
+<div class="h-full min-h-screen w-full space-y-10">
 	<Text size="xl">Your Referral: {$storeUserInfo.referral_code}</Text>
 	<div class="w-full">
 		<Text size="xl">Your Team:</Text>
-		<!-- Use the key to force rerendering -->
 		{#key $rerender}
+			<!-- Use the key to force rerendering -->
 			<Treeview bind:tree={downlineList} />
 		{/key}
 	</div>

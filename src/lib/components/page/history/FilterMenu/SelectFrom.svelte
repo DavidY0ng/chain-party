@@ -7,7 +7,7 @@
 	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 
-	export let selectedDateFrom: DateValue | undefined;
+	export let selectedDateFrom: DateValue;
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'

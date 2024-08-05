@@ -26,11 +26,16 @@ type TGameRound = {
 };
 
 type TGameSlot = {
-	address: Address;
-	user_position: number;
-	slot: number;
-	status: string;
-	is_self: boolean;
+	data: {
+		address: Address;
+		user_position: number;
+		slot: number;
+		status: string;
+		is_self: boolean;
+	}[];
+	count: number;
+	last_slot: number;
+	self_position: string;
 };
 
 type TGameStatus = {
@@ -83,9 +88,9 @@ const GameAPI = {
 		game_name: TDashboardGame['name'],
 		slot: number,
 		round_id: string
-	): Promise<APIResponse<TGameSlot[]>> {
+	): Promise<APIResponse<TGameSlot>> {
 		try {
-			const response = await api.get<TGameSlot[]>('/dapp/game/slot', {
+			const response = await api.get<TGameSlot>('/dapp/game/slot', {
 				data: {
 					game_name,
 					slot,
@@ -95,7 +100,7 @@ const GameAPI = {
 
 			return response;
 		} catch (error) {
-			return { success: false, data: {} as TGameSlot[], msg: (error as Error).message };
+			return { success: false, data: {} as TGameSlot, msg: (error as Error).message };
 		}
 	},
 	getStatus: async function (): Promise<APIResponse<TGameStatus[]>> {

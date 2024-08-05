@@ -92,7 +92,7 @@
 </script>
 
 <div
-	class="w-full overflow-hidden relative rounded-lg bg-gray-800 after:content-[''] {expanded &&
+	class="relative w-full overflow-hidden rounded-lg bg-gray-800 after:content-[''] {expanded &&
 	!isChild
 		? 'pb-4'
 		: ''}"
@@ -100,10 +100,10 @@
 	{#if downline_count}
 		<button
 			on:click={toggleExpansion}
-			class="w-full text-left flex gap-x-3 p-3 items-center transition hover:bg-white/10 rounded-lg"
+			class="flex w-full items-center gap-x-3 rounded-lg p-3 text-left transition hover:bg-white/10"
 		>
 			<!-- Arrow icon to indicate expansion state -->
-			<span class="transition inline-block {arrowDown ? 'rotate-90' : ''}">
+			<span class="inline-block transition {arrowDown ? 'rotate-90' : ''}">
 				<Icon icon="material-symbols:chevron-right" class="text-xl" />
 			</span>
 			{web3_address}
@@ -120,8 +120,8 @@
 		{/if}
 	{:else}
 		<!-- Leaf node without children -->
-		<span class="flex gap-x-3 items-center pl-[1rem] py-3 hover:bg-white/10 rounded-lg w-full">
-			<Icon icon="octicon:dash-16" class="inline-block text-white/20 text-sm" />
+		<span class="flex w-full items-center gap-x-3 rounded-lg py-3 pl-[1rem] hover:bg-white/10">
+			<Icon icon="octicon:dash-16" class="inline-block text-sm text-white/20" />
 			{web3_address || 'None'}
 		</span>
 	{/if}

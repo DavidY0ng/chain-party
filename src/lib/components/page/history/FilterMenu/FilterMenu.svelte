@@ -11,10 +11,10 @@
 	const dispatch = createEventDispatcher();
 
 	export let filterOption = {
-		from: undefined as DateValue | undefined,
-		to: undefined as DateValue | undefined,
-		status: undefined as string | undefined,
-		type: undefined as TTransactionType['code'] | undefined
+		from: '' as unknown as DateValue,
+		to: '' as unknown as DateValue,
+		status: '' as string,
+		type: '' as TTransactionType['code']
 	};
 
 	async function onSearch() {

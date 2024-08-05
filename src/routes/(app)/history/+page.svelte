@@ -6,22 +6,29 @@
 	import { concatinateDate } from '$lib/helper';
 	import type { DateValue } from '@internationalized/date';
 	import { t } from '$lib/i18n';
+	import { onMount } from 'svelte';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { zeroAddress } from 'viem';
+	import { rerender } from '$lib/stores/storeCommon';
 
 	let filterOption = {
-		from: undefined as DateValue | undefined,
-		to: undefined as DateValue | undefined,
-		status: undefined as string | undefined,
-		type: undefined as TTransactionType['code'] | undefined
+		from: '' as unknown as DateValue,
+		to: '' as unknown as DateValue,
+		status: '' as string,
+		type: '' as TTransactionType['code']
 	};
 
-	let transactionHistory: TTransaction;
+	let transactionHistory: TTransaction | undefined;
 
 	async function onSearchTransaction() {
-		const result = await TransactionAPI.history.getList(
-			concatinateDate(filterOption.from!) as string,
-			concatinateDate(filterOption.to!) as string,
-			filterOption.type!
-		);
+		const startDate = filterOption.from
+			? (concatinateDate(filterOption.from! as DateValue) as string)
+			: '';
+		const endDate = filterOption.to
+			? (concatinateDate(filterOption.to! as DateValue) as string)
+			: '';
+
+		const result = await TransactionAPI.history.getList(startDate, endDate, filterOption.type!);
 
 		if (result.success) {
 			transactionHistory = result.data;
@@ -29,6 +36,19 @@
 			throw new Error('Failed to fetch history list');
 		}
 	}
+
+	storeUserInfo.subscribe(async (value) => {
+		if (value.web3_address !== zeroAddress) {
+			await onSearchTransaction();
+		} else {
+			transactionHistory = undefined;
+		}
+		rerender.set(!$rerender);
+	});
+
+	onMount(() => {
+		onSearchTransaction();
+	});
 </script>
 
 <div class="h-full min-h-screen w-full space-y-10">
@@ -37,7 +57,7 @@
 	<div>
 		<Text size="2xl">History List</Text>
 		<Table.Root>
-			<Table.Caption>A list of your recent invoices.</Table.Caption>
+			<Table.Caption>A list of your recent transaction.</Table.Caption>
 			<Table.Header>
 				<Table.Row>
 					<Table.Head class="w-1/4">DATE</Table.Head>
@@ -46,18 +66,20 @@
 					<Table.Head class="w-1/4">AMOUNT</Table.Head>
 				</Table.Row>
 			</Table.Header>
-			<Table.Body>
-				{#if transactionHistory?.data.length > 0}
-					{#each transactionHistory.data as transaction, i}
-						<Table.Row class="text-black">
-							<Table.Cell>{transaction?.date}</Table.Cell>
-							<Table.Cell>{transaction?.sn}</Table.Cell>
-							<Table.Cell>{$t(`transaction.type.${transaction.type}`)}</Table.Cell>
-							<Table.Cell>{transaction?.amount}</Table.Cell>
-						</Table.Row>
-					{/each}
-				{/if}
-			</Table.Body>
+			{#key $rerender}
+				<Table.Body>
+					{#if transactionHistory !== undefined}
+						{#each transactionHistory.data as transaction, i}
+							<Table.Row class="text-black">
+								<Table.Cell>{transaction?.date}</Table.Cell>
+								<Table.Cell>{transaction?.sn}</Table.Cell>
+								<Table.Cell>{$t(`transaction.type.${transaction.type}`)}</Table.Cell>
+								<Table.Cell>{transaction?.amount}</Table.Cell>
+							</Table.Row>
+						{/each}
+					{/if}
+				</Table.Body>
+			{/key}
 		</Table.Root>
 	</div>
 </div>
