@@ -1,19 +1,6 @@
-import { api, type APIResponse } from '$lib/http/https';
-
-type TTransaction = {
-	count: number;
-	data: {
-		amount: string;
-		date: string;
-		sn: string;
-		type: string;
-	}[];
-	last_page: number;
-};
-
-type TTransactionType = {
-	code: string;
-};
+import { api } from '$lib/http/https';
+import type { APIResponse } from '$lib/type/commonType';
+import type { TTransaction, TTransactionType } from '$lib/type/transactionType';
 
 const TransactionAPI = {
 	history: {

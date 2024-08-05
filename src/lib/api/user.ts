@@ -1,16 +1,7 @@
-import { api, type APIResponse } from '$lib/http/https';
+import { api } from '$lib/http/https';
 import { type TUserInfo } from '$lib/stores/storeUser';
-
-type TWallet = {
-	image: string;
-	code: string;
-	amount: number;
-};
-
-type TDownline = {
-	web3_address: string;
-	downline_count: number;
-};
+import type { APIResponse } from '$lib/type/commonType';
+import type { TDownline, TWallet } from '$lib/type/userType';
 
 const UserAPI = {
 	account: {

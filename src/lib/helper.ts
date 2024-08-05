@@ -1,14 +1,10 @@
 import type { DateValue } from '@internationalized/date';
 import { toast } from 'svelte-sonner';
 import { InsufficientFundsError } from 'viem';
-
-interface GetErrorType {
-	walk: (callback: (e: unknown) => boolean) => boolean;
-	shortMessage: string;
-}
+import type { IGetErrorType } from './type/commonType';
 
 export const onTranslateErrMsg = (e: unknown) => {
-	const error = e as GetErrorType;
+	const error = e as IGetErrorType;
 	const isInsufficientFundsError = error.walk((e: unknown) => e instanceof InsufficientFundsError);
 
 	if (isInsufficientFundsError) {
@@ -87,7 +83,7 @@ export function formatTimestamp(timestamp: number) {
 	return formatter.format(date);
 }
 
-export function concatinateDate(date: DateValue | undefined) {
+export function concatinateDate(date: DateValue | undefined): string | void {
 	if (date === undefined) return console.error('No date can be concatinate');
 	return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`;
 }

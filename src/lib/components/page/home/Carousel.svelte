@@ -23,7 +23,6 @@
 	}
 
 	async function getGameListing() {
-		if ($isToken === undefined) return;
 		const result = await DashboardAPI.game.getList();
 
 		if (result.success) {
