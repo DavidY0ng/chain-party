@@ -15,7 +15,7 @@
 	<SideMenu />
 	<div class="relative flex h-full w-full flex-col xl:w-[85%]">
 		<TopMenu />
-		<div class="flex flex-grow flex-col items-center overflow-y-scroll p-3 xl:p-5 xl:pt-[90px]">
+		<div class="flex flex-grow flex-col items-center overflow-y-scroll p-3 xl:p-10 xl:pt-[90px]">
 			<Pageheader />
 			<slot />
 		</div>
