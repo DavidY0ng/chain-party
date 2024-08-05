@@ -7,14 +7,14 @@ const config: Config = {
 	safelist: ['dark'],
 	theme: {
 		fontSize: {
-			sm: '0.625rem',
-			md: '1rem',
-			lg: '1rem',
-			xl: '1.125rem',
-			'2xl': '1.25rem;',
-			'3xl': '1.953rem',
-			'4xl': '1.375rem',
-			'5xl': '1.625rem'
+			sm: '14px',
+			md: '16px',
+			lg: '18px',
+			xl: '20px',
+			'2xl': '24px',
+			'3xl': '32px',
+			'4xl': '36px',
+			'5xl': '48px'
 		},
 		container: {
 			center: true,

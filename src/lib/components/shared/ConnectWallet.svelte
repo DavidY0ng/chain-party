@@ -33,7 +33,7 @@
 
 {#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
 	<Button
-		class={cn('bg-[#29193D] px-[20px] py-[10px] font-bold ', className)}
+		class={cn('bg-[#29193D] px-[20px] py-[10px] font-bold  ', className)}
 		on:click={onConnectWallet}
 	>
 		<div class="flex items-center gap-x-2">

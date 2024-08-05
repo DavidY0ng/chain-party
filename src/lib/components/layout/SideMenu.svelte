@@ -1,12 +1,7 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { Button } from '$lib/components/ui/button';
+	import { Text } from '$lib/components/ui/text';
 	import { menuList } from './config';
-
-	function onHandleRedirect(path: string) {
-		goto(path);
-	}
 </script>
 
 <!-- Desktop Side Menu -->
@@ -24,10 +19,10 @@
 				{#if i < 4}
 					<a
 						href={menu.path}
-						class="relative z-20 flex w-full justify-center rounded-full bg-[#481555] py-4 text-lg font-bold text-white/50 hover:bg-[#481555] hover:text-white {$page
+						class="group relative z-20 flex w-full justify-start rounded-full bg-[#481555] py-4 text-lg font-bold hover:bg-[#481555] hover:text-white {$page
 							.url.pathname == menu.path
 							? ' bg-[#5c1e6c] text-white hover:bg-[#5c1e6c]'
-							: ''}"
+							: 'text-white/50'}"
 					>
 						{#if $page.url.pathname === menu.path}
 							<div class="isActive flex w-[110%] translate-x-5 items-center justify-end">
@@ -36,19 +31,32 @@
 								></div>
 							</div>
 						{/if}
-						<p class="z-10">{menu.label}</p>
+						<div class="z-10 flex translate-x-10 items-center gap-x-2">
+							<img
+								src={`/img/desktopSideMenu/${menu.label}.png`}
+								class="transition group-hover:opacity-100 {$page.url.pathname === menu.path
+									? ''
+									: 'opacity-50'}"
+								alt=""
+							/>
+							<Text
+								class="uppercase group-hover:text-white {$page.url.pathname === menu.path
+									? ''
+									: 'text-white/50'}">{menu.label}</Text
+							>
+						</div>
 					</a>
 				{/if}
 			{/each}
-			<div class="m-auto h-[1px] w-[80%] bg-white/20" />
+			<div class="m-auto h-[1px] w-full bg-white/20" />
 			{#each menuList as menu, i}
 				{#if i >= 4}
 					<a
 						href={menu.path}
-						class="relative z-20 flex w-full justify-center rounded-full bg-[#481555] py-4 text-lg font-bold text-white/50 hover:bg-[#481555] hover:text-white {$page
+						class="group relative z-20 flex w-full justify-start rounded-full bg-[#481555] py-4 text-lg font-bold hover:bg-[#481555] hover:text-white {$page
 							.url.pathname == menu.path
 							? ' bg-[#5c1e6c] text-white hover:bg-[#5c1e6c]'
-							: ''}"
+							: 'text-white/50'}"
 					>
 						{#if $page.url.pathname === menu.path}
 							<div class="isActive flex w-[110%] translate-x-5 items-center justify-end">
@@ -57,7 +65,20 @@
 								></div>
 							</div>
 						{/if}
-						<p class="z-10">{menu.label}</p>
+						<div class="z-10 flex translate-x-10 items-center gap-x-2">
+							<img
+								src={`/img/desktopSideMenu/${menu.label}.png`}
+								class="group-hover:opacity-100 {$page.url.pathname === menu.path
+									? ''
+									: 'opacity-50'}"
+								alt=""
+							/>
+							<Text
+								class="uppercase group-hover:text-white {$page.url.pathname === menu.path
+									? ''
+									: 'text-white/50'}">{menu.label}</Text
+							>
+						</div>
 					</a>
 				{/if}
 			{/each}
