@@ -6,9 +6,10 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Table from '$lib/components/ui/table';
 	import { t } from '$lib/i18n';
+	import { fade } from 'svelte/transition';
 </script>
 
-<div class="h-full min-h-screen w-full space-y-5 xl:space-y-24">
+<div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-24">
 	<div class="flex w-full flex-col gap-x-5 gap-y-5 xl:h-[24rem] xl:flex-row xl:gap-y-0">
 		<div class="h-full flex-1 xl:w-[60%]">
 			<Text class="text-2xl font-bold xl:text-3xl">{$t('app.stake.stake')} nEIC</Text>

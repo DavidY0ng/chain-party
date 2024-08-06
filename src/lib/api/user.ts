@@ -1,16 +1,7 @@
-import { api, type APIResponse } from '$lib/http/https';
+import { api } from '$lib/http/https';
 import { type TUserInfo } from '$lib/stores/storeUser';
-
-type TWallet = {
-	image: string;
-	code: string;
-	amount: number;
-};
-
-export type TDownline = {
-	web3_address: string;
-	downline_count: number;
-};
+import type { APIResponse } from '$lib/type/commonType';
+import type { TDownline, TWallet } from '$lib/type/userType';
 
 const UserAPI = {
 	account: {
@@ -38,7 +29,9 @@ const UserAPI = {
 				return { success: false, data: {} as TUserInfo, msg: (error as Error).message };
 			}
 		},
-		getDownline: async function (search_user: TUserInfo['web3_address']): Promise<APIResponse<TDownline[]>> {
+		getDownline: async function (
+			search_user: TUserInfo['web3_address']
+		): Promise<APIResponse<TDownline[]>> {
 			try {
 				const response = await api.get<TDownline[]>('/dapp/user/team/downline', {
 					data: {
@@ -79,3 +72,4 @@ const UserAPI = {
 };
 
 export default UserAPI;
+export type { TDownline, TWallet };

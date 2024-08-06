@@ -7,12 +7,13 @@
 	import { toast } from 'svelte-sonner';
 	import { storeUserInfo } from '$lib/stores/storeUser.js';
 	import Icon from '@iconify/svelte';
-	import type { APIResponse } from '$lib/http/https.js';
 	import { getUserProfile } from '$lib/utils.js';
 	import { zeroAddress } from 'viem';
 	import ConnectWallet from '$lib/components/shared/ConnectWallet.svelte';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { onMount } from 'svelte';
+	import type { APIResponse } from '$lib/type/commonType';
+	import { fade } from 'svelte/transition';
 
 	let missionList: TMission[];
 	$: statusList = [
@@ -69,14 +70,14 @@
 	});
 </script>
 
-<div class="h-full w-full min-h-screen space-y-10">
-	<div id="Mission" class=" flex flex-col w-full space-y-5">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
+	<div id="Mission" class=" flex w-full flex-col space-y-5">
 		<!-- mobile view of status-->
 		<div id="Status" class="flex flex-col md:hidden">
 			<Text tag="h4" size="lg" class="font-semibold">Your Status</Text>
-			<Card.Root class="w-full flex flex-col justify-center p-3 rounded-xl gap-1">
+			<Card.Root class="flex w-full flex-col justify-center gap-1 rounded-xl p-3">
 				{#each statusList as status}
-					<div class="flex justify-between items-center">
+					<div class="flex items-center justify-between">
 						<Text size="lg">{status.name}:</Text>
 						<Text size="lg" class="font-bold">{status.value}</Text>
 					</div>
@@ -85,34 +86,34 @@
 		</div>
 
 		<!-- desktop view of status-->
-		<div class="justify-center hidden md:flex">
-			<div class="grid grid-cols-5 h-[100px] w-[80%]">
+		<div class="hidden justify-center md:flex">
+			<div class="grid h-[100px] w-[80%] grid-cols-5">
 				{#each statusList as status, i}
 					<div class="flex flex-col items-center gap-3">
-						<Text tag="h1" size="2xl" class="whitespace-nowrap overflow-hidden">{status.name}:</Text
+						<Text tag="h1" size="2xl" class="overflow-hidden whitespace-nowrap">{status.name}:</Text
 						>
-						<Text tag="h1" size="4xl" class="font-bold text-[35px]">{status.value}</Text>
+						<Text tag="h1" size="4xl" class="text-[35px] font-bold">{status.value}</Text>
 					</div>
-					<div class="flex justify-center h-full">
+					<div class="flex h-full justify-center">
 						{#if i !== statusList.length - 1}
-							<Separator orientation="vertical" class="h-full bg-gray-300 max-w-[1px]" />
+							<Separator orientation="vertical" class="h-full max-w-[1px] bg-gray-300" />
 						{/if}
 					</div>
 				{/each}
 			</div>
 		</div>
 
-		<div id="Mission List" class="flex flex-col w-full">
-			<div class='flex justify-between items-center pb-3'>
-				<Text size='3xl'>Mission List</Text>
-				<Button size='sm' class="md:flex hidden">How to join</Button>
+		<div id="Mission List" class="flex w-full flex-col">
+			<div class="flex items-center justify-between pb-3">
+				<Text size="3xl">Mission List</Text>
+				<Button size="sm" class="hidden md:flex">How to join</Button>
 			</div>
-			<Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
+			<Card.Root class="flex w-full flex-col justify-center gap-3 rounded-xl p-3">
 				{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
 					{#if missionList}
 						{#each missionList as mission}
-							<Card.Root class="flex justify-between p-2 items-center rounded-sm">
-								<Text class='font-bold'>{mission.name}</Text>
+							<Card.Root class="flex items-center justify-between rounded-sm p-2">
+								<Text class="font-bold">{mission.name}</Text>
 								{#if mission.status === 'in_progress'}
 									<Button
 										on:click={() => startMission(mission.name)}
@@ -141,7 +142,7 @@
 						{/each}
 					{/if}
 				{:else}
-					<div class="flex flex-col items-center justify-center min-h-[10rem] space-y-6">
+					<div class="flex min-h-[10rem] flex-col items-center justify-center space-y-6">
 						<Text size="xl" class="text-center">Connect your wallet to check your mission</Text>
 						<ConnectWallet class="text-lg" />
 					</div>

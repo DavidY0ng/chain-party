@@ -1,19 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from 'js-cookie';
 import { urls } from './settings';
-
-export type APIResponse<T = any> = {
-	success: boolean;
-	data: T;
-	msg: string;
-};
-
-type APIMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-interface APIOptions {
-	data?: Record<string, any>;
-	useToken?: boolean;
-}
+import type { APIMethod, APIOptions, APIResponse } from '$lib/type/commonType';
 
 class API {
 	private async request<T = any>(

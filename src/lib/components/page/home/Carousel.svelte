@@ -23,7 +23,6 @@
 	}
 
 	async function getGameListing() {
-		if ($isToken === undefined) return;
 		const result = await DashboardAPI.game.getList();
 
 		if (result.success) {
@@ -55,7 +54,7 @@
 		]}
 		class="w-full md:max-w-[90%]"
 	>
-		<Carousel.Content class="-ml-1">
+		<Carousel.Content class="-ml-1 transition">
 			{#if gameList.length > 0}
 				{#each gameList as game, i (i)}
 					<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">
@@ -86,6 +85,7 @@
 				{/each}
 			{/if}
 		</Carousel.Content>
+
 		<div class="absolute bottom-5 left-[50%] flex -translate-x-[50%] gap-x-1 md:hidden">
 			{#each Array(5) as _, i}
 				<Carousel.Dot index={i} bind:selectedIndex />

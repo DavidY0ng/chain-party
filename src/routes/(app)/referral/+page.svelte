@@ -5,6 +5,7 @@
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 	import { t } from '$lib/i18n';
 
@@ -44,8 +45,8 @@
 		rerender.set(!$rerender);
 	});
 
-	onMount(async () => {
-		await getDownline();
+	onMount(() => {
+		getDownline();
 	});
 </script>
 
@@ -55,6 +56,7 @@
 		<Text size="xl">{$t('app.referral.your_team')}:</Text>
 		<!-- Use the key to force rerendering -->
 		{#key $rerender}
+			<!-- Use the key to force rerendering -->
 			<Treeview bind:tree={downlineList} />
 		{/key}
 	</div>

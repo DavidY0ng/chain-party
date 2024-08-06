@@ -29,10 +29,10 @@
 			<Icon icon="material-symbols:menu" class="text-2xl" />
 		</Button>
 	</Sheet.Trigger>
-	<Sheet.Content side="left" class="h-full flex flex-col justify-between pb-3">
+	<Sheet.Content side="left" class="z-[999] flex h-full flex-col justify-between pb-3">
 		<Text size="4xl" class="text-center text-blue-500">GAMEFI</Text>
 
-		<div class="flex flex-col space-y-3 flex-grow">
+		<div class="flex flex-grow flex-col space-y-3">
 			{#each menuList as menu}
 				<Sheet.Close asChild let:builder>
 					<Button
@@ -41,8 +41,8 @@
 						on:click={() => {
 							onHandleRedirect(menu.path);
 						}}
-						class="flex text-lg justify-center p-2 z-10 {$page.url.pathname == menu.path
-							? 'bg-gray-700/50 text-white rounded-md'
+						class="z-10 flex justify-center p-2 text-lg {$page.url.pathname == menu.path
+							? 'rounded-md bg-gray-700/50 text-white'
 							: 'hover:text-gray-300 '}"
 					>
 						{menu.name}

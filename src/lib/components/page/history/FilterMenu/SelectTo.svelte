@@ -8,7 +8,12 @@
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import { t } from '$lib/i18n';
     
+	export let selectedDateFrom: DateValue | undefined;
 	export let selectedDateTo: DateValue | undefined;
+
+	$: if (selectedDateFrom && selectedDateTo && selectedDateFrom.day > selectedDateTo.day) {
+		selectedDateTo = undefined;
+	}
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
@@ -21,7 +26,7 @@
 		<Button
 			variant="outline"
 			class={cn(
-				'w-full justify-start text-left bg-transparent font-normal hover:bg-black/50 text-black text-lg',
+				'w-full justify-start bg-transparent text-left text-lg font-normal text-black hover:bg-black/50',
 				!selectedDateTo && 'text-muted-foreground'
 			)}
 			builders={[builder]}
@@ -30,7 +35,12 @@
 			{selectedDateTo ? df.format(selectedDateTo.toDate(getLocalTimeZone())) : 'Select a date'}
 		</Button>
 	</Popover.Trigger>
-	<Popover.Content class="w-auto p-0 bg-white">
-		<Calendar class="text-black" bind:value={selectedDateTo} initialFocus />
+	<Popover.Content class="w-auto bg-white p-0">
+		<Calendar
+			minValue={selectedDateFrom}
+			class="text-black"
+			bind:value={selectedDateTo}
+			initialFocus
+		/>
 	</Popover.Content>
 </Popover.Root>

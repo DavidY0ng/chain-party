@@ -37,6 +37,7 @@
 		"uplink_reward": "Uplink Reward",
 		"rank_reward": "Rank Reward",
 		"jackpot_reward": "Jackpot Reward",
-		"staking_reward": "Staking Reward"
+		"staking_reward": "Staking Reward",
+		"donation": "Donation"
 	}
 }
