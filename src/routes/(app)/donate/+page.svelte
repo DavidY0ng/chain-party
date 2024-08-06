@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { t } from '$lib/i18n';
+	import RankCard from '$lib/components/page/donate/RankCard.svelte';
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -27,6 +28,11 @@
 
 <div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
 	<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 xl:w-[80%]">
+		<RankCard />
+		
+		
+		
+		
 		{#each Array(3) as _, i}
 			<Card.Root
 				class="flex flex-col items-center gap-x-5 border-none from-black/10 xl:flex-row xl:bg-gradient-to-l xl:p-5 {i ===
