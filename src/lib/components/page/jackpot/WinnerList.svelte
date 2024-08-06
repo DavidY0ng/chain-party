@@ -52,7 +52,7 @@
 						<div class="flex justify-between xl:gap-x-[100px] gap-3">
 							<div class="flex gap-x-2">
 								<img src="/img/jackpot/cap.png" class="h-[20px] w-[20px]" alt="cap" />
-								<Text class="hidden xl:flex">Won</Text>
+								<Text class="hidden xl:flex">{$t('jackpot.won')}</Text>
 							</div>
 							<Text>813 pEIC</Text>
 						</div>
@@ -63,7 +63,7 @@
 					<div class="flex items-center justify-between px-8 py-4">
 						<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
 						<div class="flex">
-							<Text>WON 813 pEIC</Text>
+							<Text>{$t('jackpot.won')} 813 pEIC</Text>
 						</div>
 					</div>
 				{/each}
