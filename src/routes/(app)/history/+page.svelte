@@ -27,18 +27,25 @@
 	let transactionData: TTransaction | undefined;
 	let gameData: TGameList | undefined;
 
-	let paginationCount: number = 0,
+	let paginationCount = {
+			count: 0,
+			last_page: 0
+		},
 		paginationSize: number = 20,
 		paginationPage: number = 0;
 
-	async function onSearchHistory() {
+	async function onSearchHistory(event?: CustomEvent) {
 		if (!$isToken || historyType === undefined) return;
 
 		// Reset paginationPage to 0 if historyType has changed
 		if (paginationPage === 0) {
 			paginationPage = 1;
-		} else {
-			paginationPage++;
+		} else if (event?.detail === 'next') {
+			paginationPage === paginationCount.last_page ? null : paginationPage++;
+		} else if (event?.detail === 'previous') {
+			paginationPage > 1 ? paginationPage-- : (paginationPage = 1);
+		} else if (event?.detail.page) {
+			paginationPage = event?.detail.page;
 		}
 
 		const startDate = filterOption.from
@@ -67,12 +74,15 @@
 
 		if (result.success) {
 			if (historyType === 'transaction') {
-				paginationCount = result.data.count;
 				transactionData = result.data as TTransaction;
 			} else {
-				paginationCount = result.data.count;
 				gameData = result.data as TGameList;
 			}
+
+			paginationCount = {
+				count: result.data.count,
+				last_page: result.data.last_page
+			};
 		} else {
 			throw new Error('Failed to fetch history list');
 		}
@@ -101,7 +111,13 @@
 	{:else}
 		<TableHistory bind:transactionData bind:gameData bind:historyType />
 		{#if (transactionData && transactionData?.data.length > 0) || (gameData && gameData?.data.length > 0)}
-			<Paginator bind:count={paginationCount} />
+			<Paginator
+				bind:paginationCount
+				on:search={(event) => {
+					console.log(event);
+					onSearchHistory(event);
+				}}
+			/>
 		{/if}
 	{/if}
 </div>

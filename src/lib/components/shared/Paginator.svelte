@@ -3,17 +3,35 @@
 	import { isDesktop } from '$lib/stores/storeCommon';
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import ChevronRight from 'lucide-svelte/icons/chevron-right';
+	import { createEventDispatcher } from 'svelte';
 
-	export let count: number = 0;
+	const dispatch = createEventDispatcher();
 
-	$: perPage = $isDesktop ? 3 : 8;
+	export let paginationCount = {
+		count: 0,
+		last_page: 0
+	};
+
+	$: perPage = paginationCount.count / paginationCount.last_page;
 	$: siblingCount = $isDesktop ? 1 : 0;
 </script>
 
-<Pagination.Root {count} {perPage} {siblingCount} let:pages let:currentPage>
+<Pagination.Root
+	bind:count={paginationCount.count}
+	{perPage}
+	{siblingCount}
+	let:pages
+	let:currentPage
+>
 	<Pagination.Content>
 		<Pagination.Item>
-			<Pagination.PrevButton class="hover:bg-black/50">
+			<Pagination.PrevButton
+				disabled={currentPage === 1}
+				on:click={() => {
+					dispatch('search', 'prev');
+				}}
+				class="hover:bg-black/50"
+			>
 				<ChevronLeft class="h-4 w-4" />
 				<span class="hidden sm:block">Previous</span>
 			</Pagination.PrevButton>
@@ -26,9 +44,11 @@
 			{:else}
 				<Pagination.Item class="rounded-2xl hover:bg-black/50">
 					<Pagination.Link
-						class="rounded-2xl hover:bg-black/50"
+						on:click={() => {
+							dispatch('search', { page: page.value });
+						}}
+						class="rounded-2xl hover:bg-black/50 {currentPage === page.value ? 'bg-black' : ''}"
 						{page}
-						isActive={currentPage === page.value}
 					>
 						{page.value}
 					</Pagination.Link>
@@ -36,7 +56,13 @@
 			{/if}
 		{/each}
 		<Pagination.Item>
-			<Pagination.NextButton class="hover:bg-black/50">
+			<Pagination.NextButton
+				disabled={currentPage === paginationCount.last_page}
+				on:click={() => {
+					dispatch('search', 'next');
+				}}
+				class="hover:bg-black/50"
+			>
 				<span class="hidden sm:block">Next</span>
 				<ChevronRight class="h-4 w-4" />
 			</Pagination.NextButton>

@@ -11,6 +11,14 @@
 
 	export let transactionData: TTransaction | undefined;
 	export let gameData: TGameList | undefined;
+
+	// scroll to top if any of the data changes
+	$: if (transactionData || gameData) {
+		const tableData = document.querySelector('#tableData');
+		if (tableData) {
+			tableData.scrollTop = 0;
+		}
+	}
 </script>
 
 <div class="space-y-3">
