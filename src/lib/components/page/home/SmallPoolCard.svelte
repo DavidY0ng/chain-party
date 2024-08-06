@@ -3,6 +3,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Progress } from '$lib/components/ui/progress/index.js';
 	import { Text } from '$lib/components/ui/text';
+	import { t } from '$lib/i18n';
 </script>
 
 <Card.Root class="relative w-full space-y-5 overflow-hidden rounded-2xl bg-[#251235] pt-5">
@@ -33,7 +34,7 @@
 				</div>
 			</div>
 			<div class="">
-				<Button disabled class="w-full bg-[#251235]">Claim Reward</Button>
+				<Button disabled class="w-full bg-[#251235]">{$t('home.claim_reward')}</Button>
 			</div>
 		</div>
 	</div>
@@ -42,7 +43,7 @@
 	>
 		<img src="/img/home/alert.png" alt="" />
 		<div>
-			<Text class="text-sm text-white/50">Total Reward:</Text>
+			<Text class="text-sm text-white/50">{$t('home.total_reward')}:</Text>
 			<Text class="font-bold">40,000 pEIC</Text>
 			<Text class="text-sm text-white/50">~800 USDT</Text>
 		</div>

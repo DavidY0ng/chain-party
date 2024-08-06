@@ -2,6 +2,7 @@
 	import * as Home from '$lib/components/page/home';
 	import { Text } from '$lib/components/ui/text';
 	import { fade } from 'svelte/transition';
+	import { t } from '$lib/i18n'
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
@@ -43,8 +44,8 @@
 					id="jackpotTableHeader"
 					class="flex w-full items-center justify-between rounded-xl bg-[#481555] px-7 py-4 font-bold"
 				>
-					<Text>Address</Text>
-					<Text>Won Times</Text>
+					<Text>{$t('home.address')}</Text>
+					<Text>{$t('home.won_times')}</Text>
 				</div>
 				<div class="overflow-hidden rounded-2xl">
 					<div class="selfContainer w-full border-x-[6px]">
