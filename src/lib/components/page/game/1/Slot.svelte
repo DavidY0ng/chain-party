@@ -6,23 +6,24 @@
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
 	import Icon from '@iconify/svelte';
+	import { t } from '$lib/i18n';
 
 	export let gameslot: TGameSlot, gameSlotPage: number;
 </script>
 
 <div id="Slot Section" class=" ">
-	<Text size="4xl" class=" font-bold">My Group (#1)</Text>
+	<Text size="4xl" class=" font-bold">{$t('game.my_group')} (#1)</Text>
 
 	<Card.Root class="flex flex-col items-center space-y-5 p-5">
 		<div class="text-center">
 			<Text size="5xl" class="font-bold">{gameslot?.self_position}/20</Text>
-			<Text size="5xl" class="font-bold">Your Current Number is 10th</Text>
+			<Text size="5xl" class="font-bold">{$t('game.your_current_number')} 10th</Text>
 		</div>
 		<Table.Root class="border ">
 			<Table.Header>
 				<Table.Row class="">
-					<Table.Head class="text-left text-2xl text-black">Entry Address</Table.Head>
-					<Table.Head class="text-right text-2xl text-black">Number</Table.Head>
+					<Table.Head class="text-left text-2xl text-black">{$t('game.entry_address')}</Table.Head>
+					<Table.Head class="text-right text-2xl text-black">{$t('game.number')}</Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
