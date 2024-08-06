@@ -6,7 +6,6 @@
 	import JackpotPool from '$lib/components/page/jackpot/JackpotPool.svelte';
 	import WinnerList from '$lib/components/page/jackpot/WinnerList.svelte';
 	import AddressList from '$lib/components/page/jackpot/AddressList.svelte';
-
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full p-3">
@@ -29,18 +28,14 @@
 					</Card.Root>
 				{/each}
 			</div>
-	
+
 			<!-- Desktop jackpot view -->
 			<!-- jackpot pool -->
-			 <JackpotPool />
-	
-			 <WinnerList />
-	
-			 <AddressList />
+			<JackpotPool />
+
+			<WinnerList />
+
+			<AddressList />
 		</div>
-		
-		
 	</div>
 </div>
-
-
