@@ -5,7 +5,7 @@
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
-	<div id="background-eclipse-1" />
+	<div class="pink-eclipse left-[-10%] top-[-30%] w-[560px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<div id="Pool List" class=" space-y-5">
 			<div class="flex w-full">
@@ -67,20 +67,6 @@
 </div>
 
 <style scoped>
-	#background-eclipse-1 {
-		position: absolute;
-		width: 560px;
-		height: auto;
-		aspect-ratio: 1;
-		border-radius: 50%;
-		opacity: 0.5;
-		filter: blur(120px);
-		transform: translateZ(0);
-		background-color: #ff0099;
-		top: -40%;
-		left: -10%;
-	}
-
 	.jackpotPool {
 		background: radial-gradient(45.78% 88.85% at 50% 100%, #5b1dab 0%, rgba(0, 0, 0, 0.25) 100%);
 	}

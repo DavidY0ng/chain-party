@@ -9,7 +9,7 @@
 
 <Card.Root class="relative w-full overflow-hidden rounded-none border-none">
 	<div id="background" class="absolute h-full w-full bg-gradient-to-b from-[#251235] to-[#401A71]">
-		<div class="pink-eclipse left-[20%] top-[30%]"></div>
+		<div class="pink-eclipse left-[20%] top-[30%] w-[340px]"></div>
 		<img src="/img/home/chest.png" class="absolute bottom-0 left-0" alt="" />
 		<div
 			id="status"
@@ -66,18 +66,6 @@
 </Card.Root>
 
 <style>
-	.pink-eclipse {
-		position: absolute;
-		width: 340px;
-		height: auto;
-		aspect-ratio: 1;
-		border-radius: 50%;
-		opacity: 0.5;
-		filter: blur(120px);
-		transform: translateZ(0);
-		background-color: #ff0099;
-	}
-
 	.innerShadow {
 		box-shadow: -5px 5px 5px 0px #00000040 inset;
 	}
