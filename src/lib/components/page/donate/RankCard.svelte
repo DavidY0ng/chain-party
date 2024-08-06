@@ -33,11 +33,11 @@
                 <div class="bg-black/15 px-[30px] py-[10px] rounded-xl">
                     <Text size='3xl'>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',4,4)}</Text>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center z-10">
                     <Text size='sm' class="text-white/60">Donated:</Text>
                     <Text size='lg' class="font-bold">1,000 pEIC</Text>
                 </div>
-                <div class="pink-eclipse w-[337px] h-[263px] top-[90%]"></div>
+                <div class="pink-oval-eclipse w-[337px] h-[263px] top-[80%]"></div>
             </div>
         </Card.Root>
         <img src='/img/donate/top1.png' alt='top1' class="absolute translate-y-[-50%] top-0 left-[50%] translate-x-[-50%]">

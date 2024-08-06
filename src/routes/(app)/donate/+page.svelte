@@ -9,8 +9,7 @@
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
-	import DonationModal from '$lib/components/page/donate/DonationModal.svelte'
-	
+	import DonationModal from '$lib/components/page/donate/DonationModal.svelte';
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -35,24 +34,19 @@
 
 <div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-10">
-		<div class="flex flex-col items-center relative">
-			<div class="pink-oval-eclipse w-[750px] h-[200px] top-[-10%]"></div>
+		<div class="relative flex flex-col items-center pt-[100px]">
+			<div class="pink-oval-eclipse top-0 h-[200px] w-[750px]"></div>
 			<RankCard />
-			<div>
+			<div class="mb-10">
 				{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
 					<div class="mx-auto w-[300px]">
 						<Button on:click={handleConnect} class="w-full bg-[#29193D]">Connect Wallet</Button>
-			
 					</div>
 				{:else}
 					<DonationModal />
 				{/if}
 			</div>
-			
+			<LeaderboardList />
 		</div>
-		<!-- Desktop Leaderboard list -->
-		<LeaderboardList />
-	
 	</div>
-	
 </div>
