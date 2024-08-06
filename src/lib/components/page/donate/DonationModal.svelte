@@ -30,7 +30,7 @@
 
 <Dialog.Root bind:open={showModal}>
 	<Dialog.Trigger>
-		<div class="mx-auto my-5 w-[250px]">
+		<div class="mx-auto my-5 w-[300px]">
 			<Button class="w-full bg-[#29193D]">Donate</Button>
 		</div>
 	</Dialog.Trigger>

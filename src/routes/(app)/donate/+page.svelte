@@ -34,17 +34,21 @@
 </script>
 
 <div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
-	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
-		<div class="flex flex-col items-center">
+	<div class="relative z-[99] m-auto max-w-[1400px] space-y-10">
+		<div class="flex flex-col items-center relative">
+			<div class="pink-oval-eclipse w-[750px] h-[200px] top-[-10%]"></div>
 			<RankCard />
-			{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
-			<div class="mx-auto my-5 w-[250px]">
-				<Button on:click={handleConnect} class="w-full bg-[#29193D]">Connect Wallet</Button>
-	
+			<div>
+				{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
+					<div class="mx-auto w-[300px]">
+						<Button on:click={handleConnect} class="w-full bg-[#29193D]">Connect Wallet</Button>
+			
+					</div>
+				{:else}
+					<DonationModal />
+				{/if}
 			</div>
-			{:else}
-			<DonationModal />
-			{/if}
+			
 		</div>
 		<!-- Desktop Leaderboard list -->
 		<LeaderboardList />
