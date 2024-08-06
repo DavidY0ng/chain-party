@@ -1,18 +1,28 @@
 import { api } from '$lib/http/https';
 import type { APIResponse } from '$lib/type/commonType';
-import type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameStatus } from '$lib/type/gameType';
+import type {
+	IGetListParams,
+	TGameList,
+	TGameRound,
+	TGameSlot,
+	TGameStatus
+} from '$lib/type/gameType';
 import type { TDashboardGame } from './dashboard';
 
 const GameAPI = {
 	history: {
-		getList: async function (data: IGetListParams): Promise<APIResponse<TGameList[]>> {
+		getList: async function (data: IGetListParams): Promise<APIResponse<TGameList>> {
 			try {
-				const response = await api.get<TGameList[]>('/dapp/game/history/list', {
-					data
+				const response = await api.get<TGameList>('/dapp/game/history/list', {
+					data: {
+						...data,
+						page: 1,
+						size: 10
+					}
 				});
 				return response;
 			} catch (error) {
-				return { success: false, data: {} as TGameList[], msg: (error as Error).message };
+				return { success: false, data: {} as TGameList, msg: (error as Error).message };
 			}
 		}
 	},
@@ -64,4 +74,3 @@ const GameAPI = {
 
 export default GameAPI;
 export type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameStatus };
-

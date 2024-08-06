@@ -7,7 +7,7 @@
 	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import { t } from '$lib/i18n';
-    
+
 	export let selectedDateFrom: DateValue | undefined;
 	export let selectedDateTo: DateValue | undefined;
 
@@ -20,25 +20,24 @@
 	});
 </script>
 
-<Text size="lg" class="font-semibold">{$t('history.to')}:</Text>
 <Popover.Root openFocus>
 	<Popover.Trigger asChild let:builder>
 		<Button
 			variant="outline"
 			class={cn(
-				'w-full justify-start bg-transparent text-left text-lg font-normal text-black hover:bg-black/50',
-				!selectedDateTo && 'text-muted-foreground'
+				'w-full justify-start rounded-none border-none bg-transparent text-left text-md font-normal text-white hover:bg-black/50',
+				!selectedDateFrom && 'text-muted-foreground'
 			)}
 			builders={[builder]}
 		>
 			<CalendarIcon class="mr-2 h-4 w-4" />
-			{selectedDateTo ? df.format(selectedDateTo.toDate(getLocalTimeZone())) : 'Select a date'}
+			{selectedDateTo ? df.format(selectedDateTo.toDate(getLocalTimeZone())) : 'To'}
 		</Button>
 	</Popover.Trigger>
-	<Popover.Content class="w-auto bg-white p-0">
+	<Popover.Content class="w-auto bg-[#481555] p-0">
 		<Calendar
 			minValue={selectedDateFrom}
-			class="text-black"
+			class="text-white"
 			bind:value={selectedDateTo}
 			initialFocus
 		/>
