@@ -11,8 +11,9 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 	import { copyToClipboard } from '$lib/helper';
+	import { onConnectWallet } from '$lib/utils';
 
-	const referralLink = `eicdapp.skywalkerlab.dev/${$storeUserInfo.referral_code}`;
+	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 
 	let downlineList = {
 		web3_address: 'None',
@@ -65,8 +66,20 @@
 		</Card.Header>
 		<Card.Content class="bg-black/20 pt-5">
 			<div class="relative">
-				<Input class="border-none bg-black/40 px-7 py-8 text-xl" value={referralLink} readonly />
-				<div class="absolute right-2 top-[15%] max-w-[120px]">
+				<Input
+					class="border-none bg-black/40 px-7 py-8 text-xl {$storeUserInfo.web3_address ===
+					zeroAddress
+						? 'text-center'
+						: ''}"
+					value={$storeUserInfo.web3_address === zeroAddress ? '-' : referralLink}
+					readonly
+				/>
+				<div
+					class="absolute right-2 top-[15%] max-w-[120px] {$storeUserInfo.web3_address ===
+					zeroAddress
+						? 'hidden'
+						: 'block'}"
+				>
 					<Button
 						on:click={() => {
 							copyToClipboard(referralLink);
@@ -85,10 +98,23 @@
 			<img src="/img/desktopSideMenu/Team.png" class="h-5 w-5" alt="" />
 			<Text class="font-bold">{$t('referral.your_team')}</Text>
 		</div>
-		<!-- Use the key to force rerendering -->
-		{#key $rerender}
+		{#if $storeUserInfo.web3_address !== zeroAddress}
 			<!-- Use the key to force rerendering -->
-			<Treeview bind:tree={downlineList} />
-		{/key}
+			{#key $rerender}
+				<!-- Use the key to force rerendering -->
+				<Treeview bind:tree={downlineList} />
+			{/key}
+		{:else}
+			<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<Text size="xl"
+					><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
+						>{$t('common.connect_wallet')}</span
+					>
+					{$t('history.to_view')}</Text
+				>
+			</div>
+		{/if}
 	</div>
 </div>

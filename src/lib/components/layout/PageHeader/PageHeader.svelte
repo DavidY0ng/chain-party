@@ -36,6 +36,7 @@
 				{#if $page.url.pathname === '/donate'}
 					<DonationModal />
 				{/if}
+
 				{#if $storeUserInfo.upline === ''}
 					<BindReferralModal />
 				{/if}

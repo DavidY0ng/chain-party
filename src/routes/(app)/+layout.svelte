@@ -11,7 +11,7 @@
 <Toaster />
 <div
 	id="mainContainer"
-	class="flex h-full w-full flex-grow bg-gradient-to-br from-[#29193D] to-[#480A46]"
+	class="relative z-20 flex h-full w-full flex-grow bg-gradient-to-br from-[#29193D] to-[#480A46]"
 >
 	<SideMenu />
 	<div class="relative flex h-full w-full flex-col xl:w-[85%]">

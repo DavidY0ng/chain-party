@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 import { defaultLocale, loadTranslations, locale } from '$lib/i18n';
-import { isToken } from '$lib/stores/storeCommon';
+import { isToken, showBindReferral } from '$lib/stores/storeCommon';
 import { storeUserInfo } from '$lib/stores/storeUser';
 import { onChange, onDisconnect } from '$lib/web3/wagmi';
 import Cookies from 'js-cookie';
@@ -13,6 +13,7 @@ export const load: LayoutLoad = async ({ url }) => {
 	const { pathname } = url;
 	const token = Cookies.get('accessToken');
 	let targetLocale = defaultLocale;
+	let referralCode: string | null = null;
 
 	onChange();
 
@@ -31,5 +32,13 @@ export const load: LayoutLoad = async ({ url }) => {
 	if (token === undefined && get(storeUserInfo).web3_address !== zeroAddress) {
 		onDisconnect();
 		toast.warning('Session Expired... Please Login Again');
+	}
+
+	// check referral code
+	if (browser) {
+		referralCode = url.searchParams.get('referralCode');
+		if (referralCode !== null) {
+			showBindReferral.set(true);
+		}
 	}
 };
