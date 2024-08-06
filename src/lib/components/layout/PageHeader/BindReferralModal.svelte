@@ -7,8 +7,11 @@
 	import { Text } from '$lib/components/ui/text';
 	import { toast } from 'svelte-sonner';
 	import { Button, buttonVariants } from '../../ui/button';
+	import { showBindReferral } from '$lib/stores/storeCommon';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
-	let showModal = false;
+	let urlReferralCode: string | null = null;
 
 	let isChecked = {
 		value: false,
@@ -38,12 +41,11 @@
 		} else {
 			isChecked.error = '';
 			referralCode.error = '';
-			showModal = false;
 			toast.success('Bind Referral Successful');
 		}
 	}
 
-	$: if (!showModal) {
+	$: if (!$showBindReferral) {
 		isChecked = {
 			value: false,
 			error: ''
@@ -53,55 +55,75 @@
 			error: ''
 		};
 	}
+
+	onMount(() => {
+		urlReferralCode = $page.url.searchParams.get('referralCode');
+		if (urlReferralCode) {
+			referralCode.value = urlReferralCode;
+		}
+	});
 </script>
 
-<Dialog.Root bind:open={showModal}>
+<Dialog.Root bind:open={$showBindReferral}>
 	<Dialog.Trigger class={buttonVariants({ variant: 'default' })}>
 		<Text class="text-white">Bind Referral</Text>
 	</Dialog.Trigger>
-	<Dialog.Content class="sm:max-w-[425px] bindRef">
-		<Dialog.Header>
-			<Dialog.Title>Referrer Address</Dialog.Title>
-		</Dialog.Header>
-		<div class="space-y-2">
-			<Input
-				id="referralCode"
-				bind:value={referralCode.value}
-				placeholder="Address"
-				class="text-center text-md"
-			/>
-			{#if referralCode.error}
-				<Text class="text-red-500 text-sm">{referralCode.error}</Text>
-			{/if}
-		</div>
-		<div class="items-top flex space-x-2">
-			<Checkbox required bind:checked={isChecked.value} id="terms1" class="w-3 h-3" />
-			<div class="flex flex-col gap-1.5 leading-none">
-				<Label
-					for="terms1"
-					class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-				>
-					Terms & Condition
-				</Label>
-				<Text size="sm" class="text-muted-foreground leading-normal">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, odit harum. Architecto
-					temporibus magni repellendus?
-				</Text>
-				{#if isChecked.error}
-					<Text class="text-red-500 text-sm">{isChecked.error}</Text>
-				{/if}
+	<Dialog.Content
+		class="bindRef z-[9999] overflow-hidden border border-white/20 bg-[#251235] sm:max-w-[425px]"
+	>
+		<div class="relative h-full w-full">
+			<div class="pink-eclipse left-[-30%] top-[-110%] z-10 w-[350px]" />
+			<div class="relative z-20 space-y-5">
+				<Dialog.Header class="border-b border-white/20 pb-5 ">
+					<Dialog.Title>Referrer Address</Dialog.Title>
+				</Dialog.Header>
+				<div class="space-y-2">
+					<Input
+						id="referralCode"
+						bind:value={referralCode.value}
+						placeholder="Address"
+						class="border-none bg-black/40 text-center text-md"
+					/>
+					{#if referralCode.error}
+						<Text class="text-sm text-red-500">{referralCode.error}</Text>
+					{/if}
+				</div>
+				<div class="items-top flex space-x-2">
+					<Checkbox required bind:checked={isChecked.value} id="terms1" class="h-3 w-3" />
+					<div class="flex flex-col gap-1.5 leading-none">
+						<Label
+							for="terms1"
+							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+						>
+							I read and accept the <span class="text-[#ff0099] underline"
+								>terms and conditions</span
+							>
+						</Label>
+
+						{#if isChecked.error}
+							<Text class="text-sm text-red-500">{isChecked.error}</Text>
+						{/if}
+					</div>
+				</div>
+				<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
+					<div class="w-full">
+						<Button
+							variant={'second'}
+							on:click={() => {
+								showBindReferral.set(false);
+							}}
+							type="button"
+							class="w-full text-md">Close</Button
+						>
+					</div>
+
+					<div class="w-full">
+						<Button type="button" class="w-full bg-[#251235] text-md" on:click={onBindReferral}
+							>Bind</Button
+						>
+					</div>
+				</Dialog.Footer>
 			</div>
 		</div>
-		<Dialog.Footer class="flex flex-row w-full gap-2 justify-between">
-			<Button
-				on:click={() => {
-					showModal = false;
-				}}
-				type="button"
-				variant="outline"
-				class="w-full text-md">Close</Button
-			>
-			<Button type="button" class="w-full text-md" on:click={onBindReferral}>Bind</Button>
-		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

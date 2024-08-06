@@ -7,7 +7,7 @@ const buttonVariants = tv({
 	variants: {
 		variant: {
 			default: 'hover:bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] rounded-lg overflow-hidden ',
-			second: 'border border-white hover:bg-white',
+			second: 'border border-white hover:bg-white hover:text-black',
 			destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
 			outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
 			secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',

@@ -32,7 +32,8 @@
 				>
 			</div>
 			<div class="flex gap-x-5">
-				{#if $storeUserInfo.upline === '/referral'}
+
+				{#if $storeUserInfo.upline === ''}
 					<BindReferralModal />
 				{/if}
 			</div>
