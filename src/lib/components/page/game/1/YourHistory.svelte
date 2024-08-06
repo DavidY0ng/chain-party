@@ -10,16 +10,16 @@
 
 <Card.Root class="overflow-hidden">
 	<Card.Header class="border-b flex-row justify-between w-full">
-		<Text size="2xl" class="font-bold">{$t('app.game.your_history.rounds')}</Text>
+		<Text size="2xl" class="font-bold">{$t('game.your_history.rounds')}</Text>
 	</Card.Header>
 	<Card.Content class="p-0 flex flex-col items-center justify-center min-h-[10rem] space-y-2">
 		{#if $storeUserInfo.web3_address !== zeroAddress}
-			<Text size="xl">{$t('app.game.your_history.no_history')}</Text>
-			<Text size="lg">{$t('app.game.your_history.buy_tickets_next_round')}</Text>
+			<Text size="xl">{$t('game.your_history.no_history')}</Text>
+			<Text size="lg">{$t('game.your_history.buy_tickets_next_round')}</Text>
 
-			<Button class="text-lg">{$t('app.game.your_history.buy_tickets')}</Button>
+			<Button class="text-lg">{$t('game.your_history.buy_tickets')}</Button>
 		{:else}
-			<Text size="xl">{$t('app.game.your_history.connect_wallet')}</Text>
+			<Text size="xl">{$t('game.your_history.connect_wallet')}</Text>
 			<ConnectWallet class="text-lg" />
 		{/if}
 	</Card.Content>

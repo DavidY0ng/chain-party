@@ -50,7 +50,7 @@
 	<Card.Header class="w-full flex-row justify-between border-b">
 		<div bind:this={cardView}>
 			<div class="flex items-center gap-x-2">
-				<Text size="2xl" class="font-bold">Round</Text>
+				<Text size="2xl" class="font-bold">{$t('game.all_history.round')}</Text>
 				{#if gameData?.round_id}
 					<div class="rounded-full border px-4 py-[1px]">
 						<Text size="lg" class="-translate-x-[3px] font-bold">{gameData?.round_id}</Text>
@@ -60,7 +60,7 @@
 				{/if}
 			</div>
 			{#if gameData?.date_time_end}
-				<Text class="font-semibold">Drawn {formatTimestamp(+gameData?.date_time_end)}</Text>
+				<Text class="font-semibold">{$t('game.all_history.drawn')} {formatTimestamp(+gameData?.date_time_end)}</Text>
 			{:else}
 				<Skeleton class="w-full rounded-full py-2" />
 			{/if}
@@ -108,7 +108,7 @@
 		<div
 			class="relative flex w-full flex-col items-center justify-between gap-y-5 overflow-hidden p-6 xl:flex-row xl:gap-y-0"
 		>
-			<Text size="xl" class="font-bold">{$t('app.game.all_history.winning_number')}</Text>
+			<Text size="xl" class="font-bold">{$t('game.all_history.winning_number')}</Text>
 			<div class="flex gap-x-1 xl:pr-20">
 				{#if gameData?.winner_position[0]}
 					<div
@@ -147,20 +147,20 @@
 			<div transition:slide class="flex flex-col gap-x-5 border-t p-6 xl:flex-row">
 				<div class="flex flex-col justify-between pb-10">
 					<div>
-						<Text size="xl" class="font-bold">{$t('app.game.all_history.prize_pot')}</Text>
+						<Text size="xl" class="font-bold">{$t('game.all_history.prize_pot')}</Text>
 						<Text size="3xl" class="font-black">~$25,373</Text>
 						<Text size="lg" class="text-[14px] font-semibold">12,736 CAKE</Text>
 					</div>
-					<Text class="text-[12px] font-bold">{$t('app.game.all_history.total_players_this_round')}: 115</Text>
+					<Text class="text-[12px] font-bold">{$t('game.all_history.total_players_this_round')}: 115</Text>
 				</div>
 				<div class="flex w-full flex-col space-y-5">
 					<Text class="text-[14px] font-semibold"
-						>Match the winning number in the same order to share prizes.</Text
+						>{$t('game.all_history.match_the_winning_number')}</Text
 					>
 					<div class="grid grid-cols-2 gap-y-5 xl:grid-cols-4">
 						{#each Array(7) as _, i}
 							<div>
-								<Text size="lg" class="font-bold">Match first {i + 1}</Text>
+								<Text size="lg" class="font-bold">{$t('game.all_history.match_first')} {i + 1}</Text>
 								<Text size="2xl" class="font-extrabold">255 CAKE</Text>
 								<Text class="mt-2 text-[12px] font-semibold leading-tight">~$508</Text>
 								<Text class="text-[12px] font-semibold leading-tight">7.96 CAKE each</Text>
