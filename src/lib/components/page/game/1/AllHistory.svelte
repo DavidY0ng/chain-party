@@ -60,7 +60,9 @@
 				{/if}
 			</div>
 			{#if gameData?.date_time_end}
-				<Text class="font-semibold">{$t('game.all_history.drawn')} {formatTimestamp(+gameData?.date_time_end)}</Text>
+				<Text class="font-semibold"
+					>{$t('game.all_history.drawn')} {formatTimestamp(+gameData?.date_time_end)}</Text
+				>
 			{:else}
 				<Skeleton class="w-full rounded-full py-2" />
 			{/if}
@@ -110,25 +112,25 @@
 		>
 			<Text size="xl" class="font-bold">{$t('game.all_history.winning_number')}</Text>
 			<div class="flex gap-x-1 xl:pr-20">
-				{#if gameData?.winner_position[0]}
+				{#if gameData?.loser_position[0]}
 					<div
 						class="flex h-16 w-16 items-center justify-center rounded-full border"
 						style="transform: rotate({rotatePosition[0]}deg);"
 					>
 						<Text size="4xl" class="font-bold"
-							>{gameData?.winner_position[0]?.toString().split('')[0]}</Text
+							>{gameData?.loser_position[0]?.toString().split('')[0]}</Text
 						>
 					</div>
 				{:else}
 					<Skeleton class="h-16 w-16 rounded-full" />
 				{/if}
-				{#if gameData?.winner_position[0]}
+				{#if gameData?.loser_position[0]}
 					<div
 						class="flex h-16 w-16 items-center justify-center rounded-full border"
 						style="transform: rotate({rotatePosition[1]}deg);"
 					>
 						<Text size="4xl" class="font-bold"
-							>{gameData?.winner_position[0]?.toString().split('')[1]}</Text
+							>{gameData?.loser_position[0]?.toString().split('')[1]}</Text
 						>
 					</div>
 				{:else}
@@ -151,7 +153,9 @@
 						<Text size="3xl" class="font-black">~$25,373</Text>
 						<Text size="lg" class="text-[14px] font-semibold">12,736 CAKE</Text>
 					</div>
-					<Text class="text-[12px] font-bold">{$t('game.all_history.total_players_this_round')}: 115</Text>
+					<Text class="text-[12px] font-bold"
+						>{$t('game.all_history.total_players_this_round')}: 115</Text
+					>
 				</div>
 				<div class="flex w-full flex-col space-y-5">
 					<Text class="text-[14px] font-semibold"
@@ -160,7 +164,8 @@
 					<div class="grid grid-cols-2 gap-y-5 xl:grid-cols-4">
 						{#each Array(7) as _, i}
 							<div>
-								<Text size="lg" class="font-bold">{$t('game.all_history.match_first')} {i + 1}</Text>
+								<Text size="lg" class="font-bold">{$t('game.all_history.match_first')} {i + 1}</Text
+								>
 								<Text size="2xl" class="font-extrabold">255 CAKE</Text>
 								<Text class="mt-2 text-[12px] font-semibold leading-tight">~$508</Text>
 								<Text class="text-[12px] font-semibold leading-tight">7.96 CAKE each</Text>

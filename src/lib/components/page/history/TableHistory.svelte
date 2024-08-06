@@ -45,11 +45,18 @@
 		</Table.Header>
 	</Table.Root>
 
-	<div id="tableData" class="gradientScrollbar h-[550px] overflow-y-auto">
+	<div
+		id="tableData"
+		class="gradientScrollbar {(transactionData && transactionData.data.length > 0) ||
+		(gameData && gameData?.data.length > 0)
+			? 'h-[550px]'
+			: ''} overflow-y-auto"
+	>
 		<Table.Root class="">
 			{#key $rerender}
 				<Table.Body
-					class={transactionData?.data !== undefined || gameData?.data !== undefined
+					class={(transactionData && transactionData.data.length > 0) ||
+					(gameData && gameData?.data.length > 0)
 						? 'bg-black/20'
 						: ''}
 				>

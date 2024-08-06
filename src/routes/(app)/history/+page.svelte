@@ -3,6 +3,7 @@
 	import TransactionAPI, { type TTransaction, type TTransactionType } from '$lib/api/transaction';
 	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import TableHistory from '$lib/components/page/history/TableHistory.svelte';
+	import Paginator from '$lib/components/shared/Paginator.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { concatinateDate } from '$lib/helper';
 	import { t } from '$lib/i18n';
@@ -11,7 +12,6 @@
 	import type { THistoryType } from '$lib/type/commonType';
 	import { onConnectWallet } from '$lib/utils';
 	import type { DateValue } from '@internationalized/date';
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
@@ -27,8 +27,20 @@
 	let transactionData: TTransaction | undefined;
 	let gameData: TGameList | undefined;
 
+	let paginationCount: number = 0,
+		paginationSize: number = 20,
+		paginationPage: number = 0;
+
 	async function onSearchHistory() {
 		if (!$isToken || historyType === undefined) return;
+
+		// Reset paginationPage to 0 if historyType has changed
+		if (paginationPage === 0) {
+			paginationPage = 1;
+		} else {
+			paginationPage++;
+		}
+
 		const startDate = filterOption.from
 			? (concatinateDate(filterOption.from! as DateValue) as string)
 			: '';
@@ -38,35 +50,37 @@
 
 		const result =
 			historyType === 'transaction'
-				? await TransactionAPI.history.getList(startDate, endDate, filterOption.type!)
+				? await TransactionAPI.history.getList(
+						startDate,
+						endDate,
+						filterOption.type!,
+						paginationPage,
+						paginationSize
+					)
 				: await GameAPI.history.getList({
 						created_at_start: startDate,
 						created_at_end: endDate,
-						status: filterOption.status
+						status: filterOption.status,
+						size: paginationSize,
+						page: paginationPage
 					});
 
 		if (result.success) {
-			historyType === 'transaction'
-				? (transactionData = result.data as TTransaction)
-				: (gameData = result.data as TGameList);
+			if (historyType === 'transaction') {
+				paginationCount = result.data.count;
+				transactionData = result.data as TTransaction;
+			} else {
+				paginationCount = result.data.count;
+				gameData = result.data as TGameList;
+			}
 		} else {
 			throw new Error('Failed to fetch history list');
 		}
 	}
 
-	storeUserInfo.subscribe(async (value) => {
-		if (value.web3_address !== zeroAddress) {
-			await onSearchHistory();
-		} else {
-			transactionData = undefined;
-			gameData = undefined;
-		}
-		rerender.set(!$rerender);
-	});
-
-	onMount(() => {
-		onSearchHistory();
-	});
+	$: if (historyType) {
+		paginationPage = 0;
+	}
 </script>
 
 <div in:fade class="m-auto h-full min-h-screen w-full max-w-[1400px] space-y-10">
@@ -86,5 +100,8 @@
 		</div>
 	{:else}
 		<TableHistory bind:transactionData bind:gameData bind:historyType />
+		{#if (transactionData && transactionData?.data.length > 0) || (gameData && gameData?.data.length > 0)}
+			<Paginator bind:count={paginationCount} />
+		{/if}
 	{/if}
 </div>

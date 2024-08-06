@@ -20,7 +20,7 @@ export type TGameRound = {
 			round_id: string;
 			date_time_start: string;
 			date_time_end: string;
-			winner_position: number[];
+			loser_position: number[];
 			status: string;
 			slot: number;
 		}

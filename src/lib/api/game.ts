@@ -14,11 +14,7 @@ const GameAPI = {
 		getList: async function (data: IGetListParams): Promise<APIResponse<TGameList>> {
 			try {
 				const response = await api.get<TGameList>('/dapp/game/history/list', {
-					data: {
-						...data,
-						page: 1,
-						size: 10
-					}
+					data
 				});
 				return response;
 			} catch (error) {
