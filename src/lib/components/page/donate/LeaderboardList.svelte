@@ -9,12 +9,12 @@
     <div
         class="flex w-full items-center justify-between rounded-xl bg-[#481555] px-7 py-4 font-bold gradient-border-bottom"
     >
-        <div class="flex xl:gap-[80px] gap-[20px]">
-            <Text class="w-[50px]">{$t('donate.rank')}</Text>
-            <Text>{$t('donate.wallet_address')}</Text>
+        <div class="flex xl:gap-[80px] gap-[40px]">
+            <Text class="w-[50px] whitespace-nowrap">{$t('donate.rank')}</Text>
+            <Text class="whitespace-nowrap">{$t('donate.address')}</Text>
         </div>
         
-        <Text>{$t('donate.donated_amount')}</Text>
+        <Text class="whitespace-nowrap">{$t('donate.amount')}</Text>
     </div>
     <div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20">
         {#each Array(10) as _, i}
@@ -24,7 +24,7 @@
                     {#if $isDesktop}
                         <Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
                     {:else}
-                        <Text>{truncateString("0x9693CD9713496b0712f52E5F0c7b8948abdA824D",7,7)}</Text>
+                        <Text>{truncateString("0x9693CD9713496b0712f52E5F0c7b8948abdA824D",5,5)}</Text>
                     {/if}
                 </div>
                 
