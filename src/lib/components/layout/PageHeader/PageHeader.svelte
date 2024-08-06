@@ -33,9 +33,6 @@
 				>
 			</div>
 			<div class="flex gap-x-5">
-				{#if $page.url.pathname === '/donate'}
-					<DonationModal />
-				{/if}
 				{#if $storeUserInfo.upline === '/referral'}
 					<BindReferralModal />
 				{/if}
