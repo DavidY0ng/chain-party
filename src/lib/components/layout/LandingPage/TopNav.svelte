@@ -20,7 +20,7 @@
 		<div class="hidden gap-10 xl:flex">
 			{#each modifiedNavLinks as link}
 				<a href={link.path} target={link.name === 'Mechanism' ? '_blank' : ''}>
-					<Text size="2xl" class="">
+					<Text size="2xl" class="text-black">
 						{$t(`landing.nav_links.${link.name}`)}
 					</Text>
 				</a>
