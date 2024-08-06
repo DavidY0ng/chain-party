@@ -10,6 +10,7 @@
 	import { onMount, type ComponentEvents } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
+	import { t } from '$lib/i18n';
 
 	let gameRoundPage: number = 0,
 		gameSlotPage: number = 0;
@@ -75,14 +76,14 @@
 
 <div in:fade class="h-full min-h-screen w-full space-y-14">
 	<div id="Round Board" class="flex flex-col items-center justify-center space-y-5">
-		<Text size="5xl" class="font-bold">Finished Rounds</Text>
+		<Text size="5xl" class="font-bold">{$t('game.finished_rounds')}</Text>
 		{#key $rerender}
 			<Tabs.Root value="0" class="flex w-full flex-col items-center space-y-5">
 				<Tabs.List class="overflow-hidden rounded-full border bg-transparent p-0">
-					<Tabs.Trigger value="0" class="h-full rounded-full px-5 text-lg">All History</Tabs.Trigger
+					<Tabs.Trigger value="0" class="h-full rounded-full px-5 text-lg">{$t('game.all_history.title')}</Tabs.Trigger
 					>
 					<Tabs.Trigger value="1" class="h-full rounded-full px-5 text-lg"
-						>Your History</Tabs.Trigger
+						>{$t('game.your_history.title')}</Tabs.Trigger
 					>
 				</Tabs.List>
 				<Tabs.Content value="0" class="w-full xl:w-[60%]">
@@ -99,17 +100,17 @@
 	<div id="My Reward">
 		<Card.Root class="flex flex-col px-5 py-3 xl:flex-row">
 			<div class="w-full xl:w-1/2">
-				<Text size="2xl">Claim Refund: <span class="font-normal">103 USDT</span></Text>
-				<div class="flex items-center gap-x-5">
-					<Button class="w-fit px-10 text-lg">Claim</Button>
-					<Button class="w-fit px-10 text-lg">History</Button>
+				<Text size="2xl">{$t('game.claim_refund')}: <span class="font-normal">103 USDT</span></Text>
+				<div class="flex gap-x-5 items-center">
+					<Button class="w-fit px-10 text-lg">{$t('game.claim')}</Button>
+					<Button class="w-fit px-10 text-lg">{$t('game.history')}</Button>
 				</div>
 			</div>
 			<div class="w-full xl:w-1/2">
-				<Text size="2xl">Claim Reward: <span class="font-normal">1 mEIC</span></Text>
-				<div class="flex items-center gap-x-5">
-					<Button class="w-fit px-10 text-lg">Claim</Button>
-					<Button class="w-fit px-10 text-lg">History</Button>
+				<Text size="2xl">{$t('game.claim_reward')}: <span class="font-normal">1 mEIC</span></Text>
+				<div class="flex gap-x-5 items-center">
+					<Button class="w-fit px-10 text-lg">{$t('game.claim')}</Button>
+					<Button class="w-fit px-10 text-lg">{$t('game.history')}</Button>
 				</div>
 			</div>
 		</Card.Root>

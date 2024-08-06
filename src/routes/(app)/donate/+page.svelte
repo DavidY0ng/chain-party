@@ -6,6 +6,7 @@
 	import DonationAPI, { type TDonationLeaderboard } from '$lib/api/donation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { t } from '$lib/i18n';
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -42,12 +43,12 @@
 					<Text size="3xl">Dummy {i + 1}</Text>
 					<div class="flex w-full items-center">
 						<div class="w-full">
-							<Text size="2xl" class="text-black/50">Token Holding</Text>
+							<Text size="2xl" class="text-black/50">{$t('donate.token_holding')}</Text>
 							<Text size="2xl" class="text-black/50">10,000</Text>
 						</div>
 						<hr class="mr-10 h-[40px] w-[1px] bg-black/50" />
 						<div class="w-full">
-							<Text size="2xl" class="text-black/50">Token Holding</Text>
+							<Text size="2xl" class="text-black/50">{$t('donate.token_holding')}</Text>
 							<Text size="2xl" class="text-black/50">10,000</Text>
 						</div>
 					</div>
@@ -59,11 +60,11 @@
 	<!-- Desktop Leaderboard list -->
 	<Table.Root class="hidden xl:table">
 		<Table.Header>
-			<Table.Row class="w-full border-none text-lg hover:bg-transparent">
-				<Table.Head class="">Rank</Table.Head>
-				<Table.Head class="">Username</Table.Head>
-				<Table.Head class="">Token Holding</Table.Head>
-				<Table.Head class="]">Reward Claimed</Table.Head>
+			<Table.Row class="hover:bg-transparent text-lg border-none w-full">
+				<Table.Head class="">{$t('donate.rank')}</Table.Head>
+				<Table.Head class="">{$t('donate.username')}</Table.Head>
+				<Table.Head class="">{$t('donate.token_holding')}</Table.Head>
+				<Table.Head class="]">{$t('donate.reward_claimed')}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body class="">
@@ -92,10 +93,10 @@
 
 	<!-- Mobile Leaderboard list -->
 	<div id="Mobile Leaderboard List" class="space-y-3 xl:hidden">
-		<Text size="xl" class="text-black">Leaderboard List</Text>
-		<Card.Root class="flex items-center justify-between px-2 py-3">
-			<Text size="lg" class="font-semibold text-black">My Address</Text>
-			<Text size="lg" class="font-semibold text-black">10,000 EIC</Text>
+		<Text size="xl" class="text-black">{$t('donate.leaderboard_list')}</Text>
+		<Card.Root class="flex justify-between items-center px-2 py-3">
+			<Text size="lg" class="text-black font-semibold">{$t('donate.my_address')}</Text>
+			<Text size="lg" class="text-black font-semibold">10,000 EIC</Text>
 		</Card.Root>
 		{#each Array(3) as _, i}
 			<Card.Root class="flex items-center justify-between px-2 py-3">

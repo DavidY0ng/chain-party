@@ -3,6 +3,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Progress } from '$lib/components/ui/progress/index.js';
 	import { Text } from '$lib/components/ui/text';
+	import { t } from '$lib/i18n';
 
 	export let index: number;
 </script>
@@ -15,7 +16,7 @@
 			id="status"
 			class="absolute left-0 top-[5%] z-10 rounded-r-lg bg-[#FF0099] px-[15px] py-1 text-sm"
 		>
-			In Progress
+			{$t('home.in_progress')}
 		</div>
 	</div>
 	<div
@@ -24,7 +25,7 @@
 		<div class="z-10 flex w-full max-w-[50%] flex-col pr-5 pt-5">
 			<div class="flex items-center gap-x-4">
 				<img src="/img/home/coin.png" alt="" class="h-[20px] w-[20px]" />
-				<Text size="2xl">Pool 1</Text>
+				<Text size="2xl">{$t('home.pool')} 1</Text>
 			</div>
 			<div class="relative flex flex-col items-end">
 				<div
@@ -44,14 +45,14 @@
 				</div>
 			</div>
 			<div class="mx-auto my-5 w-full max-w-[80%]">
-				<Button class="w-full bg-[#251235]">Claim Reward</Button>
+				<Button class="w-full bg-[#251235]">{$t('home.claim_reward')}</Button>
 			</div>
 			<div
 				class="innerShadow mx-auto flex w-full items-center justify-center gap-x-5 rounded-t-lg bg-[#7A00A5]/40 p-3"
 			>
 				<img src="/img/home/alert.png" alt="" />
 				<div>
-					<Text class="text-sm text-white/50">Total Reward:</Text>
+					<Text class="text-sm text-white/50">{$t('home.total_reward')}:</Text>
 					<Text class="font-bold">40,000 pEIC</Text>
 					<Text class="text-sm text-white/50">~800 USDT</Text>
 				</div>

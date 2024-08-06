@@ -5,12 +5,13 @@
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import * as Table from '$lib/components/ui/table';
 	import { truncateString } from '$lib/helper';
-	import { isDesktop } from '$lib/stores/storeCommon';
-	import Icon from '@iconify/svelte';
+    import { isDesktop } from '$lib/stores/storeCommon'
+    import Icon from '@iconify/svelte';
+    import { t } from '$lib/i18n';                              
 	import { onMount } from 'svelte';
 	import JackpotAPI from '$lib/api/jackpot';
 	import { fade } from 'svelte/transition';
-
+                
 	let winnerListPagination = {
 			page: 1,
 			size: 1
@@ -56,7 +57,7 @@
 	<div class="hidden justify-center md:flex">
 		<div class="grid h-[100px] w-[80%] grid-cols-3">
 			<div class="flex flex-col items-center gap-3">
-				<Text tag="h1" size="2xl" class="overflow-hidden whitespace-nowrap">Prize for Jackpot:</Text
+				<Text tag="h1" size="2xl" class="overflow-hidden whitespace-nowrap">{$t('jackpot.prize_for_jackpot')}:</Text
 				>
 				<Text tag="h1" size="4xl" class="overflow-hidden whitespace-nowrap text-[35px] font-bold"
 					>10,000,000 EIC</Text
@@ -67,7 +68,7 @@
 			</div>
 			<div class="flex flex-col items-center gap-3">
 				<Text tag="h1" size="2xl" class="overflow-hidden whitespace-nowrap"
-					>Total Game Won Times:</Text
+					>{$t('jackpot.total_game_won_times')}:</Text
 				>
 				<Text tag="h1" size="4xl" class="overflow-hidden whitespace-nowrap text-[35px] font-bold"
 					>0/5</Text
@@ -78,8 +79,8 @@
 
 	<div id="address list" class="flex w-full flex-col">
 		<div class="flex items-center justify-between pb-3">
-			<Text size="3xl">Address List</Text>
-			<Button size="sm" class="hidden md:flex">How to join</Button>
+			<Text size="3xl">{$t('jackpot.address_list')}</Text>
+			<Button size="sm" class="hidden md:flex">{$t('jackpot.how_to_join')}</Button>
 		</div>
 		<Card.Root class="flex w-full flex-col justify-center gap-3 rounded-xl p-3">
 			<Table.Root class="border ">
@@ -103,12 +104,12 @@
 		</Card.Root>
 	</div>
 
-	<div id="winner list">
-		<div class="flex items-center justify-between pb-3">
-			<Text size="3xl">Winner List</Text>
-		</div>
-		<Card.Root class="flex w-full flex-col justify-center gap-3 rounded-xl p-3">
-			<Table.Root class="border ">
+    <div id='winner list'>
+        <div class='flex justify-between items-center pb-3'>
+            <Text size='3xl'>{$t('jackpot.winner_list')}</Text>
+        </div>
+        <Card.Root class="w-full flex flex-col justify-center p-3 gap-3 rounded-xl">
+            <Table.Root class="border ">
 				<Table.Body>
 					{#each Array(3) as _, i (i)}
 						<Table.Row>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Text } from '$lib/components/ui/text';
+	import { t } from '$lib/i18n';
 
 	export let selectedStatus;
 
@@ -11,7 +12,7 @@
 	];
 </script>
 
-<Text size="lg" class="font-semibold">Status:</Text>
+<Text size="lg" class="font-semibold">{$t('history.status')}:</Text>
 <Select.Root>
 	<Select.Trigger class="w-full bg-transparent text-black text-lg">
 		<Select.Value placeholder="Select a Status" />

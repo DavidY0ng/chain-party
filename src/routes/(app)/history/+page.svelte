@@ -56,15 +56,15 @@
 	<FilterMenu bind:filterOption on:search={onSearchTransaction} />
 
 	<div>
-		<Text size="2xl">History List</Text>
+		<Text size="2xl">{$t('history.history_list')}</Text>
 		<Table.Root>
-			<Table.Caption>A list of your recent transaction.</Table.Caption>
+			<Table.Caption>{$t('history.history_info')}</Table.Caption>
 			<Table.Header>
 				<Table.Row>
-					<Table.Head class="w-1/4">DATE</Table.Head>
-					<Table.Head class="w-1/4">SERIAL NUMBER</Table.Head>
-					<Table.Head class="w-1/4">TYPE</Table.Head>
-					<Table.Head class="w-1/4">AMOUNT</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('history.game')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('history.type')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('history.status')}</Table.Head>
+					<Table.Head class="w-1/4 uppercase">{$t('history.timestamp')}</Table.Head>
 				</Table.Row>
 			</Table.Header>
 			{#key $rerender}

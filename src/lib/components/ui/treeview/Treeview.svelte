@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+	import { t } from '$lib/i18n';
 	let _expansionState: Record<string, boolean> = {};
 </script>
 
@@ -120,9 +121,9 @@
 		{/if}
 	{:else}
 		<!-- Leaf node without children -->
-		<span class="flex w-full items-center gap-x-3 rounded-lg py-3 pl-[1rem] hover:bg-white/10">
-			<Icon icon="octicon:dash-16" class="inline-block text-sm text-white/20" />
-			{web3_address || 'None'}
+		<span class="flex gap-x-3 items-center pl-[1rem] py-3 hover:bg-white/10 rounded-lg w-full">
+			<Icon icon="octicon:dash-16" class="inline-block text-white/20 text-sm" />
+			{web3_address || $t('app.referral.none')}
 		</span>
 	{/if}
 </div>

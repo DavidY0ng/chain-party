@@ -6,7 +6,8 @@
 	import { cn } from '$lib/utils.js';
 	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
-
+	import { t } from '$lib/i18n';
+    
 	export let selectedDateFrom: DateValue | undefined;
 	export let selectedDateTo: DateValue | undefined;
 
@@ -19,7 +20,7 @@
 	});
 </script>
 
-<Text size="lg" class="font-semibold">To:</Text>
+<Text size="lg" class="font-semibold">{$t('history.to')}:</Text>
 <Popover.Root openFocus>
 	<Popover.Trigger asChild let:builder>
 		<Button

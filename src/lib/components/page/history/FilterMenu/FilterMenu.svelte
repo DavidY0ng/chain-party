@@ -6,6 +6,7 @@
 	import SelectStatus from './SelectStatus.svelte';
 	import SelectTo from './SelectTo.svelte';
 	import SelectTransactionType from './SelectTransactionType.svelte';
+	import { t } from '$lib/i18n';
 	import type { DateValue } from '@internationalized/date';
 
 	const dispatch = createEventDispatcher();
