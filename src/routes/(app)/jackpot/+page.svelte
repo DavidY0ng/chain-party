@@ -1,100 +1,44 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import Text from '$lib/components/ui/text/text.svelte';
-	import * as Table from '$lib/components/ui/table';
-	import { truncateString } from '$lib/helper';
-	import { isDesktop } from '$lib/stores/storeCommon';
 	import Icon from '@iconify/svelte';
-	import { t } from '$lib/i18n';
-	import { onMount } from 'svelte';
-	import JackpotAPI from '$lib/api/jackpot';
 	import { fade } from 'svelte/transition';
 	import JackpotPool from '$lib/components/page/jackpot/JackpotPool.svelte';
 	import WinnerList from '$lib/components/page/jackpot/WinnerList.svelte';
+	import AddressList from '$lib/components/page/jackpot/AddressList.svelte';
 
-	let winnerListPagination = {
-			page: 1,
-			size: 1
-		},
-		currentListPagination = {
-			page: 1,
-			size: 1
-		};
-
-	async function getWinnerList() {
-		const result = await JackpotAPI.getWinnerList(winnerListPagination);
-	}
-
-	async function getCurrentList() {
-		const result = await JackpotAPI.getCurrentList(currentListPagination);
-	}
-
-	onMount(() => {
-		getWinnerList();
-		getCurrentList();
-	});
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
 	<div class="pink-eclipse left-[33%] top-[-25%] w-[560px]" />
-	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
+	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
 		<!-- Mobile top donor -->
-		<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
-			{#each Array(3) as _, i}
-				<Card.Root
-					class="flex flex-col items-center gap-x-5 border-none from-black/10 xl:flex-row xl:bg-gradient-to-l xl:p-5 {i ===
-					0
-						? 'col-span-full w-1/2 '
-						: 'w-full'}"
-				>
-					<div class="rounded-full border p-5 xl:rounded-none xl:border-none xl:p-0">
-						<Icon icon="emojione:sports-medal" class="text-[70px] xl:text-[120px]" />
-					</div>
-					<Text size="xl" class="block xl:hidden">Address {i + 1}</Text>
-				</Card.Root>
-			{/each}
-		</div>
-
-		<!-- Desktop jackpot view -->
-		<!-- jackpot pool -->
-		 <JackpotPool />
-
-		 <WinnerList />
-
-		 
-
-		<div id="address list" class="flex w-full flex-col">
-			<div class="flex items-center justify-between pb-3">
-				<Text size="3xl">{$t('jackpot.address_list')}</Text>
-				<Button size="sm" class="hidden md:flex">{$t('jackpot.how_to_join')}</Button>
+		<div class="flex flex-col gap-[30px]">
+			<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
+				{#each Array(3) as _, i}
+					<Card.Root
+						class="flex flex-col items-center gap-x-5 border-none from-black/10 xl:flex-row xl:bg-gradient-to-l xl:p-5 {i ===
+						0
+							? 'col-span-full w-1/2 '
+							: 'w-full'}"
+					>
+						<div class="rounded-full border p-5 xl:rounded-none xl:border-none xl:p-0">
+							<Icon icon="emojione:sports-medal" class="text-[70px] xl:text-[120px]" />
+						</div>
+						<Text size="xl" class="block xl:hidden">Address {i + 1}</Text>
+					</Card.Root>
+				{/each}
 			</div>
-			<Card.Root class="flex w-full flex-col justify-center gap-3 rounded-xl p-3">
-				<Table.Root class="border ">
-					<Table.Body>
-						{#each Array(3) as _, i (i)}
-							<Table.Row>
-								{#if $isDesktop}
-									<Table.Cell class="text-lg font-bold text-black"
-										>0x9693cd9713496b0712f52e5f0c7b8948abda824d</Table.Cell
-									>
-								{:else}
-									<Table.Cell class="text-lg font-bold text-black"
-										>{truncateString(
-											'0x9693cd9713496b0712f52e5f0c7b8948abda824d',
-											7,
-											7
-										)}</Table.Cell
-									>
-								{/if}
-								<Table.Cell class="text-right text-lg font-bold text-black">4</Table.Cell>
-							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
-			</Card.Root>
+	
+			<!-- Desktop jackpot view -->
+			<!-- jackpot pool -->
+			 <JackpotPool />
+	
+			 <WinnerList />
+	
+			 <AddressList />
 		</div>
-
+		
 		
 	</div>
 </div>

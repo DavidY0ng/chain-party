@@ -6,7 +6,7 @@
     let number = '8,888,888.00'.split('');
 </script>
 
-<div id="jackpot pool" class="md:flex flex-col items-center space-y-5 hidden">
+<div id="jackpot pool" class="md:flex flex-col items-center hidden mb-[80px]">
     <div class="jackpotPool relative z-10 w-full max-w-[1400px] rounded-2xl px-10 pb-5 pt-10">
         <img
             src="/img/home/jackpot&pool.png"
