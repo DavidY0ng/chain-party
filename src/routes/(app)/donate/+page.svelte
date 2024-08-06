@@ -1,14 +1,16 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Text } from '$lib/components/ui/text';
-	import Icon from '@iconify/svelte';
-	import * as Table from '$lib/components/ui/table';
+	import { Button } from '$lib/components/ui/button';
 	import DonationAPI, { type TDonationLeaderboard } from '$lib/api/donation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { t } from '$lib/i18n';
+	import { onConnectWallet } from '$lib/utils';
 	import RankCard from '$lib/components/page/donate/RankCard.svelte';
 	import LeaderboardList from '$lib/components/page/donate/LeaderboardList.svelte';
+	import { isToken } from '$lib/stores/storeCommon';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { zeroAddress } from 'viem';
+	import DonationModal from '$lib/components/page/donate/DonationModal.svelte'
+	
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -22,6 +24,10 @@
 		}
 	}
 
+	const handleConnect = async () => {
+		await onConnectWallet();
+	};
+
 	onMount(() => {
 		onGetLeaderBoard();
 	});
@@ -29,27 +35,23 @@
 
 <div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
-		<div class="flex justify-center">
+		<div class="flex flex-col items-center">
 			<RankCard />
-		</div>
+			{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
+			<div class="mx-auto my-5 w-[250px]">
+				<Button on:click={handleConnect} class="w-full bg-[#29193D]">Connect Wallet</Button>
 	
+			</div>
+			{:else}
+			<div class="mx-auto my-5 w-[250px]">
+				<Button class="w-full bg-[#29193D]">Donate</Button>
+	
+			</div>
+			{/if}
+		</div>
 		<!-- Desktop Leaderboard list -->
 		<LeaderboardList />
 	
-		<!-- Mobile Leaderboard list -->
-		<div id="Mobile Leaderboard List" class="space-y-3 xl:hidden">
-			<Text size="xl" class="text-black">{$t('donate.leaderboard_list')}</Text>
-			<Card.Root class="flex justify-between items-center px-2 py-3">
-				<Text size="lg" class="text-black font-semibold">{$t('donate.my_address')}</Text>
-				<Text size="lg" class="text-black font-semibold">10,000 EIC</Text>
-			</Card.Root>
-			{#each Array(3) as _, i}
-				<Card.Root class="flex items-center justify-between px-2 py-3">
-					<Text size="lg" class="font-semibold text-black">Player {i + 1}</Text>
-					<Text size="lg" class="font-semibold text-black">10,000 EIC</Text>
-				</Card.Root>
-			{/each}
-		</div>
 	</div>
 	
 </div>

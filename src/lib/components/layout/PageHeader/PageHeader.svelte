@@ -4,7 +4,6 @@
 	import { Text } from '../../ui/text';
 	import { menuList } from '../config';
 	import BindReferralModal from './BindReferralModal.svelte';
-	import DonationModal from './DonationModal.svelte';
 
 	function onHandlePathName(path: string | null) {
 		const splitPath = path?.split('(app)')[1];
