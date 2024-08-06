@@ -2,7 +2,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import Text from '$lib/components/ui/text/text.svelte';
-	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import * as Table from '$lib/components/ui/table';
 	import { truncateString } from '$lib/helper';
 	import { isDesktop } from '$lib/stores/storeCommon';
@@ -12,6 +11,7 @@
 	import JackpotAPI from '$lib/api/jackpot';
 	import { fade } from 'svelte/transition';
 	import JackpotPool from '$lib/components/page/jackpot/JackpotPool.svelte';
+	import WinnerList from '$lib/components/page/jackpot/WinnerList.svelte';
 
 	let winnerListPagination = {
 			page: 1,
@@ -37,7 +37,7 @@
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
-	<div class="pink-eclipse left-[33%] top-[-30%] w-[560px]" />
+	<div class="pink-eclipse left-[33%] top-[-25%] w-[560px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<!-- Mobile top donor -->
 		<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
@@ -59,6 +59,10 @@
 		<!-- Desktop jackpot view -->
 		<!-- jackpot pool -->
 		 <JackpotPool />
+
+		 <WinnerList />
+
+		 
 
 		<div id="address list" class="flex w-full flex-col">
 			<div class="flex items-center justify-between pb-3">
@@ -91,34 +95,7 @@
 			</Card.Root>
 		</div>
 
-		<div id="winner list">
-			<div class="flex items-center justify-between pb-3">
-				<Text size="3xl">{$t('jackpot.winner_list')}</Text>
-			</div>
-			<Card.Root class="flex w-full flex-col justify-center gap-3 rounded-xl p-3">
-				<Table.Root class="border ">
-					<Table.Body>
-						{#each Array(3) as _, i (i)}
-							<Table.Row>
-								{#if $isDesktop}
-									<Table.Cell class="text-lg font-bold text-black"
-										>0x9693cd9713496b0712f52e5f0c7b8948abda824d</Table.Cell
-									>
-								{:else}
-									<Table.Cell class="text-lg font-bold text-black"
-										>{truncateString(
-											'0x9693cd9713496b0712f52e5f0c7b8948abda824d',
-											7,
-											7
-										)}</Table.Cell
-									>
-								{/if}
-							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
-			</Card.Root>
-		</div>
+		
 	</div>
 </div>
 

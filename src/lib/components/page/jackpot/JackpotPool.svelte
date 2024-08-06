@@ -7,10 +7,10 @@
 </script>
 
 <div id="jackpot pool" class="md:flex flex-col items-center space-y-5 hidden">
-    <div class="jackpotPool relative z-10 w-full max-w-[1200px] rounded-2xl px-10 pb-5 pt-10">
+    <div class="jackpotPool relative z-10 w-full max-w-[1400px] rounded-2xl px-10 pb-5 pt-10">
         <img
             src="/img/home/jackpot&pool.png"
-            class="absolute -top-[40%] left-[50%] translate-x-[-50%]"
+            class="absolute -top-[40%] left-[50%] translate-x-[-50%] translate-y-[20%]"
             alt=""
         />
         <div class="flex">
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="flex h-[100px] justify-center flex-grow mr-10">
+            <div class="flex h-[100px] justify-center flex-grow mr-20">
                 <Separator orientation="vertical" class="h-full max-w-[1px] dotted-separator" />
             </div>
 
