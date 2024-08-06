@@ -43,10 +43,7 @@
 	
 			</div>
 			{:else}
-			<div class="mx-auto my-5 w-[250px]">
-				<Button class="w-full bg-[#29193D]">Donate</Button>
-	
-			</div>
+			<DonationModal />
 			{/if}
 		</div>
 		<!-- Desktop Leaderboard list -->

@@ -29,8 +29,10 @@
 </script>
 
 <Dialog.Root bind:open={showModal}>
-	<Dialog.Trigger class={buttonVariants({ variant: 'default' })}>
-		<Text class="text-white">Donation</Text>
+	<Dialog.Trigger>
+		<div class="mx-auto my-5 w-[250px]">
+			<Button class="w-full bg-[#29193D]">Donate</Button>
+		</div>
 	</Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px] bindRef">
 		<Dialog.Header>
