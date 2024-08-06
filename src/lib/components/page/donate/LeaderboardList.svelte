@@ -16,8 +16,8 @@
         
         <Text class="whitespace-nowrap">{$t('donate.amount')}</Text>
     </div>
-    <div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20">
-        {#each Array(10) as _, i}
+    <div class="h-[700px] w-full overflow-y-scroll rounded-2xl bg-black/20">
+        {#each Array(20) as _, i}
             <div class="flex items-center justify-between px-8 py-4">
                 <div class="flex xl:gap-[80px] gap-[20px]">
                     <Text class="w-[50px]">{i + 4}</Text>
