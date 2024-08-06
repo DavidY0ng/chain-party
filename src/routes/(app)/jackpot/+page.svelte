@@ -35,7 +35,8 @@
 	});
 </script>
 
-<div in:fade class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen space-y-10 m-auto max-w-[1400px] pt-20">
+	<div class="pink-eclipse left-[33%] top-[-50%] w-[560px]" />
 	<!-- Mobile top donor -->
 	<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
 		{#each Array(3) as _, i}
@@ -54,6 +55,30 @@
 	</div>
 
 	<!-- Desktop jackpot view -->
+	<!-- jackpot pool -->
+	<div class="jackpotPool relative z-10 w-full max-w-[1000px] rounded-2xl pb-5 pt-10">
+		<img
+			src="/img/home/jackpot&pool.png"
+			class="absolute -top-[40%] left-[50%] translate-x-[-50%]"
+			alt=""
+		/>
+		<div>
+			<div>
+				Prize For Jackpot:
+			</div>
+			<div class="flex w-full items-end justify-center gap-x-2">
+				{#each Array(10) as _, i}
+					<div
+						class="bubbleNumber flex h-[60px] w-full max-w-[50px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
+					>
+						1
+					</div>
+					<Text size="3xl" class="font-bold">,</Text>
+				{/each}
+			</div>
+		</div>
+		
+	</div>
 	<div class="hidden justify-center md:flex">
 		<div class="grid h-[100px] w-[80%] grid-cols-3">
 			<div class="flex flex-col items-center gap-3">
@@ -129,3 +154,9 @@
 		</Card.Root>
 	</div>
 </div>
+
+<style scoped>
+	.jackpotPool {
+		background: radial-gradient(45.78% 88.85% at 50% 100%, #5b1dab 0%, rgba(0, 0, 0, 0.25) 100%);
+	}
+</style>
