@@ -52,10 +52,10 @@
 	});
 </script>
 
-<div in:fade class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="m-auto h-full min-h-screen w-full max-w-[1400px] space-y-10">
 	<FilterMenu bind:filterOption on:search={onSearchTransaction} />
 
-	<div>
+	<div class="">
 		<Text size="2xl">{$t('history.history_list')}</Text>
 		<Table.Root>
 			<Table.Caption>{$t('history.history_info')}</Table.Caption>
@@ -71,7 +71,7 @@
 				<Table.Body>
 					{#if transactionHistory !== undefined}
 						{#each transactionHistory.data as transaction, i}
-							<Table.Row class="text-black">
+							<Table.Row class="">
 								<Table.Cell>{transaction?.date}</Table.Cell>
 								<Table.Cell>{transaction?.sn}</Table.Cell>
 								<Table.Cell>{$t(`transaction.type.${transaction.type}`)}</Table.Cell>
