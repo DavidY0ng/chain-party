@@ -12,7 +12,7 @@
 	];
 </script>
 
-<Text size="lg" class="font-semibold">{$t('app.history.status')}:</Text>
+<Text size="lg" class="font-semibold">{$t('history.status')}:</Text>
 <Select.Root>
 	<Select.Trigger class="w-full bg-transparent text-black text-lg">
 		<Select.Value placeholder="Select a Status" />

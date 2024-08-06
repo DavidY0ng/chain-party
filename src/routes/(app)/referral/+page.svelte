@@ -51,9 +51,9 @@
 </script>
 
 <div class="h-full w-full min-h-screen space-y-10">
-	<Text size="xl">{$t('app.referral.your_referral')}: {$storeUserInfo.referral_code}</Text>
+	<Text size="xl">{$t('referral.your_referral')}: {$storeUserInfo.referral_code}</Text>
 	<div class="w-full">
-		<Text size="xl">{$t('app.referral.your_team')}:</Text>
+		<Text size="xl">{$t('referral.your_team')}:</Text>
 		<!-- Use the key to force rerendering -->
 		{#key $rerender}
 			<!-- Use the key to force rerendering -->

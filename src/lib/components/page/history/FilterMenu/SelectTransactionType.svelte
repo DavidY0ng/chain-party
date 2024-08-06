@@ -23,7 +23,7 @@
 	});
 </script>
 
-<Text size="lg" class="font-semibold">{$t('app.history.type')}:</Text>
+<Text size="lg" class="font-semibold">{$t('history.type')}:</Text>
 <Select.Root>
 	<Select.Trigger class="w-full bg-transparent text-lg text-black">
 		<Select.Value placeholder="Select a Type" />

@@ -15,7 +15,7 @@
 	});
 </script>
 
-<Text size="lg" class="font-semibold">{$t('app.history.from')}:</Text>
+<Text size="lg" class="font-semibold">{$t('history.from')}:</Text>
 <Popover.Root openFocus>
 	<Popover.Trigger asChild let:builder>
 		<Button
