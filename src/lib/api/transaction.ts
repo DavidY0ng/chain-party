@@ -8,10 +8,9 @@ const TransactionAPI = {
 			created_at_start: string,
 			created_at_end: string,
 			type: TTransactionType['code'],
-			size: number = 10,
-			page: number = 0
+			page: number,
+			size?: number
 		): Promise<APIResponse<TTransaction>> {
-			page++;
 			try {
 				const response = await api.get<TTransaction>('/dapp/transaction/history/list', {
 					data: {

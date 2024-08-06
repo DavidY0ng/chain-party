@@ -2,11 +2,15 @@ import type { Address } from 'viem';
 import type { IPagination } from './commonType';
 
 export type TGameList = {
-	date: string;
-	round_id: string;
-	user_position: string;
-	slot: string;
-	status: string;
+	data: {
+		date: string;
+		round_id: string;
+		user_position: string;
+		slot: string;
+		status: TGameStatus['code'];
+	}[];
+	count: number;
+	last_page: number;
 };
 
 export type TGameRound = {
@@ -16,7 +20,7 @@ export type TGameRound = {
 			round_id: string;
 			date_time_start: string;
 			date_time_end: string;
-			winner_position: number[];
+			loser_position: number[];
 			status: string;
 			slot: number;
 		}
@@ -46,5 +50,5 @@ export type TGameStatus = {
 export interface IGetListParams extends IPagination {
 	created_at_start: string;
 	created_at_end: string;
-	status: TGameStatus;
+	status: TGameStatus['code'];
 }

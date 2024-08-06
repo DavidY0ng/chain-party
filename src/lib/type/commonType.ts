@@ -15,11 +15,15 @@ export interface APIOptions {
 }
 
 export interface IPagination {
-	page: number;
-	size: number;
+	page?: number;
+	size?: number;
 }
 
 export interface IGetErrorType {
 	walk: (callback: (e: unknown) => boolean) => boolean;
 	shortMessage: string;
 }
+
+// history list
+
+export type THistoryType = 'transaction' | 'game';
