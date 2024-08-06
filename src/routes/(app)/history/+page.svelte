@@ -90,6 +90,8 @@
 
 	$: if (historyType) {
 		paginationPage = 0;
+		transactionData = undefined;
+		gameData = undefined;
 	}
 </script>
 
