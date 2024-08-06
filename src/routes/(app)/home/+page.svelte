@@ -85,12 +85,6 @@
 		background: radial-gradient(45.78% 88.85% at 50% 100%, #5b1dab 0%, rgba(0, 0, 0, 0.25) 100%);
 	}
 
-	.bubbleNumber {
-		background: #ffffff1a;
-		border-bottom: 2px solid #ffffff33;
-		box-shadow: 0px 5px 5px 0px #ffffff26 inset;
-	}
-
 	#jackpotTableHeader {
 		border-bottom: 2px solid;
 		border-image-source: linear-gradient(
