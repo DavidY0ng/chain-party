@@ -2,12 +2,18 @@
 	import UserAPI from '$lib/api/user';
 	import { Text } from '$lib/components/ui/text';
 	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
+	import { t } from '$lib/i18n';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
-	import { t } from '$lib/i18n';
+	import * as Card from '$lib/components/ui/card';
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
+	import { copyToClipboard } from '$lib/helper';
+	import { onConnectWallet } from '$lib/utils';
+
+	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 
 	let downlineList = {
 		web3_address: 'None',
@@ -50,14 +56,65 @@
 	});
 </script>
 
-<div class="h-full w-full min-h-screen space-y-10">
+<div class="h-full min-h-screen w-full space-y-10">
+	<Card.Root class="overflow-hidden rounded-2xl border-none">
+		<Card.Header class=" gradient-border-bottom bg-[#481555] px-7 py-4">
+			<div class="flex items-center gap-x-3">
+				<img src="/img/desktopSideMenu/Referral.png" class="h-5 w-5" alt="" />
+				<Text class="font-bold">Your Referral Address</Text>
+			</div>
+		</Card.Header>
+		<Card.Content class="bg-black/20 pt-5">
+			<div class="relative">
+				<Input
+					class="border-none bg-black/40 px-7 py-8 text-xl {$storeUserInfo.web3_address ===
+					zeroAddress
+						? 'text-center'
+						: ''}"
+					value={$storeUserInfo.web3_address === zeroAddress ? '-' : referralLink}
+					readonly
+				/>
+				<div
+					class="absolute right-2 top-[15%] max-w-[120px] {$storeUserInfo.web3_address ===
+					zeroAddress
+						? 'hidden'
+						: 'block'}"
+				>
+					<Button
+						on:click={() => {
+							copyToClipboard(referralLink);
+						}}
+						class="w-full bg-[#1D0720]">Copy Link</Button
+					>
+				</div>
+			</div>
+		</Card.Content>
+	</Card.Root>
 	<Text size="xl">{$t('referral.your_referral')}: {$storeUserInfo.referral_code}</Text>
-	<div class="w-full">
-		<Text size="xl">{$t('referral.your_team')}:</Text>
-		<!-- Use the key to force rerendering -->
-		{#key $rerender}
+	<div class="w-full space-y-5">
+		<div
+			class="gradient-border-bottom flex w-full items-center gap-x-3 rounded-lg bg-[#481555] px-7 py-4"
+		>
+			<img src="/img/desktopSideMenu/Team.png" class="h-5 w-5" alt="" />
+			<Text class="font-bold">{$t('referral.your_team')}</Text>
+		</div>
+		{#if $storeUserInfo.web3_address !== zeroAddress}
 			<!-- Use the key to force rerendering -->
-			<Treeview bind:tree={downlineList} />
-		{/key}
+			{#key $rerender}
+				<!-- Use the key to force rerendering -->
+				<Treeview bind:tree={downlineList} />
+			{/key}
+		{:else}
+			<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<Text size="xl"
+					><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
+						>{$t('common.connect_wallet')}</span
+					>
+					{$t('history.to_view')}</Text
+				>
+			</div>
+		{/if}
 	</div>
 </div>

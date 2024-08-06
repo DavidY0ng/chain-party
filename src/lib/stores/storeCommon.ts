@@ -9,6 +9,8 @@ export const isToken = writable<string | undefined>(undefined);
 export const rerender = writable<boolean>(false);
 export const isComingSoon = writable<boolean>(false);
 
+export const showBindReferral = writable<boolean>(false);
+
 // Subscribe to storeUserInfo changes
 storeUserInfo.subscribe((status) => {
 	// Update the isToken store whenever storeUserInfo changes

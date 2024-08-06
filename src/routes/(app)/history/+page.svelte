@@ -116,7 +116,6 @@
 			<Paginator
 				bind:paginationCount
 				on:search={(event) => {
-					console.log(event);
 					onSearchHistory(event);
 				}}
 			/>
