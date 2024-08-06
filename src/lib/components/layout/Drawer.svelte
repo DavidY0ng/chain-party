@@ -45,7 +45,7 @@
 							? 'rounded-md bg-gray-700/50 text-white'
 							: 'hover:text-gray-300 '}"
 					>
-						{menu.name}
+						{menu.title}
 					</Button>
 				</Sheet.Close>
 			{/each}

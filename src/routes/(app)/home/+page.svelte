@@ -82,14 +82,4 @@
 		);
 	}
 
-	.selfContainer {
-		border-style: solid;
-		border-image: linear-gradient(
-				180deg,
-				rgba(255, 94, 220, 0) 0%,
-				#ff5edc 50.5%,
-				rgba(255, 94, 220, 0) 100%
-			)
-			1;
-	}
 </style>
