@@ -35,9 +35,10 @@
 			class="gradient-border-bottom flex w-full items-center justify-between overflow-hidden rounded-xl bg-[#481555] font-bold"
 		>
 			<Text class="pl-8">{$t('jackpot.winner_list')}</Text>
-			<div class="flex items-center gap-3 bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] px-4 py-2">
-				<Button class="p-0 font-thin underline">{$t('jackpot.how_to_join')}</Button>
-				<Icon icon="fluent:open-24-filled" width="1.2em" height="1.2em" />
+			<div class="flex bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] px-4 py-2">
+				<Button class="p-0 font-thin underline bg-transparent">{$t('jackpot.how_to_join')}
+                    <span class='pl-3'><Icon icon="fluent:open-24-filled" width="1.2em" height="1.2em" /></span>
+                </Button>
 			</div>
 		</div>
 		<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20">
