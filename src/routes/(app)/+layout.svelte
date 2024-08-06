@@ -18,7 +18,7 @@
 		<TopMenu />
 		<div class="flex h-full flex-grow flex-col items-center overflow-y-scroll">
 			<Pageheader />
-			<div class="mb-10 flex w-full flex-col p-3 pt-0 xl:p-10">
+			<div class="mb-10 flex w-full flex-col pt-10 xl:px-10">
 				<slot />
 			</div>
 			<Footer />
