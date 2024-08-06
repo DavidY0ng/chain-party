@@ -8,6 +8,8 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { zeroAddress } from 'viem';
+    import { isDesktop } from '$lib/stores/storeCommon';
+    import { truncateString } from '$lib/helper';
 
 	let winnerListPagination = {
 			page: 1,
@@ -42,11 +44,15 @@
 			{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
 				{#each Array(10) as _, i}
 					<div class="flex items-center justify-between px-8 py-4">
-						<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-						<div class="flex justify-between gap-x-[100px]">
+                        {#if !isDesktop}
+						    <Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
+                        {:else}
+                            <Text>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',7,7)}</Text>
+                        {/if}
+						<div class="flex justify-between xl:gap-x-[100px] gap-3">
 							<div class="flex gap-x-2">
 								<img src="/img/jackpot/cap.png" class="h-[20px] w-[20px]" alt="cap" />
-								<Text class="">Won</Text>
+								<Text class="hidden xl:flex">Won</Text>
 							</div>
 							<Text>813 pEIC</Text>
 						</div>

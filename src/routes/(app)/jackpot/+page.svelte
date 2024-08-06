@@ -9,7 +9,7 @@
 
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full">
+<div in:fade class="relative h-full min-h-screen w-full p-3">
 	<div class="pink-eclipse left-[33%] top-[-25%] w-[560px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
 		<!-- Mobile top donor -->
