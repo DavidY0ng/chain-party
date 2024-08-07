@@ -26,7 +26,9 @@
 	});
 
 	onDestroy(() => {
-		unsubscribe();
+		if (unsubscribe) {
+			unsubscribe();
+		}
 	});
 </script>
 
