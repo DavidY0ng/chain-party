@@ -12,9 +12,13 @@
 		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
 			<a href="/" class=""> GAMEFI </a>
 		</Text>
-		<MultiLanguage />
-		<ConnectWallet class="hidden xl:block" />
+		
+		<div class="flex">
+			<MultiLanguage />
+			<Drawer />
+		</div>
 		<!-- Mobile Drawer -->
-		<Drawer />
+		
 	</div>
+	<ConnectWallet class="hidden xl:block" />
 </div>
