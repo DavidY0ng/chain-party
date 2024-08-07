@@ -1,25 +1,17 @@
 import { api } from '$lib/http/https';
 import type { APIResponse } from '$lib/type/commonType';
-import type { TTransaction, TTransactionType } from '$lib/type/transactionType';
+import type {
+	IGetTransactionListParam,
+	TTransaction,
+	TTransactionType
+} from '$lib/type/transactionType';
 
 const TransactionAPI = {
 	history: {
-		getList: async function (
-			created_at_start: string,
-			created_at_end: string,
-			type: TTransactionType['code'],
-			page: number,
-			size?: number
-		): Promise<APIResponse<TTransaction>> {
+		getList: async function (data: IGetTransactionListParam): Promise<APIResponse<TTransaction>> {
 			try {
 				const response = await api.get<TTransaction>('/dapp/transaction/history/list', {
-					data: {
-						size,
-						page,
-						created_at_start,
-						created_at_end,
-						type
-					}
+					data
 				});
 				return response;
 			} catch (error) {

@@ -2,6 +2,8 @@
 import Cookies from 'js-cookie';
 import { urls } from './settings';
 import type { APIMethod, APIOptions, APIResponse } from '$lib/type/commonType';
+import { toast } from 'svelte-sonner';
+import { onDisconnect } from '$lib/web3/wagmi';
 
 class API {
 	private async request<T = any>(
@@ -35,6 +37,12 @@ class API {
 			});
 
 			const resp: APIResponse<T> = await response.json();
+
+			if (resp.data === '901') {
+				onDisconnect();
+				toast.warning('Session Expired... Please Login Again');
+			}
+
 			return resp;
 		} catch (err) {
 			console.error('API call error:', err);
