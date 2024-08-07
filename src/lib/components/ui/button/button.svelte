@@ -17,7 +17,7 @@
 </script>
 
 <div
-	class="rounded-lg p-[1px] transition {disabled
+	class="cursor-pointer rounded-lg p-[1px] transition {disabled
 		? 'cursor-not-allowed bg-white/30 text-white/30'
 		: variant === 'default'
 			? 'bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A]'
