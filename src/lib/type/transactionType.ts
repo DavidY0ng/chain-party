@@ -1,3 +1,5 @@
+import type { IPagination } from './commonType';
+
 export type TTransaction = {
 	count: number;
 	data: {
@@ -12,3 +14,9 @@ export type TTransaction = {
 export type TTransactionType = {
 	code: string;
 };
+
+export interface IGetTransactionListParam extends IPagination {
+	created_at_start: string;
+	created_at_end: string;
+	type: TTransactionType['code'];
+}

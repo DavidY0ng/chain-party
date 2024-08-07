@@ -15,8 +15,8 @@
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
+	// Variable for filter option
 	let historyType: THistoryType | undefined = undefined;
-
 	let filterOption = {
 		from: '' as unknown as DateValue,
 		to: '' as unknown as DateValue,
@@ -24,28 +24,39 @@
 		type: '' as TTransactionType['code']
 	};
 
+	// Page Data
 	let transactionData: TTransaction | undefined;
 	let gameData: TGameList | undefined;
 
+	// Pagination Data
+	// * paginationCount var is for paginator component
 	let paginationCount = {
 			count: 0,
 			last_page: 0
 		},
+		// size and page is solely for fetching api purpose
 		paginationSize: number = 20,
 		paginationPage: number = 0;
 
+	//Core function to fetch history
 	async function onSearchHistory(event?: CustomEvent) {
 		if (!$isToken || historyType === undefined) return;
 
-		// Reset paginationPage to 0 if historyType has changed
+		// Reset paginationPage to 1 if historyType has changed
 		if (paginationPage === 0) {
 			paginationPage = 1;
-		} else if (event?.detail === 'next') {
-			paginationPage === paginationCount.last_page ? null : paginationPage++;
-		} else if (event?.detail === 'previous') {
-			paginationPage > 1 ? paginationPage-- : (paginationPage = 1);
-		} else if (event?.detail.page) {
-			paginationPage = event?.detail.page;
+		}
+
+		// Handle pagination based on event details from the event being dispatched
+		if (event) {
+			if (event.detail === 'next') {
+				paginationPage =
+					paginationPage === paginationCount.last_page ? paginationPage : paginationPage + 1;
+			} else if (event.detail === 'previous') {
+				paginationPage = paginationPage > 1 ? paginationPage - 1 : 1;
+			} else if (event.detail?.page) {
+				paginationPage = event.detail.page;
+			}
 		}
 
 		const startDate = filterOption.from
@@ -55,15 +66,16 @@
 			? (concatinateDate(filterOption.to! as DateValue) as string)
 			: '';
 
+		// Fetch history based on historyType
 		const result =
 			historyType === 'transaction'
-				? await TransactionAPI.history.getList(
-						startDate,
-						endDate,
-						filterOption.type!,
-						paginationPage,
-						paginationSize
-					)
+				? await TransactionAPI.history.getList({
+						created_at_start: startDate,
+						created_at_end: endDate,
+						type: filterOption.type,
+						size: paginationSize,
+						page: paginationPage
+					})
 				: await GameAPI.history.getList({
 						created_at_start: startDate,
 						created_at_end: endDate,
@@ -88,8 +100,26 @@
 		}
 	}
 
+	// Reactive statement to reset everything when historyType changes
 	$: if (historyType) {
+		resetPaginationAndFilters();
+		resetData();
+		onSearchHistory();
+	}
+
+	// Function to reset pagination and filters
+	function resetPaginationAndFilters() {
 		paginationPage = 0;
+		filterOption = {
+			from: '' as unknown as DateValue,
+			to: '' as unknown as DateValue,
+			status: '' as TGameStatus['code'],
+			type: '' as TTransactionType['code']
+		};
+	}
+
+	// Function to reset data
+	function resetData() {
 		transactionData = undefined;
 		gameData = undefined;
 	}
