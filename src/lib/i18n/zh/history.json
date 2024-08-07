@@ -1,0 +1,39 @@
+{
+	"history": "History",
+	"history_list": "History List",
+	"history_info": "A list of your recent invoices.",
+	"chain_party": "Chain Party",
+	"result": "Result",
+	"search": "Search",
+	"from": "From",
+	"to": "To",
+	"to_view": "to view",
+	"no_record": "No Record Found at the moment",
+
+	"transactionHeader": {
+		"date": "Date",
+		"sn": "Serial Number",
+		"amount": "Amount",
+		"type": "Type"
+	},
+
+	"gameHeader": {
+		"game": "Game ID",
+		"type": "Type",
+		"status": "Status",
+		"timestamp": "Timestamp"
+	},
+
+	"historyType": {
+		"history_type": "History Type",
+		"game": "Game",
+		"transaction": "Transaction"
+	},
+
+	"gameStatus": {
+		"pending": "Pending",
+		"win": "Win",
+		"lose": "Lose",
+		"refunded": "Refunded"
+	}
+}

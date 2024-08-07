@@ -1,14 +1,16 @@
 import i18n from 'sveltekit-i18n';
 import lang from '$lib/i18n/lang.json';
 import en from './en';
+import zh from './zh'
 
 /** @type {import('sveltekit-i18n').Config} */
 const config = {
 	fallbackLocale: 'en',
 	translations: {
-		en: { lang }
+		en: { lang },
+		zh: { lang }
 	},
-	loaders: [...en]
+	loaders: [...en, ...zh]
 };
 
 export const defaultLocale = 'en';
