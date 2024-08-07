@@ -58,7 +58,7 @@
 <style>
 	progress {
 		--bar-color: rgba(212, 13, 13, 0.3);
-		--val-color: blue;
+		--val-color: #ff0099;
 		position: fixed;
 		top: 0;
 		z-index: 99999;
@@ -69,21 +69,21 @@
 	}
 	/* bar: */
 	progress::-webkit-progress-bar {
-		background-color: blue;
+		background-color: #ff0099;
 		width: 100%;
 	}
 	progress {
-		background-color: blue
+		background-color: #ff0099;
 	}
 
 	/* value: */
 	progress::-webkit-progress-value {
-		background-color: blue !important;
+		background-color: #ff0099 !important;
 	}
 	progress::-moz-progress-bar {
-		background-color: blue !important;
+		background-color: #ff0099 !important;
 	}
 	progress {
-		color: blue
+		color: #ff0099;
 	}
 </style>
