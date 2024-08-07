@@ -5,7 +5,7 @@
     import { isDesktop } from '$lib/stores/storeCommon';
 </script>
 
-<div class="w-full space-y-3">
+<div class="w-full space-y-3 ">
     <div
         class="flex w-full items-center justify-between rounded-xl bg-[#481555] px-7 py-4 font-bold gradient-border-bottom"
     >
@@ -16,7 +16,7 @@
         
         <Text class="whitespace-nowrap">{$t('donate.amount')}</Text>
     </div>
-    <div class="h-[700px] w-full overflow-y-scroll rounded-2xl bg-black/20">
+    <div class="h-[700px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
         {#each Array(20) as _, i}
             <div class="flex items-center justify-between px-8 py-4">
                 <div class="flex xl:gap-[80px] gap-[20px]">
