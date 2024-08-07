@@ -8,8 +8,8 @@
 	import AddressList from '$lib/components/page/jackpot/AddressList.svelte';
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full p-3">
-	<div class="pink-eclipse left-[33%] top-[-25%] w-[560px]" />
+<div in:fade class="relative h-full min-h-screen w-full pt-10">
+	<div class="pink-eclipse left-[35%] top-[-15%] w-[560px] blur-[120px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
 		<!-- Mobile top donor -->
 		<div class="flex flex-col gap-[30px]">

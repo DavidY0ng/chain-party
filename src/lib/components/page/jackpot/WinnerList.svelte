@@ -41,7 +41,7 @@
                 </Button>
 			</div>
 		</div>
-		<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20">
+		<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
 			{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
 				{#each Array(10) as _, i}
 					<div class="flex items-center justify-between px-8 py-4">

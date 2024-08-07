@@ -6,7 +6,7 @@
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
-	<div class="pink-eclipse left-[-10%] top-[-30%] w-[560px]" />
+	<div class="pink-eclipse blur-[120px] left-[-10%] top-[-30%] w-[560px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<div id="Pool List" class=" space-y-5">
 			<div class="flex w-full">

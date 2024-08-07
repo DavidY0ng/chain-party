@@ -72,7 +72,7 @@
 		class="bindRef z-[9999] overflow-hidden border border-white/20 bg-[#251235] sm:max-w-[425px]"
 	>
 		<div class="relative h-full w-full">
-			<div class="pink-eclipse left-[-30%] top-[-110%] z-10 w-[350px]" />
+			<div class="pink-eclipse left-[-30%] top-[-110%] z-10 w-[350px] blue-[120px]" />
 			<div class="relative z-20 space-y-5">
 				<Dialog.Header class="border-b border-white/20 pb-5 ">
 					<Dialog.Title>Referrer Address</Dialog.Title>

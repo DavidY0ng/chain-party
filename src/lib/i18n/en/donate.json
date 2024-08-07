@@ -4,5 +4,9 @@
     "username": "Username",
     "reward_claimed": "Reward Claimed",
     "leaderboard_list": "Leaderboard List",
-    "my_address": "My Address"
+    "my_address": "My Address",
+    "wallet_address": "Wallet Address",
+    "donated_amount": "Donated Amount",
+    "address": "Address",
+    "amount": "Amount"
 }

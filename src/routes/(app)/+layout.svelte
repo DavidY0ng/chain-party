@@ -1,10 +1,33 @@
 <script lang="ts">
+	import { navigating } from '$app/stores';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Pageheader from '$lib/components/layout/PageHeader/PageHeader.svelte';
 	import SideMenu from '$lib/components/layout/SideMenu.svelte';
 	import TopMenu from '$lib/components/layout/TopMenu.svelte';
 	import Nprogress from '$lib/components/ui/nprogress/nprogress.svelte';
 	import { Toaster } from '$lib/components/ui/toast';
+	import { onDestroy, onMount } from 'svelte';
+
+	let contentContainer: HTMLElement;
+	let unsubscribe: () => void;
+
+	const scrollToTop = () => {
+		if (contentContainer) {
+			contentContainer.scrollTop = 0;
+		}
+	};
+
+	onMount(() => {
+		unsubscribe = navigating.subscribe((value) => {
+			if (value) {
+				scrollToTop();
+			}
+		});
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <Nprogress />
@@ -16,9 +39,12 @@
 	<SideMenu />
 	<div class="relative flex h-full w-full flex-col xl:w-[85%]">
 		<TopMenu />
-		<div class="flex h-full flex-grow flex-col items-center overflow-y-scroll">
+		<div
+			bind:this={contentContainer}
+			class="flex h-full flex-grow flex-col items-center overflow-y-scroll"
+		>
 			<Pageheader />
-			<div class="mb-10 flex w-full flex-col pt-10 xl:px-10">
+			<div class="mb-10 flex w-full flex-col pt-10 xl:px-10 xl:pt-0">
 				<slot />
 			</div>
 			<Footer />

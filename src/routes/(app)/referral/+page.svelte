@@ -12,6 +12,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { copyToClipboard } from '$lib/helper';
 	import { onConnectWallet } from '$lib/utils';
+	import { fade } from 'svelte/transition';
 
 	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 
@@ -56,7 +57,7 @@
 	});
 </script>
 
-<div class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="h-full min-h-screen w-full space-y-10">
 	<Card.Root class="overflow-hidden rounded-2xl border-none">
 		<Card.Header class=" gradient-border-bottom bg-[#481555] px-7 py-4">
 			<div class="flex items-center gap-x-3">
