@@ -57,7 +57,7 @@
 	});
 </script>
 
-<div in:fade class="h-full min-h-screen w-full space-y-10">
+<div in:fade class="m-auto h-full min-h-screen w-full max-w-[1400px] space-y-10">
 	<Card.Root class="overflow-hidden rounded-2xl border-none">
 		<Card.Header class=" gradient-border-bottom bg-[#481555] px-7 py-4">
 			<div class="flex items-center gap-x-3">

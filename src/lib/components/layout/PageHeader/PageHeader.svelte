@@ -23,20 +23,19 @@
 </script>
 
 {#if $page.url.pathname !== '/game/1' && $page.url.pathname !== '/jackpot'}
-	<div class="relative z-[99] mb-5 w-full xl:p-10 xl:pb-0 xl:pt-[90px]">
-		<div class="m-auto flex w-full max-w-[1400px] justify-between">
+	<div class="relative z-[99] mb-5 flex w-full justify-between xl:p-10 xl:pb-0 xl:pt-[90px]">
+		<div class="m-auto flex w-full max-w-[1400px] items-center justify-between">
 			<div class="space-y-1">
 				<Text tag="p" class="font-normal text-white/50">{onHandleSubTitle($page.route.id)}</Text>
 				<Text tag="h1" size="3xl" class="border-b-2 border-white "
 					>{onHandlePathName($page.route.id)}</Text
 				>
 			</div>
-			<div class="flex gap-x-5">
-
-				{#if $storeUserInfo.upline === ''}
-					<BindReferralModal />
-				{/if}
-			</div>
 		</div>
+		{#if $storeUserInfo.upline === '' && $page.url.pathname === '/referral'}
+			<div class="absolute right-0 top-[60%]">
+				<BindReferralModal />
+			</div>
+		{/if}
 	</div>
 {/if}
