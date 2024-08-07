@@ -34,7 +34,7 @@
 	};
 </script>
 
-<div class="pr-3">
+<div class="">
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger asChild let:builder>
 			<Button

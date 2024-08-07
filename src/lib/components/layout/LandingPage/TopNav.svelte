@@ -13,16 +13,16 @@
 	}));
 </script>
 
-<div class="top-0 z-20 flex w-full items-center justify-between px-3 py-3 shadow-md bg-gray-500">
+<div class="top-0 z-20 flex w-full items-center justify-between px-3 py-3 shadow-md bg-gray-700">
 	<div class="grid w-full items-center grid-cols-3">
 		<Text size="2xl" class="flex text-center text-blue-500">
 			<a href="/"> GAMEFI </a>
 		</Text>
-		<div class="hidden gap-10 xl:grid justify-item-center">
+		<div class="hidden gap-10 xl:grid justify-item-center ">
 			<div class="flex justify-around">
 				{#each modifiedNavLinks as link}
 				<a href={link.path} target={link.name === 'Mechanism' ? '_blank' : ''}>
-					<Text size="2xl" class="text-black">
+					<Text size="2xl" class="text-white">
 						{$t(`landing.nav_links.${link.name}`)}
 					</Text>
 				</a>
@@ -30,11 +30,15 @@
 			</div>
 			
 		</div>
-		<div class="flex flex-shrink-0 justify-end">
-			<MultiLanguage />
-			<ConnectWallet class="hidden text-md xl:flex" />
+		<div class="flex-shrink-0 justify-end hidden text-md xl:flex">
+			<MultiLanguage/>
+			<ConnectWallet/>
 		</div>
 		
 	</div>
+	<div class="xl:hidden flex">
+		<MultiLanguage/>
+	</div>
+	
 	<Drawer />
 </div>
