@@ -11,7 +11,9 @@
 
 	// Modal Variable
 	let showWinModal: boolean = false;
-	let showShareModal: boolean = true;
+	let showShareModal: boolean = false;
+	let showLoseModal: boolean = false;
+	let showCancelGameModal: boolean = false;
 
 	// Data
 	let gameRoundData: TGameRound;
@@ -93,4 +95,6 @@
 
 	<Game.WinModal bind:showWinModal />
 	<Game.ShareModal bind:showShareModal />
+	<Game.LoseModal bind:showLoseModal />
+	<Game.GameCancel bind:showCancelGameModal />
 </div>

@@ -75,54 +75,56 @@
 		<img src="/img/desktopSideMenu/bindReferral.png" alt="" />
 		<Text class="text-white">Bind Referral</Text>
 	</Dialog.Trigger>
-	<Dialog.Content class="bindRef">
-		<Dialog.Header class="border-b border-white/20 pb-5 ">
-			<Dialog.Title>Referrer Address</Dialog.Title>
-		</Dialog.Header>
-		<div class="space-y-2">
-			<Input
-				id="referralCode"
-				bind:value={referralCode.value}
-				placeholder="Address"
-				class="border-none bg-black/40 text-center text-md"
-			/>
-			{#if referralCode.error}
-				<Text class="text-sm text-red-500">{referralCode.error}</Text>
-			{/if}
-		</div>
-		<div class="items-top flex space-x-2">
-			<Checkbox required bind:checked={isChecked.value} id="terms1" class="h-3 w-3" />
-			<div class="flex flex-col gap-1.5 leading-none">
-				<Label
-					for="terms1"
-					class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-				>
-					I read and accept the <span class="text-[#ff0099] underline">terms and conditions</span>
-				</Label>
-
-				{#if isChecked.error}
-					<Text class="text-sm text-red-500">{isChecked.error}</Text>
+	<Dialog.Content class="bindRef ">
+		<div class="space-y-5">
+			<Dialog.Header class="border-b border-white/20 pb-5 ">
+				<Dialog.Title>Referrer Address</Dialog.Title>
+			</Dialog.Header>
+			<div class="space-y-2">
+				<Input
+					id="referralCode"
+					bind:value={referralCode.value}
+					placeholder="Address"
+					class="border-none bg-black/40 text-center text-md"
+				/>
+				{#if referralCode.error}
+					<Text class="text-sm text-red-500">{referralCode.error}</Text>
 				{/if}
 			</div>
-		</div>
-		<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
-			<div class="w-full">
-				<Button
-					variant={'second'}
-					on:click={() => {
-						showBindReferral.set(false);
-					}}
-					type="button"
-					class="w-full text-md">Close</Button
-				>
-			</div>
+			<div class="items-top flex space-x-2">
+				<Checkbox required bind:checked={isChecked.value} id="terms1" class="h-3 w-3" />
+				<div class="flex flex-col gap-1.5 leading-none">
+					<Label
+						for="terms1"
+						class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>
+						I read and accept the <span class="text-[#ff0099] underline">terms and conditions</span>
+					</Label>
 
-			<div class="w-full">
-				<Button type="button" class="w-full bg-[#251235] text-md" on:click={onBindReferral}
-					>Bind</Button
-				>
+					{#if isChecked.error}
+						<Text class="text-sm text-red-500">{isChecked.error}</Text>
+					{/if}
+				</div>
 			</div>
-		</Dialog.Footer>
+			<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
+				<div class="w-full">
+					<Button
+						variant={'second'}
+						on:click={() => {
+							showBindReferral.set(false);
+						}}
+						type="button"
+						class="w-full text-md">Close</Button
+					>
+				</div>
+
+				<div class="w-full">
+					<Button type="button" class="w-full bg-[#251235] text-md" on:click={onBindReferral}
+						>Bind</Button
+					>
+				</div>
+			</Dialog.Footer>
+		</div>
 	</Dialog.Content>
 </Dialog.Root>
 
