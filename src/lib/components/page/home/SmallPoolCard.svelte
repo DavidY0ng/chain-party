@@ -49,9 +49,3 @@
 		</div>
 	</div>
 </Card.Root>
-
-<style>
-	.innerShadow {
-		box-shadow: -5px 5px 5px 0px #00000040 inset;
-	}
-</style>

@@ -43,10 +43,10 @@
 		<TopMenu />
 		<div
 			bind:this={contentContainer}
-			class="flex h-full flex-grow flex-col items-center overflow-y-scroll"
+			class="relative z-20 flex h-full flex-grow flex-col items-center overflow-x-hidden overflow-y-scroll"
 		>
 			<Pageheader />
-			<div class="mb-10 flex w-full flex-col pt-10 xl:px-10 xl:pt-0">
+			<div class="relative z-20 mb-10 flex w-full flex-col pt-10 xl:px-10 xl:pt-0">
 				<slot />
 			</div>
 			<Footer />

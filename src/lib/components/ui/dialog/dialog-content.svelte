@@ -26,7 +26,7 @@
 		{...$$restProps}
 	>
 		<div class="relative h-full w-full">
-			<div class="pink-eclipse left-[-30%] top-[-110%] z-10 w-[350px] blur-[120px]" />
+			<div class="pink-eclipse left-[-30%] top-[-55%] z-10 w-[300px] blur-[80px]" />
 			<div class="relative z-20 space-y-5">
 				<slot />
 			</div>

@@ -1,19 +1,94 @@
 <script lang="ts">
 	import * as Game from '$lib/components/page/game/1/index';
+	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
+	import { fade } from 'svelte/transition';
+	import Icon from '@iconify/svelte';
 </script>
 
-<div class="relative m-auto h-full min-h-screen w-full max-w-[1400px] space-y-20 pt-[100px]">
-	<div class="space-y-5">
-		<div class="relative z-10 mx-auto flex w-fit items-center">
-			<img src="/img/game/left.png" alt="" />
-			<Text size="3xl" class="font-bold "
-				>PARTY CHAIN <span class="text-[#ff0099]">LUCKY</span> DRAW!</Text
+<div in:fade class="relative z-20 m-auto h-full min-h-screen w-full">
+	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[100px]">
+		<div class="space-y-5">
+			<div class="relative z-10 mx-auto flex w-fit items-center">
+				<img src="/img/game/left.png" alt="" />
+				<Text size="3xl" class="font-bold ">
+					PARTY CHAIN <span class="text-[#ff0099]">LUCKY</span> DRAW!
+				</Text>
+				<img src="/img/game/right.png" alt="" />
+			</div>
+
+			<Game.GameCarousel />
+		</div>
+		<Game.Reward />
+
+		<div id="Game Slot" class="w-full space-y-5">
+			<div id="header" class="flex w-full justify-between">
+				<div>
+					<Text class="text-white/50">Game #123</Text>
+					<Text class="font-bold underline " size="2xl">My Group</Text>
+				</div>
+				<div class="flex items-center gap-x-5">
+					<div class="flex items-center gap-x-2">
+						<Text class="text-[14px] text-white/50">Group</Text>
+						<div class="rounded-lg bg-black/20 px-4 py-2 text-center font-bold">1</div>
+						<Text class="text-[14px] text-white/50">of 46</Text>
+					</div>
+					<div class="flex">
+						<Button class="bg-[#480A46] px-2 py-0">
+							<Icon icon="formkit:arrowleft" class="text-[14px]" />
+						</Button>
+						<Button class=" bg-[#480A46] px-2 py-0">
+							<Icon icon="formkit:arrowright" class="text-[14px]" />
+						</Button>
+					</div>
+				</div>
+			</div>
+			<div
+				id="ranking"
+				class="relative flex h-full w-full flex-col items-center space-y-2 overflow-hidden rounded-lg bg-[#251235] p-5 pb-0"
 			>
-			<img src="/img/game/right.png" alt="" />
+				<div class="purple-eclipse left-[-5%] top-[-150%] w-[300px] blur-[60px]" />
+
+				<div class="relative flex items-center gap-x-2">
+					<div class="flex font-bold">
+						<Text size="3xl" class="">10</Text>
+						<Text class="">th</Text>
+					</div>
+					<div class="flex font-bold">
+						<Text size="xl" class="text-white/50">/ 20</Text>
+						<Text class="text-sm text-white/50">th</Text>
+					</div>
+				</div>
+				<div
+					class="innerShadow flex w-full max-w-[400px] items-center justify-center gap-x-2 rounded-lg rounded-b-none bg-[#BD00FF]/20 py-4"
+				>
+					<img src="/img/game/info.png" class="h-5 w-5" alt="" />
+					<Text class=""
+						>Your current lucky number is <span class="font-bold text-[#DF61FF]">10th</span>.</Text
+					>
+				</div>
+				<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
+			</div>
+			<div id="slot" class="w-full space-y-2">
+				<div
+					class="gradient-border-bottom relative flex items-center justify-between rounded-lg bg-[#481555] px-8 py-4 font-bold"
+				>
+					<Text>Entry Address</Text>
+					<Text>Number</Text>
+				</div>
+				<div
+					class="gradientScrollbar h-full max-h-[260px] w-full overflow-y-scroll rounded-lg bg-black/20"
+				>
+					{#each Array(10) as _}
+						<div class="flex items-center justify-between px-8 py-4 pr-12">
+							<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
+							<Text>1</Text>
+						</div>
+					{/each}
+				</div>
+			</div>
 		</div>
 
-		<Game.GameCarousel />
+		<Game.Rules />
 	</div>
-	<Game.Reward />
 </div>

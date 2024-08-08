@@ -5,6 +5,10 @@
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { CircleProgress } from '$lib/components/ui/circle-progress';
 	import { Text } from '$lib/components/ui/text';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { zeroAddress } from 'viem';
+	import * as Game from '$lib/components/page/game/1';
+	import BuyTicket from './BuyTicket.svelte';
 
 	let api: CarouselAPI;
 	let current = 0;
@@ -36,7 +40,7 @@
 			<Carousel.Item class="h-fit translate-x-[49.5%] pl-5 lg:basis-[25%]">
 				<Card.Root>
 					<Card.Content
-						class=" relative flex aspect-square flex-col overflow-hidden rounded-2xl p-0 {current ===
+						class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current ===
 						i
 							? 'gradient-border-bottom h-[240px] bg-[#251235]'
 							: 'h-[200px] bg-[#2D2435]'} w-full items-center "
@@ -108,7 +112,11 @@
 							</div>
 							{#if current === i}
 								<div class="relative w-full">
-									<Button class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button>
+									{#if $storeUserInfo.web3_address === zeroAddress}
+										<Button class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button>
+									{:else}
+										<Game.BuyTicket />
+									{/if}
 								</div>
 							{/if}
 						</div>
@@ -122,8 +130,11 @@
 	</Carousel.Content>
 	<Carousel.Previous
 		variant="ghost"
-		class="absolute left-[38.5%] -translate-x-10 hover:bg-transparent"
+		class="absolute left-[38.5%] -translate-x-10 hover:bg-transparent disabled:border-none"
 	/>
-	<Carousel.Next variant="ghost" class="absolute right-[35.2%] hover:bg-transparent" />
+	<Carousel.Next
+		variant="ghost"
+		class="absolute right-[35.6%] hover:bg-transparent disabled:border-none"
+	/>
 	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
 </Carousel.Root>
