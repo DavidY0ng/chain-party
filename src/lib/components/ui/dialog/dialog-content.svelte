@@ -27,7 +27,7 @@
 	>
 		<div class="relative h-full w-full">
 			<div class="pink-eclipse left-[-30%] top-[-55%] z-10 w-[300px] blur-[80px]" />
-			<div class="relative z-20 space-y-5">
+			<div class="relative z-20">
 				<slot />
 			</div>
 			<DialogPrimitive.Close

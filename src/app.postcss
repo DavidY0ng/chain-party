@@ -7,6 +7,22 @@ body {
 	@apply h-full overflow-hidden;
 }
 
+/* font */
+
+@font-face {
+	font-family: 'MuseoModerno';
+	src: url('/font/MuseoModerno.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	src: url('/font/OpenSans.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /* Shadcn Default Config */
 /* Dont alter any of these */
 @layer base {
@@ -76,15 +92,17 @@ body {
 }
 
 @layer base {
-	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
 	* {
 		@apply border-border;
-		font-family: 'Open Sans', sans-serif;
+		font-family: 'OpenSans', sans-serif;
 	}
 	body {
 		@apply bg-white;
 	}
+}
+
+.museomoderno-font {
+	font-family: 'MuseoModerno', 'sans-serif';
 }
 
 /* Remove all dialog and sheet close button */

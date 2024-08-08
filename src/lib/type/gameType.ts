@@ -14,17 +14,15 @@ export type TGameList = {
 };
 
 export type TGameRound = {
+	data: {
+		round_id: string;
+		date_time_start: number;
+		date_time_end: number;
+		loser_position: string[];
+		status: string;
+		slot: number;
+	}[];
 	count: number;
-	data: [
-		{
-			round_id: string;
-			date_time_start: string;
-			date_time_end: string;
-			loser_position: number[];
-			status: string;
-			slot: number;
-		}
-	];
 	last_page: number;
 };
 
