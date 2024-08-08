@@ -25,7 +25,7 @@
 <Sheet.Root bind:open={drawerOpen}>
 	<Sheet.Trigger asChild let:builder>
 		
-		<Button builders={[builder]} variant="ghost" class="flex xl:hidden text-gray-500 {$isComingSoon? 'hidden':''}">
+		<Button builders={[builder]} variant="ghost" class="flex xl:hidden text-white {$isComingSoon? 'hidden':''}">
 			<Icon icon="material-symbols:menu" class="text-2xl" />
 		</Button>
 	</Sheet.Trigger>

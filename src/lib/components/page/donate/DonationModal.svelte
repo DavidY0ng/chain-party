@@ -3,7 +3,8 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Text } from '$lib/components/ui/text';
 	import { filterInput } from '$lib/helper';
-	import { Button, buttonVariants } from '../../ui/button';
+	import { Button } from '../../ui/button';
+	import { t } from '$lib/i18n';
 
 	let showModal = false;
 	let donationAmount: string | undefined = undefined;
@@ -31,7 +32,7 @@
 <Dialog.Root bind:open={showModal}>
 	<Dialog.Trigger>
 		<div class="mx-auto w-[300px]">
-			<Button class="w-full bg-[#29193D]">Donate</Button>
+			<Button class="w-full bg-[#29193D]">{$t('donate.donate')}</Button>
 		</div>
 	</Dialog.Trigger>
 	<Dialog.Content class="bindRef sm:max-w-[425px]">

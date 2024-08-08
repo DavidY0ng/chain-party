@@ -3,6 +3,7 @@
 	import { isDesktop } from '$lib/stores/storeCommon';
 	import ConnectWallet from '../shared/ConnectWallet.svelte';
 	import Drawer from './Drawer.svelte';
+	import MultiLanguage from '../shared/MultiLanguage.svelte';
 </script>
 
 <div
@@ -12,10 +13,15 @@
 		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
 			<a href="/" class=""> GAMEFI </a>
 		</Text>
+
+		<div class="flex">
+			<MultiLanguage />
+			<Drawer />
+		</div>
+		
+		<!-- Mobile Drawer -->
 		{#if $isDesktop}
 			<ConnectWallet class="hidden xl:block" />
 		{/if}
-		<!-- Mobile Drawer -->
-		<Drawer />
 	</div>
 </div>
