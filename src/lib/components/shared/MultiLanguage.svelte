@@ -20,12 +20,12 @@
 	// Initialize selectedLanguage with the current locale
 	$: selectedLanguage = $locale;
 
-	const findLang = (code: any) => {
+	const findLang = (code: string) => {
 		const foundLang = languages.find((l) => code === l.code);
 		return foundLang ? foundLang.name : '';
 	};
 
-	const onChangeLanguage = (lang: any) => {
+	const onChangeLanguage = (lang:string) => {
 		$locale = lang;
 		storeLocal.set({
 			...$storeLocal,

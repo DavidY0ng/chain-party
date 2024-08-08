@@ -1,7 +1,7 @@
 import { persisted } from 'svelte-persisted-store';
 
 type TStoreLocal = {
-	lang: 'zh' | 'en' | 'zh-tw';
+	lang: string;
 }
 
 export const emptyLocalStorage: TStoreLocal = {
