@@ -2,6 +2,7 @@
 	import { Text } from '$lib/components/ui/text';
 	import ConnectWallet from '../shared/ConnectWallet.svelte';
 	import Drawer from './Drawer.svelte';
+	import MultiLanguage from '../shared/MultiLanguage.svelte';
 </script>
 
 <div
@@ -11,8 +12,16 @@
 		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
 			<a href="/" class=""> GAMEFI </a>
 		</Text>
-		<ConnectWallet class="hidden xl:block" />
+		
+		<div class="flex">
+			<MultiLanguage />
+			<Drawer />
+		</div>
 		<!-- Mobile Drawer -->
-		<Drawer />
+		 <div class="hidden xl:block">
+			<ConnectWallet/>
+		 </div>
+	
 	</div>
+	
 </div>

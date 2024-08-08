@@ -10,6 +10,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
 	import DonationModal from '$lib/components/page/donate/DonationModal.svelte';
+	import { t } from '$lib/i18n';
 
 	let leaderboardSize: number = 53;
 	let leaderboardData: TDonationLeaderboard;
@@ -40,7 +41,7 @@
 			<div class="mb-10">
 				{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
 					<div class="mx-auto w-[300px]">
-						<Button on:click={handleConnect} class="w-full bg-[#29193D]">Connect Wallet</Button>
+						<Button on:click={handleConnect} class="w-full bg-[#29193D]">{$t('donate.connect_wallet')}</Button>
 					</div>
 				{:else}
 					<DonationModal />

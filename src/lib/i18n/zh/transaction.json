@@ -1,0 +1,43 @@
+{
+	"status": {
+		"pending": "Pending",
+		"processing": "Processing",
+		"success": "Success",
+		"failed": "Failed",
+		"accepted": "Accepted",
+		"rejected": "Rejected",
+		"collected": "Collected",
+		"claimed": "Claimed",
+		"completed": "Completed",
+		"expired": "Expired"
+	},
+
+	"type": {
+		"admin_top_up": "Admin Top Up",
+		"admin_deduct": "Admin Deduct",
+		"top_up": "Top Up",
+		"deduct": "Deduct",
+		"redeem": "Redeem",
+		"withdraw": "Withdraw",
+		"withdraw_fee": "Withdraw Fee",
+		"withdraw_refund": "Withdraw Refund",
+		"withdraw_refund_fee": "Withdraw Refund Fee",
+		"transfer_out": "Transfer Out",
+		"transfer_in": "Transfer In",
+		"transfer_fee": "Transfer Fee",
+		"swap_from": "Swap From",
+		"swap_to": "Swap To",
+		"swap_fee": "Swap Fee",
+		"stake": "Stake",
+		"game_join": "Join Game",
+		"game_win": "Win",
+		"game_lose": "Lose",
+		"game_refund": "Refund",
+		"mission_reward": "Mission Reward",
+		"uplink_reward": "Uplink Reward",
+		"rank_reward": "Rank Reward",
+		"jackpot_reward": "Jackpot Reward",
+		"staking_reward": "Staking Reward",
+		"donation": "Donation"
+	}
+}
