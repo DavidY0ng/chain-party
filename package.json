@@ -39,6 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@castlenine/svelte-qrcode": "^2.2.0",
 		"@iconify-json/material-symbols": "^1.1.75",
 		"@iconify-json/ph": "^1.1.11",
 		"@iconify-json/teenyicons": "^1.1.9",

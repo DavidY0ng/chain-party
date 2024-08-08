@@ -4,6 +4,8 @@
 	import { Text } from '$lib/components/ui/text';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import Icon from '@iconify/svelte';
+	import QRCode from '@castlenine/svelte-qrcode';
+	import { browser } from '$app/environment';
 
 	export let showShareModal = true;
 </script>
@@ -41,13 +43,16 @@
 				</div>
 			</div>
 			<div class="absolute bottom-0 flex w-full items-end">
-				<div class="w-fit rounded-tr-lg bg-[#481555]/90 px-5 py-3">
+				<div class="flex w-[30%] gap-x-5 rounded-tr-lg bg-[#481555]/90 px-5 py-3">
+					{#if browser}
+						<QRCode data={$storeUserInfo.referral_code} width={50} height={50} />
+					{/if}
 					<div>
 						<Text class="text-[12px] text-white/50">Referral Code:</Text>
 						<Text class="font-bold">{$storeUserInfo.referral_code}</Text>
 					</div>
 				</div>
-				<div class="w-full bg-[#FF0099]/70 px-1 py-2 text-center">
+				<div class="w-[70%] bg-[#FF0099]/70 px-1 py-2 text-center">
 					<Text class="font-bold">Join the game now and start earning amazing rewards too!</Text>
 				</div>
 			</div>
