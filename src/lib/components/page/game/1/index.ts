@@ -1,7 +1,21 @@
+import Rules from './Rules.svelte';
+import GameCarousel from './GameCarousel.svelte';
+import Reward from './Reward.svelte';
+import BuyTicket from './BuyTicket.svelte';
 import Slot from './Slot.svelte';
-import AllHistory from './AllHistory.svelte';
-import YourHistory from './YourHistory.svelte';
-import GameRules from './GameRules.svelte';
-import BuyTicketModal from './BuyTicketModal.svelte';
+import WinModal from './WinModal.svelte';
+import LoseModal from './LoseModal.svelte';
+import GameCancel from './GameCancel.svelte';
+import ShareModal from './ShareModal.svelte';
 
-export { Slot, AllHistory, YourHistory, GameRules, BuyTicketModal };
+export {
+	Rules,
+	GameCarousel,
+	Reward,
+	BuyTicket,
+	Slot,
+	WinModal,
+	LoseModal,
+	GameCancel,
+	ShareModal
+};

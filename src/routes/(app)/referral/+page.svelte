@@ -113,7 +113,7 @@
 					><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
 						>{$t('common.connect_wallet')}</span
 					>
-					{$t('history.to_view')}</Text
+					{$t('common.to_view')}</Text
 				>
 			</div>
 		{/if}

@@ -35,49 +35,51 @@
 			<Button class="w-full bg-[#29193D]">{$t('donate.donate')}</Button>
 		</div>
 	</Dialog.Trigger>
-	<Dialog.Content class="sm:max-w-[425px] bindRef">
-		<Dialog.Header>
-			<Dialog.Title>Donation</Dialog.Title>
-		</Dialog.Header>
-		<div class="space-y-2">
-			<div class="relative">
-				<Input
-					id="referralCode"
-					bind:value={donationAmount}
-					on:input={onFilterInput}
-					placeholder="Amount"
-					class="text-left text-md"
-				/>
-				<Text class="absolute right-3 top-3 text-white/80 flex items-center gap-x-3"
-					><span class="-translate-y-[1px]">|</span> EIC</Text
-				>
+	<Dialog.Content class="bindRef sm:max-w-[425px]">
+		<div class="space-y-5">
+			<Dialog.Header>
+				<Dialog.Title>Donation</Dialog.Title>
+			</Dialog.Header>
+			<div class="space-y-2">
+				<div class="relative">
+					<Input
+						id="referralCode"
+						bind:value={donationAmount}
+						on:input={onFilterInput}
+						placeholder="Amount"
+						class="text-left text-md"
+					/>
+					<Text class="absolute right-3 top-3 flex items-center gap-x-3 text-white/80"
+						><span class="-translate-y-[1px]">|</span> EIC</Text
+					>
+				</div>
+				{#if donationError !== undefined}
+					<Text class="text-sm text-red-500">{donationError}</Text>
+				{/if}
 			</div>
-			{#if donationError !== undefined}
-				<Text class="text-red-500 text-sm">{donationError}</Text>
-			{/if}
+			<div>
+				<Text size="sm" class="leading-normal text-white">T&C :</Text>
+				<Text size="sm" class="leading-normal text-muted-foreground">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, odit harum. Architecto
+					temporibus magni repellendus?
+				</Text>
+			</div>
+			<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
+				<Button
+					on:click={() => {
+						showModal = false;
+					}}
+					type="button"
+					variant="outline"
+					class="w-full text-md">Close</Button
+				>
+				<Button
+					type="button"
+					class="w-full text-md"
+					disabled={!donationAmount || +donationAmount < 1}
+					on:click={onDonate}>Donate</Button
+				>
+			</Dialog.Footer>
 		</div>
-		<div>
-			<Text size="sm" class="text-white leading-normal">T&C :</Text>
-			<Text size="sm" class="text-muted-foreground leading-normal">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, odit harum. Architecto
-				temporibus magni repellendus?
-			</Text>
-		</div>
-		<Dialog.Footer class="flex flex-row w-full gap-2 justify-between">
-			<Button
-				on:click={() => {
-					showModal = false;
-				}}
-				type="button"
-				variant="outline"
-				class="w-full text-md">Close</Button
-			>
-			<Button
-				type="button"
-				class="w-full text-md"
-				disabled={!donationAmount || +donationAmount < 1}
-				on:click={onDonate}>Donate</Button
-			>
-		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

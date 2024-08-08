@@ -1,56 +1,73 @@
 <script lang="ts">
-	import type { TGameSlot } from '$lib/api/game';
 	import { Button } from '$lib/components/ui/button';
-	import * as Card from '$lib/components/ui/card';
-	import * as Table from '$lib/components/ui/table';
 	import { Text } from '$lib/components/ui/text';
-	import { truncateString } from '$lib/helper';
 	import Icon from '@iconify/svelte';
-	import { t } from '$lib/i18n';
-
-	export let gameslot: TGameSlot, gameSlotPage: number;
 </script>
 
-<div id="Slot Section" class=" ">
-	<Text size="4xl" class=" font-bold">{$t('game.my_group')} (#1)</Text>
-
-	<Card.Root class="flex flex-col items-center space-y-5 p-5">
-		<div class="text-center">
-			<Text size="5xl" class="font-bold">{gameslot?.self_position}/20</Text>
-			<Text size="5xl" class="font-bold">{$t('game.your_current_number')} 10th</Text>
+<div id="Game Slot" class="w-full space-y-5">
+	<div id="header" class="flex w-full justify-between">
+		<div>
+			<Text class="text-white/50">Game #123</Text>
+			<Text class="font-bold underline " size="2xl">My Group</Text>
 		</div>
-		<Table.Root class="border ">
-			<Table.Header>
-				<Table.Row class="">
-					<Table.Head class="text-left text-2xl text-black">{$t('game.entry_address')}</Table.Head>
-					<Table.Head class="text-right text-2xl text-black">{$t('game.number')}</Table.Head>
-				</Table.Row>
-			</Table.Header>
-			<Table.Body>
-				{#if gameslot && gameslot?.data.length > 0}
-					{#each gameslot.data as slot, i}
-						<Table.Row>
-							<Table.Cell class="text-lg font-bold  text-black"
-								>{truncateString(slot?.address, 5, 5)}</Table.Cell
-							>
-							<Table.Cell class="text-right text-lg font-bold text-black">{i + 1}</Table.Cell>
-						</Table.Row>
-					{/each}
-				{/if}
-			</Table.Body>
-		</Table.Root>
-		{#if gameslot?.data.length > 0}
-			<div class="flex gap-x-2">
-				<Button variant="ghost" class="rounded-full hover:bg-accent/20">
-					<Icon icon="ic:round-chevron-left" class="text-3xl text-black" />
+		<div class="flex items-center gap-x-5">
+			<div class="flex items-center gap-x-2">
+				<Text class="text-[14px] text-white/50">Group</Text>
+				<div class="rounded-lg bg-black/20 px-4 py-2 text-center font-bold">1</div>
+				<Text class="text-[14px] text-white/50">of 46</Text>
+			</div>
+			<div class="flex">
+				<Button class="bg-[#480A46] px-2 py-0">
+					<Icon icon="formkit:arrowleft" class="text-[14px]" />
 				</Button>
-				<div class="flex w-[9rem] items-center justify-center bg-gray-500">
-					{gameSlotPage} / {gameslot?.last_slot}
-				</div>
-				<Button variant="ghost" class="rounded-full hover:bg-accent/20">
-					<Icon icon="ic:round-chevron-right" class="text-3xl text-black " />
+				<Button class=" bg-[#480A46] px-2 py-0">
+					<Icon icon="formkit:arrowright" class="text-[14px]" />
 				</Button>
 			</div>
-		{/if}
-	</Card.Root>
+		</div>
+	</div>
+	<div
+		id="ranking"
+		class="relative flex h-full w-full flex-col items-center space-y-2 overflow-hidden rounded-lg bg-[#251235] p-5 pb-0"
+	>
+		<div class="purple-eclipse left-[-5%] top-[-150%] w-[300px] blur-[60px]" />
+
+		<div class="relative flex items-center gap-x-2">
+			<div class="flex font-bold">
+				<Text size="3xl" class="">10</Text>
+				<Text class="">th</Text>
+			</div>
+			<div class="flex font-bold">
+				<Text size="xl" class="text-white/50">/ 20</Text>
+				<Text class="text-sm text-white/50">th</Text>
+			</div>
+		</div>
+		<div
+			class="innerShadow flex w-full max-w-[400px] items-center justify-center gap-x-2 rounded-lg rounded-b-none bg-[#BD00FF]/20 py-4"
+		>
+			<img src="/img/game/info.png" class="h-5 w-5" alt="" />
+			<Text class=""
+				>Your current lucky number is <span class="font-bold text-[#DF61FF]">10th</span>.</Text
+			>
+		</div>
+		<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
+	</div>
+	<div id="slot" class="w-full space-y-2">
+		<div
+			class="gradient-border-bottom relative flex items-center justify-between rounded-lg bg-[#481555] px-8 py-4 font-bold"
+		>
+			<Text>Entry Address</Text>
+			<Text>Number</Text>
+		</div>
+		<div
+			class="gradientScrollbar h-full max-h-[260px] w-full overflow-y-scroll rounded-lg bg-black/20"
+		>
+			{#each Array(10) as _}
+				<div class="flex items-center justify-between px-8 py-4 pr-12">
+					<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
+					<Text>1</Text>
+				</div>
+			{/each}
+		</div>
+	</div>
 </div>

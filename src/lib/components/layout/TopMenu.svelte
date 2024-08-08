@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Text } from '$lib/components/ui/text';
+	import { isDesktop } from '$lib/stores/storeCommon';
 	import ConnectWallet from '../shared/ConnectWallet.svelte';
 	import Drawer from './Drawer.svelte';
 	import MultiLanguage from '../shared/MultiLanguage.svelte';
@@ -12,16 +13,15 @@
 		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
 			<a href="/" class=""> GAMEFI </a>
 		</Text>
-		
+
 		<div class="flex">
 			<MultiLanguage />
 			<Drawer />
 		</div>
+		
 		<!-- Mobile Drawer -->
-		 <div class="hidden xl:block">
-			<ConnectWallet/>
-		 </div>
-	
+		{#if $isDesktop}
+			<ConnectWallet class="hidden xl:block" />
+		{/if}
 	</div>
-	
 </div>
