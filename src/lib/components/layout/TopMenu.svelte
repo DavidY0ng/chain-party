@@ -18,7 +18,10 @@
 			<Drawer />
 		</div>
 		<!-- Mobile Drawer -->
-		
+		 <div class="hidden xl:block">
+			<ConnectWallet/>
+		 </div>
+	
 	</div>
-	<ConnectWallet class="hidden xl:block" />
+	
 </div>
