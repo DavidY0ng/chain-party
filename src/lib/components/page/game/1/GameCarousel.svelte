@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as Game from '$lib/components/page/game/1';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context';
@@ -7,8 +8,6 @@
 	import { Text } from '$lib/components/ui/text';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
-	import * as Game from '$lib/components/page/game/1';
-	import BuyTicket from './BuyTicket.svelte';
 
 	let api: CarouselAPI;
 	let current = 0;

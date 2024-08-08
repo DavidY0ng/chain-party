@@ -7,7 +7,7 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 
-	let showBuyTicketModal = true,
+	let showBuyTicketModal = false,
 		checked = false;
 </script>
 
