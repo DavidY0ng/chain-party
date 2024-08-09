@@ -92,7 +92,7 @@
 				<div class='w-full'>
 				<Button
 					type="button"
-					class="w-full text-md bg-[#251235]"
+					class="w-full text-md"
 					disabled={!donationAmount || +donationAmount < 1 || !isChecked.value}
 					on:click={onDonate}>Donate</Button
 				>
@@ -102,3 +102,7 @@
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
+
+<style>
+	
+</style>
