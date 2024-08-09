@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import GameAPI, { type TGameRound } from '$lib/api/game.js';
-	import { data as seedData } from '$lib/api/seed';
 	import * as Game from '$lib/components/page/game/1/index';
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
@@ -17,57 +18,38 @@
 
 	// Data
 	let gameRoundData: TGameRound;
-	const initialData = JSON.parse(JSON.stringify(seedData)); // Clone the initial data
+
+	// Pagination
+	let gamePage: number = 0;
 
 	async function getGameRound() {
-		const result = await GameAPI.getRound(1, 'lottery');
+		gamePage++;
+		let thisData: TGameRound;
+
+		const result = await GameAPI.getRound(gamePage, 10);
 		if (result.success) {
-			return result.data;
+			thisData = result.data;
+			thisData.data = thisData.data.reverse();
+
+			const gameStartIndex = thisData.data.findIndex((item) => item.status === 'game_start');
+
+			if (gameStartIndex < 3) {
+				gamePage++;
+				let newData = await GameAPI.getRound(gamePage, 10);
+				if (newData.success) {
+					newData.data.data = newData.data.data.reverse();
+
+					thisData.data = [...newData.data.data, ...thisData.data];
+				}
+			}
+			gameRoundData = thisData;
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
 	}
 
-	function onHandleRoundArray() {
-		gameRoundData = JSON.parse(JSON.stringify(seedData)); // Reset to initial data
-		gameRoundData.data = gameRoundData.data.reverse();
-
-		const initialLength = gameRoundData.data.length;
-
-		for (let index = 0; index < 2; index++) {
-			gameRoundData.data.push({
-				round_id: `000${initialLength + index + 1}`.padStart(4, '0'), // Ensure the round_id is always 4 digits
-				date_time_start: 0,
-				date_time_end: 0,
-				loser_position: [''],
-				status: '',
-				slot: 0
-			});
-		}
-	}
-
-	function addArray() {
-		const currentGameLength = gameRoundData.data.length;
-
-		gameRoundData.data.push({
-			round_id: `000${currentGameLength + 2}`.padStart(4, '0'), // Ensure the round_id is always 4 digits
-			date_time_start: 0,
-			date_time_end: 0,
-			loser_position: [''],
-			status: '',
-			slot: 0
-		});
-
-		rerender.set(!$rerender);
-	}
-
 	onMount(() => {
-		onHandleRoundArray();
 		getGameRound();
-	});
-
-	onDestroy(() => {
-		gameRoundData = JSON.parse(JSON.stringify(initialData)); // Reset to initial data on destroy
 	});
 </script>
 
@@ -81,8 +63,15 @@
 				</Text>
 				<img src="/img/game/right.png" alt="" />
 			</div>
-			<Game.GameCarousel bind:gameRoundData />
-			<button on:click={addArray}>Click me</button>
+			{#if browser && gameRoundData}
+				<Game.GameCarousel bind:gameRoundData bind:gamePage />
+			{:else}
+				<div class="flex w-full items-center gap-x-5">
+					{#each Array(5) as _}
+						<Skeleton class="h-[200px] basis-1/4 rounded-lg bg-black/50" />
+					{/each}
+				</div>
+			{/if}
 		</div>
 		<Game.Reward />
 

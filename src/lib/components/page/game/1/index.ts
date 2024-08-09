@@ -1,5 +1,5 @@
 import Rules from './Rules.svelte';
-import GameCarousel from './GameCarousel.svelte';
+import GameCarousel from './GameCarousel/GameCarousel.svelte';
 import Reward from './Reward.svelte';
 import BuyTicket from './BuyTicket.svelte';
 import Slot from './Slot.svelte';
