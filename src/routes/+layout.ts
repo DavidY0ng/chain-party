@@ -21,7 +21,6 @@ export const load: LayoutLoad = async ({ url }) => {
 		const getLocal = JSON.parse(localStorage.getItem('storeLocal') || '{}');
 		if (getLocal.lang != undefined) targetLocale = getLocal.lang;
 		const initLocale = locale.get() || targetLocale;
-		console.log(1)
 
 		await loadTranslations(initLocale, pathname);
 	}

@@ -22,15 +22,12 @@ const GameAPI = {
 			}
 		}
 	},
-	getRound: async function (
-		page: number,
-		game_name: TDashboardGame['name']
-	): Promise<APIResponse<TGameRound>> {
+	getRound: async function (page: number, size: number): Promise<APIResponse<TGameRound>> {
 		try {
 			const response = await api.get<TGameRound>('/dapp/game/round', {
 				data: {
 					page,
-					game_name
+					size
 				}
 			});
 

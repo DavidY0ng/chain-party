@@ -1,10 +1,10 @@
 <script lang="ts">
-	import ArrowLeft from 'lucide-svelte/icons/arrow-left';
+	import { Button, type Props, type buttonVariants } from '$lib/components/ui/button/index.js';
+	import { cn } from '$lib/utils.js';
+	import Icon from '@iconify/svelte';
+	import { createEventDispatcher } from 'svelte';
 	import type { VariantProps } from 'tailwind-variants';
 	import { getEmblaContext } from './context.js';
-	import { cn } from '$lib/utils.js';
-	import { Button, type Props, type buttonVariants } from '$lib/components/ui/button/index.js';
-	import Icon from '@iconify/svelte';
 
 	type $$Props = Props;
 
@@ -13,8 +13,15 @@
 	export let variant: VariantProps<typeof buttonVariants>['variant'] = 'outline';
 	export let size: VariantProps<typeof buttonVariants>['size'] = 'icon';
 
+	const dispatch = createEventDispatcher();
+
 	const { orientation, canScrollPrev, scrollPrev, handleKeyDown } =
 		getEmblaContext('<Carousel.Previous/>');
+
+	function onScrollPrev() {
+		scrollPrev();
+		dispatch('scrollPrev');
+	}
 </script>
 
 <Button
@@ -28,10 +35,10 @@
 		className
 	)}
 	disabled={!$canScrollPrev}
-	on:click={scrollPrev}
+	on:click={onScrollPrev}
 	on:keydown={handleKeyDown}
 	{...$$restProps}
 >
-	<Icon icon="fa-solid:chevron-left" class='text-4xl'/>
+	<Icon icon="fa-solid:chevron-left" class="text-4xl" />
 	<span class="sr-only">Previous slide</span>
 </Button>
