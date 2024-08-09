@@ -4,11 +4,17 @@
 	import { Text } from '$lib/components/ui/text';
 	import { filterInput } from '$lib/helper';
 	import { Button } from '../../ui/button';
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Label } from '$lib/components/ui/label';
 	import { t } from '$lib/i18n';
 
 	let showModal = false;
 	let donationAmount: string | undefined = undefined;
 	let donationError: string | undefined = undefined;
+	let isChecked = {
+		value: false,
+		error: ''
+	};
 
 	async function onDonate() {
 		if (+donationAmount! < 1) {
@@ -37,7 +43,7 @@
 	</Dialog.Trigger>
 	<Dialog.Content class="bindRef sm:max-w-[425px]">
 		<div class="space-y-5">
-			<Dialog.Header>
+			<Dialog.Header class="border-b border-white/20 pb-5 ">
 				<Dialog.Title>Donation</Dialog.Title>
 			</Dialog.Header>
 			<div class="space-y-2">
@@ -46,40 +52,57 @@
 						id="referralCode"
 						bind:value={donationAmount}
 						on:input={onFilterInput}
-						placeholder="Amount"
-						class="text-left text-md"
+						placeholder="Please enter amount"
+						class="border-none bg-black/40 text-center text-md"
 					/>
-					<Text class="absolute right-3 top-3 flex items-center gap-x-3 text-white/80"
-						><span class="-translate-y-[1px]">|</span> EIC</Text
+					<Text class="absolute right-3 top-2 flex items-center gap-x-3 text-pink-500"
+						><span class="-translate-y-[2px] text-white">|</span> pEIC</Text
 					>
 				</div>
 				{#if donationError !== undefined}
 					<Text class="text-sm text-red-500">{donationError}</Text>
 				{/if}
 			</div>
-			<div>
-				<Text size="sm" class="leading-normal text-white">T&C :</Text>
-				<Text size="sm" class="leading-normal text-muted-foreground">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, odit harum. Architecto
-					temporibus magni repellendus?
-				</Text>
+			<div class="items-top flex space-x-2">
+				<Checkbox required bind:checked={isChecked.value} id="terms1" class="h-3 w-3" />
+				<div class="flex flex-col gap-1.5 leading-none">
+					<Label
+						for="terms1"
+						class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>
+						I read and accept the <span class="text-[#ff0099] underline">terms and conditions</span>
+					</Label>
+
+					{#if isChecked.error}
+						<Text class="text-sm text-red-500">{isChecked.error}</Text>
+					{/if}
+				</div>
 			</div>
 			<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
-				<Button
+				<div class="w-full">
+					<Button
 					on:click={() => {
 						showModal = false;
 					}}
 					type="button"
-					variant="outline"
+					variant="second"
 					class="w-full text-md">Close</Button
 				>
+				</div>
+				<div class='w-full'>
 				<Button
 					type="button"
 					class="w-full text-md"
-					disabled={!donationAmount || +donationAmount < 1}
+					disabled={!donationAmount || +donationAmount < 1 || !isChecked.value}
 					on:click={onDonate}>Donate</Button
 				>
+				</div>
+				
 			</Dialog.Footer>
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
+
+<style>
+	
+</style>
