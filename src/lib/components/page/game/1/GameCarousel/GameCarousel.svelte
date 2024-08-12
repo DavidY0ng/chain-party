@@ -177,7 +177,7 @@
 	/>
 	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
 
-	{#if latestGameStartIndex + 1 - current !== 0}
+	{#if latestGameStartIndex + 1 - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div
