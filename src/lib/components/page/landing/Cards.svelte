@@ -30,14 +30,14 @@
             </Text>
         </div>
         
-        <div class="grid xl:grid-cols-2 gap-5 p-5 xl:p-0">
+        <div class="grid xl:grid-cols-2 gap-5 p-5 xl:p-0 ">
 
             <div class=" w-full flex flex-col justify-center items-center relative">
                 <img src="/img/landing/cards/green rectangle.png" alt="trapezium" class="xl:w-[570px] xl:h-[310px]" />
                 
-                <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] px-4 flex flex-col gap-3 bg-gray-500">
+                <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] px-4 flex flex-col gap-3">
                     <div class="flex flex-col items-center">
-                        <img src='/img/landing/cards/brain.png' alt='brain'>
+                        <img src='/img/landing/cards/cube.png' alt='brain'>
                     </div>
                     <Text
                     class=" capitalize  text-white text-center
@@ -50,6 +50,52 @@
                             md:text-[20px] text-[14px] font-bold leading-[22.8px]"
                 >
                     {$t('landing.card.innovative_description')}
+                    </Text>
+                </div>
+                
+            </div>
+
+            <div class=" w-full flex flex-col justify-center items-center relative z-10">
+                <img src="/img/landing/cards/purple rectangle.png" alt="trapezium" class="xl:w-[570px] xl:h-[310px]" />
+                
+                <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] px-4 flex flex-col gap-3">
+                    <div class="flex flex-col items-center">
+                        <img src='/img/landing/cards/brain.png' alt='brain'>
+                    </div>
+                    <Text
+                    class=" capitalize  text-white text-center
+                            pixel-font md:text-[25px] text-[18px] font-bold md:leading-[38.168px]"
+                >
+                    {$t('landing.card.decentralised')}
+                    </Text>
+                    <Text tag='p'
+                    class=" text-white text-center px-4
+                            md:text-[20px] text-[14px] font-bold leading-[22.8px]"
+                >
+                    {$t('landing.card.decentralised_description')}
+                    </Text>
+                </div>
+                
+            </div>
+
+            <div class=" w-full flex flex-col justify-center items-center relative col-span-2 translate-y-[-15%]">
+                <img src="/img/landing/cards/pink rectangle.png" alt="trapezium" class="xl:w-[570px] xl:h-[310px]" />
+                
+                <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[50%] px-4 flex flex-col gap-3">
+                    <div class="flex flex-col items-center">
+                        <img src='/img/landing/cards/rocket.png' alt='brain'>
+                    </div>
+                    <Text
+                    class=" capitalize  text-white text-center
+                            pixel-font md:text-[25px] text-[18px] font-bold md:leading-[38.168px]"
+                >
+                    {$t('landing.card.profitable')}
+                    </Text>
+                    <Text tag='p'
+                    class=" text-white text-center px-4
+                            md:text-[20px] text-[14px] font-bold leading-[22.8px]"
+                >
+                    {$t('landing.card.profitable_description')}
                     </Text>
                 </div>
                 
