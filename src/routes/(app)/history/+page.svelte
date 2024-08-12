@@ -125,7 +125,7 @@
 	}
 </script>
 
-<div in:fade class="m-auto h-auto w-full max-w-[1400px] space-y-10">
+<div in:fade class="m-auto min-h-screen w-full max-w-[1400px] space-y-10">
 	{#key $rerender}
 		<FilterMenu bind:filterOption on:search={onSearchHistory} bind:historyType />
 	{/key}

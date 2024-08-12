@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import GameAPI, { type TGameRound } from '$lib/api/game.js';
+	import GameAPI, { type TGameRound, type TGameSlot } from '$lib/api/game.js';
 	import * as Game from '$lib/components/page/game/1/index';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
-	import { rerender } from '$lib/stores/storeCommon';
+	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
@@ -17,39 +16,80 @@
 	let showCancelGameModal: boolean = false;
 
 	// Data
+	let gameStartIndex: number = 0;
 	let gameRoundData: TGameRound;
+	let currentGame: TGameRound['data'][0];
+	let gameSlotData: TGameSlot;
 
 	// Pagination
-	let gamePage: number = 0;
+	let gameRoundPage: number = 0;
+	let gameSlotPage: number = 0;
 
 	async function getGameRound() {
-		gamePage++;
+		gameRoundPage++;
 		let thisData: TGameRound;
 
-		const result = await GameAPI.getRound(gamePage, 10);
+		const result = await GameAPI.getRound(gameRoundPage, 10);
 		if (result.success) {
 			thisData = result.data;
 			thisData.data = thisData.data.reverse();
 
-			const gameStartIndex = thisData.data.findIndex((item) => item.status === 'game_start');
+			gameStartIndex = thisData.data.findIndex((item) => item.status === 'game_start');
 
 			if (gameStartIndex < 3) {
-				gamePage++;
-				let newData = await GameAPI.getRound(gamePage, 10);
+				gameRoundPage++;
+				let newData = await GameAPI.getRound(gameRoundPage, 10);
 				if (newData.success) {
 					newData.data.data = newData.data.data.reverse();
 
 					thisData.data = [...newData.data.data, ...thisData.data];
 				}
 			}
+
 			gameRoundData = thisData;
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
 	}
 
-	onMount(() => {
-		getGameRound();
+	// This only fetch one game slot
+	async function getGameSlot(event?: CustomEvent) {
+		if (!$isToken) return;
+
+		if (event) {
+			if (event.detail === 'previous') {
+				gameSlotPage === 1 ? (gameSlotPage = 1) : gameSlotPage--;
+			} else if (event.detail === 'next') {
+				gameSlotPage === gameRoundData?.last_page
+					? (gameSlotPage = gameRoundData?.last_page)
+					: gameSlotPage++;
+			}
+		}
+
+		const round_id: number = +gameRoundData?.data[+gameStartIndex].round_id;
+
+		const result = await GameAPI.getSlot(gameSlotPage, round_id);
+
+		if (result.success) {
+			gameSlotData = result.data;
+		} else {
+			throw new Error('Failed to fetch game slot');
+		}
+	}
+
+	storeUserInfo.subscribe(async (value) => {
+		gameSlotPage = 1;
+		await getGameRound();
+
+		if (gameStartIndex < 0) {
+			gameStartIndex = gameRoundData.data.length - 1;
+		}
+
+		currentGame = gameRoundData?.data[+gameStartIndex];
+
+		if (value.web3_address !== zeroAddress) {
+			await getGameSlot();
+		}
 	});
 </script>
 
@@ -64,7 +104,7 @@
 				<img src="/img/game/right.png" alt="" />
 			</div>
 			{#if browser && gameRoundData}
-				<Game.GameCarousel bind:gameRoundData bind:gamePage />
+				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage />
 			{:else}
 				<div class="flex w-full items-center gap-x-5">
 					{#each Array(5) as _}
@@ -73,10 +113,11 @@
 				</div>
 			{/if}
 		</div>
+
 		<Game.Reward />
 
 		{#if $storeUserInfo.web3_address !== zeroAddress}
-			<Game.Slot />
+			<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
 		{/if}
 
 		<Game.Rules />

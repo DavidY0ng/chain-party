@@ -14,7 +14,7 @@
 	import Header from './Card/Header.svelte';
 
 	export let gameRoundData: TGameRound;
-	export let gamePage: number;
+	export let gameRoundPage: number;
 
 	let gameStartIndex = 0;
 	let api: CarouselAPI;
@@ -55,10 +55,10 @@
 		if (
 			current !== 0 &&
 			gameRoundData.data.length - (gameRoundData.data.length - current) <= 2 &&
-			gamePage < gameRoundData.last_page
+			gameRoundPage < gameRoundData.last_page
 		) {
-			gamePage++;
-			const result = await GameAPI.getRound(gamePage, 10);
+			gameRoundPage++;
+			const result = await GameAPI.getRound(gameRoundPage, 10);
 			if (result.success) {
 				// Append new data to the front of the existing array
 				gameRoundData.data = [...result.data.data, ...gameRoundData.data];
@@ -92,6 +92,9 @@
 
 	onMount(() => {
 		gameStartIndex = gameRoundData.data.findIndex((item) => item.status === 'game_start');
+		if (gameStartIndex < 0) {
+			gameStartIndex = gameRoundData.data.length;
+		}
 	});
 
 	onDestroy(() => {
@@ -114,7 +117,11 @@
 	<Carousel.Content class="flex items-center ">
 		{#if gameRoundData?.data}
 			{#each gameRoundData.data as round, i}
-				<Carousel.Item class="h-fit translate-x-[49.5%] pl-5 lg:basis-[25%]">
+				<Carousel.Item
+					class="h-fit  pl-5 lg:basis-[25%] {gameRoundData.count < 2
+						? 'translate-x-[149.5%]'
+						: 'translate-x-[49.5%]'}"
+				>
 					<Card.Root>
 						<Card.Content
 							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current ===
@@ -170,7 +177,7 @@
 	/>
 	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
 
-	{#if latestGameStartIndex + 1 - current !== 0}
+	{#if latestGameStartIndex + 1 - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div

@@ -54,7 +54,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20">
+				<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
 					{#each Array(10) as _, i}
 						<div class="flex items-center justify-between px-8 py-4">
 							<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>

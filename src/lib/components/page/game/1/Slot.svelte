@@ -1,26 +1,45 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
+	import { getOrdinalSuffix } from '$lib/helper';
+	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
 	import Icon from '@iconify/svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	export let gameSlotData: TGameSlot;
+	export let currentGame: TGameRound['data'][0];
+	export let gameSlotPage: number;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div id="Game Slot" class="w-full space-y-5">
 	<div id="header" class="flex w-full justify-between">
 		<div>
-			<Text class="text-white/50">Game #123</Text>
-			<Text class="font-bold underline " size="2xl">My Group</Text>
+			<Text class="text-white/50">Game #{currentGame?.round_id}</Text>
+			<Text class="font-bold underline " size="2xl"
+				>{gameSlotData?.self_position === null ? 'Other Group' : 'My Group'}</Text
+			>
 		</div>
 		<div class="flex items-center gap-x-5">
 			<div class="flex items-center gap-x-2">
 				<Text class="text-[14px] text-white/50">Group</Text>
-				<div class="rounded-lg bg-black/20 px-4 py-2 text-center font-bold">1</div>
-				<Text class="text-[14px] text-white/50">of 46</Text>
+				<div class="rounded-lg bg-black/20 px-4 py-2 text-center font-bold">{gameSlotPage}</div>
+				<Text class="text-[14px] text-white/50">of {gameSlotData?.last_slot}</Text>
 			</div>
 			<div class="flex">
-				<Button class="bg-[#480A46] px-2 py-0">
+				<Button
+					on:click={() => [dispatch('paginate', 'previous')]}
+					disabled={gameSlotPage <= 1}
+					class="bg-[#480A46] px-2 py-0"
+				>
 					<Icon icon="formkit:arrowleft" class="text-[14px]" />
 				</Button>
-				<Button class=" bg-[#480A46] px-2 py-0">
+				<Button
+					on:click={() => [dispatch('paginate', 'next')]}
+					disabled={gameSlotPage === gameSlotData?.last_slot}
+					class=" bg-[#480A46] px-2 py-0"
+				>
 					<Icon icon="formkit:arrowright" class="text-[14px]" />
 				</Button>
 			</div>
@@ -34,8 +53,8 @@
 
 		<div class="relative flex items-center gap-x-2">
 			<div class="flex font-bold">
-				<Text size="3xl" class="">10</Text>
-				<Text class="">th</Text>
+				<Text size="3xl" class="">{gameSlotData?.self_position}</Text>
+				<Text class="">{getOrdinalSuffix(gameSlotData?.self_position)}</Text>
 			</div>
 			<div class="flex font-bold">
 				<Text size="xl" class="text-white/50">/ 20</Text>
@@ -47,7 +66,9 @@
 		>
 			<img src="/img/game/info.png" class="h-5 w-5" alt="" />
 			<Text class=""
-				>Your current lucky number is <span class="font-bold text-[#DF61FF]">10th</span>.</Text
+				>Your current lucky number is <span class="font-bold text-[#DF61FF]"
+					>{gameSlotData?.self_position}{getOrdinalSuffix(gameSlotData?.self_position)}</span
+				>.</Text
 			>
 		</div>
 		<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
@@ -62,12 +83,14 @@
 		<div
 			class="gradientScrollbar h-full max-h-[260px] w-full overflow-y-scroll rounded-lg bg-black/20"
 		>
-			{#each Array(10) as _}
-				<div class="flex items-center justify-between px-8 py-4 pr-12">
-					<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-					<Text>1</Text>
-				</div>
-			{/each}
+			{#if gameSlotData?.data.length > 0}
+				{#each gameSlotData?.data as slot}
+					<div class="flex items-center justify-between px-8 py-4 pr-12">
+						<Text>{slot?.address}</Text>
+						<Text>{slot?.user_position}</Text>
+					</div>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </div>

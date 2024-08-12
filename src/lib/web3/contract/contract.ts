@@ -51,7 +51,7 @@ function _getContract<
 }
 
 // Define your contract instance here
-export const fakeUsdtContract = _getContract('fakeUSDT', FakeUSDT, bscClient);
-export const gameContract = _getContract('GameContract', GameContract, bscClient);
-export const rngContract = _getContract('RNG', RNG, bscClient);
-export const meicTokenContract = _getContract('MeicToken', MeicToken, bscClient);
+export const fakeUsdtContract = _getContract('mockUSDT', FakeUSDT, bscClient);
+export const gameContract = _getContract('PartyTicket', GameContract, bscClient);
+export const rngContract = _getContract('mEICToken', RNG, bscClient);
+export const meicTokenContract = _getContract('pEICToken', MeicToken, bscClient);

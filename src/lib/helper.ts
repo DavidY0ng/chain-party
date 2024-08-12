@@ -87,3 +87,24 @@ export function concatinateDate(date: DateValue | undefined): string | void {
 	if (date === undefined) return console.error('No date can be concatinate');
 	return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`;
 }
+
+export function getOrdinalSuffix(numberStr: string) {
+	const num = parseInt(numberStr, 10);
+	const lastDigit = num % 10;
+	const lastTwoDigits = num % 100;
+
+	if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+		return 'th';
+	}
+
+	switch (lastDigit) {
+		case 1:
+			return 'st';
+		case 2:
+			return 'nd';
+		case 3:
+			return 'rd';
+		default:
+			return 'th';
+	}
+}

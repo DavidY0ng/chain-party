@@ -24,8 +24,6 @@ class API {
 				const tokenApi = Cookies.get('accessToken');
 				if (tokenApi) {
 					headers.Authorization = `Bearer ${tokenApi}`;
-				} else {
-					throw new Error('No access token available');
 				}
 			}
 
