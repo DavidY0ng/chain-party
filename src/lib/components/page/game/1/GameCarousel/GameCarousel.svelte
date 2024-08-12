@@ -92,6 +92,9 @@
 
 	onMount(() => {
 		gameStartIndex = gameRoundData.data.findIndex((item) => item.status === 'game_start');
+		if (gameStartIndex < 0) {
+			gameStartIndex = gameRoundData.data.length;
+		}
 	});
 
 	onDestroy(() => {
@@ -114,7 +117,7 @@
 	<Carousel.Content class="flex items-center ">
 		{#if gameRoundData?.data}
 			{#each gameRoundData.data as round, i}
-				<Carousel.Item class="h-fit translate-x-[49.5%] pl-5 lg:basis-[25%]">
+				<Carousel.Item class="h-fit  pl-5 lg:basis-[25%] {gameRoundData.count < 2 ? 'translate-x-[148.5%]' : 'translate-x-[49.5%]'}">
 					<Card.Root>
 						<Card.Content
 							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current ===
