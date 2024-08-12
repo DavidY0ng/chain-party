@@ -22,7 +22,7 @@
 		
 		<Intro />
 	</div>
-	<div class=" mt-[150px]">
+	<div class=" w-full">
 		<Cards />
 	</div>
 	<!-- mascot image -->

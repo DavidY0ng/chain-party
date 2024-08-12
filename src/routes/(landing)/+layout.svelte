@@ -5,9 +5,9 @@
 </script>
 
 <Toaster />
-<div class="h-full flex flex-col flex-grow bg-[#110F27]">
+<div class="h-full flex flex-col flex-grow bg-[#110F27] ">
     <TopNav />
-    <div class="overflow-y-scroll flex flex-col flex-grow">
+    <div class="overflow-y-scroll flex flex-col flex-grow gradientScrollbar">
         <div class='flex flex-col items-center'>
             <slot/>
         </div>

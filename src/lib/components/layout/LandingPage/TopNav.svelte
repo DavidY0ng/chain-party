@@ -13,7 +13,7 @@
 	}));
 </script>
 
-<div class="top-0 z-20 flex w-full items-center justify-between px-3 py-3 shadow-md bg-[#0E0616]/90 fixed">
+<div class="top-0 z-[100] flex w-full items-center justify-between px-3 py-3 shadow-md bg-[#0E0616]/90 fixed">
 	<div class="grid w-full items-center grid-cols-3">
 		<Text size="2xl" class="flex text-center text-blue-500">
 			<a href="/"> 
