@@ -7,7 +7,6 @@ import type {
 	TGameSlot,
 	TGameStatus
 } from '$lib/type/gameType';
-import type { TDashboardGame } from './dashboard';
 
 const GameAPI = {
 	history: {
@@ -36,15 +35,10 @@ const GameAPI = {
 			return { success: false, data: {} as TGameRound, msg: (error as Error).message };
 		}
 	},
-	getSlot: async function (
-		game_name: TDashboardGame['name'],
-		slot: number,
-		round_id: string
-	): Promise<APIResponse<TGameSlot>> {
+	getSlot: async function (slot: number, round_id: number): Promise<APIResponse<TGameSlot>> {
 		try {
 			const response = await api.get<TGameSlot>('/dapp/game/slot', {
 				data: {
-					game_name,
 					slot,
 					round_id
 				}
