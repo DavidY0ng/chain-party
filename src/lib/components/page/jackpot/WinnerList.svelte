@@ -1,27 +1,40 @@
-<script>
-	import { t } from '$lib/i18n';
-	import Text from '$lib/components/ui/text/text.svelte';
-	import { Button } from '$lib/components/ui/button';
+<script lang="ts">
 	import JackpotAPI from '$lib/api/jackpot';
-	import { onMount } from 'svelte';
-	import Icon from '@iconify/svelte';
-	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { Button } from '$lib/components/ui/button';
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
+	import Text from '$lib/components/ui/text/text.svelte';
+	import { t } from '$lib/i18n';
 	import { isToken } from '$lib/stores/storeCommon';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import type { TWinnerList } from '$lib/type/jackpotType';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
-    import { isDesktop } from '$lib/stores/storeCommon';
-    import { truncateString } from '$lib/helper';
+	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 
 	let winnerListPagination = {
-			page: 1,
-			size: 1
-		},
-		currentListPagination = {
-			page: 1,
-			size: 1
-		};
+		page: 1,
+		size: 1
+	};
+
+	let winnerList: TWinnerList;
+	let intersecting: boolean = false;
 
 	async function getWinnerList() {
+		winnerListPagination.page++;
 		const result = await JackpotAPI.getWinnerList(winnerListPagination);
+		if (result.success) {
+			if (winnerListPagination.page === 1) {
+				winnerList = result.data;
+			} else {
+				winnerList = {
+					...result.data,
+					data: [...winnerList.data, ...result.data.data]
+				};
+			}
+		} else {
+			throw new Error('Failed to fetch winner list');
+		}
 	}
 
 	onMount(() => {
@@ -36,38 +49,38 @@
 		>
 			<Text class="pl-8">{$t('jackpot.winner_list')}</Text>
 			<div class="flex bg-gradient-to-t from-[#AC4FF4] to-[#F72E9A] px-4 py-2">
-				<Button class="p-0 font-thin underline bg-transparent">{$t('jackpot.how_to_join')}
-                    <span class='pl-3'><Icon icon="fluent:open-24-filled" width="1.2em" height="1.2em" /></span>
-                </Button>
+				<Button class="bg-transparent p-0 font-thin underline"
+					>{$t('jackpot.how_to_join')}
+					<span class="pl-3"
+						><Icon icon="fluent:open-24-filled" width="1.2em" height="1.2em" /></span
+					>
+				</Button>
 			</div>
 		</div>
-		<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
-			{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
-				{#each Array(10) as _, i}
+		<div
+			class="gradientScrollbar {$storeUserInfo.web3_address === zeroAddress &&
+			$isToken === undefined
+				? 'h-[500px]'
+				: winnerList?.data.length > 0
+					? 'max-h-[350px]'
+					: 'h-[350px]'}  w-full overflow-y-scroll rounded-2xl bg-black/20"
+		>
+			{#if winnerList?.data.length > 0}
+				{#each winnerList.data as user, i}
 					<div class="flex items-center justify-between px-8 py-4">
-                        {#if !isDesktop}
-						    <Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-                        {:else}
-                            <Text>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',7,7)}</Text>
-                        {/if}
-						<div class="flex justify-between xl:gap-x-[100px] gap-3">
-							<div class="flex gap-x-2">
-								<img src="/img/jackpot/cap.png" class="h-[20px] w-[20px]" alt="cap" />
-								<Text class="hidden xl:flex">{$t('jackpot.won')}</Text>
-							</div>
-							<Text>813 pEIC</Text>
-						</div>
+						<Text>{user.address}</Text>
+						<Text>{user.amount}</Text>
 					</div>
 				{/each}
+				{#if winnerListPagination.page < winnerList.last_page}
+					<IntersectionObserver bind:intersecting>
+						<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
+					</IntersectionObserver>
+				{/if}
 			{:else}
-				{#each Array(10) as _, i}
-					<div class="flex items-center justify-between px-8 py-4">
-						<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-						<div class="flex">
-							<Text>{$t('jackpot.won')} 813 pEIC</Text>
-						</div>
-					</div>
-				{/each}
+				<div class="flex h-full w-full items-center justify-center text-center">
+					<Text size="xl">No Winner Record Available</Text>
+				</div>
 			{/if}
 		</div>
 	</div>
