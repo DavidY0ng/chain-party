@@ -22,7 +22,8 @@
     
     <Header title={$t('landing.join_the_community')}></Header>
 
-    <div class='relative '>
+    <div class='relative flex flex-col items-center'>
+        <div class='pink-eclipse blur-[150px]'></div>
         <div>
             <img src='/img/landing/community/mascot.png' alt='mascot'>
         </div>
@@ -57,6 +58,19 @@
         background: linear-gradient(180deg, #EC05F8 0%, #9723DE 100%);
         position: absolute;
         z-index: 10;
+    }
+
+    
+    .pink-eclipse {
+        position: absolute;
+        height: auto;
+        width: 550px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        opacity: 0.5;
+        transform: translateZ(0);
+        background-color: #833AC1;
+        z-index: -1;
     }
 
     .star-background {
