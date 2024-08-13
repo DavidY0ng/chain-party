@@ -7,5 +7,16 @@ export type TCurrentList = {
 };
 
 export type TWinnerList = {
-	address: Address;
+	data: {
+		address: Address;
+		amount: number;
+		is_self: boolean;
+	}[];
+	count: number;
+	last_page: number;
+};
+
+export type TJackpotPool = {
+	amount: number;
+	lose_count: number;
 };
