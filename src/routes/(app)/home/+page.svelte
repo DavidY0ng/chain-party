@@ -1,22 +1,21 @@
 <script lang="ts">
 	import DashboardAPI from '$lib/api/dashboard';
 	import JackpotAPI from '$lib/api/jackpot';
-	import { data as seedData } from '$lib/api/seed';
 	import * as Home from '$lib/components/page/home';
+	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
-	import type { TWinnerList } from '$lib/type/jackpotType';
+	import type { TCurrentList } from '$lib/type/jackpotType';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 
 	let jackpotPoolAmount = {
 		integer: [] as string[],
 		decimal: [] as string[]
 	};
 
-	let winnerList: TWinnerList;
+	let currentList: TCurrentList;
 
 	let intersecting: boolean = false;
 
@@ -30,16 +29,16 @@
 		const result = await DashboardAPI.planet.getReward();
 	}
 
-	async function getWinnerList() {
+	async function getCurrentList() {
 		pagination.page++;
-		const result = await JackpotAPI.getWinnerList(pagination);
+		const result = await JackpotAPI.getCurrentList(pagination);
 		if (result.success) {
 			if (pagination.page === 1) {
-				winnerList = result.data;
+				currentList = result.data;
 			} else {
-				winnerList = {
+				currentList = {
 					...result.data,
-					data: [...winnerList.data, ...result.data.data]
+					data: [...currentList.data, ...result.data.data]
 				};
 			}
 		} else {
@@ -86,13 +85,13 @@
 		}
 	}
 
-	$: if (intersecting && pagination.page < winnerList.last_page) {
-		getWinnerList();
+	$: if (intersecting && pagination.page < currentList.last_page) {
+		getCurrentList();
 	}
 
 	onMount(() => {
 		getJackpotPool();
-		getWinnerList();
+		getCurrentList();
 	});
 </script>
 
@@ -148,8 +147,8 @@
 					<Text>{$t('home.address')}</Text>
 					<Text>{$t('home.won_times')}</Text>
 				</div>
-				{#if winnerList?.data.length > 0}
-					{#each winnerList.data as user, i}
+				{#if currentList?.data.length > 0}
+					{#each currentList.data as user, i}
 						{#if user.is_self}
 							<div class="overflow-hidden rounded-2xl">
 								<div class="selfContainer w-full border-x-[6px]">
@@ -162,18 +161,18 @@
 					{/each}
 				{/if}
 				<div
-					class="gradientScrollbar {winnerList?.data.length > 0
-						? 'h-[500px] '
+					class="gradientScrollbar {currentList?.data.length > 0
+						? 'max-h-[500px] '
 						: 'h-[200px]'} w-full overflow-y-scroll rounded-2xl bg-black/20"
 				>
-					{#if winnerList?.data.length > 0}
-						{#each winnerList.data as user, i}
+					{#if currentList?.data.length > 0}
+						{#each currentList.data as user, i}
 							<div class="flex items-center justify-between px-8 py-4">
 								<Text>{user.address}</Text>
-								<Text>{user.amount}</Text>
+								<Text>{user.count}</Text>
 							</div>
 						{/each}
-						{#if pagination.page < winnerList.last_page}
+						{#if pagination.page < currentList.last_page}
 							<IntersectionObserver bind:intersecting>
 								<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
 							</IntersectionObserver>
