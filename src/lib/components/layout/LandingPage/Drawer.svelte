@@ -7,7 +7,6 @@
 	import { Text } from '../../ui/text';
 	import { navLinks } from './navLinks';
 	import ConnectWallet from '../../shared/ConnectWallet.svelte';
-	import { isComingSoon } from '$lib/stores/storeCommon';
 	import { t } from '$lib/i18n';
 
 	let drawerOpen = false;
@@ -25,7 +24,7 @@
 <Sheet.Root bind:open={drawerOpen}>
 	<Sheet.Trigger asChild let:builder>
 		
-		<Button builders={[builder]} variant="ghost" class="flex xl:hidden text-white {$isComingSoon? 'hidden':''}">
+		<Button builders={[builder]} variant="ghost" class="flex xl:hidden text-white">
 			<Icon icon="material-symbols:menu" class="text-2xl" />
 		</Button>
 	</Sheet.Trigger>
