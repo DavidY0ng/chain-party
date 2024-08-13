@@ -1,12 +1,15 @@
 <script lang="ts">
 	import DashboardAPI from '$lib/api/dashboard';
 	import JackpotAPI from '$lib/api/jackpot';
+	import { data as seedData } from '$lib/api/seed';
 	import * as Home from '$lib/components/page/home';
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
 	import type { TWinnerList } from '$lib/type/jackpotType';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 
 	let jackpotPoolAmount = {
 		integer: [] as string[],
@@ -14,6 +17,8 @@
 	};
 
 	let winnerList: TWinnerList;
+
+	let intersecting: boolean = false;
 
 	// Pagination
 	let pagination = {
@@ -27,10 +32,16 @@
 
 	async function getWinnerList() {
 		pagination.page++;
-
 		const result = await JackpotAPI.getWinnerList(pagination);
 		if (result.success) {
-			winnerList = result.data;
+			if (pagination.page === 1) {
+				winnerList = result.data;
+			} else {
+				winnerList = {
+					...result.data,
+					data: [...winnerList.data, ...result.data.data]
+				};
+			}
 		} else {
 			throw new Error('Failed to fetch winner list');
 		}
@@ -75,9 +86,12 @@
 		}
 	}
 
+	$: if (intersecting && pagination.page < winnerList.last_page) {
+		getWinnerList();
+	}
+
 	onMount(() => {
 		getJackpotPool();
-		console.log(jackpotPoolAmount);
 		getWinnerList();
 	});
 </script>
@@ -159,6 +173,11 @@
 								<Text>{user.amount}</Text>
 							</div>
 						{/each}
+						{#if pagination.page < winnerList.last_page}
+							<IntersectionObserver bind:intersecting>
+								<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
+							</IntersectionObserver>
+						{/if}
 					{:else}
 						<div class="flex h-full w-full items-center justify-center text-center">
 							<Text size="xl">No Winner Record Available</Text>
