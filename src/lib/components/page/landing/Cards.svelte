@@ -10,12 +10,12 @@
     ]
 </script>
 
-<div class="relative flex flex-col items-center w-full">
-    <div class="w-full flex flex-col items-center bg-[#110F27]">
-        <img src='/img/landing/cards/bow.png' alt='bow' class="z-0 translate-y-[-30%] w-full object-cover h-[650px] bg-[#110F27]">
+<div class="relative flex flex-col items-center w-full h-screen translate-y-[-15%] min-h-[1000px]">
+    <div class="flex flex-col items-center absolute top-0 w-full">
+        <img src='/img/landing/cards/bow.png' alt='bow' class="z-0 object-cover w-full bg-[#110F27]">
     </div>
     
-    <div class="z-10">
+    <div class="z-10 relative translate-y-[40%]">
         <div class="flex flex-col items-center mb-[50px] ">
             <div class="flex items-center gap-10">
                 <img src='/img/landing/cards/drink.png' alt='drink'>

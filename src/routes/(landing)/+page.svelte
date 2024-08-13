@@ -6,6 +6,7 @@
 	import Ecosystem from '$lib/components/page/landing/Ecosystem.svelte';
 	import Intro from '$lib/components/page/landing/Intro.svelte';
 	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
+	import Mascot from '$lib/components/page/landing/Mascot.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
 	import { isComingSoon } from '$lib/stores/storeCommon';
@@ -27,11 +28,7 @@
 	</div>
 	<!-- mascot image -->
 	<div class="flex w-full justify-center">
-		<div class="mb-[200px] mt-[100px] flex w-full flex-col items-center gap-5">
-			<div class="h-[400px] w-full max-w-[600px] bg-gray-500">
-				<img src="" class="" alt="chain_party_mascot" />
-			</div>
-		</div>
+		<Mascot />
 	</div>
 
 	<!-- incubator -->
