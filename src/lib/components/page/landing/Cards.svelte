@@ -11,7 +11,7 @@
     ]
 </script>
 
-<div class="relative flex flex-col items-center w-full h-screen translate-y-[-15%] min-h-[1000px]">
+<div class="relative flex flex-col items-center w-full h-screen min-h-screen">
     <div class="flex flex-col items-center absolute top-0 w-full">
         <img src='/img/landing/cards/bow.png' alt='bow' class="z-0 object-cover w-full bg-[#110F27]">
     </div>

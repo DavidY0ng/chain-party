@@ -1,6 +1,8 @@
 <script lang='ts'>
 	import { t } from '$lib/i18n';
 	import Text from '$lib/components/ui/text/text.svelte';
+	import Header from './header/Header.svelte';
+	import RoadmapCard from './roadmap-card/RoadmapCard.svelte';
 
 	const roadmaps = [
 		{
@@ -35,32 +37,39 @@
 		}
 	];
 
+	const planets = ['1','2', '3', '4']
+	const rings = ['1','2', '3', '4']
+	const planetTranslations = ['10%', '17%', '15%', '45%'];
+
 </script>
 
 <div class="flex flex-col relative items-center">
-	<div class="pb-10">
-		<Text tag="h1" size="3xl">{$t('landing.roadmap.title')}</Text>
-	</div>
-	<div class="bg-gray-300 relative p-10">
-		<img
-			src="/img/landing/roadmap/roadmap-bg.jpg"
-			alt="roadmap-bg"
-			class="absolute inset-0 w-full h-full object-cover"
-		/>
-		<div class="grid xl:grid-cols-2 gap-[100px] relative z-10">
-			{#each roadmaps as roadmap}
-				<div class="border xl:w-[500px] text-black">
-			
-					<ul class="list-disc pl-5">
-						{#each roadmap.description as item}
-							<li>{item}</li>
-						{/each}
-					</ul>
-                    <div>
-						{roadmap.year}
-					</div>
-				</div>
-			{/each}
-		</div>
-	</div>
+    <Header title={$t('landing.roadmap.title')}></Header>
+    <div class="w-full max-w-6xl px-4">
+        <div class="grid grid-cols-4 gap-[100px] relative">
+            {#each rings as ring, index}
+                <div class="relative flex flex-col items-center justify-center">
+                    {#if index % 2 === 0}
+                        <div class="absolute top-0 z-10 left-[13%]">
+                            <RoadmapCard roadmap={roadmaps[index]} />
+                        </div>
+                    {/if}
+                    <div class="relative">
+                        <img src='/img/landing/roadmap/rings/ring {ring}.png' alt='ring' class="w-full h-auto">
+                        {#if planets[index]}
+                            <div class="absolute inset-0 flex items-center justify-end" style="transform: translateX({planetTranslations[index]})">
+                                <img src='/img/landing/roadmap/planets/planet {planets[index]}.png' alt='planet' class="">
+                            </div>
+                        {/if}
+                    </div>
+                    {#if index % 2 !== 0}
+                        <div class="absolute bottom-0 z-10 left-[18%]">
+                            <RoadmapCard roadmap={roadmaps[index]} />
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    </div>
 </div>
+

@@ -19,7 +19,7 @@
             <Text size='3xl' class='pixel-font'>ECOSYSTEM PARTNERS</Text>
             <div class="grid grid-cols-3 gap-[40px]">
                 {#each partnersImg as img}
-                    <div class="bg-[#3C3A61]/50 rounded-md flex justify-center h-[100px] w-[400px] items-center">
+                    <div class="bg-[#3C3A61]/60 rounded-md flex justify-center h-[100px] w-[400px] items-center">
                         <img src = '/img/landing/incubator/partners/{img}.png' alt='partners_img' class="h-[60px]">
                     </div>
                 {/each}
