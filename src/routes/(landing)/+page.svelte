@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Cards from '$lib/components/page/landing/Cards.svelte';
-	import ChainPartyMascots from '$lib/components/page/landing/ChainPartyMascots.svelte';
 	import Community from '$lib/components/page/landing/Community.svelte';
 	import Intro from '$lib/components/page/landing/Intro.svelte';
 	import Roadmap from '$lib/components/page/landing/Roadmap.svelte';
@@ -30,7 +29,4 @@
 </div>
 <div class="mb-[100px] w-full">
 	<Community />
-</div>
-<div class="mb-[80px]">
-	<ChainPartyMascots />
 </div>
