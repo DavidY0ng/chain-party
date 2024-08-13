@@ -6,7 +6,7 @@
     const partnersImg = ['spic', 'eic', 'bnb chain']
 </script>
 
-<div class="flex flex-col bg-with-opacity bg-no-repeat bg-cover w-full min-h-screen">
+<div class="flex flex-col bg-with-opacity w-full min-h-screen">
     <div class="container mx-auto px-4">
         <div class="flex flex-col gap-5 mb-[150px] pt-[100px]">
             <Header title={$t('landing.incubator')}></Header>
