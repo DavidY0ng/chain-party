@@ -1,12 +1,103 @@
 <script lang="ts">
+	import DashboardAPI from '$lib/api/dashboard';
+	import JackpotAPI from '$lib/api/jackpot';
+	import { data as seedData } from '$lib/api/seed';
 	import * as Home from '$lib/components/page/home';
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
+	import { t } from '$lib/i18n';
+	import type { TWinnerList } from '$lib/type/jackpotType';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { t } from '$lib/i18n'
+	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
+
+	let jackpotPoolAmount = {
+		integer: [] as string[],
+		decimal: [] as string[]
+	};
+
+	let winnerList: TWinnerList;
+
+	let intersecting: boolean = false;
+
+	// Pagination
+	let pagination = {
+		page: 0,
+		size: 50
+	};
+
+	async function getDashboardGame() {
+		const result = await DashboardAPI.planet.getReward();
+	}
+
+	async function getWinnerList() {
+		pagination.page++;
+		const result = await JackpotAPI.getWinnerList(pagination);
+		if (result.success) {
+			if (pagination.page === 1) {
+				winnerList = result.data;
+			} else {
+				winnerList = {
+					...result.data,
+					data: [...winnerList.data, ...result.data.data]
+				};
+			}
+		} else {
+			throw new Error('Failed to fetch winner list');
+		}
+	}
+
+	// Get jackpot pool amount
+	async function getJackpotPool() {
+		const result = await JackpotAPI.getPool();
+
+		if (result.success) {
+			handleSplitNumber(result.data.amount);
+		}
+	}
+
+	function handleSplitNumber(number: number) {
+		let decimal: number = 0;
+
+		if (number > 0) {
+			let integerPart: string = String(Math.floor(number));
+			let formattedIntegerPart = [];
+
+			// Add dot every three digits from the right
+			for (let i = 0; i < integerPart.length; i++) {
+				if (i > 0 && (integerPart.length - i) % 3 === 0) {
+					formattedIntegerPart.push(',');
+				}
+				formattedIntegerPart.push(integerPart[i]);
+			}
+
+			jackpotPoolAmount.integer = formattedIntegerPart;
+
+			decimal = number - Number(integerPart);
+		} else {
+			jackpotPoolAmount.integer = ['0'];
+		}
+
+		if (decimal > 0) {
+			const decimalPart = decimal.toFixed(2).split('.')[1];
+			jackpotPoolAmount.decimal = decimalPart.split('');
+		} else {
+			jackpotPoolAmount.decimal = ['0', '0'];
+		}
+	}
+
+	$: if (intersecting && pagination.page < winnerList.last_page) {
+		getWinnerList();
+	}
+
+	onMount(() => {
+		getJackpotPool();
+		getWinnerList();
+	});
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full">
-	<div class="pink-eclipse blur-[120px] left-[-10%] top-[-30%] w-[560px]" />
+	<div class="pink-eclipse left-[-10%] top-[-30%] w-[560px] blur-[120px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<div id="Pool List" class=" space-y-5">
 			<div class="flex w-full">
@@ -29,14 +120,24 @@
 					alt=""
 				/>
 				<div class="flex w-full items-end justify-center gap-x-2">
-					{#each Array(10) as _, i}
+					{#each jackpotPoolAmount.integer as number, i}
+						<div
+							class="{number === ','
+								? '-mb-2 text-3xl'
+								: 'bubbleNumber  w-full max-w-[50px]'} flex h-[60px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
+						>
+							{number}
+						</div>
+					{/each}
+					<Text size="3xl">.</Text>
+					{#each jackpotPoolAmount.decimal as decimal}
 						<div
 							class="bubbleNumber flex h-[60px] w-full max-w-[50px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
 						>
-							1
+							{decimal}
 						</div>
-						<Text size="3xl" class="font-bold">,</Text>
 					{/each}
+					<Text size="xl">pEIC</Text>
 				</div>
 			</div>
 			<div class="w-full space-y-3">
@@ -47,20 +148,41 @@
 					<Text>{$t('home.address')}</Text>
 					<Text>{$t('home.won_times')}</Text>
 				</div>
-				<div class="overflow-hidden rounded-2xl">
-					<div class="selfContainer w-full border-x-[6px]">
-						<div class="rounded bg-[#000000]/30 px-6 py-4">
-							<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-						</div>
-					</div>
-				</div>
-				<div class="h-[500px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
-					{#each Array(10) as _, i}
-						<div class="flex items-center justify-between px-8 py-4">
-							<Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-							<Text>3</Text>
-						</div>
+				{#if winnerList?.data.length > 0}
+					{#each winnerList.data as user, i}
+						{#if user.is_self}
+							<div class="overflow-hidden rounded-2xl">
+								<div class="selfContainer w-full border-x-[6px]">
+									<div class="rounded bg-[#000000]/30 px-6 py-4">
+										<Text>{user.address}</Text>
+									</div>
+								</div>
+							</div>
+						{/if}
 					{/each}
+				{/if}
+				<div
+					class="gradientScrollbar {winnerList?.data.length > 0
+						? 'h-[500px] '
+						: 'h-[200px]'} w-full overflow-y-scroll rounded-2xl bg-black/20"
+				>
+					{#if winnerList?.data.length > 0}
+						{#each winnerList.data as user, i}
+							<div class="flex items-center justify-between px-8 py-4">
+								<Text>{user.address}</Text>
+								<Text>{user.amount}</Text>
+							</div>
+						{/each}
+						{#if pagination.page < winnerList.last_page}
+							<IntersectionObserver bind:intersecting>
+								<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
+							</IntersectionObserver>
+						{/if}
+					{:else}
+						<div class="flex h-full w-full items-center justify-center text-center">
+							<Text size="xl">No Winner Record Available</Text>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -81,5 +203,4 @@
 			rgba(255, 94, 220, 0) 100%
 		);
 	}
-
 </style>

@@ -43,7 +43,7 @@
 		<TopMenu />
 		<div
 			bind:this={contentContainer}
-			class="relative z-20 flex h-full flex-grow flex-col items-center overflow-x-hidden overflow-y-scroll"
+			class="relative z-20 flex h-full flex-grow flex-col items-center overflow-x-hidden overflow-y-scroll scroll-smooth"
 		>
 			<Pageheader />
 			<div class="relative z-20 mb-10 flex w-full flex-col pt-10 xl:px-10 xl:pt-0">
