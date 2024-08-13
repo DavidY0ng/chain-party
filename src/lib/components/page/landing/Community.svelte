@@ -13,7 +13,7 @@
 
 </script>
 
-<div class='relative flex flex-col items-center gap-10 mx-auto w-full'>
+<div class='relative flex flex-col items-center md:gap-10 mx-auto w-full'>
     <div class="star-background w-full">
         <div class="stars stars-1"></div>
         <div class="stars stars-2"></div>
@@ -23,11 +23,12 @@
     <Header title={$t('landing.join_the_community')}></Header>
 
     <div class='relative flex flex-col items-center'>
-        <div class='pink-eclipse blur-[150px]'></div>
+        <div class='pink-eclipse blur-[150px] md:w-[550px] w-[350px]'></div>
         <div>
-            <img src='/img/landing/community/mascot.png' alt='mascot'>
+            <img src='/img/landing/community/mascot.png' alt='mascot' class='h-[300px] md:h-full'>
         </div>
-        <div class="flex justify-center gap-10">
+        <!-- desktop view -->
+        <div class="lg:flex justify-center gap-10 hidden">
             <a href='/hello' target="_blank" class='absolute top-[20%] translate-x-[-150px] left-0 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
                 <Icon icon="ri:twitter-x-fill" width="2.5em" height="2.5em" />
             </a>
@@ -41,8 +42,23 @@
                 <Icon icon="ic:baseline-discord" width="3em" height="3em" />
             </a>
         </div>
+        <!-- mobile view -->
+        <div class="lg:hidden justify-center flex gap-3 my-5">
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+                <Icon icon="ri:twitter-x-fill" width="2em" height="2em" />
+            </a>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+                <Icon icon="lets-icons:insta" width="2.5em" height="2.5em" />
+            </a>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+                <Icon icon="file-icons:telegram" width="2em" height="2em" />
+            </a>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+                <Icon icon="ic:baseline-discord" width="2.5em" height="2.5em" />
+            </a>
+        </div>
             
-        <Text size='3xl' class='pixel-font text-center translate-y-[-20px]'>170+ Registered Users</Text>
+        <Text size='3xl' class='pixel-font text-center md:translate-y-[-20px] px-1'>170+ Registered Users</Text>
     </div>
     
 
@@ -56,15 +72,21 @@
         border-radius: 50%;
         box-shadow: 0px -8px 4px 0px #00000040 inset;
         background: linear-gradient(180deg, #EC05F8 0%, #9723DE 100%);
-        position: absolute;
         z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+        .pink-circle {
+            width: 70px;
+            height: 70px;
+        }
+
     }
 
     
     .pink-eclipse {
         position: absolute;
         height: auto;
-        width: 550px;
         aspect-ratio: 1;
         border-radius: 50%;
         opacity: 0.5;

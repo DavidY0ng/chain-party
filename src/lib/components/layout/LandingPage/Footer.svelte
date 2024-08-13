@@ -11,7 +11,7 @@
     </div>
     <div class="hidden xl:flex gap-[60px] mb-10">
         {#each navLinks as link}
-        <a href={link.path} target={link.name === 'Mechanism'? '_blank' : ''}>
+        <a href={link.path} target={link.name === 'Mechanism'? 'blank' : ''}>
             <Text size='lg' class="pixel-font text-[25px] hover:text-[#EC05F8]">
                 {$t(`landing.nav_links.${link.name}`)}
             </Text>

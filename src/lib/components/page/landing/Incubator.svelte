@@ -8,7 +8,7 @@
 
 <div class="flex flex-col bg-with-opacity w-full min-h-screen">
     <div class="container mx-auto px-4">
-        <div class="flex flex-col gap-5 mb-[150px] pt-[100px]">
+        <div class="flex flex-col gap-5 md:mb-[150px] mb-[80px] pt-[100px]">
             <Header title={$t('landing.incubator')}></Header>
             <div class='flex justify-center'>
                 <img src='/img/landing/incubator/eic labs.png' alt='eic labs'>
@@ -16,11 +16,11 @@
         </div>
         
         <div class="flex flex-col items-center gap-[30px]">
-            <Text size='3xl' class='pixel-font'>ECOSYSTEM PARTNERS</Text>
-            <div class="grid grid-cols-3 gap-[40px]">
+            <Text size='3xl' class='pixel-font text-center'>ECOSYSTEM PARTNERS</Text>
+            <div class="grid xl:grid-cols-3 gap-[40px]">
                 {#each partnersImg as img}
-                    <div class="bg-[#3C3A61]/60 rounded-md flex justify-center h-[100px] w-[400px] items-center">
-                        <img src = '/img/landing/incubator/partners/{img}.png' alt='partners_img' class="h-[60px]">
+                    <div class="bg-[#3C3A61]/60 rounded-md flex justify-center h-[100px] md:w-[400px] items-center px-5">
+                        <img src = '/img/landing/incubator/partners/{img}.png' alt='partners_img' class="md:h-[60px]">
                     </div>
                 {/each}
             </div>

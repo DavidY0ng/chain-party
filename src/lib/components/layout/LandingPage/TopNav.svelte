@@ -23,7 +23,7 @@
 		<div class="hidden gap-10 xl:grid justify-item-center ">
 			<div class="flex justify-around">
 				{#each modifiedNavLinks as link}
-				<a href={link.path} target={link.name === 'Mechanism' ? '_blank' : ''}>
+				<a href={link.path} target={link.name === 'mechanism' ? 'blank' : ''}>
 					<Text size="lg" class="text-white pixel-font text-[25px] hover:text-[#EC05F8]">
 						{$t(`landing.nav_links.${link.name}`)}
 					</Text>
