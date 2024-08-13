@@ -1,6 +1,7 @@
 <script lang='ts'>
     	import { t } from '$lib/i18n';
         import Text from '$lib/components/ui/text/text.svelte';
+        import Header from './header/Header.svelte';
 
         const cards = [
         {name:$t('landing.card.innovative'), description:$t('landing.card.innovative_description')},
@@ -16,20 +17,11 @@
     </div>
     
     <div class="z-10 relative translate-y-[40%]">
-        <div class="flex flex-col items-center mb-[50px] ">
-            <div class="flex items-center gap-10">
-                <img src='/img/landing/cards/drink.png' alt='drink'>
-                <Text size='3xl' class="text-center pixel-font bg-gradient-to-r from-[#EC05F8] to-[#8C73F9] bg-clip-text text-transparent">
-                    {$t('landing.card_title.1')}?
-                </Text>
-                <img src='/img/landing/cards/popcorn.png' alt='drink'>
-            </div>
-            
+        <Header title= {$t('landing.card_title.1')}?>
             <Text size='xl'>
                 {$t('landing.card_title.2')}
             </Text>
-        </div>
-        
+        </Header>
         <div class="grid xl:grid-cols-2 gap-5 p-5 xl:p-0 ">
 
             <div class=" w-full flex flex-col justify-center items-center relative">
