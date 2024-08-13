@@ -49,8 +49,18 @@
 		let decimal: number = 0;
 
 		if (number > 0) {
-			const integerPart: string = String(Math.floor(number));
-			jackpotPoolAmount.integer.push(...integerPart.split(''));
+			let integerPart: string = String(Math.floor(number));
+			let formattedIntegerPart = [];
+
+			// Add dot every three digits from the right
+			for (let i = 0; i < integerPart.length; i++) {
+				if (i > 0 && (integerPart.length - i) % 3 === 0) {
+					formattedIntegerPart.push(',');
+				}
+				formattedIntegerPart.push(integerPart[i]);
+			}
+
+			jackpotPoolAmount.integer = formattedIntegerPart;
 
 			decimal = number - Number(integerPart);
 		} else {
@@ -59,7 +69,7 @@
 
 		if (decimal > 0) {
 			const decimalPart = decimal.toFixed(2).split('.')[1];
-			jackpotPoolAmount.decimal.push(...decimalPart.split(''));
+			jackpotPoolAmount.decimal = decimalPart.split('');
 		} else {
 			jackpotPoolAmount.decimal = ['0', '0'];
 		}
@@ -67,6 +77,7 @@
 
 	onMount(() => {
 		getJackpotPool();
+		console.log(jackpotPoolAmount);
 		getWinnerList();
 	});
 </script>
@@ -97,13 +108,12 @@
 				<div class="flex w-full items-end justify-center gap-x-2">
 					{#each jackpotPoolAmount.integer as number, i}
 						<div
-							class="bubbleNumber flex h-[60px] w-full max-w-[50px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
+							class="{number === ','
+								? '-mb-2 text-3xl'
+								: 'bubbleNumber  w-full max-w-[50px]'} flex h-[60px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
 						>
 							{number}
 						</div>
-						{#if i < jackpotPoolAmount.integer.length - 1}
-							<Text size="3xl" class="font-bold">,</Text>
-						{/if}
 					{/each}
 					<Text size="3xl">.</Text>
 					{#each jackpotPoolAmount.decimal as decimal}
