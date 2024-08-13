@@ -7,9 +7,9 @@
             <img src='/img/landing/mascot/green coin.png' class="absolute top-0 translate-x-[-100px]">
             <img src='/img/landing/mascot/blur purple coin.png' class="absolute bottom-0 translate-x-[-450px]">
             <img src='/img/landing/mascot/bnb coin.png' class="absolute bottom-0 translate-x-[-200px]">
-            <img src='/img/landing/mascot/usdt coin.png' class="absolute md:bottom-0 bottom-10 lg:translate-x-[400px] translate-x-[50%] md:translate-x-[160%]">
+            <img src='/img/landing/mascot/usdt coin.png' class="absolute md:bottom-0 bottom-10 lg:translate-x-[400px] translate-x-[70%] md:translate-x-[200%]">
             <img src='/img/landing/mascot/purple coin.png' class="absolute top-[-20px] md:translate-x-[420px] translate-x-[100%] z-[-1]">
-            <img src='/img/landing/mascot/blur green coin.png' class="md:absolute top-[10%] translate-x-[600px] hidden">
+            <img src='/img/landing/mascot/blur green coin.png' class="absolute top-[10%] translate-x-[600px] hidden lg:block">
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@
         <img src='/img/landing/cards/bow.png' alt='bow' class="z-0 object-cover w-full bg-[#110F27]">
     </div>
     
-    <div class="z-10 relative md:translate-y-[40%] translate-y-[20%]">
+    <div class="z-10 relative lg:translate-y-[40%] translate-y-[20%]">
         <Header title= {$t('landing.card_title.1')}?>
             <Text size='xl' class='text-[14px] md:text-[25px] mt-10'>
                 {$t('landing.card_title.2')}

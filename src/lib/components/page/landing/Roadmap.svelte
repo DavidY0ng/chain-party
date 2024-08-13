@@ -50,7 +50,7 @@
     <div class="w-full max-w-6xl px-4">
 		<!-- desktop view -->
 
-			<div class="hidden lg:grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-[100px] relative">
+			<div class="hidden xl:grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-[100px] relative">
 				{#each rings as ring, index}
 					<div class="relative flex flex-col items-center justify-center">
 						<!-- Mobile View -->
@@ -83,11 +83,11 @@
 				{/each}
 			</div>
 
-			<div class='lg:hidden flex flex-col'>
+			<div class='xl:hidden flex flex-col'>
 				{#each rings as ring, index}
 					<div class=" flex flex-col items-center">
 						<!-- Mobile View -->
-						<div class="lg:hidden flex flex-col w-full items-center">
+						<div class=" flex flex-col w-full items-center">
 							<div class='w-full relative flex flex-col items-center my-5'>
 								<img src='/img/landing/roadmap/rings/rotated/ring {ring} 90.png' alt='ring' class="w-auto object-cover">
 								<img src='/img/landing/roadmap/planets/planet {planets[index]}.png' alt='planet' class='absolute bottom-0' style="transform: translateY({planetTranslationsY[index]})">
