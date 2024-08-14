@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center w-full min-h-screen bg-with-opacity">
+<div class="relative flex justify-center items-center w-full min-h-screen bg-with-opacity">
     <div class="flex flex-col items-center gap-5 ">
         <div class="h-[500px] max-w-[600px] relative">
             <img src="/img/landing/mascot/mascot.png" class="float" alt="chain_party_mascot" />
@@ -17,6 +17,7 @@
 <style>
     .bg-with-opacity {
         position: relative;
+        min-height: 1000px;
     }
     
     .bg-with-opacity::before {

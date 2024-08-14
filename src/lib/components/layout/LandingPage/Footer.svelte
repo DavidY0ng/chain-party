@@ -5,11 +5,11 @@
 
 </script>
 
-<div class="bg-[#0D0320] flex flex-col items-center p-10">
-    <div class=" mb-10">
-        <img src='/img/landing/footer/logo.png' alt="chain_party_logo">
+<div class="bg-[#0D0320] flex flex-col items-center p-5">
+    <div class=" mb-5">
+        <img src='/img/landing/footer/logo.png' alt="chain_party_logo" class='h-[80px] w-[80px]'>
     </div>
-    <div class="hidden xl:flex gap-[60px] mb-10">
+    <div class="hidden xl:flex gap-[60px] mb-5">
         {#each navLinks as link}
         <a href={link.path} target={link.name === 'Mechanism'? 'blank' : ''}>
             <Text size='lg' class="pixel-font text-[25px] hover:text-[#EC05F8]">
