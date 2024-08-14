@@ -1,4 +1,5 @@
 import { api } from '$lib/http/https';
+import { storeUserInfo } from '$lib/stores/storeUser';
 import type { APIResponse } from '$lib/type/commonType';
 import type {
 	IGetListParams,
@@ -7,6 +8,8 @@ import type {
 	TGameSlot,
 	TGameStatus
 } from '$lib/type/gameType';
+import { get } from 'svelte/store';
+import { zeroAddress } from 'viem';
 
 const GameAPI = {
 	history: {
@@ -28,7 +31,7 @@ const GameAPI = {
 					page,
 					size
 				},
-				useToken: false
+				useToken: get(storeUserInfo).web3_address === zeroAddress ? false : true
 			});
 
 			return response;

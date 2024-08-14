@@ -1,6 +1,9 @@
 <script lang='ts'>
 	import { t } from '$lib/i18n';
 	import Text from '$lib/components/ui/text/text.svelte';
+	import Header from './header/Header.svelte';
+	import RoadmapCard from './roadmap-card/RoadmapCard.svelte';
+	import { isDesktop } from '$lib/stores/storeCommon';
 
 	const roadmaps = [
 		{
@@ -14,7 +17,11 @@
 		},
 		{
 			year: '2024 Q2',
-			description: [$t('landing.roadmap.2024_Q2.a'), $t('landing.roadmap.2024_Q2.b')]
+			description: [
+				$t('landing.roadmap.2024_Q2.a'), 
+				$t('landing.roadmap.2024_Q2.b'),
+				$t('landing.roadmap.2024_Q2.c')
+			]
 		},
 		{
 			year: '2024 Q3',
@@ -35,32 +42,72 @@
 		}
 	];
 
+	const planets = ['1','2', '3', '4']
+	const rings = ['1','2', '3', '4']
+	const planetTranslationsX = ['10%', '17%', '15%', '45%'];
+	const planetTranslationsY = ['50%', '50%', '50%', '40%'];
+
 </script>
 
-<div class="flex flex-col relative items-center">
-	<div class="pb-10">
-		<Text tag="h1" size="3xl">{$t('landing.roadmap.title')}</Text>
-	</div>
-	<div class="bg-gray-300 relative p-10">
-		<img
-			src="/img/landing/roadmap/roadmap-bg.jpg"
-			alt="roadmap-bg"
-			class="absolute inset-0 w-full h-full object-cover"
-		/>
-		<div class="grid xl:grid-cols-2 gap-[100px] relative z-10">
-			{#each roadmaps as roadmap}
-				<div class="border xl:w-[500px] text-black">
-			
-					<ul class="list-disc pl-5">
-						{#each roadmap.description as item}
-							<li>{item}</li>
-						{/each}
-					</ul>
-                    <div>
-						{roadmap.year}
+<div class="flex flex-col relative items-center w-full">
+    <Header title={$t('landing.roadmap.title')}></Header>
+    <div class="w-full max-w-6xl px-4">
+		<!-- desktop view -->
+
+			<div class="hidden xl:grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-[100px] relative">
+				{#each rings as ring, index}
+					<div class="relative flex flex-col items-center justify-center">
+						<!-- Mobile View -->
+						<div class="block md:hidden">
+							<div class="mb-4">
+								<RoadmapCard roadmap={roadmaps[index]} />
+							</div>
+						</div>
+
+						<!-- Desktop View -->
+						{#if index % 2 === 0}
+							<div class="hidden md:block absolute top-0 z-10 left-[13%]">
+								<RoadmapCard roadmap={roadmaps[index]} />
+							</div>
+						{/if}
+						<div class="relative md:h-full">
+							<img src='/img/landing/roadmap/rings/ring {ring}.png' alt='ring' class="w-full h-auto">
+							{#if planets[index]}
+								<div class="absolute inset-0 flex items-center justify-end" style="transform: translateX({planetTranslationsX[index]})">
+									<img src='/img/landing/roadmap/planets/planet {planets[index]}.png' alt='planet'>
+								</div>
+							{/if}
+						</div>
+						{#if index % 2 !== 0}
+							<div class="hidden md:block absolute bottom-0 z-10 left-[18%]">
+								<RoadmapCard roadmap={roadmaps[index]} />
+							</div>
+						{/if}
 					</div>
-				</div>
-			{/each}
-		</div>
-	</div>
+				{/each}
+			</div>
+
+			<div class='xl:hidden flex flex-col'>
+				{#each rings as ring, index}
+					<div class=" flex flex-col items-center">
+						<!-- Mobile View -->
+						<div class=" flex flex-col w-full items-center">
+							<div class='w-full relative flex flex-col items-center my-5'>
+								<img src='/img/landing/roadmap/rings/rotated/ring {ring} 90.png' alt='ring' class="w-auto object-cover">
+								<img src='/img/landing/roadmap/planets/planet {planets[index]}.png' alt='planet' class='absolute bottom-0' style="transform: translateY({planetTranslationsY[index]})">
+							</div>
+							
+							<div class="">
+								<RoadmapCard roadmap={roadmaps[index]} />
+							</div>
+							
+							
+						</div>
+					</div>
+				{/each}
+			</div>
+
+    </div>
 </div>
+
+
