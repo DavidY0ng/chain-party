@@ -7,6 +7,9 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 	import { t } from '$lib/i18n';
+	import { gameContract } from '$lib/web3/contract/contract';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { bscChain } from '$lib/web3/client';
 
 	let showModal = false;
 	let donationAmount: string | undefined = undefined;
@@ -16,11 +19,23 @@
 		error: ''
 	};
 
-	async function onDonate() {
+	$: userAddress = $storeUserInfo.web3_address
+
+	async function onDonate(amount:number) {
 		if (+donationAmount! < 1) {
 			donationError = 'Amount must be more than 1';
 			return;
 		}
+
+		// await gameContract.simulate.donateJackpot([BigInt(amount)], {
+        //     account: userAddress,
+        //     chain: bscChain
+        // });
+        
+        // const balance = await gameContract.write.donateJackpot([amount], {
+        //     account: userAddress,
+        //     chain: bscChain
+        // });
 		// Add your donation logic here
 	}
 
@@ -94,7 +109,7 @@
 					type="button"
 					class="w-full text-md"
 					disabled={!donationAmount || +donationAmount < 1 || !isChecked.value}
-					on:click={onDonate}>Donate</Button
+					on:click={() => onDonate(donationAmount)}>Donate</Button
 				>
 				</div>
 				

@@ -2,23 +2,40 @@
 	import { t } from '$lib/i18n';
 	import Text from '$lib/components/ui/text/text.svelte';
 	import { truncateString } from '$lib/helper';
+    import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { isDesktop } from '$lib/stores/storeCommon';
 	import type { TDonationLeaderboard } from '$lib/type/donationType';
 	import DonationAPI from '$lib/api/donation';
 	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 	import { onMount } from 'svelte';
 
-	let pageSize = 20;
+	let leaderboardListPagination = {
+		page: 0,
+		size: 20
+	};
 
 	let leaderboardList: TDonationLeaderboard;
+    let intersecting: boolean = false;
 
 	async function getLeaderboardList() {
-		const result = await DonationAPI.getLeaderboard(pageSize);
+        leaderboardListPagination.page++
+		const result = await DonationAPI.getLeaderboard(leaderboardListPagination);
 		if (result.success) {
-			leaderboardList = result.data;
+			if (leaderboardListPagination.page === 1) {
+				leaderboardList = result.data;
+			} else {
+				leaderboardList = {
+					...result.data,
+					data: [...leaderboardList.data, ...result.data.data]
+				};
+			}
 		} else {
 			throw new Error('Failed to fetch leaderboard list');
 		}
+	}
+
+    $: if (intersecting && leaderboardListPagination.page < leaderboardList.last_page) {
+		getLeaderboardList();
 	}
 
 	onMount(() => {
@@ -55,6 +72,11 @@
 					<!-- Replace 949 with the actual data value -->
 				</div>
 			{/each}
+            {#if leaderboardListPagination.page < leaderboardList.last_page}
+                <IntersectionObserver bind:intersecting>
+                    <Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
+                </IntersectionObserver>
+            {/if}
         {:else}
             <div class="flex h-full w-full items-center justify-center text-center">
                 <Text size="xl">No Record Available</Text>

@@ -6,14 +6,25 @@
 	import type { TDonationLeaderboard } from '$lib/type/donationType';
 	import { onMount } from 'svelte';
 
-	let pageSize = 10;
+	let leaderboardListPagination = {
+		page: 0,
+		size: 20
+	};
 
 	let leaderboardList: TDonationLeaderboard;
 
 	async function getLeaderboardList() {
-		const result = await DonationAPI.getLeaderboard(pageSize);
+        leaderboardListPagination.page++
+		const result = await DonationAPI.getLeaderboard(leaderboardListPagination);
 		if (result.success) {
-			leaderboardList = result.data;
+			if (leaderboardListPagination.page === 1) {
+				leaderboardList = result.data;
+			} else {
+				leaderboardList = {
+					...result.data,
+					data: [...leaderboardList.data, ...result.data.data]
+				};
+			}
 		} else {
 			throw new Error('Failed to fetch leaderboard list');
 		}
@@ -26,7 +37,7 @@
 
 <!-- top 1 -->
 <div class="flex">
-	{#if leaderboardList}
+	{#if leaderboardList?.data.length > 0}
 		<div class="relative left-[2%] z-10 rotate-[-10deg]">
 			<Card.Root
 				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"

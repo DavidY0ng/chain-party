@@ -6,6 +6,7 @@ type TDonationLeaderboard = {
 		is_self: boolean;
 	}[];
 	count: number;
+	last_page: number;
 };
 
 export type { TDonationLeaderboard };
