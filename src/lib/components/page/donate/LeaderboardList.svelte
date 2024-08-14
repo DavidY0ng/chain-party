@@ -11,7 +11,6 @@
     let pageSize = 20
 
     let leaderboardList: TDonationLeaderboard
-    let intersecting: boolean = false;
     
     async function getLeaderboardList() {
 		const result = await DonationAPI.getLeaderboard(pageSize);
@@ -39,19 +38,21 @@
         <Text class="whitespace-nowrap">{$t('donate.amount')}</Text>
     </div>
     <div class="h-[700px] w-full overflow-y-scroll rounded-2xl bg-black/20 gradientScrollbar">
-        {#each leaderboardList.data as data, i}
-            <div class="flex items-center justify-between px-8 py-4">
-                <div class="flex xl:gap-[80px] gap-[20px]">
-                    <Text class="w-[50px]">{i + 4}</Text>
-                    {#if $isDesktop}
-                        <Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
-                    {:else}
-                        <Text>{truncateString("0x9693CD9713496b0712f52E5F0c7b8948abdA824D",5,5)}</Text>
-                    {/if}
+        {#if leaderboardList}
+            {#each leaderboardList.data as data, i}
+                <div class="flex items-center justify-between px-8 py-4">
+                    <div class="flex xl:gap-[80px] gap-[20px]">
+                        <Text class="w-[50px]">{i + 4}</Text>
+                        {#if $isDesktop}
+                            <Text>0x9693CD9713496b0712f52E5F0c7b8948abdA824D</Text>
+                        {:else}
+                            <Text>{truncateString("0x9693CD9713496b0712f52E5F0c7b8948abdA824D",5,5)}</Text>
+                        {/if}
+                    </div>
+                    
+                    <Text>949 pEIC</Text>
                 </div>
-                
-                <Text>949 pEIC</Text>
-            </div>
-        {/each}
+            {/each}
+        {/if}
     </div>
 </div>
