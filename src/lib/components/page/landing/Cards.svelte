@@ -11,8 +11,8 @@
         ]
 </script>
 
-<div class="relative flex flex-col items-center w-full min-h-[80vh] translate-y-[-15%] ">
-    <div class="flex flex-col items-center absolute top-0 w-full ">
+<div class="relative flex flex-col items-center w-full min-h-[80vh] translate-y-custom pb-[150px]">
+    <div class="flex flex-col items-center absolute top-[3%] w-full ">
         <img src='/img/landing/cards/bow.png' alt='bow' class="z-0 object-cover w-full bg-[#110F27]">
     </div>
     
@@ -23,7 +23,6 @@
             </Text>
         </Header>
         <div class="grid lg:grid-cols-2 gap-5 p-5 md:p-0 ">
-
             <div class=" w-full flex flex-col justify-center items-center relative">
                 <img src="/img/landing/cards/green rectangle.png" alt="trapezium" class="md:w-[570px] md:h-[310px]" />
                 
@@ -44,7 +43,6 @@
                     {$t('landing.card.innovative_description')}
                     </Text>
                 </div>
-                
             </div>
 
             <div class=" w-full flex flex-col justify-center items-center relative z-10">
@@ -96,3 +94,23 @@
     </div>
    
 </div>
+
+<style>
+    @media screen and (min-height: 600px) {
+        .translate-y-custom {
+        transform: translateY(-5%);
+        }
+    }
+
+    @media screen and (min-height: 800px) {
+        .translate-y-custom {
+            transform: translateY(-10%);
+        }
+    }
+
+    @media screen and (min-height: 1000px) {
+        .translate-y-custom {
+            transform: translateY(-15%);
+        }
+    }
+</style>

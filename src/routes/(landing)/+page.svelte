@@ -11,16 +11,16 @@
 <div class="flex w-full justify-center">
 	<Intro />
 </div>
-<div class=" w-full">
+<div class="mb-[200px] w-full">
 	<Cards />
 </div>
 <!-- mascot image -->
-<div class="flex w-full justify-center">
+<div class="mb-[200px] flex w-full justify-center">
 	<Mascot />
 </div>
 
 <!-- incubator -->
-<div class="mb-20 flex w-full flex-col items-center">
+<div class="mb-[200px] flex w-full flex-col items-center">
 	<Incubator />
 </div>
 
