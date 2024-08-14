@@ -29,31 +29,31 @@
         </div>
         <!-- desktop view -->
         <div class="lg:flex justify-center gap-10 hidden">
-            <a href='/hello' target="_blank" class='absolute top-[20%] translate-x-[-150px] left-0 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class='absolute top-[20%] translate-x-[-150px] left-0 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="ri:twitter-x-fill" width="2.5em" height="2.5em" />
             </a>
-            <a href='/hello' target="_blank" class='absolute top-[30%] translate-x-[150px] right-0 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class='absolute top-[30%] translate-x-[150px] right-0 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="lets-icons:insta" width="3em" height="3em" />
             </a>
-            <a href='/hello' target="_blank" class='absolute bottom-[30%] translate-x-[-150px] left-20 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class='absolute bottom-[30%] translate-x-[-150px] left-20 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="file-icons:telegram" width="2.5em" height="2.5em" />
             </a>
-            <a href='/hello' target="_blank" class='absolute bottom-[20%] translate-x-[150px] right-20 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class='absolute bottom-[20%] translate-x-[150px] right-20 text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="ic:baseline-discord" width="3em" height="3em" />
             </a>
         </div>
         <!-- mobile view -->
         <div class="lg:hidden justify-center flex gap-3 my-5">
-            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="ri:twitter-x-fill" width="2em" height="2em" />
             </a>
-            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="lets-icons:insta" width="2.5em" height="2.5em" />
             </a>
-            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="file-icons:telegram" width="2em" height="2em" />
             </a>
-            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105'>
+            <a href='/hello' target="_blank" class=' text-white pink-circle rounded-full flex items-center justify-center hover:scale-105 transition delay-150 duration-300 ease-in-out'>
                 <Icon icon="ic:baseline-discord" width="2.5em" height="2.5em" />
             </a>
         </div>

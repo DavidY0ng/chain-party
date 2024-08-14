@@ -17,7 +17,11 @@
 		},
 		{
 			year: '2024 Q2',
-			description: [$t('landing.roadmap.2024_Q2.a'), $t('landing.roadmap.2024_Q2.b')]
+			description: [
+				$t('landing.roadmap.2024_Q2.a'), 
+				$t('landing.roadmap.2024_Q2.b'),
+				$t('landing.roadmap.2024_Q2.c')
+			]
 		},
 		{
 			year: '2024 Q3',

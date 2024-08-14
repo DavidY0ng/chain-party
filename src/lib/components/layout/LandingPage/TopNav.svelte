@@ -13,13 +13,13 @@
 	}));
 </script>
 
-<div class="top-0 z-[100] flex w-full items-center justify-between px-3 py-3 shadow-md bg-[#0E0616]/90 fixed">
+<div class="top-0 z-[30] flex w-full items-center justify-between px-3 py-3 shadow-md bg-[#0E0616]/90 fixed">
 	<div class="grid w-full items-center grid-cols-3">
-		<Text size="2xl" class="flex text-center text-blue-500">
-			<a href="/"> 
-				<img src='/img/landing/logo/chain party logo.png' alt='logo' class="xl:h-[90px] xl:w-[90px] h-[60px] w-[60px]">
-			</a>
-		</Text>
+
+		<a href="/"> 
+			<img src='/img/landing/logo/chain party logo.png' alt='logo' class="xl:h-[90px] xl:w-[90px] h-[60px] w-[60px]">
+		</a>
+
 		<div class="hidden gap-10 xl:grid justify-item-center ">
 			<div class="flex justify-around">
 				{#each modifiedNavLinks as link}

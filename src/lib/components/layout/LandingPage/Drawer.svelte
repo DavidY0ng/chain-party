@@ -28,27 +28,29 @@
 			<Icon icon="material-symbols:menu" class="text-2xl" />
 		</Button>
 	</Sheet.Trigger>
-	<Sheet.Content side="left" class="h-full flex flex-col justify-between pb-3">
-		<Text size="4xl" class="text-center text-blue-500">GAMEFI</Text>
-
-		<div class="flex flex-col space-y-3 flex-grow">
+	<Sheet.Content side="left" class="bg-[#0D0320] h-full flex flex-col justify-between pb-3">
+		<a href="/" class='flex justify-center'> 
+			<img src='/img/landing/logo/chain party logo.png' alt='logo' class="xl:h-[90px] xl:w-[90px] h-[60px] w-[60px]">
+		</a>
+		<div class="flex flex-col items-center space-y-3 flex-grow">
 			{#each navLinks as menu}
 				<Sheet.Close asChild let:builder>
 					<Button
 						builders={[builder]}
-						variant="ghost"
+						variant = {'ghost'}
 						on:click={() => {
 							onHandleRedirect(menu.path);
 						}}
-						class="flex text-lg justify-center p-2 z-10 text-white {$page.url.pathname == menu.path
-							? 'bg-gray-700/50  rounded-md'
-							: 'hover:text-gray-300 '}"
+						class="pixel-font flex text-lg justify-center p-2 z-10 hover:text-[#EC05F8] hover:bg-transparent"
 					>
 					{$t(`landing.nav_links.${menu.name}`)} 
 					</Button>
 				</Sheet.Close>
 			{/each}
 		</div>
-		<ConnectWallet bind:drawerOpen />
+		<div class="flex w-full justify-center">
+			<ConnectWallet bind:drawerOpen />
+		</div>
+	
 	</Sheet.Content>
 </Sheet.Root>
