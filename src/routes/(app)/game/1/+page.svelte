@@ -79,8 +79,8 @@
 
 	storeUserInfo.subscribe(async (value) => {
 		gameSlotPage = 1;
+		gameRoundPage = 0;
 		await getGameRound();
-
 		if (gameStartIndex < 0) {
 			gameStartIndex = gameRoundData.data.length - 1;
 		}
@@ -103,7 +103,7 @@
 				</Text>
 				<img src="/img/game/right.png" alt="" />
 			</div>
-			{#if browser && gameRoundData}
+			{#if gameRoundData}
 				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage />
 			{:else}
 				<div class="flex w-full items-center gap-x-5">
@@ -116,7 +116,7 @@
 
 		<Game.Reward />
 
-		{#if $storeUserInfo.web3_address !== zeroAddress}
+		{#if $storeUserInfo.web3_address !== zeroAddress && gameSlotData}
 			<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
 		{/if}
 

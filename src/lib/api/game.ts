@@ -27,7 +27,8 @@ const GameAPI = {
 				data: {
 					page,
 					size
-				}
+				},
+				useToken: false
 			});
 
 			return response;

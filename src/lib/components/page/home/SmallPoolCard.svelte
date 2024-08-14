@@ -10,7 +10,7 @@
 	<div class="flex gap-x-2 px-5">
 		<div class="flex w-1/3 flex-col items-center justify-center">
 			<img src="/img/home/chest.png" class="max-w-[97px]" alt="" />
-			<div class="flex items-center gap-x-2 bg-black/25 px-4 py-1">
+			<div class="flex items-center gap-x-2 bg-black/25 px-3 py-1">
 				<img src="/img/home/coin.png" alt="" class="h-5 w-5" />
 				<Text class="font-bold uppercase">Pool 3</Text>
 			</div>

@@ -6,6 +6,57 @@
 	import JackpotPool from '$lib/components/page/jackpot/JackpotPool.svelte';
 	import WinnerList from '$lib/components/page/jackpot/WinnerList.svelte';
 	import AddressList from '$lib/components/page/jackpot/AddressList.svelte';
+	import JackpotAPI from '$lib/api/jackpot';
+	import { onMount } from 'svelte';
+
+	let jackpotPoolAmount = {
+			integer: [] as string[],
+			decimal: [] as string[]
+		},
+		jackpotPoolLoseCount: number = 0;
+
+	// Get jackpot pool amount
+	async function getJackpotPool() {
+		const result = await JackpotAPI.getPool();
+
+		if (result.success) {
+			jackpotPoolLoseCount = result.data.lose_count;
+			handleSplitNumber(result.data.amount);
+			console.log(jackpotPoolAmount);
+		}
+	}
+
+	function handleSplitNumber(number: number) {
+		let decimal: number = 0;
+
+		if (number > 0) {
+			let integerPart: string = String(Math.floor(number));
+			let formattedIntegerPart = [];
+
+			// Add dot every three digits from the right
+			for (let i = 0; i < integerPart.length; i++) {
+				if (i > 0 && (integerPart.length - i) % 3 === 0) {
+					formattedIntegerPart.push(',');
+				}
+				formattedIntegerPart.push(integerPart[i]);
+			}
+
+			jackpotPoolAmount.integer = formattedIntegerPart;
+
+			decimal = number - Number(integerPart);
+		} else {
+			jackpotPoolAmount.integer = ['0'];
+		}
+
+		if (decimal > 0) {
+			const decimalPart = decimal.toFixed(2).split('.')[1];
+			jackpotPoolAmount.decimal = decimalPart.split('');
+		} else {
+			jackpotPoolAmount.decimal = ['0', '0'];
+		}
+	}
+
+	onMount(() => [getJackpotPool()]);
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full pt-10">
@@ -31,7 +82,7 @@
 
 			<!-- Desktop jackpot view -->
 			<!-- jackpot pool -->
-			<JackpotPool />
+			<JackpotPool bind:jackpotPoolLoseCount bind:jackpotPoolAmount />
 
 			<WinnerList />
 

@@ -1,11 +1,26 @@
 import type { Address } from 'viem';
 
 export type TCurrentList = {
-	address: Address;
+	data: {
+		address: Address;
+		count: number;
+		is_self: boolean;
+	}[];
 	count: number;
-	is_self: boolean;
+	last_page: number;
 };
 
 export type TWinnerList = {
-	address: Address;
+	data: {
+		address: Address;
+		amount: number;
+		is_self: boolean;
+	}[];
+	count: number;
+	last_page: number;
+};
+
+export type TJackpotPool = {
+	amount: number;
+	lose_count: number;
 };
