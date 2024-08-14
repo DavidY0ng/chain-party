@@ -1,5 +1,5 @@
 export const menuList = [
-	{ title: 'Pool', desc: 'Popular', label: 'Home Page', path: '/home' },
+	{ title: 'Planet Reward', desc: 'Popular', label: 'Home Page', path: '/home' },
 	{ title: 'Game #1', desc: '', label: 'Game', path: '/game/1' },
 	{ title: 'Stake', desc: 'Best Earn', label: 'Stake', path: '/stake' },
 	{ title: 'Jackpot', desc: '', label: 'Jetpot Pool', path: '/jackpot' },

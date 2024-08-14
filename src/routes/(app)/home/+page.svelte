@@ -6,18 +6,18 @@
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
+	import type { TDashboardPool } from '$lib/type/dashboardType';
 	import type { TCurrentList } from '$lib/type/jackpotType';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
+	// Data
+	let currentList: TCurrentList;
 	let jackpotPoolAmount = {
 		integer: [] as string[],
 		decimal: [] as string[]
 	};
-
-	let currentList: TCurrentList;
-
-	let intersecting: boolean = false;
+	let planetReward: TDashboardPool;
 
 	// Pagination
 	let pagination = {
@@ -25,8 +25,16 @@
 		size: 50
 	};
 
+	let intersecting: boolean = false;
+
 	async function getDashboardGame() {
 		const result = await DashboardAPI.planet.getReward();
+		if (result.success) {
+			planetReward = result.data;
+			console.log(planetReward);
+		} else {
+			throw new Error('Failed to fetch Planet Reward');
+		}
 	}
 
 	async function getCurrentList() {
@@ -90,6 +98,7 @@
 	}
 
 	onMount(() => {
+		getDashboardGame();
 		getJackpotPool();
 		getCurrentList();
 	});
@@ -101,12 +110,12 @@
 		<div id="Pool List" class=" space-y-5">
 			<div class="flex w-full">
 				{#each Array(2) as _, i}
-					<Home.BigPoolCard index={i} />
+					<Home.BigPoolCard bind:planetReward index={i} />
 				{/each}
 			</div>
 			<div class="grid grid-cols-3 gap-x-5">
 				{#each Array(3) as _, i}
-					<Home.SmallPoolCard />
+					<Home.SmallPoolCard index={i + 2} bind:planetReward />
 				{/each}
 			</div>
 		</div>
