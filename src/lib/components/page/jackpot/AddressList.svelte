@@ -19,7 +19,7 @@
 	let currentList: TCurrentList;
 	let intersecting: boolean = false;
 
-	async function getWinnerList() {
+	async function getCurrentList() {
 		currentListPagination.page++;
 		const result = await JackpotAPI.getCurrentList(currentListPagination);
 		if (result.success) {
@@ -36,8 +36,12 @@
 		}
 	}
 
+	$: if (intersecting && currentListPagination.page < currentList.last_page) {
+		getCurrentList();
+	}
+
 	onMount(() => {
-		getWinnerList();
+		getCurrentList();
 	});
 </script>
 
@@ -74,12 +78,12 @@
 						<Text>{truncateString(user?.address, 7, 7)}</Text>
 						<Text>{user?.count}</Text>
 					</div>
-					{#if currentListPagination.page < currentList.last_page}
-						<IntersectionObserver bind:intersecting>
-							<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
-						</IntersectionObserver>
-					{/if}
 				{/each}
+				{#if currentListPagination.page < currentList.last_page}
+					<IntersectionObserver bind:intersecting>
+						<Skeleton class="mx-auto mb-2 h-[50px] w-[97%] rounded-xl bg-black/50" />
+					</IntersectionObserver>
+				{/if}
 			{:else}
 				<div class="flex h-full w-full items-center justify-center text-center">
 					<Text size="xl">No Record Available</Text>
