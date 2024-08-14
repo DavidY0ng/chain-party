@@ -6,7 +6,7 @@
 	import type { TDonationLeaderboard } from '$lib/type/donationType';
 	import { onMount } from 'svelte';
 
-	let pageSize = 20;
+	let pageSize = 10;
 
 	let leaderboardList: TDonationLeaderboard;
 
