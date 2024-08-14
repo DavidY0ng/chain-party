@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
     import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';

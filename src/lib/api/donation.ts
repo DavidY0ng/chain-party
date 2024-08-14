@@ -8,7 +8,8 @@ const DonationAPI = {
 			const response = await api.get<TDonationLeaderboard>('/dapp/donation/leaderboard', {
 				data: {
 					size
-				}
+				},
+				useToken: false
 			});
 			return response;
 		} catch (error) {
