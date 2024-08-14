@@ -41,7 +41,7 @@
 	}
 
 	if (round.status === 'game_start') {
-		countdownToTimestamp(new Date().getTime() + totalDuration);
+		countdownToTimestamp(round.date_time_end);
 	}
 
 	onDestroy(() => {

@@ -1,6 +1,31 @@
-type TDashboardGame = {
-	name: 'lottery';
-	image: string;
+type TDashboardPool = {
+	moon: {
+		current: number;
+		max: number;
+		total_reward: number;
+	};
+	mars: {
+		current: number;
+		max: number;
+		total_reward: number;
+	};
+	jupiter: {
+		current: number;
+		max: number;
+		total_reward: number;
+	};
+	saturn: {
+		current: number;
+		max: number;
+		total_reward: number;
+	};
+	uranus: {
+		current: number;
+		max: number;
+		total_reward: number;
+	};
 };
 
-export type { TDashboardGame };
+type TPlanet = 'moon' | 'mars' | 'jupiter' | 'saturn' | 'uranus';
+
+export type { TDashboardPool, TPlanet };

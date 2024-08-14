@@ -58,19 +58,20 @@
 					<Text size="3xl" class="">{gameSlotData?.self_position}</Text>
 					<Text class="">{getOrdinalSuffix(gameSlotData?.self_position)}</Text>
 				</div>
+
 				<div class="flex font-bold">
 					<Text size="xl" class="text-white/50">/ 20</Text>
 					<Text class="text-sm text-white/50">th</Text>
 				</div>
 			{:else}
-				<Skeleton class="mb-5 h-8 w-36 bg-black/50" />
+				<Text size="3xl" class="">-</Text>
 			{/if}
 		</div>
 		<div
 			class="innerShadow flex w-full max-w-[400px] items-center justify-center gap-x-2 rounded-lg rounded-b-none bg-[#BD00FF]/20 py-4"
 		>
+			<img src="/img/game/info.png" class="h-5 w-5" alt="" />
 			{#if gameSlotData?.self_position}
-				<img src="/img/game/info.png" class="h-5 w-5" alt="" />
 				<Text class=""
 					>Your current lucky number is <span class="font-bold text-[#DF61FF]"
 						>{Number(gameSlotData?.self_position?.split('')[0]) > 0
@@ -81,7 +82,7 @@
 					>.</Text
 				>
 			{:else}
-				<Skeleton class=" mx-10 h-8 w-full bg-black/50" />
+				<Text class="">You without lucky number in this group</Text>
 			{/if}
 		</div>
 		<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
@@ -94,7 +95,9 @@
 			<Text>Number</Text>
 		</div>
 		<div
-			class="gradientScrollbar h-full max-h-[260px] w-full overflow-y-scroll rounded-lg bg-black/20"
+			class="gradientScrollbar {gameSlotData?.data.length > 0
+				? 'max-h-[260px]'
+				: 'h-[300px]'} w-full overflow-y-scroll rounded-lg bg-black/20"
 		>
 			{#if gameSlotData?.data.length > 0}
 				{#each gameSlotData?.data as slot}
@@ -103,6 +106,10 @@
 						<Text>{slot?.user_position}</Text>
 					</div>
 				{/each}
+			{:else}
+				<div class="flex h-full w-full items-center justify-center">
+					<Text size="xl">No Participants Available Now</Text>
+				</div>
 			{/if}
 		</div>
 	</div>

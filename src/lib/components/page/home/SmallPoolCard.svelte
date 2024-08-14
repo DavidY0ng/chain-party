@@ -2,8 +2,19 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Progress } from '$lib/components/ui/progress/index.js';
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
+	import type { TDashboardPool, TPlanet } from '$lib/type/dashboardType';
+
+	export let index: number;
+	export let planetReward: TDashboardPool;
+
+	let planetKeys: TPlanet[];
+
+	$: if (planetReward && Object.keys(planetReward).length > 0) {
+		planetKeys = Object.keys(planetReward) as TPlanet[];
+	}
 </script>
 
 <Card.Root class="relative w-full space-y-5 overflow-hidden rounded-2xl bg-[#251235] pt-5">
@@ -12,7 +23,11 @@
 			<img src="/img/home/chest.png" class="max-w-[97px]" alt="" />
 			<div class="flex items-center gap-x-2 bg-black/25 px-3 py-1">
 				<img src="/img/home/coin.png" alt="" class="h-5 w-5" />
-				<Text class="font-bold uppercase">Pool 3</Text>
+				{#if planetKeys}
+					<Text class="font-bold uppercase">{planetKeys[index]}</Text>
+				{:else}
+					<Skeleton class="w-full bg-black/50" />
+				{/if}
 			</div>
 		</div>
 		<div class="flex w-2/3 flex-col space-y-5">
@@ -20,14 +35,15 @@
 				<div
 					class="w-full max-w-[100px] -translate-x-3 rounded-t-xl border border-b-0 border-white/20 bg-gradient-to-b from-[#711289] to-[#1C0632] py-1 text-center text-md font-bold"
 				>
-					- / 1000
+					{planetReward?.[planetKeys[index]].current | 0} / {planetReward?.[planetKeys[index]].max |
+						0}
 				</div>
 				<div
 					class="w-full rounded-full bg-[url(/img/home/progressbg.png)] bg-cover bg-no-repeat p-1"
 				>
 					<Progress
-						value={50}
-						max={100}
+						value={planetReward?.[planetKeys[index]].current}
+						max={planetReward?.[planetKeys[index]].max}
 						barColor={'bg-gradient-to-l from-[#F7762E] to-[#F4DA4F] rounded-full'}
 						class="h-[20px] w-full "
 					/>
