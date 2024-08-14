@@ -53,7 +53,7 @@
 		<div class="purple-eclipse left-[-5%] top-[-150%] w-[300px] blur-[60px]" />
 
 		<div class="relative flex items-center gap-x-2">
-			{#if gameSlotData}
+			{#if gameSlotData?.self_position}
 				<div class="flex font-bold">
 					<Text size="3xl" class="">{gameSlotData?.self_position}</Text>
 					<Text class="">{getOrdinalSuffix(gameSlotData?.self_position)}</Text>
@@ -69,11 +69,11 @@
 		<div
 			class="innerShadow flex w-full max-w-[400px] items-center justify-center gap-x-2 rounded-lg rounded-b-none bg-[#BD00FF]/20 py-4"
 		>
-			{#if gameSlotData}
+			{#if gameSlotData?.self_position}
 				<img src="/img/game/info.png" class="h-5 w-5" alt="" />
 				<Text class=""
 					>Your current lucky number is <span class="font-bold text-[#DF61FF]"
-						>{Number(gameSlotData?.self_position.split('')[0]) > 0
+						>{Number(gameSlotData?.self_position?.split('')[0]) > 0
 							? gameSlotData?.self_position
 							: gameSlotData?.self_position.split('')[1]}{getOrdinalSuffix(
 							gameSlotData?.self_position
@@ -81,7 +81,7 @@
 					>.</Text
 				>
 			{:else}
-				<Skeleton class=" h-8 w-full mx-10 bg-black/50" />
+				<Skeleton class=" mx-10 h-8 w-full bg-black/50" />
 			{/if}
 		</div>
 		<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
