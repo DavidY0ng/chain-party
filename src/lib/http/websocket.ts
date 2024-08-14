@@ -2,7 +2,7 @@
 import { api } from '$lib/http/https';
 import { urls } from '$lib/http/settings';
 
-class AppWebSocket {
+export class AppWebSocket {
 	client: WebSocket;
 	handlers: { [key: string]: (data: any) => void };
 
@@ -13,18 +13,20 @@ class AppWebSocket {
 	}
 
 	async bind(client_id: string) {
-		return api.post('dapp/websocket/bind', { data: { client_id } });
+		return api.post('/dapp/websocket/bind', { data: { client_id } });
 	}
 
 	listen() {
 		this.client.onmessage = async (e) => {
 			try {
-				const topic = JSON.parse(e.data);
-
-				if (this.handlers[topic.type]) {
-					this.handlers[topic.type](topic.data);
+				const message = JSON.parse(e.data);
+				console.log(message);
+				if (this.handlers[message.type]) {
+					this.handlers[message.type](message.data);
+				} else if (message.type === 'ping') {
+					null;
 				} else {
-					console.warn(`No handler for topic: ${topic.type}`);
+					console.warn(`No handler for topic: ${message.type}`);
 				}
 			} catch (error) {
 				throw new Error(`Failed to listen on websocket: ${error}`);
@@ -43,13 +45,11 @@ class AppWebSocket {
 
 export let WebSocketService: AppWebSocket;
 
-if (typeof window !== 'undefined') {
+export async function initializedWebsocket() {
 	WebSocketService = new AppWebSocket();
-}
-
-export async function onBindWebsocket() {
-	WebSocketService.on('client_id', async (data) => {
-		console.log('Received client_id:', data);
-		await WebSocketService.bind(data);
-	});
+	if (WebSocketService !== undefined) {
+		WebSocketService.on('clientId', async (data) => {
+			await WebSocketService.bind(data);
+		});
+	}
 }

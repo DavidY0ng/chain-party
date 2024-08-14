@@ -31,7 +31,6 @@
 		const result = await DashboardAPI.planet.getReward();
 		if (result.success) {
 			planetReward = result.data;
-			console.log(planetReward);
 		} else {
 			throw new Error('Failed to fetch Planet Reward');
 		}
