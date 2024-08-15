@@ -5,8 +5,6 @@
 
 	export let jackpotPoolLoseCount: number = 0;
 	export let jackpotPoolAmount;
-
-	let number = '8,888,888.00'.split('');
 </script>
 
 <div id="jackpot pool" class="mb-[80px] hidden flex-col items-center md:flex">
