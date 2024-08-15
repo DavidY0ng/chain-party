@@ -24,8 +24,19 @@
 
 <Card.Root class="relative w-full overflow-hidden rounded-none border-none">
 	<div id="background" class="absolute h-full w-full bg-gradient-to-b from-[#251235] to-[#401A71]">
-		<div class="pink-eclipse left-[20%] top-[30%] w-[340px] blur-[120px]"></div>
-		<img src="/img/home/chest.png" class="absolute bottom-0 left-0" alt="" />
+		<div
+			class="eclipse left-[20%] top-[30%] z-10 w-[340px] blur-[120px] {planetKeys &&
+			planetKeys[index] === 'moon'
+				? 'bg-[#FFE70F]'
+				: 'bg-[#FF0000]'}"
+		></div>
+		{#if planetKeys}
+			<img
+				src="/img/home/planet/{planetKeys[index]}.png"
+				class="absolute bottom-[-10%] left-1 w-full max-w-[300px]"
+				alt=""
+			/>
+		{/if}
 		<!-- <div
 			id="status"
 			class="absolute left-0 top-[5%] z-10 rounded-r-lg bg-[#FF0099] px-[15px] py-1 text-sm"
@@ -36,7 +47,7 @@
 	<div
 		class="relative z-10 flex h-full w-full flex-col items-end bg-[url(/img/home/cardBg.png)] bg-cover bg-no-repeat"
 	>
-		<div class="z-10 flex w-full max-w-[50%] flex-col pr-5 pt-5">
+		<div class="z-10 flex w-full max-w-[50%] flex-col pr-5 pt-10">
 			<div class="flex items-center gap-x-4">
 				<img src="/img/home/coin.png" alt="" class="h-[20px] w-[20px]" />
 				{#if planetKeys}
@@ -64,7 +75,7 @@
 				</div>
 			</div>
 			<div class="mx-auto my-5 w-full max-w-[80%]">
-				<Button class="w-full bg-[#251235]">{$t('home.claim_reward')}</Button>
+				<!-- <Button class="w-full bg-[#251235]">{$t('home.claim_reward')}</Button> -->
 			</div>
 			<div
 				class="innerShadow mx-auto flex w-full items-center justify-center gap-x-5 rounded-t-lg bg-[#7A00A5]/40 p-3"
@@ -86,3 +97,14 @@
 		</div>
 	{/if}
 </Card.Root>
+
+<style>
+	/* Background Color */
+	.eclipse {
+		position: absolute;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		opacity: 0.5;
+		transform: translateZ(0);
+	}
+</style>
