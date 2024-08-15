@@ -11,10 +11,13 @@ import {
 	type Transport
 } from 'viem';
 import contractConfig from './contract.config.json';
-import FakeUSDT from './abi/FakeUSDT';
-import GameContract from './abi/GameContract';
-import RNG from './abi/RNG';
-import MeicToken from './abi/MeicToken';
+
+import mEICToken from './abi/MeicToken';
+import MockUSDT from './abi/MockUSDT';
+import PartyTicket from './abi/PartyTicket';
+import pEICToken from './abi/pEICToken';
+import TestGame from './abi/TestGame';
+import TestStakingMEIC from './abi/TestStakingMEIC';
 
 export const contracts = contractConfig.contracts;
 export const listABIs: { [K in keyof typeof contracts]: Abi } | Record<string, never> = {};
@@ -51,7 +54,9 @@ function _getContract<
 }
 
 // Define your contract instance here
-export const fakeUsdtContract = _getContract('mockUSDT', FakeUSDT, bscClient);
-export const gameContract = _getContract('PartyTicket', GameContract, bscClient);
-export const rngContract = _getContract('mEICToken', RNG, bscClient);
-export const meicTokenContract = _getContract('pEICToken', MeicToken, bscClient);
+export const mockUSDTContract = _getContract('mockUSDT', MockUSDT, bscClient);
+export const partyTicketContract = _getContract('PartyTicket', PartyTicket, bscClient);
+export const mEICTokenContract = _getContract('mEICToken', mEICToken, bscClient);
+export const pEICTokenContract = _getContract('pEICToken', pEICToken, bscClient);
+export const testGameContract = _getContract('TestGame', TestGame, bscClient);
+export const testStakingMEICContract = _getContract('TestStakingMEIC', TestStakingMEIC, bscClient);
