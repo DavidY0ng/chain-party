@@ -17,7 +17,7 @@
 	<div class="grid w-full items-center grid-cols-3">
 
 		<a href="/"> 
-			<img src='/img/landing/logo/chain party logo.png' alt='logo' class="xl:h-[90px] xl:w-[90px] h-[60px] w-[60px]">
+			<img src='/img/landing/logo/chain party logo.png' alt='logo' class="xl:h-[70px] xl:w-[70px] h-[60px] w-[60px]">
 		</a>
 
 		<div class="hidden gap-10 xl:grid justify-item-center ">

@@ -1,21 +1,21 @@
 
-<div class="flex flex-col items-center justify-center bg-with-opacity w-full min-h-screen">
-    <div class=" mx-auto px-4">
-        <div class=" xl:h-[800px] xl:w-[700px]">
-            <div class="h-full xl:h-[760px] max-w-[700px] w-full relative flex flex-col items-center justify-center">
-                <img src='/img/landing/intro/chain party.png' class='xl:h-full xl:w-full' alt='chain_party_mascot'>
+<div class="flex flex-col items-center justify-center bg-with-opacity w-full min-h-screen md:pt-[100px]">
+    <div class=" mx-auto px-4 ">
+        <div class=" ">
+            <div class="h-full max-w-[700px] w-full relative flex flex-col items-center ">
+                <img src='/img/landing/intro/chain party.png' class='lg:h-[80%] lg:w-[80%]' alt='chain_party_mascot'>
                 <!-- trapezium container -->
-                <div class=" w-full px-3 flex justify-center absolute xl:bottom-[5%] bottom-[5%]">
-                    <img src="/img/landing/intro/trapezium.png" alt="trapezium" class="xl:w-[667px] xl:h-[173px]" />
+                <div class=" w-full px-3 flex justify-center absolute bottom-[2%]">
+                    <img src="/img/landing/intro/trapezium.png" alt="trapezium" class="lg:w-[517px] lg:h-[153px]" />
                     <div
                         class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] capitalize text-white text-center w-[80%] px-4
-                                pixel-font md:text-[28px] text-[18px] font-bold md:leading-[38.168px] tracking-[0.05em] md:w-[70%]"
+                                pixel-font md:text-[28px] text-[18px] font-bold md:leading-[38.168px] tracking-[0.05em] md:w-[65%]"
                     >
                         The 1st Gamefi build on EIC Chain
                     </div>
                 </div>
             </div>
-            <div class="container flex items-center justify-center mx-auto space-x-4">
+            <div class=" flex items-center justify-center mx-auto space-x-4 pb-[30px]">
                 <div class="uppercase font-inter text-xs font-normal leading-[14.52px] text-white">
                     Incubated By
                 </div>
@@ -49,7 +49,7 @@
 
     .bg-with-opacity::after {
         content: "";
-        background: linear-gradient(360deg, #110F27 15%, rgba(17, 15, 39, 0) 35%, rgba(17, 15, 39, 0) 87.5%, #110F27 100%);
+        background: linear-gradient(360deg, #110F27 13%, rgba(17, 15, 39, 0) 35%, rgba(17, 15, 39, 0) 87.5%, #110F27 100%);
         position: absolute;
         top: 0;
         right: 0;
