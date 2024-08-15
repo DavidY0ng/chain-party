@@ -67,6 +67,7 @@
 		"game_start": "Live",
 		"game_canceled": "Cancelled",
 		"game_end": "Expired",
-		"awaiting": "Next"
+		"awaiting": "Next",
+		"calculating_reward": "Calculating"
 	}
 }

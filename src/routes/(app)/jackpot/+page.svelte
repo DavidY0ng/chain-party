@@ -22,7 +22,6 @@
 		if (result.success) {
 			jackpotPoolLoseCount = result.data.lose_count;
 			handleSplitNumber(result.data.amount);
-			console.log(jackpotPoolAmount);
 		}
 	}
 

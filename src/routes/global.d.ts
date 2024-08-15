@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MetaMaskInpageProvider } from '@metamask/providers';
 
 declare global {
@@ -6,6 +7,3 @@ declare global {
 		Telegram: any;
 	}
 }
-
-
-console.log(window.Telegram.WebApp.initData)

@@ -13,8 +13,8 @@
 	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
 
 	let winnerListPagination = {
-		page: 1,
-		size: 1
+		page: 0,
+		size: 50
 	};
 
 	let winnerList: TWinnerList;
@@ -35,6 +35,10 @@
 		} else {
 			throw new Error('Failed to fetch winner list');
 		}
+	}
+
+	$: if (intersecting && winnerListPagination.page < winnerList.last_page) {
+		getWinnerList();
 	}
 
 	onMount(() => {

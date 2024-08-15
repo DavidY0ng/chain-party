@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import GameAPI, { type TGameRound, type TGameSlot } from '$lib/api/game.js';
+	import GameAPI, { type TGameRound, type TGameSlot, type TGameStatus } from '$lib/api/game.js';
 	import * as Game from '$lib/components/page/game/1/index';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
+	import { initializedWebsocket, WebSocketService } from '$lib/http/websocket';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
@@ -25,6 +27,7 @@
 	let gameRoundPage: number = 0;
 	let gameSlotPage: number = 0;
 
+	// Get game round for slide
 	async function getGameRound() {
 		gameRoundPage++;
 		let thisData: TGameRound;
@@ -77,6 +80,10 @@
 		}
 	}
 
+	/**
+	 * Actions after user connects/diconnect wallet
+	 */
+
 	storeUserInfo.subscribe(async (value) => {
 		gameSlotPage = 1;
 		gameRoundPage = 0;
@@ -90,6 +97,29 @@
 		if (value.web3_address !== zeroAddress) {
 			await getGameSlot();
 		}
+	});
+
+	/**
+	 * Listens for websocket topic when browser is up
+	 */
+
+	onMount(() => {
+		initializedWebsocket();
+
+		WebSocketService.on('gameResult', (incoming) => {
+			console.log(incoming);
+			switch (incoming.result as TGameStatus['code']) {
+				case 'win':
+					showWinModal = true;
+					break;
+				case 'lose':
+					showLoseModal = true;
+					break;
+				case 'refunded':
+					showCancelGameModal = true;
+					break;
+			}
+		});
 	});
 </script>
 

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { getOrdinalSuffix } from '$lib/helper';
 	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
@@ -38,7 +37,7 @@
 				</Button>
 				<Button
 					on:click={() => [dispatch('paginate', 'next')]}
-					disabled={gameSlotPage === gameSlotData?.last_slot}
+					disabled={gameSlotPage === gameSlotData?.last_slot || gameSlotData?.last_slot <= 0}
 					class=" bg-[#480A46] px-2 py-0"
 				>
 					<Icon icon="formkit:arrowright" class="text-[14px]" />

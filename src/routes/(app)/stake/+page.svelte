@@ -1,114 +1,91 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import { Text } from '$lib/components/ui/text';
-	import * as Card from '$lib/components/ui/card';
-	import { Label } from '$lib/components/ui/label';
-	import { Input } from '$lib/components/ui/input';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Table from '$lib/components/ui/table';
-	import { t } from '$lib/i18n';
 	import { fade } from 'svelte/transition';
 </script>
 
-<div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-24">
-	<div class="flex w-full flex-col gap-x-5 gap-y-5 xl:h-[24rem] xl:flex-row xl:gap-y-0">
-		<div class="h-full flex-1 xl:w-[60%]">
-			<Text class="text-2xl font-bold xl:text-3xl">{$t('stake.stake')} nEIC</Text>
-			<Card.Root class="h-full flex-col justify-between space-y-2 p-3 xl:flex xl:space-y-5 xl:p-5">
-				<div class="flex w-full items-center justify-between">
-					<Text class="text-lg font-bold xl:text-3xl">nEIC {$t('stake.balance')}:</Text>
-					<Text class="text-lg font-bold xl:text-3xl">100,000 nEIC</Text>
-				</div>
-
-				<div
-					class="flex w-full flex-col justify-between space-y-2 border-b pb-5 xl:flex-row xl:space-y-0 xl:border-none xl:pb-0"
-				>
-					<div
-						class="flex w-full flex-row items-center justify-between xl:w-fit xl:flex-col xl:items-start"
-					>
-						<Text class="text-lg font-bold xl:text-3xl">{$t('stake.total_stake')}:</Text>
-						<Text class="text-lg font-bold xl:text-3xl">10,000 nEIC</Text>
-					</div>
-					<div
-						class="flex w-full flex-row items-center justify-between xl:w-fit xl:flex-col xl:items-start"
-					>
-						<Text class="text-lg font-bold xl:text-3xl">{$t('stake.apr')}:</Text>
-						<Text class="text-lg font-bold xl:text-3xl">15%</Text>
-					</div>
-					<div
-						class="flex w-full flex-row items-center justify-between xl:w-fit xl:flex-col xl:items-start"
-					>
-						<Text class="text-lg font-bold xl:text-3xl">{$t('stake.my_stake')}:</Text>
-						<Text class="text-lg font-bold xl:text-3xl">500 nEIC</Text>
-					</div>
-				</div>
-
-				<div class="space-y-3 pt-2 xl:pt-0">
-					<div>
-						<Label class="hidden text-lg text-black xl:block">{$t('stake.stake')}</Label>
-						<div class="relative">
-							<Input class="bg-transparent text-xl text-black" placeholder="Amount" />
-							<Text size="xl" class="absolute right-5 top-[6px] flex items-center gap-x-5"
-								><span>|</span> nEIC</Text
-							>
-						</div>
-					</div>
-					<Button class="w-full text-lg">{$t('stake.stake')}</Button>
-				</div>
-			</Card.Root>
-		</div>
-		<div class="h-full xl:w-[40%]">
-			<div class="flex items-center justify-between">
-				<Text class="text-2xl font-bold xl:text-3xl">{$t('stake.my_reward')}</Text>
-				<Button class="hidden text-lg xl:block">{$t('stake.how_to_stake')}</Button>
+<div in:fade class="relative h-full min-h-screen w-full">
+	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20">
+		<div class="flex w-full flex-col gap-y-10">
+			<div class="flex w-full justify-end">
+				<Button class="bg-[#480A46] px-5">
+					<Text>Claim Reward</Text>
+				</Button>
 			</div>
-			<Card.Root class="h-full space-y-2 p-5 xl:space-y-5">
-				<div class="flex w-full flex-row items-center justify-between xl:flex-col xl:items-start">
-					<Text class="text-lg font-bold xl:text-3xl">{$t('stake.your_reward')}:</Text>
-					<Text class="text-lg font-bold xl:text-3xl">20,000 nEIC</Text>
-				</div>
-
-				<div
-					class="flex w-full flex-row items-center justify-between border-b pb-5 xl:flex-col xl:items-start xl:border-none xl:pb-0"
-				>
-					<Text class="text-lg font-bold xl:text-3xl">{$t('stake.claim_reward')}:</Text>
-					<Text class="text-lg font-bold xl:text-3xl">500 nEIC</Text>
-				</div>
-
-				<div class="space-y-3 pt-3 xl:pt-0">
-					<div>
-						<Label class="hidden text-lg text-black xl:block">{$t('stake.stake')}</Label>
-						<div class="relative">
-							<Input class="bg-transparent text-xl text-black" placeholder="Amount" />
-							<Text size="xl" class="absolute right-5 top-[6px] flex items-center gap-x-5"
-								><span>|</span> nEIC</Text
-							>
-						</div>
+			<div class="relative flex w-full gap-x-5">
+				<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
+					<Card.Header
+						class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
+					>
+						<img src="/img/stake/autolocked.png" class="h-5 w-5" alt="" />
+						<Text class="font-bold">Auto Locked</Text>
+					</Card.Header>
+					<div class="relative h-full w-full overflow-hidden bg-black/20 p-0 py-8 text-center">
+						<Text
+							size="3xl"
+							class="relative z-10 flex h-full w-full items-center justify-center text-center"
+							>27.88 pEIC</Text
+						>
+						<div class="pink-eclipse bottom-[-280%] left-[30%] w-1/2 blur-[90px]"></div>
 					</div>
-					<Button class="w-full text-lg">{$t('stake.claim')}</Button>
+				</Card.Root>
+				<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
+					<Card.Header
+						class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
+					>
+						<img src="/img/game/reward.png" class="h-5 w-5" alt="" />
+						<Text class="font-bold">My Reward</Text>
+					</Card.Header>
+					<div class="relative h-full w-full overflow-hidden bg-black/20 p-0 py-8 text-center">
+						<Text
+							size="3xl"
+							class="relative z-10 flex h-full w-full items-center justify-center text-center"
+							>27.88 pEIC</Text
+						>
+						<div class="purple-eclipse bottom-[-280%] left-[20%] w-[60%] blur-[60px]"></div>
+					</div>
+				</Card.Root>
+			</div>
+
+			<div id="Record" class="w-full space-y-2">
+				<div
+					class="gradient-border-bottom relative flex items-center justify-between gap-x-2 rounded-2xl bg-[#481555] px-7 py-4"
+				>
+					<div class="w-full font-bold">Period</div>
+					<div class="w-full text-center font-bold">Locked Amount</div>
+					<div class="w-full text-right font-bold">Release Amount</div>
 				</div>
-			</Card.Root>
+				<div
+					class="gradientScrollbar h-[200px] overflow-x-hidden overflow-y-scroll rounded-2xl bg-black/20"
+				>
+					<div class="flex items-center justify-between px-8 py-4 text-md">
+						<div class="w-full">Period</div>
+						<div class="w-full text-center">Locked Amount</div>
+						<div class="w-full text-right">Release Amount</div>
+					</div>
+					<div class="flex items-center justify-between px-8 py-4 text-md">
+						<div class="w-full">Period</div>
+						<div class="w-full text-center">Locked Amount</div>
+						<div class="w-full text-right">Release Amount</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div>
-		<Text class="text-2xl font-bold xl:text-3xl">{$t('history.history')}</Text>
-		<Table.Root>
-			<Table.Caption>{$t('history.history_info')}</Table.Caption>
-			<Table.Header>
-				<Table.Row>
-					<Table.Head class="w-1/4 uppercase">{$t('history.game')}</Table.Head>
-					<Table.Head class="w-1/4 uppercase">{$t('history.type')}</Table.Head>
-					<Table.Head class="w-1/4 uppercase">{$t('history.status')}</Table.Head>
-					<Table.Head class="w-1/4 uppercase">{$t('history.timestamp')}</Table.Head>
-				</Table.Row>
-			</Table.Header>
-			<Table.Body>
-				<Table.Row class="text-black">
-					<Table.Cell>Chain Party</Table.Cell>
-					<Table.Cell>Result</Table.Cell>
-					<Table.Cell>Win</Table.Cell>
-					<Table.Cell>24/7/2024 10:28:00</Table.Cell>
-				</Table.Row>
-			</Table.Body>
-		</Table.Root>
+
+		<div id="History" class="w-full space-y-2">
+			<div
+				class="gradient-border-bottom relative flex items-center justify-between gap-x-2 rounded-2xl bg-[#481555] px-7 py-4"
+			>
+				<div class="w-full font-bold">History</div>
+			</div>
+			<div
+				class="gradientScrollbar h-[200px] overflow-x-hidden overflow-y-scroll rounded-2xl bg-black/20"
+			>
+				<div class="flex items-center justify-between px-8 py-4 text-md">
+					<div class="w-full">xxxxxxxxxxxxxxxxx</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
