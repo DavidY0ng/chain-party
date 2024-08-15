@@ -1,5 +1,9 @@
 export default [
-	{ inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+	{
+		inputs: [{ internalType: 'address', name: 'defaultAdmin', type: 'address' }],
+		stateMutability: 'nonpayable',
+		type: 'constructor'
+	},
 	{ inputs: [], name: 'AccessControlBadConfirmation', type: 'error' },
 	{
 		inputs: [
@@ -96,6 +100,13 @@ export default [
 		],
 		name: 'Transfer',
 		type: 'event'
+	},
+	{
+		inputs: [],
+		name: 'ADMIN_ROLE',
+		outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+		stateMutability: 'view',
+		type: 'function'
 	},
 	{
 		inputs: [],
@@ -229,6 +240,13 @@ export default [
 			{ internalType: 'address', name: 'account', type: 'address' }
 		],
 		name: 'revokeRole',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [{ internalType: 'address', name: '_game', type: 'address' }],
+		name: 'setGame',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function'
