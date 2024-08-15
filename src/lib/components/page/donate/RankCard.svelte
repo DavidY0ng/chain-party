@@ -37,7 +37,7 @@
 
 <!-- top 1 -->
 <div class="flex">
-	{#if leaderboardList?.data.length > 0}
+	{#if leaderboardList?.data.length >= 0}
 		<div class="relative left-[2%] z-10 rotate-[-10deg]">
 			<Card.Root
 				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"
