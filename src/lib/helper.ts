@@ -108,3 +108,9 @@ export function getOrdinalSuffix(numberStr: string) {
 			return 'th';
 	}
 }
+
+export function formatLockedDate(timestamp: number) {
+	const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+	const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+	return date.toLocaleDateString('en-GB', options);
+}
