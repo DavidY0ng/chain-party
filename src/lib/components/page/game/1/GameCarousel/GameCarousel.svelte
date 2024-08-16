@@ -156,7 +156,9 @@
 									? 'bg-[#251235]'
 									: 'bg-[#2D2435]'}"
 							>
+							
 								<Body bind:round />
+
 								{#if round.type === 'current'}
 									<div class="relative w-full">
 										{#if $storeUserInfo.web3_address === zeroAddress}

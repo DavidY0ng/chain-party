@@ -227,8 +227,9 @@ export default [
 		anonymous: false,
 		inputs: [
 			{ indexed: true, internalType: 'address', name: 'player', type: 'address' },
-			{ indexed: false, internalType: 'uint256', name: 'usdtAmount', type: 'uint256' },
-			{ indexed: false, internalType: 'uint256', name: 'mEICAmount', type: 'uint256' }
+			{ indexed: false, internalType: 'uint256', name: 'usdtRewardAmount', type: 'uint256' },
+			{ indexed: false, internalType: 'uint256', name: 'pEICRewardAmount', type: 'uint256' },
+			{ indexed: false, internalType: 'uint256', name: 'pEICLockedAmount', type: 'uint256' }
 		],
 		name: 'UserClaimReward',
 		type: 'event'
@@ -266,6 +267,20 @@ export default [
 		type: 'function'
 	},
 	{
+		inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+		name: 'USDTtoEICPaths',
+		outputs: [{ internalType: 'address', name: '', type: 'address' }],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'addLiquidity',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
 		inputs: [
 			{ internalType: 'address', name: 'player', type: 'address' },
 			{ internalType: 'uint256', name: 'roundId', type: 'uint256' },
@@ -278,10 +293,11 @@ export default [
 					{ internalType: 'enum Game.RoundStatus', name: 'status', type: 'uint8' },
 					{ internalType: 'uint16', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint16' },
 					{ internalType: 'uint16', name: 'NUM_LOSERS_PER_SLOT', type: 'uint16' },
-					{ internalType: 'uint16', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
-					{ internalType: 'uint32', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint32' },
+					{ internalType: 'uint16', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
+					{ internalType: 'uint32', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint32' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_BALANCE', type: 'uint32' },
-					{ internalType: 'uint32', name: 'LOSER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint32', name: 'WINNER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint24', name: 'totalPartyTicketUsed', type: 'uint24' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_POOL_REWARD', type: 'uint32' },
 					{ internalType: 'uint40', name: 'TICKET_USDT_PRICE', type: 'uint40' },
 					{ internalType: 'uint80', name: 'TICKET_PEIC_PRICE', type: 'uint80' },
@@ -314,10 +330,11 @@ export default [
 					{ internalType: 'enum Game.RoundStatus', name: 'status', type: 'uint8' },
 					{ internalType: 'uint16', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint16' },
 					{ internalType: 'uint16', name: 'NUM_LOSERS_PER_SLOT', type: 'uint16' },
-					{ internalType: 'uint16', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
-					{ internalType: 'uint32', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint32' },
+					{ internalType: 'uint16', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
+					{ internalType: 'uint32', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint32' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_BALANCE', type: 'uint32' },
-					{ internalType: 'uint32', name: 'LOSER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint32', name: 'WINNER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint24', name: 'totalPartyTicketUsed', type: 'uint24' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_POOL_REWARD', type: 'uint32' },
 					{ internalType: 'uint40', name: 'TICKET_USDT_PRICE', type: 'uint40' },
 					{ internalType: 'uint80', name: 'TICKET_PEIC_PRICE', type: 'uint80' },
@@ -330,6 +347,7 @@ export default [
 		],
 		name: 'calcRoundRewards',
 		outputs: [
+			{ internalType: 'uint256', name: '', type: 'uint256' },
 			{ internalType: 'uint256', name: '', type: 'uint256' },
 			{ internalType: 'uint256', name: '', type: 'uint256' }
 		],
@@ -402,7 +420,8 @@ export default [
 		name: 'getAllPendingReward',
 		outputs: [
 			{ internalType: 'uint256', name: 'totalUSDT', type: 'uint256' },
-			{ internalType: 'uint256', name: 'totalMEIC', type: 'uint256' }
+			{ internalType: 'uint256', name: 'totalPEICReward', type: 'uint256' },
+			{ internalType: 'uint256', name: 'totalPEICLocked', type: 'uint256' }
 		],
 		stateMutability: 'view',
 		type: 'function'
@@ -420,10 +439,11 @@ export default [
 					{ internalType: 'enum Game.RoundStatus', name: 'status', type: 'uint8' },
 					{ internalType: 'uint16', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint16' },
 					{ internalType: 'uint16', name: 'NUM_LOSERS_PER_SLOT', type: 'uint16' },
-					{ internalType: 'uint16', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
-					{ internalType: 'uint32', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint32' },
+					{ internalType: 'uint16', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
+					{ internalType: 'uint32', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint32' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_BALANCE', type: 'uint32' },
-					{ internalType: 'uint32', name: 'LOSER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint32', name: 'WINNER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint24', name: 'totalPartyTicketUsed', type: 'uint24' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_POOL_REWARD', type: 'uint32' },
 					{ internalType: 'uint40', name: 'TICKET_USDT_PRICE', type: 'uint40' },
 					{ internalType: 'uint80', name: 'TICKET_PEIC_PRICE', type: 'uint80' },
@@ -431,6 +451,25 @@ export default [
 				],
 				internalType: 'struct Game.RoundInfo',
 				name: '',
+				type: 'tuple'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'getLiquidityInfo',
+		outputs: [
+			{
+				components: [
+					{ internalType: 'address', name: 'lpTokenOwner', type: 'address' },
+					{ internalType: 'uint32', name: 'totalUSDTSinceLastLiquidity', type: 'uint32' },
+					{ internalType: 'uint32', name: 'usdtSwapRatio', type: 'uint32' },
+					{ internalType: 'bool', name: 'isBurnRemainingPEIC', type: 'bool' }
+				],
+				internalType: 'struct Game.PEICLiquidity',
+				name: 'liquidityInfo',
 				type: 'tuple'
 			}
 		],
@@ -450,10 +489,11 @@ export default [
 					{ internalType: 'enum Game.RoundStatus', name: 'status', type: 'uint8' },
 					{ internalType: 'uint16', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint16' },
 					{ internalType: 'uint16', name: 'NUM_LOSERS_PER_SLOT', type: 'uint16' },
-					{ internalType: 'uint16', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
-					{ internalType: 'uint32', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint32' },
+					{ internalType: 'uint16', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint16' },
+					{ internalType: 'uint32', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint32' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_BALANCE', type: 'uint32' },
-					{ internalType: 'uint32', name: 'LOSER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint32', name: 'WINNER_USDT_REWARD', type: 'uint32' },
+					{ internalType: 'uint24', name: 'totalPartyTicketUsed', type: 'uint24' },
 					{ internalType: 'uint32', name: 'LOSER_USDT_POOL_REWARD', type: 'uint32' },
 					{ internalType: 'uint40', name: 'TICKET_USDT_PRICE', type: 'uint40' },
 					{ internalType: 'uint80', name: 'TICKET_PEIC_PRICE', type: 'uint80' },
@@ -463,6 +503,34 @@ export default [
 				name: '',
 				type: 'tuple'
 			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{ internalType: 'uint256', name: 'roundId', type: 'uint256' },
+			{ internalType: 'address', name: 'player', type: 'address' }
+		],
+		name: 'getRefundForRound',
+		outputs: [
+			{ internalType: 'uint256', name: 'totalUSDT', type: 'uint256' },
+			{ internalType: 'uint256', name: 'totalPEIC', type: 'uint256' },
+			{ internalType: 'uint256', name: 'totalPartyTicket', type: 'uint256' }
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{ internalType: 'uint256', name: 'roundId', type: 'uint256' },
+			{ internalType: 'address', name: 'player', type: 'address' }
+		],
+		name: 'getRewardForRound',
+		outputs: [
+			{ internalType: 'uint256', name: 'totalUSDT', type: 'uint256' },
+			{ internalType: 'uint256', name: 'totalPEICReward', type: 'uint256' },
+			{ internalType: 'uint256', name: 'totalPEICLocked', type: 'uint256' }
 		],
 		stateMutability: 'view',
 		type: 'function'
@@ -478,7 +546,6 @@ export default [
 					{ internalType: 'address', name: 'drJackpotPool', type: 'address' },
 					{ internalType: 'address', name: 'drRewardPool', type: 'address' },
 					{ internalType: 'address', name: 'drUplinkPool', type: 'address' },
-					{ internalType: 'address', name: 'drLoserRewardUsdtPool', type: 'address' },
 					{ internalType: 'uint256', name: 'drTreasuryPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drJackpotPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drRewardPoolPercentage', type: 'uint256' },
@@ -512,6 +579,16 @@ export default [
 			{ internalType: 'uint256', name: 'loserId', type: 'uint256' }
 		],
 		name: 'getRoundLoserPosition',
+		outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{ internalType: 'uint256', name: 'roundId', type: 'uint256' },
+			{ internalType: 'uint256', name: 'usdtAmount', type: 'uint256' }
+		],
+		name: 'getUSDTtoPEICAmount',
 		outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
 		stateMutability: 'view',
 		type: 'function'
@@ -605,9 +682,9 @@ export default [
 				components: [
 					{ internalType: 'contract IERC20', name: 'usdt', type: 'address' },
 					{ internalType: 'contract IERC20', name: 'partyTicket', type: 'address' },
-					{ internalType: 'contract IERC20Extended', name: 'mEIC', type: 'address' },
-					{ internalType: 'contract IERC20', name: 'pEIC', type: 'address' },
-					{ internalType: 'contract IGameRandomNumberGenerator', name: 'rng', type: 'address' }
+					{ internalType: 'contract IERC20Extended', name: 'pEIC', type: 'address' },
+					{ internalType: 'contract IGameRandomNumberGenerator', name: 'rng', type: 'address' },
+					{ internalType: 'contract IPancakeRouter01', name: 'pancakeRouter', type: 'address' }
 				],
 				internalType: 'struct Game.AddressesParam',
 				name: 'addressesConfig',
@@ -620,7 +697,6 @@ export default [
 					{ internalType: 'address', name: 'drJackpotPool', type: 'address' },
 					{ internalType: 'address', name: 'drRewardPool', type: 'address' },
 					{ internalType: 'address', name: 'drUplinkPool', type: 'address' },
-					{ internalType: 'address', name: 'drLoserRewardUsdtPool', type: 'address' },
 					{ internalType: 'uint256', name: 'drTreasuryPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drJackpotPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drRewardPoolPercentage', type: 'uint256' },
@@ -642,11 +718,21 @@ export default [
 			{
 				components: [
 					{ internalType: 'uint256', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint256' },
-					{ internalType: 'uint256', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint256' },
-					{ internalType: 'uint256', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint256' }
+					{ internalType: 'uint256', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint256' },
+					{ internalType: 'uint256', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint256' }
 				],
 				internalType: 'struct Game.GameConfigParam',
 				name: 'gameConfig',
+				type: 'tuple'
+			},
+			{
+				components: [
+					{ internalType: 'address', name: 'lpTokenOwner', type: 'address' },
+					{ internalType: 'uint256', name: 'usdtSwapRatio', type: 'uint256' },
+					{ internalType: 'bool', name: 'isBurnRemainingPEIC', type: 'bool' }
+				],
+				internalType: 'struct Game.PEICLiquidityConfigParam',
+				name: 'liquidityConfigParam',
 				type: 'tuple'
 			}
 		],
@@ -718,15 +804,22 @@ export default [
 	},
 	{
 		inputs: [],
-		name: 'mEIC',
-		outputs: [{ internalType: 'contract IERC20Extended', name: '', type: 'address' }],
+		name: 'lockPEIC',
+		outputs: [{ internalType: 'contract ILockPEIC', name: '', type: 'address' }],
 		stateMutability: 'view',
 		type: 'function'
 	},
 	{
 		inputs: [],
 		name: 'pEIC',
-		outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
+		outputs: [{ internalType: 'contract IERC20Extended', name: '', type: 'address' }],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'pancakeRouter',
+		outputs: [{ internalType: 'contract IPancakeRouter01', name: '', type: 'address' }],
 		stateMutability: 'view',
 		type: 'function'
 	},
@@ -801,8 +894,8 @@ export default [
 			{
 				components: [
 					{ internalType: 'uint256', name: 'MAX_NUM_PLAYER_PER_SLOT', type: 'uint256' },
-					{ internalType: 'uint256', name: 'LOSER_USDT_REWARD_PERCENTAGE', type: 'uint256' },
-					{ internalType: 'uint256', name: 'LOSER_MEIC_USDT_REWARD_RATE', type: 'uint256' }
+					{ internalType: 'uint256', name: 'WINNER_USDT_REWARD_PERCENTAGE', type: 'uint256' },
+					{ internalType: 'uint256', name: 'LOSER_LOCKEDPEIC_USDT_REWARD_RATE', type: 'uint256' }
 				],
 				internalType: 'struct Game.GameConfigParam',
 				name: 'gameConfigParam',
@@ -815,7 +908,6 @@ export default [
 					{ internalType: 'address', name: 'drJackpotPool', type: 'address' },
 					{ internalType: 'address', name: 'drRewardPool', type: 'address' },
 					{ internalType: 'address', name: 'drUplinkPool', type: 'address' },
-					{ internalType: 'address', name: 'drLoserRewardUsdtPool', type: 'address' },
 					{ internalType: 'uint256', name: 'drTreasuryPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drJackpotPoolPercentage', type: 'uint256' },
 					{ internalType: 'uint256', name: 'drRewardPoolPercentage', type: 'uint256' },
@@ -823,6 +915,16 @@ export default [
 				],
 				internalType: 'struct Game.RewardDistributionPoolConfig',
 				name: 'rewardDistPoolParam',
+				type: 'tuple'
+			},
+			{
+				components: [
+					{ internalType: 'address', name: 'lpTokenOwner', type: 'address' },
+					{ internalType: 'uint256', name: 'usdtSwapRatio', type: 'uint256' },
+					{ internalType: 'bool', name: 'isBurnRemainingPEIC', type: 'bool' }
+				],
+				internalType: 'struct Game.PEICLiquidityConfigParam',
+				name: 'liquidityConfigParam',
 				type: 'tuple'
 			}
 		],
@@ -832,17 +934,28 @@ export default [
 		type: 'function'
 	},
 	{
-		inputs: [{ internalType: 'contract IStakingMEIC', name: '_staking', type: 'address' }],
-		name: 'setStaking',
+		inputs: [
+			{
+				components: [
+					{ internalType: 'address', name: 'lpTokenOwner', type: 'address' },
+					{ internalType: 'uint256', name: 'usdtSwapRatio', type: 'uint256' },
+					{ internalType: 'bool', name: 'isBurnRemainingPEIC', type: 'bool' }
+				],
+				internalType: 'struct Game.PEICLiquidityConfigParam',
+				name: 'config',
+				type: 'tuple'
+			}
+		],
+		name: 'setLiquidityInfo',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function'
 	},
 	{
-		inputs: [],
-		name: 'staking',
-		outputs: [{ internalType: 'contract IStakingMEIC', name: '', type: 'address' }],
-		stateMutability: 'view',
+		inputs: [{ internalType: 'contract ILockPEIC', name: '_lockPEIC', type: 'address' }],
+		name: 'setLockPEIC',
+		outputs: [],
+		stateMutability: 'nonpayable',
 		type: 'function'
 	},
 	{

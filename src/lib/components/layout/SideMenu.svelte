@@ -5,7 +5,7 @@
 </script>
 
 <!-- Desktop Side Menu -->
-<div class="relative z-[999] hidden w-full xl:block xl:max-w-[15%]">
+<div class="relative z-[999] hidden h-screen overflow-y-auto w-full xl:block xl:max-w-[15%]">
 	<div
 		class="relative flex min-h-screen w-full flex-col items-center gap-5 p-3 xl:fixed xl:w-[15%] xl:bg-[#481555]"
 	>
@@ -14,7 +14,7 @@
 			class="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-t from-transparent via-[#FF5EDC] via-50% to-transparent"
 		/>
 		<img src="/img/desktopSideMenu/Chain Party Logo.png" alt="" class="w-[8.625rem]" />
-		<div class="flex h-full w-full flex-col gap-3">
+		<div class="flex h-full min-h-screen w-full flex-col gap-y-1">
 			{#each menuList as menu, i}
 				{#if i < 4}
 					<a
@@ -40,7 +40,7 @@
 								alt=""
 							/>
 							<Text
-								class="uppercase group-hover:text-white {$page.url.pathname === menu.path
+								class="text-sm uppercase group-hover:text-white {$page.url.pathname === menu.path
 									? ''
 									: 'text-white/50'}">{menu.label}</Text
 							>
@@ -48,7 +48,7 @@
 					</a>
 				{/if}
 			{/each}
-			<div class="m-auto h-[1px] w-full bg-white/20" />
+			<div class="m-auto my-3 h-[1px] w-full bg-white/20" />
 			{#each menuList as menu, i}
 				{#if i >= 4}
 					<a
@@ -74,7 +74,7 @@
 								alt=""
 							/>
 							<Text
-								class="uppercase group-hover:text-white {$page.url.pathname === menu.path
+								class="text-sm uppercase group-hover:text-white {$page.url.pathname === menu.path
 									? ''
 									: 'text-white/50'}">{menu.label}</Text
 							>
