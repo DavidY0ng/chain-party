@@ -12,12 +12,12 @@ import {
 } from 'viem';
 import contractConfig from './contract.config.json';
 
+import LockedPEIC from './abi/LockedPEIC';
 import mEICToken from './abi/MeicToken';
 import MockUSDT from './abi/MockUSDT';
 import PartyTicket from './abi/PartyTicket';
 import pEICToken from './abi/pEICToken';
 import TestGame from './abi/TestGame';
-import TestStakingMEIC from './abi/TestStakingMEIC';
 
 export const contracts = contractConfig.contracts;
 export const listABIs: { [K in keyof typeof contracts]: Abi } | Record<string, never> = {};
@@ -59,4 +59,4 @@ export const partyTicketContract = _getContract('PartyTicket', PartyTicket, bscC
 export const mEICTokenContract = _getContract('mEICToken', mEICToken, bscClient);
 export const pEICTokenContract = _getContract('pEICToken', pEICToken, bscClient);
 export const testGameContract = _getContract('TestGame', TestGame, bscClient);
-export const testStakingMEICContract = _getContract('TestStakingMEIC', TestStakingMEIC, bscClient);
+export const LockedPEICContract = _getContract('LockedPEIC', LockedPEIC, bscClient);
