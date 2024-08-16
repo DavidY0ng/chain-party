@@ -7,11 +7,15 @@ export type TGameList = {
 		round_id: string;
 		user_position: string;
 		slot: string;
-		status: TGameStatus['code'];
+		status: TGameHistoryStatus['code'];
 	}[];
 	count: number;
 	last_page: number;
 };
+
+type CurrentStatus = 'awaiting' | 'game_start' | 'calculating_reward';
+
+type PastStatus = 'game_end' | 'game_canceled';
 
 export type TGameRound = {
 	data: {
@@ -19,7 +23,8 @@ export type TGameRound = {
 		date_time_start: number;
 		date_time_end: number;
 		loser_position: string[];
-		status: string;
+		status: CurrentStatus | PastStatus;
+		type: 'current' | 'past';
 		slot: number;
 	}[];
 	count: number;
@@ -39,7 +44,7 @@ export type TGameSlot = {
 	self_position: string;
 };
 
-export type TGameStatus = {
+export type TGameHistoryStatus = {
 	code: 'pending' | 'win' | 'lose' | 'refunded';
 };
 
@@ -48,5 +53,5 @@ export type TGameStatus = {
 export interface IGetListParams extends IPagination {
 	created_at_start: string;
 	created_at_end: string;
-	status: TGameStatus['code'];
+	status: TGameHistoryStatus['code'];
 }

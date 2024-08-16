@@ -6,7 +6,7 @@ import type {
 	TGameList,
 	TGameRound,
 	TGameSlot,
-	TGameStatus
+	TGameHistoryStatus
 } from '$lib/type/gameType';
 import { get } from 'svelte/store';
 import { zeroAddress } from 'viem';
@@ -53,15 +53,15 @@ const GameAPI = {
 			return { success: false, data: {} as TGameSlot, msg: (error as Error).message };
 		}
 	},
-	getStatus: async function (): Promise<APIResponse<TGameStatus[]>> {
+	getStatus: async function (): Promise<APIResponse<TGameHistoryStatus[]>> {
 		try {
-			const response = await api.get<TGameStatus[]>('/dapp/game/status');
+			const response = await api.get<TGameHistoryStatus[]>('/dapp/game/status');
 			return response;
 		} catch (error) {
-			return { success: false, data: {} as TGameStatus[], msg: (error as Error).message };
+			return { success: false, data: {} as TGameHistoryStatus[], msg: (error as Error).message };
 		}
 	}
 };
 
 export default GameAPI;
-export type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameStatus };
+export type { IGetListParams, TGameList, TGameRound, TGameSlot, TGameHistoryStatus };

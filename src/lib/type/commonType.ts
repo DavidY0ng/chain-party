@@ -8,7 +8,6 @@ export type APIResponse<T = any> = {
 export type APIMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 // ***************** Interface *************
-
 export interface APIOptions {
 	data?: Record<string, any>;
 	useToken?: boolean;
@@ -25,5 +24,4 @@ export interface IGetErrorType {
 }
 
 // history list
-
 export type THistoryType = 'transaction' | 'game';

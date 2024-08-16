@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GameAPI, { type TGameList, type TGameStatus } from '$lib/api/game';
+	import GameAPI, { type TGameList, type TGameHistoryStatus } from '$lib/api/game';
 	import TransactionAPI, { type TTransaction, type TTransactionType } from '$lib/api/transaction';
 	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import TableHistory from '$lib/components/page/history/TableHistory.svelte';
@@ -20,7 +20,7 @@
 	let filterOption = {
 		from: '' as unknown as DateValue,
 		to: '' as unknown as DateValue,
-		status: '' as TGameStatus['code'],
+		status: '' as TGameHistoryStatus['code'],
 		type: '' as TTransactionType['code']
 	};
 
@@ -113,7 +113,7 @@
 		filterOption = {
 			from: '' as unknown as DateValue,
 			to: '' as unknown as DateValue,
-			status: '' as TGameStatus['code'],
+			status: '' as TGameHistoryStatus['code'],
 			type: '' as TTransactionType['code']
 		};
 	}

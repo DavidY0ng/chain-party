@@ -3,13 +3,13 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { t } from '$lib/i18n';
 	import { isToken } from '$lib/stores/storeCommon';
-	import type { TGameStatus } from '$lib/type/gameType';
+	import type { TGameHistoryStatus } from '$lib/type/gameType';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 
 	export let selectedStatus;
 
-	let status: TGameStatus[] = [];
+	let status: TGameHistoryStatus[] = [];
 
 	async function onGetGameStatus() {
 		if (!$isToken) return [];

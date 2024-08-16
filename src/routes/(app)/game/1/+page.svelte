@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import GameAPI, { type TGameRound, type TGameSlot, type TGameStatus } from '$lib/api/game.js';
+	import GameAPI, {
+		type TGameHistoryStatus,
+		type TGameRound,
+		type TGameSlot
+	} from '$lib/api/game.js';
 	import * as Game from '$lib/components/page/game/1/index';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
@@ -95,20 +98,17 @@
 		currentGame = gameRoundData?.data[+gameStartIndex];
 
 		if (value.web3_address !== zeroAddress) {
+			if (WebSocketService === undefined) {
+				initializedWebsocket();
+			}
 			await getGameSlot();
 		}
 	});
 
-	/**
-	 * Listens for websocket topic when browser is up
-	 */
-
-	onMount(() => {
-		initializedWebsocket();
-
+	$: if (WebSocketService !== undefined) {
 		WebSocketService.on('gameResult', (incoming) => {
 			console.log(incoming);
-			switch (incoming.result as TGameStatus['code']) {
+			switch (incoming.result) {
 				case 'win':
 					showWinModal = true;
 					break;
@@ -120,6 +120,16 @@
 					break;
 			}
 		});
+	}
+
+	/**
+	 * Listens for websocket topic when browser is up
+	 */
+
+	onMount(() => {
+		if (WebSocketService === undefined && $isToken) {
+			initializedWebsocket();
+		}
 	});
 </script>
 

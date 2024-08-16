@@ -70,7 +70,7 @@
 			class="gradientScrollbar {$storeUserInfo.web3_address === zeroAddress &&
 			$isToken === undefined
 				? 'h-[500px]'
-				: 'max-h-[350px]'} w-full overflow-y-scroll rounded-2xl bg-black/20"
+				: 'h-[350px]'} w-full overflow-y-scroll rounded-2xl bg-black/20"
 		>
 			{#if currentList?.data.length > 0}
 				{#each currentList?.data as user, i}
