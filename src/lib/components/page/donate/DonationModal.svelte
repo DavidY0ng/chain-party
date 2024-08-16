@@ -24,25 +24,29 @@
 	$: userAddress = $storeUserInfo.web3_address;
 
 	async function onDonate(amount: string | number | undefined) {
-		if (amount === undefined || +amount < 1) {
-			donationError = 'Amount must be more than 1';
-			return;
-		}
-		const amountInWei = BigInt(Math.floor(+amount * 1e18));
+		try {
+			if (amount === undefined || +amount < 1) {
+				donationError = 'Amount must be more than 1';
+				return;
+			}
+			const amountInWei = BigInt(Math.floor(+amount * 1e18));
 
-		await testGameContract.simulate.donateJackpot([BigInt(amountInWei)], {
-			account: userAddress as Address,
-			chain: bscChain as Chain
-		});
+			await testGameContract.simulate.donateJackpot([BigInt(amountInWei)], {
+				account: userAddress as Address,
+				chain: bscChain as Chain
+			});
 
-		const result = await testGameContract.write.donateJackpot([BigInt(amountInWei)], {
-			account: userAddress as Address,
-			chain: bscChain as Chain
-		});
+			const result = await testGameContract.write.donateJackpot([BigInt(amountInWei)], {
+				account: userAddress as Address,
+				chain: bscChain as Chain
+			});
 
-		if (result) {
-			toast.success('Donate successful');
-			showModal = false;
+			if (result) {
+				toast.success('Donate successful');
+				showModal = false;
+			}
+		} catch (error: any) {
+			throw new Error(error, error.shortMessage);
 		}
 	}
 
