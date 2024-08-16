@@ -1,63 +1,144 @@
-<script>
-    import * as Card from '$lib/components/ui/card';
+<script lang="ts">
+	import DonationAPI from '$lib/api/donation';
+	import * as Card from '$lib/components/ui/card';
 	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
+	import type { TDonationLeaderboard } from '$lib/type/donationType';
+	import { onMount } from 'svelte';
+
+	let leaderboardListPagination = {
+		page: 0,
+		size: 20
+	};
+
+	let leaderboardList: TDonationLeaderboard;
+
+	async function getLeaderboardList() {
+        leaderboardListPagination.page++
+		const result = await DonationAPI.getLeaderboard(leaderboardListPagination);
+		if (result.success) {
+			if (leaderboardListPagination.page === 1) {
+				leaderboardList = result.data;
+			} else {
+				leaderboardList = {
+					...result.data,
+					data: [...leaderboardList.data, ...result.data.data]
+				};
+			}
+		} else {
+			throw new Error('Failed to fetch leaderboard list');
+		}
+	}
+
+	onMount(() => {
+		getLeaderboardList();
+	});
 </script>
 
 <!-- top 1 -->
-<div class="flex ">
-    <div class="relative z-10 rotate-[-10deg] left-[2%]">
-        <Card.Root class="flex flex-col bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 border-none items-center gap-3 rounded-xl relative pt-[70px] w-[300px] overflow-hidden">
-            <div class="flex flex-col items-center overflow-hidden gap-5">
-                <Text size='3xl'>
-                    TOP 2
-                </Text>
-                <div class="bg-black/15 px-[30px] py-[10px] rounded-xl">
-                    <Text size='3xl'>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',4,4)}</Text>
-                </div>
-                <div class="flex flex-col items-center">
-                    <Text size='sm' class="text-white/60">Donated:</Text>
-                    <Text size='lg' class="font-bold">1,000 pEIC</Text>
-                </div>
-            </div>
-        </Card.Root>
-        <img src='/img/donate/top2.png' alt='top2' class="absolute translate-y-[-50%] top-0 left-[50%] translate-x-[-50%]">
-    </div>
+<div class="flex">
+	{#if leaderboardList?.data.length >= 0}
+		<div class="relative left-[2%] z-10 rotate-[-10deg]">
+			<Card.Root
+				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"
+			>
+				<div class="flex flex-col items-center gap-5 overflow-hidden">
+					<Text size="3xl">TOP 2</Text>
+					<div class="rounded-xl bg-black/15 px-[30px] py-[10px]">
+						<Text size="3xl"
+							>{#if leaderboardList?.data?.[1]?.address}
+								{truncateString(leaderboardList.data[1].address, 4, 4)}
+							{:else}
+								---
+							{/if}</Text
+						>
+					</div>
+					<div class="flex flex-col items-center">
+						<Text size="sm" class="text-white/60">Donated:</Text>
+						<Text size="lg" class="font-bold"
+							>{#if leaderboardList?.data?.[1]?.amount}
+								{leaderboardList.data[1].amount}
+							{:else}
+								---
+							{/if} pEIC</Text
+						>
+					</div>
+				</div>
+			</Card.Root>
+			<img
+				src="/img/donate/top2.png"
+				alt="top2"
+				class="absolute left-[50%] top-0 translate-x-[-50%] translate-y-[-50%]"
+			/>
+		</div>
 
-    <div class="relative z-20 translate-y-[-20%]">
-        <Card.Root class="flex flex-col bg-[#251235] p-5 border-none items-center gap-3 rounded-xl relative pt-[70px] w-[300px] overflow-hidden">
-            <div class="flex flex-col items-center overflow-hidden gap-5">
-                <Text size='3xl'>
-                    TOP 1
-                </Text>
-                <div class="bg-black/15 px-[30px] py-[10px] rounded-xl">
-                    <Text size='3xl'>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',4,4)}</Text>
-                </div>
-                <div class="flex flex-col items-center z-10">
-                    <Text size='sm' class="text-white/60">Donated:</Text>
-                    <Text size='lg' class="font-bold">1,000 pEIC</Text>
-                </div>
-                <div class="pink-eclipse blur-[70px] w-[337px] h-[263px] top-[80%]"></div>
-            </div>
-        </Card.Root>
-        <img src='/img/donate/top1.png' alt='top1' class="absolute translate-y-[-50%] top-0 left-[50%] translate-x-[-50%]">
-    </div>
-    
-    <div class="relative z-10 rotate-[10deg] right-[2%]">
-        <Card.Root class="flex flex-col bg-gradient-to-b from-[#251235] p-5 border-none items-center gap-3 rounded-xl relative pt-[70px] w-[300px] overflow-hidden">
-            <div class="flex flex-col items-center overflow-hidden gap-5">
-                <Text size='3xl'>
-                    TOP 3
-                </Text>
-                <div class="bg-black/15 px-[30px] py-[10px] rounded-xl">
-                    <Text size='3xl'>{truncateString('0x9693CD9713496b0712f52E5F0c7b8948abdA824D',4,4)}</Text>
-                </div>
-                <div class="flex flex-col items-center">
-                    <Text size='sm' class="text-white/60">Donated:</Text>
-                    <Text size='lg' class="font-bold">1,000 pEIC</Text>
-                </div>
-            </div>
-        </Card.Root>
-        <img src='/img/donate/top3.png' alt='top3' class="absolute translate-y-[-50%] top-0 left-[50%] translate-x-[-50%]">
-    </div>
+		<div class="relative z-20 translate-y-[-20%]">
+			<Card.Root
+				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[70px]"
+			>
+				<div class="flex flex-col items-center gap-5 overflow-hidden">
+					<Text size="3xl">TOP 1</Text>
+					<div class="rounded-xl bg-black/15 px-[30px] py-[10px]">
+						<Text size="3xl"
+							>{#if leaderboardList?.data?.[0]?.address}
+								{truncateString(leaderboardList.data[0].address, 4, 4)}
+							{:else}
+								---
+							{/if}</Text
+						>
+					</div>
+					<div class="z-10 flex flex-col items-center">
+						<Text size="sm" class="text-white/60">Donated:</Text>
+						<Text size="lg" class="font-bold"
+							>{#if leaderboardList?.data?.[0]?.amount}
+								{leaderboardList.data[0].amount}
+							{:else}
+								---
+							{/if} pEIC</Text
+						>
+					</div>
+					<div class="pink-eclipse top-[80%] h-[263px] w-[337px] blur-[70px]"></div>
+				</div>
+			</Card.Root>
+			<img
+				src="/img/donate/top1.png"
+				alt="top1"
+				class="absolute left-[50%] top-0 translate-x-[-50%] translate-y-[-50%]"
+			/>
+		</div>
+
+		<div class="relative right-[2%] z-10 rotate-[10deg]">
+			<Card.Root
+				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] p-5 pt-[70px]"
+			>
+				<div class="flex flex-col items-center gap-5 overflow-hidden">
+					<Text size="3xl">TOP 3</Text>
+					<div class="rounded-xl bg-black/15 px-[30px] py-[10px]">
+						<Text size="3xl">
+							{#if leaderboardList?.data?.[2]?.address}
+								{truncateString(leaderboardList.data[2].address, 4, 4)}
+							{:else}
+								---
+							{/if}
+						</Text>
+					</div>
+					<div class="flex flex-col items-center">
+						<Text size="sm" class="text-white/60">Donated:</Text>
+						<Text size="lg" class="font-bold"
+							>{#if leaderboardList?.data?.[2]?.amount}
+								{leaderboardList.data[2].amount}
+							{:else}
+								---
+							{/if} pEIC</Text
+						>
+					</div>
+				</div>
+			</Card.Root>
+			<img
+				src="/img/donate/top3.png"
+				alt="top3"
+				class="absolute left-[50%] top-0 translate-x-[-50%] translate-y-[-50%]"
+			/>
+		</div>
+	{/if}
 </div>

@@ -12,25 +12,11 @@
 	import DonationModal from '$lib/components/page/donate/DonationModal.svelte';
 	import { t } from '$lib/i18n';
 
-	let leaderboardSize: number = 53;
-	let leaderboardData: TDonationLeaderboard;
-
-	async function onGetLeaderBoard() {
-		const result = await DonationAPI.getLeaderboard(leaderboardSize);
-		if (result.success) {
-			leaderboardData = result.data;
-		} else {
-			throw new Error('Failed to fetch leaderboard');
-		}
-	}
 
 	const handleConnect = async () => {
 		await onConnectWallet();
 	};
 
-	onMount(() => {
-		onGetLeaderBoard();
-	});
 </script>
 
 <div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10">
