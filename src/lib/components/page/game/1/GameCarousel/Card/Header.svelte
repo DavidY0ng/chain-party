@@ -8,16 +8,16 @@
 
 <div
 	id="header"
-	class="relative flex w-full items-center gap-x-3 {round.status === 'game_start'
+	class="relative flex w-full items-center gap-x-3 {round.type === 'current'
 		? 'bg-gradient-to-b from-[#711289] to-[#1C0632]'
-		: round.status === 'awaiting'
+		: round.type === 'upcoming'
 			? 'bg-[#DF61FF]'
 			: 'bg-[#444444]'}"
 >
 	<div
-		class="w-fit {round.status === 'game_start'
+		class="w-fit {round.type === 'current'
 			? 'bg-[#FF0099]'
-			: round.status === 'awaiting'
+			: round.type === 'upcoming'
 				? 'bg-[#DF61FF]'
 				: 'bg-black/20'} p-3"
 	>
@@ -26,18 +26,18 @@
 	<div class="flex-1">
 		<Text class="flex items-center gap-x-2 font-bold"
 			>Game <span
-				class="text-[12px] {round.status === 'game_start'
+				class="text-[12px] {round.type === 'current'
 					? 'text-[#FF0099]'
-					: round.status === 'awaiting'
+					: round.type === 'upcoming'
 						? 'text-black'
-						: 'text-white/50'}">• {$t(`game.status.${round.status}`)} •</span
+						: 'text-white/50'}">• {$t(`game.status.${round.type}`)} •</span
 			></Text
 		>
 	</div>
 	<div
-		class="mr-3 rounded-full bg-black/20 px-3 text-md font-bold {round.status === 'game_start'
+		class="mr-3 rounded-full bg-black/20 px-3 text-md font-bold {round.type === 'current'
 			? 'text-[#DF61FF]'
-			: round.status === 'awaiting'
+			: round.type === 'upcoming'
 				? 'text-white'
 				: 'text-white/50'}"
 	>

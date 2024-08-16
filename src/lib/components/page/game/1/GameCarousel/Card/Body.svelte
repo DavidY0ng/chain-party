@@ -9,11 +9,12 @@
 	let countdown = '0:00';
 	let interval: ReturnType<typeof setInterval> | undefined;
 	let progress = 0;
-	const totalDuration = 600000; // 10 minutes in milliseconds
 
 	function countdownToTimestamp(targetTimestamp: number) {
+		const startTimestamp = Date.now(); // Current time when countdown starts
 		const targetDate = new Date(targetTimestamp);
 		const targetTime = targetDate.getTime();
+		const totalDuration = targetTimestamp - startTimestamp;
 
 		function updateCountdown() {
 			const now = new Date().getTime();
@@ -23,7 +24,7 @@
 				clearInterval(interval);
 				interval = undefined;
 				countdown = '0:00';
-				progress = 0;
+				progress = 100; // Ensure progress is 100% when countdown ends
 				return;
 			}
 
@@ -32,15 +33,16 @@
 
 			countdown = `${minutes >= 10 ? minutes : `0${minutes}`}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-			// Calculate the progress value based on the remaining time
-			progress = ((totalDuration - distance) / totalDuration) * 100;
+			// Calculate progress based on elapsed time
+			const elapsed = totalDuration - distance;
+			progress = Math.min((elapsed / totalDuration) * 100, 100); // Ensure progress does not exceed 100%
 		}
 
 		interval = setInterval(updateCountdown, 1000);
 		updateCountdown(); // Initial call to set the countdown immediately
 	}
 
-	if (round.status === 'game_start') {
+	if (round.type === 'current') {
 		countdownToTimestamp(round.date_time_end);
 	}
 
@@ -50,23 +52,16 @@
 </script>
 
 <div class="flex h-full w-full items-center justify-center gap-x-1">
-	<CircleProgress
-		max={100}
-		value={round.status === 'game_start' ? progress : 0}
-		class="flex w-[110px] "
-	>
+	<CircleProgress max={100} value={round.type === 'current' ? progress : 0} class="flex w-[110px] ">
 		<div class="flex flex-col items-center">
 			<Text
 				size="lg"
-				class=" font-normal {round.status === 'game_start' || round.status === 'awaiting'
-					? 'text-white'
-					: 'text-white/50'}">{countdown}</Text
+				class=" font-normal {round.type === 'current' ? 'text-white' : 'text-white/50'}"
+				>{countdown}</Text
 			>
 			<Text
-				class=" text-[12px] font-normal {round.status === 'game_start' ||
-				round.status === 'awaiting'
-					? 'text-white'
-					: 'text-white/50'}">Min</Text
+				class=" text-[12px] font-normal {round.type === 'current' ? 'text-white' : 'text-white/50'}"
+				>Min</Text
 			>
 		</div>
 	</CircleProgress>
@@ -75,12 +70,12 @@
 		<Text class="text-[12px]">Lucky number:</Text>
 		<Text
 			size="3xl"
-			class="font-bold {round.status === 'game_start'
+			class="font-bold {round.type === 'current'
 				? 'text-white'
-				: round.status === 'awaiting'
+				: round.type === 'upcoming'
 					? 'text-white/50'
 					: 'text-[#DF61FF]'}"
-			>{round.status === 'game_start'
+			>{round.type === 'current'
 				? '1 ~ 20'
 				: round.loser_position[0]
 					? round.loser_position[0]
