@@ -7,7 +7,7 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 	import { t } from '$lib/i18n';
-	import { testGameContract } from '$lib/web3/contract/contract';
+	import { gameContract } from '$lib/web3/contract/contract';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { bscChain } from '$lib/web3/client';
 	import { toast } from 'svelte-sonner';
@@ -31,12 +31,12 @@
 			}
 			const amountInWei = BigInt(Math.floor(+amount * 1e18));
 
-			await testGameContract.simulate.donateJackpot([BigInt(amountInWei)], {
+			await gameContract.simulate.donateJackpot([BigInt(amountInWei)], {
 				account: userAddress as Address,
 				chain: bscChain as Chain
 			});
 
-			const result = await testGameContract.write.donateJackpot([BigInt(amountInWei)], {
+			const result = await gameContract.write.donateJackpot([BigInt(amountInWei)], {
 				account: userAddress as Address,
 				chain: bscChain as Chain
 			});

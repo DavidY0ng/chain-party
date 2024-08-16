@@ -1,9 +1,16 @@
 import { createConfig, getPublicClient } from '@wagmi/core';
-import { createPublicClient, createWalletClient, custom, http, type WalletClient } from 'viem';
+import {
+	createPublicClient,
+	createWalletClient,
+	custom,
+	http,
+	type Chain,
+	type WalletClient
+} from 'viem';
 import { bsc, bscTestnet } from 'viem/chains';
 
 const isProduction = process.env.NODE_ENV === 'production';
-export const bscChain = isProduction ? bsc : bscTestnet;
+export const bscChain: Chain = isProduction ? bsc : bscTestnet;
 
 export const wagmiConfig = createConfig({
 	chains: [bscChain],

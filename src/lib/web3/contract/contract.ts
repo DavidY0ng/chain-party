@@ -1,18 +1,13 @@
 import { bscClient, walletClient } from '$lib/web3/client';
-import {
-	getContract,
-	type Abi,
-	type Address,
-	type PublicClient
-} from 'viem';
+import { getContract, type Abi, type Address, type PublicClient } from 'viem';
 import contractConfig from './contract.config.json';
 
+import Game from './abi/Game';
 import LockedPEIC from './abi/LockedPEIC';
 import mEICToken from './abi/MeicToken';
 import MockUSDT from './abi/MockUSDT';
 import PartyTicket from './abi/PartyTicket';
 import pEICToken from './abi/pEICToken';
-import TestGame from './abi/TestGame';
 
 export const contracts = contractConfig.contracts;
 export const listABIs: { [K in keyof typeof contracts]: Abi } | Record<string, never> = {};
@@ -51,5 +46,5 @@ export const mockUSDTContract = _getContract('mockUSDT', MockUSDT, bscClient);
 export const partyTicketContract = _getContract('PartyTicket', PartyTicket, bscClient);
 export const mEICTokenContract = _getContract('mEICToken', mEICToken, bscClient);
 export const pEICTokenContract = _getContract('pEICToken', pEICToken, bscClient);
-export const testGameContract = _getContract('TestGame', TestGame, bscClient);
+export const gameContract = _getContract('Game', Game, bscClient);
 export const LockedPEICContract = _getContract('LockedPEIC', LockedPEIC, bscClient);
