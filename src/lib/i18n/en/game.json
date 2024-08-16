@@ -64,10 +64,8 @@
 	"entry_game": "Entry Game",
 	"total_entry_fee": "Total Entry Fee",
 	"status": {
-		"game_start": "Live",
-		"game_canceled": "Cancelled",
-		"game_end": "Expired",
-		"awaiting": "Next",
-		"calculating_reward": "Calculating"
+		"current": "Live",
+		"past": "Expired",
+		"upcoming": "Next"
 	}
 }

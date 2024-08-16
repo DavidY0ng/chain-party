@@ -32,11 +32,14 @@
 		});
 	}
 
-	// Dont not touch this variable it would affect the slide
+	/**
+	 * Dont not touch this variable it would affect the slide
+	 * Only use this variable when there some changes to gameRoundData
+	 */
 	let latestGameStartIndex = 0;
 
 	$: if (api && gameRoundData) {
-		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.status === 'game_start') - 1;
+		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current') - 1;
 
 		// if current and gameStartIndex is not the same then redirect back to game start slide after 10 sec
 		if (latestGameStartIndex + 1 - current !== 0) {
@@ -52,6 +55,7 @@
 	}
 
 	async function onScrollPrev() {
+		// if the remaining threshold of slides is 2 and current pagination is less than last page
 		if (
 			current !== 0 &&
 			gameRoundData.data.length - (gameRoundData.data.length - current) <= 2 &&
@@ -64,7 +68,9 @@
 				gameRoundData.data = [...result.data.data, ...gameRoundData.data];
 
 				// Sort the data array based on round_id to maintain consistent order
-				gameRoundData.data.sort((a, b) => a.round_id.localeCompare(b.round_id));
+				gameRoundData.data.sort((a, b) =>
+					a.round_id.toString().localeCompare(b.round_id.toString())
+				);
 
 				// update the current index and the actual live game index
 				gameStartIndex = current + result.data.data.length;
@@ -91,7 +97,7 @@
 	}
 
 	onMount(() => {
-		gameStartIndex = gameRoundData.data.findIndex((item) => item.status === 'game_start');
+		gameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
 		if (gameStartIndex < 0) {
 			gameStartIndex = gameRoundData.data.length;
 		}
@@ -116,20 +122,27 @@
 	<div class="absolute right-0 top-0 z-10 h-full w-1/6 bg-gradient-to-l from-black/50" />
 	<Carousel.Content class="flex items-center ">
 		{#if gameRoundData?.data}
+			<!-- This item pushes the slide to focus on 1st index -->
+			<Carousel.Item class="lg:basis-[25%]"
+				><Card.Root>
+					<Card.Content></Card.Content></Card.Root
+				>
+			</Carousel.Item>
 			{#each gameRoundData.data as round, i}
 				<Carousel.Item
-					class="h-fit  pl-5 lg:basis-[25%] {gameRoundData.count < 2
+					class="h-fit pl-5 lg:basis-[25%] {gameRoundData.count < 2
 						? 'translate-x-[149.5%]'
 						: 'translate-x-[49.5%]'}"
 				>
 					<Card.Root>
 						<Card.Content
-							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current ===
-								i || round.status === 'game_start'
+							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current -
+								1 ===
+								i || round.type === 'current'
 								? 'gradient-border-bottom h-[240px] '
 								: 'h-[200px] '} w-full items-center "
 						>
-							{#if round.status === 'game_start'}
+							{#if round.type === 'current'}
 								<div class="purple-eclipse -left-[20%] -top-[30%] w-[200px] blur-[50px]" />
 							{/if}
 							<!-- ********************************* HEADER ******************************************* -->
@@ -138,13 +151,13 @@
 							<!-- ********************************* BODY ******************************************* -->
 							<div
 								id="body"
-								class="relative flex h-full w-full flex-col items-center space-y-5 p-3 pb-4 {round.status ===
-								'game_start'
+								class="relative flex h-full w-full flex-col items-center space-y-5 p-3 pb-4 {round.type ===
+								'current'
 									? 'bg-[#251235]'
 									: 'bg-[#2D2435]'}"
 							>
 								<Body bind:round />
-								{#if round.status === 'game_start'}
+								{#if round.type === 'current'}
 									<div class="relative w-full">
 										{#if $storeUserInfo.web3_address === zeroAddress}
 											<Button
@@ -157,11 +170,19 @@
 									</div>
 								{/if}
 							</div>
-							{#if round.status === 'game_start'}
+							{#if round.type === 'current'}
 								<div class="pink-eclipse -bottom-[50%] -right-[30%] w-[200px] blur-[80px]" />
 							{/if}
 						</Card.Content>
 					</Card.Root>
+				</Carousel.Item>
+			{/each}
+			<!-- This two item pushes the slide to focus on last index -->
+			{#each Array(2) as _, i}
+				<Carousel.Item class="lg:basis-[25%]"
+					><Card.Root>
+						<Card.Content></Card.Content></Card.Root
+					>
 				</Carousel.Item>
 			{/each}
 		{/if}
@@ -177,7 +198,7 @@
 	/>
 	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
 
-	{#if latestGameStartIndex + 1 - current !== 0 && gameRoundData.count > 2}
+	{#if latestGameStartIndex + 2 - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div
