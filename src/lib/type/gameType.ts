@@ -19,12 +19,12 @@ type PastStatus = 'game_end' | 'game_canceled';
 
 export type TGameRound = {
 	data: {
-		round_id: string;
+		round_id: number;
 		date_time_start: number;
 		date_time_end: number;
 		loser_position: string[];
 		status: CurrentStatus | PastStatus;
-		type: 'current' | 'past';
+		type: 'current' | 'past' | 'upcoming';
 		slot: number;
 	}[];
 	count: number;
