@@ -10,9 +10,10 @@
 	import { testGameContract } from '$lib/web3/contract/contract';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { bscChain } from '$lib/web3/client';
+	import { toast } from 'svelte-sonner';
 
 	let showModal = false;
-	let donationAmount: string | undefined = undefined;
+	let donationAmount: string | number | undefined = undefined;
 	let donationError: string | undefined = undefined;
 	let isChecked = {
 		value: false,
@@ -21,7 +22,7 @@
 
 	$: userAddress = $storeUserInfo.web3_address
 
-	async function onDonate(amount:number) {
+	async function onDonate(amount:string | number | undefined) {
 		if (+donationAmount! < 1) {
 			donationError = 'Amount must be more than 1';
 			return;
@@ -36,6 +37,11 @@
             account: userAddress,
             chain: bscChain
         });
+
+		if (result) {
+			toast.success('Donate successful')
+			showModal = false
+		}
 
 	}
 

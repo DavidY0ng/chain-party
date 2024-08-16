@@ -59,4 +59,4 @@ export const partyTicketContract = _getContract('PartyTicket', PartyTicket, bscC
 export const mEICTokenContract = _getContract('mEICToken', mEICToken, bscClient);
 export const pEICTokenContract = _getContract('pEICToken', pEICToken, bscClient);
 export const testGameContract = _getContract('TestGame', TestGame, bscClient);
-export const LockedPEICContract = _getContract('LockedPEIC', LockedPEIC, bscClient);
+// export const LockedPEICContract = _getContract('LockedPEIC', LockedPEIC, bscClient);
