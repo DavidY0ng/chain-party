@@ -28,12 +28,14 @@
 			return;
 		}
 
-		await testGameContract.simulate.donateJackpot([BigInt(amount)], {
+		const amountInWei = BigInt(Math.floor(+amount * 1e18));
+
+		await testGameContract.simulate.donateJackpot([amountInWei], {
             account: userAddress,
             chain: bscChain
         });
         
-        const result = await testGameContract.write.donateJackpot([amount], {
+        const result = await testGameContract.write.donateJackpot([amountInWei], {
             account: userAddress,
             chain: bscChain
         });
