@@ -34,9 +34,8 @@
 
 			userLockedData = result;
 			console.log(userLockedData);
-		} catch (e) {
-			console.log(e);
-			throw new Error('Failed to get auto locked');
+		} catch (e: any) {
+			throw new Error('Failed to get auto locked', e.shortMessage);
 		}
 	}
 
@@ -46,9 +45,8 @@
 				$storeUserInfo.web3_address
 			]);
 			myRewardAmount = result;
-		} catch (e) {
-			console.log(e);
-			throw new Error('Failed to get myReward');
+		} catch (e: any) {
+			throw new Error('Failed to get myReward ', e.shortMessage);
 		}
 	}
 

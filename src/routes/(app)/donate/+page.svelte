@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-	import DonationAPI, { type TDonationLeaderboard } from '$lib/api/donation';
-	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
-	import { onConnectWallet } from '$lib/utils';
-	import RankCard from '$lib/components/page/donate/RankCard.svelte';
+	import DonationModal from '$lib/components/page/donate/DonationModal.svelte';
 	import LeaderboardList from '$lib/components/page/donate/LeaderboardList.svelte';
+	import RankCard from '$lib/components/page/donate/RankCard.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { t } from '$lib/i18n';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { onConnectWallet } from '$lib/utils';
+	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
-	import DonationModal from '$lib/components/page/donate/DonationModal.svelte';
-	import { t } from '$lib/i18n';
 
 
 	const handleConnect = async () => {
