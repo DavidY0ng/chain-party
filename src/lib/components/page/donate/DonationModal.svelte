@@ -28,13 +28,14 @@
 			donationError = 'Amount must be more than 1';
 			return;
 		}
+		const amountInWei = BigInt(Math.floor(+amount * 1e18));
 
-		await testGameContract.simulate.donateJackpot([BigInt(amount)], {
+		await testGameContract.simulate.donateJackpot([BigInt(amountInWei)], {
 			account: userAddress as Address,
 			chain: bscChain as Chain
 		});
 
-		const result = await testGameContract.write.donateJackpot([BigInt(amount)], {
+		const result = await testGameContract.write.donateJackpot([BigInt(amountInWei)], {
 			account: userAddress as Address,
 			chain: bscChain as Chain
 		});
