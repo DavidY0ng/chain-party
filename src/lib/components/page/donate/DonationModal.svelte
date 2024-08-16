@@ -7,34 +7,43 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 	import { t } from '$lib/i18n';
+	import { testGameContract } from '$lib/web3/contract/contract';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { bscChain } from '$lib/web3/client';
+	import { toast } from 'svelte-sonner';
+	import type { Address, Chain } from 'viem';
 
 	let showModal = false;
-	let donationAmount: string | undefined = undefined;
+	let donationAmount: string | number | undefined = undefined;
 	let donationError: string | undefined = undefined;
 	let isChecked = {
 		value: false,
 		error: ''
 	};
 
-	$: userAddress = $storeUserInfo.web3_address
+	$: userAddress = $storeUserInfo.web3_address;
 
-	async function onDonate() {
-		if (+donationAmount! < 1) {
+	async function onDonate(amount: string | number | undefined) {
+		if (amount === undefined || +amount < 1) {
 			donationError = 'Amount must be more than 1';
 			return;
 		}
+		const amountInWei = BigInt(Math.floor(+amount * 1e18));
 
-		// await gameContract.simulate.donateJackpot([BigInt(amount)], {
-        //     account: userAddress,
-        //     chain: bscChain
-        // });
-        
-        // const balance = await gameContract.write.donateJackpot([amount], {
-        //     account: userAddress,
-        //     chain: bscChain
-        // });
-		// Add your donation logic here
+		await testGameContract.simulate.donateJackpot([BigInt(amountInWei)], {
+			account: userAddress as Address,
+			chain: bscChain as Chain
+		});
+
+		const result = await testGameContract.write.donateJackpot([BigInt(amountInWei)], {
+			account: userAddress as Address,
+			chain: bscChain as Chain
+		});
+
+		if (result) {
+			toast.success('Donate successful');
+			showModal = false;
+		}
 	}
 
 	function onFilterInput(e: InputEvent) {
@@ -94,28 +103,26 @@
 			<Dialog.Footer class="flex w-full flex-row justify-between gap-2">
 				<div class="w-full">
 					<Button
-					on:click={() => {
-						showModal = false;
-					}}
-					type="button"
-					variant="second"
-					class="w-full text-md">Close</Button
-				>
+						on:click={() => {
+							showModal = false;
+						}}
+						type="button"
+						variant="second"
+						class="w-full text-md">Close</Button
+					>
 				</div>
-				<div class='w-full'>
-				<Button
-					type="button"
-					class="w-full text-md"
-					disabled={!donationAmount || +donationAmount < 1 || !isChecked.value}
-					on:click={() => onDonate}>Donate</Button
-				>
+				<div class="w-full">
+					<Button
+						type="button"
+						class="w-full text-md"
+						disabled={!donationAmount || +donationAmount < 1 || !isChecked.value}
+						on:click={() => onDonate(donationAmount)}>Donate</Button
+					>
 				</div>
-				
 			</Dialog.Footer>
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
 
 <style>
-	
 </style>

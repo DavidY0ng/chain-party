@@ -2,13 +2,8 @@ import { bscClient, walletClient } from '$lib/web3/client';
 import {
 	getContract,
 	type Abi,
-	type Account,
 	type Address,
-	type Chain,
-	type Client,
-	type GetContractReturnType,
-	type PublicClient,
-	type Transport
+	type PublicClient
 } from 'viem';
 import contractConfig from './contract.config.json';
 
@@ -27,13 +22,11 @@ export const wagmiContracts:
 
 let allABIs: Abi = [];
 
-function _getContract<
-	TAbi extends Abi,
-	TClient extends {
-		public: Client<Transport, Chain | undefined>;
-		wallet?: Client<Transport, Chain | undefined, Account | undefined> | undefined;
-	}
->(name: keyof typeof contracts, abi: TAbi, client: PublicClient) {
+function _getContract<TAbi extends Abi>(
+	name: keyof typeof contracts,
+	abi: TAbi,
+	client: PublicClient
+) {
 	allABIs = [...allABIs, ...abi];
 
 	listABIs[name] = abi;
@@ -50,7 +43,7 @@ function _getContract<
 			public: client,
 			wallet: walletClient
 		}
-	}) as GetContractReturnType<TAbi, TClient, Address>;
+	});
 }
 
 // Define your contract instance here
