@@ -1,9 +1,5 @@
 <script lang="ts">
-	import GameAPI, {
-		type TGameHistoryStatus,
-		type TGameRound,
-		type TGameSlot
-	} from '$lib/api/game.js';
+	import GameAPI, { type TGameRound, type TGameSlot } from '$lib/api/game.js';
 	import * as Game from '$lib/components/page/game/1/index';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
@@ -40,7 +36,7 @@
 			thisData = result.data;
 			thisData.data = thisData.data.reverse();
 
-			gameStartIndex = thisData.data.findIndex((item) => item.status === 'game_start');
+			gameStartIndex = thisData.data.findIndex((item) => item.type === 'current');
 
 			if (gameStartIndex < 3) {
 				gameRoundPage++;
@@ -53,6 +49,7 @@
 			}
 
 			gameRoundData = thisData;
+			console.log(gameRoundData);
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
@@ -73,7 +70,6 @@
 		}
 
 		const round_id: number = +gameRoundData?.data[+gameStartIndex].round_id;
-
 		const result = await GameAPI.getSlot(gameSlotPage, round_id);
 
 		if (result.success) {
@@ -84,13 +80,51 @@
 	}
 
 	/**
+	 * Listens for websocket topic
+	 */
+	$: if (WebSocketService !== undefined) {
+		WebSocketService.on('gameResult', (incoming) => {
+			switch (incoming.result) {
+				case 'win':
+					showWinModal = true;
+					break;
+				case 'lose':
+					showLoseModal = true;
+					break;
+				case 'refunded':
+					showCancelGameModal = true;
+					break;
+			}
+		});
+
+		WebSocketService.on('gameRound', async () => {
+			if (gameRoundPage > 1) gameRoundPage--;
+
+			const result = await GameAPI.getRound(gameRoundPage, 10);
+			if (result.success) {
+				result.data.data = result.data.data.reverse();
+				gameRoundData = result.data;
+				console.log(result);
+			} else {
+				console.log(result);
+				throw new Error('Failed on fetching gameRound in websocket');
+			}
+		});
+
+		WebSocketService.on('gameSlot', (incoming) => {
+			gameSlotData = incoming;
+		});
+	}
+
+	/**
 	 * Actions after user connects/diconnect wallet
 	 */
-
 	storeUserInfo.subscribe(async (value) => {
 		gameSlotPage = 1;
 		gameRoundPage = 0;
 		await getGameRound();
+
+		// this gameStartIndex is used on this page only
 		if (gameStartIndex < 0) {
 			gameStartIndex = gameRoundData.data.length - 1;
 		}
@@ -105,28 +139,7 @@
 		}
 	});
 
-	$: if (WebSocketService !== undefined) {
-		WebSocketService.on('gameResult', (incoming) => {
-			console.log(incoming);
-			switch (incoming.result) {
-				case 'win':
-					showWinModal = true;
-					break;
-				case 'lose':
-					showLoseModal = true;
-					break;
-				case 'refunded':
-					showCancelGameModal = true;
-					break;
-			}
-		});
-	}
-
-	/**
-	 * Listens for websocket topic when browser is up
-	 */
-
-	onMount(() => {
+	onMount(async () => {
 		if (WebSocketService === undefined && $isToken) {
 			initializedWebsocket();
 		}
