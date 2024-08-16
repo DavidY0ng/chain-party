@@ -23,7 +23,7 @@
 	$: userAddress = $storeUserInfo.web3_address
 
 	async function onDonate(amount:string | number | undefined) {
-		if (+donationAmount! < 1) {
+		if (amount === undefined || +amount < 1) {
 			donationError = 'Amount must be more than 1';
 			return;
 		}
