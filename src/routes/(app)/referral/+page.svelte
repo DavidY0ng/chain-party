@@ -13,6 +13,7 @@
 	import { copyToClipboard } from '$lib/helper';
 	import { onConnectWallet } from '$lib/utils';
 	import { fade } from 'svelte/transition';
+	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
 
 	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 
@@ -106,16 +107,7 @@
 				<Treeview bind:tree={downlineList} />
 			{/key}
 		{:else}
-			<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
-				<!-- svelte-ignore a11y-no-static-element-interactions -->
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<Text size="xl"
-					><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
-						>{$t('common.connect_wallet')}</span
-					>
-					{$t('common.to_view')}</Text
-				>
-			</div>
+			<ConnectWalletToView class="bg-black/50" />
 		{/if}
 	</div>
 </div>

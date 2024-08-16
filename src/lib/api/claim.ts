@@ -8,6 +8,16 @@ import type {
 import type { APIResponse } from '$lib/type/commonType';
 
 const ClaimAPI = {
+	available: {
+		claim: async (): Promise<APIResponse<number>> => {
+			try {
+				const response = await api.get<number>('/dapp/reward/available/claim');
+				return response;
+			} catch (error) {
+				return { success: false, data: {} as number, msg: (error as Error).message };
+			}
+		}
+	},
 	claimed: {
 		getTotal: async (): Promise<APIResponse<TTotalClaimed>> => {
 			try {

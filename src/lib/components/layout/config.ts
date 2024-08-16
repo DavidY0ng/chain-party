@@ -6,5 +6,6 @@ export const menuList = [
 	{ title: 'History List', desc: 'View Your History', label: 'History', path: '/history' },
 	{ title: 'Referral', desc: 'Your Team', label: 'Referral', path: '/referral' },
 	{ title: 'Donation', desc: 'Build With Us', label: 'Donate', path: '/donate' },
-	{ title: 'Claims', desc: 'More Bonus', label: 'Claims', path: '/claim' }
+	{ title: 'Claims', desc: 'More Bonus', label: 'Claims', path: '/claim' },
+	{ title: 'Fuel Reward', desc: 'More Bonus', label: 'Fuel Reward', path: '/' }
 ];

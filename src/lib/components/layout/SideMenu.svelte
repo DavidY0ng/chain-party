@@ -5,7 +5,7 @@
 </script>
 
 <!-- Desktop Side Menu -->
-<div class="relative z-[999] hidden h-screen overflow-y-auto w-full xl:block xl:max-w-[15%]">
+<div class="relative z-[999] hidden h-screen w-full overflow-y-auto xl:block xl:max-w-[15%]">
 	<div
 		class="relative flex min-h-screen w-full flex-col items-center gap-5 p-3 xl:fixed xl:w-[15%] xl:bg-[#481555]"
 	>
@@ -14,7 +14,7 @@
 			class="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-t from-transparent via-[#FF5EDC] via-50% to-transparent"
 		/>
 		<img src="/img/desktopSideMenu/Chain Party Logo.png" alt="" class="w-[8.625rem]" />
-		<div class="flex h-full min-h-screen w-full flex-col gap-y-1">
+		<div class="flex h-full min-h-screen w-full flex-col gap-y-[2px]">
 			{#each menuList as menu, i}
 				{#if i < 4}
 					<a

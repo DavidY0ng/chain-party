@@ -12,7 +12,7 @@
 	import { LockedPEICContract } from '$lib/web3/contract/contract';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { formatEther } from 'viem';
+	import { formatEther, zeroAddress } from 'viem';
 
 	// Data
 	let stakeHistory: TStakeList;
@@ -51,8 +51,6 @@
 	}
 
 	async function getStakeHistory() {
-		if ($isToken === undefined) return;
-
 		pagination.page++;
 		const result = await StakeAPI.history.getList(pagination);
 		if (result.success) {
@@ -69,11 +67,20 @@
 		}
 	}
 
+	storeUserInfo.subscribe((value) => {
+		if (value.web3_address !== zeroAddress) {
+			getStakeHistory();
+			getAutoLocked();
+			getMyReward();
+		}
+	});
+
 	$: if (intersecting && pagination.page < stakeHistory?.last_page) {
 		getStakeHistory();
 	}
 
 	onMount(() => {
+		if ($isToken === undefined) return;
 		getStakeHistory();
 		getAutoLocked();
 		getMyReward();

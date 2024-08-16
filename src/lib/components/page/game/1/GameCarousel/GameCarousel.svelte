@@ -12,6 +12,7 @@
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
+	import { browser } from '$app/environment';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;
@@ -39,7 +40,14 @@
 	let latestGameStartIndex = 0;
 
 	$: if (api && gameRoundData) {
-		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current') - 1;
+		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
+
+		if (latestGameStartIndex < 0) {
+			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+			if (firstGameRound !== undefined) {
+				latestGameStartIndex = 0;
+			}
+		}
 
 		// if current and gameStartIndex is not the same then redirect back to game start slide after 10 sec
 		if (latestGameStartIndex + 1 - current !== 0) {
@@ -51,6 +59,9 @@
 			timeoutId = setTimeout(() => {
 				api.scrollTo(latestGameStartIndex);
 			}, 10000);
+		} else {
+			progress = 0;
+			clearInterval(progressInterval);
 		}
 	}
 
@@ -98,7 +109,12 @@
 
 	onMount(() => {
 		gameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
+
 		if (gameStartIndex < 0) {
+			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+			if (firstGameRound !== undefined) {
+				return (gameStartIndex = 0);
+			}
 			gameStartIndex = gameRoundData.data.length;
 		}
 	});
@@ -156,7 +172,6 @@
 									? 'bg-[#251235]'
 									: 'bg-[#2D2435]'}"
 							>
-							
 								<Body bind:round />
 
 								{#if round.type === 'current'}
@@ -200,7 +215,7 @@
 	/>
 	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
 
-	{#if latestGameStartIndex + 2 - current !== 0 && gameRoundData.count > 2}
+	{#if latestGameStartIndex - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div

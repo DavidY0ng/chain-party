@@ -1,16 +1,13 @@
 <script lang="ts">
-	import GameAPI, { type TGameList, type TGameHistoryStatus } from '$lib/api/game';
+	import GameAPI, { type TGameHistoryStatus, type TGameList } from '$lib/api/game';
 	import TransactionAPI, { type TTransaction, type TTransactionType } from '$lib/api/transaction';
 	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import TableHistory from '$lib/components/page/history/TableHistory.svelte';
 	import Paginator from '$lib/components/shared/Paginator.svelte';
-	import { Text } from '$lib/components/ui/text';
 	import { concatinateDate } from '$lib/helper';
-	import { t } from '$lib/i18n';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { THistoryType } from '$lib/type/commonType';
-	import { onConnectWallet } from '$lib/utils';
 	import type { DateValue } from '@internationalized/date';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
@@ -129,19 +126,8 @@
 	{#key $rerender}
 		<FilterMenu bind:filterOption on:search={onSearchHistory} bind:historyType />
 	{/key}
-	{#if $storeUserInfo.web3_address === zeroAddress}
-		<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
-			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<Text size="xl"
-				><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
-					>{$t('common.connect_wallet')}</span
-				>
-				{$t('common.to_view')}</Text
-			>
-		</div>
-	{:else}
-		<TableHistory bind:transactionData bind:gameData bind:historyType />
+	<TableHistory bind:transactionData bind:gameData bind:historyType />
+	{#if $storeUserInfo.web3_address !== zeroAddress}
 		{#if (transactionData && transactionData?.data.length > 0) || (gameData && gameData?.data.length > 0)}
 			<Paginator
 				bind:paginationCount

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { type TGameList } from '$lib/api/game';
 	import { type TTransaction } from '$lib/api/transaction';
+	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
 	import * as Table from '$lib/components/ui/table';
 	import { Text } from '$lib/components/ui/text';
 	import { t } from '$lib/i18n';
 	import { rerender } from '$lib/stores/storeCommon';
+	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { THistoryType } from '$lib/type/commonType';
+	import { zeroAddress } from 'viem';
 
 	export let historyType: THistoryType | undefined = undefined;
 
@@ -53,74 +56,78 @@
 		</Table.Header>
 	</Table.Root>
 
-	<div
-		id="tableData"
-		class="gradientScrollbar {(transactionData && transactionData.data.length > 0) ||
-		(gameData && gameData?.data.length > 0)
-			? 'h-[550px]'
-			: ''} overflow-y-auto"
-	>
-		<Table.Root class="">
-			{#key $rerender}
-				<Table.Body
-					class={(transactionData && transactionData.data.length > 0) ||
-					(gameData && gameData?.data.length > 0)
-						? 'bg-black/20'
-						: ''}
-				>
-					{#if historyType === 'transaction' && transactionData?.data !== undefined && transactionData?.data.length > 0}
-						{#each transactionData.data as transaction, i}
-							<Table.Row class="border-none ">
-								<Table.Cell
-									class="w-1/4 pl-10 text-md text-white {i === 0
-										? 'rounded-tl-2xl '
-										: i === transactionData.count - 1
-											? 'rounded-bl-2xl'
-											: ''}">{transaction?.date}</Table.Cell
-								>
-								<Table.Cell class="w-1/4 pl-10 text-md text-white">{transaction?.sn}</Table.Cell>
-								<Table.Cell class="w-1/4 pl-10 text-md text-white"
-									>{$t(`transaction.type.${transaction.type}`)}</Table.Cell
-								>
-								<Table.Cell
-									class="w-1/4 pr-10 text-right text-md text-white {i === 0
-										? 'rounded-tr-2xl'
-										: i === transactionData.count - 1
-											? 'rounded-br-2xl'
-											: ''}">{transaction?.amount}</Table.Cell
-								>
-							</Table.Row>
-						{/each}
-					{:else if gameData?.data !== undefined && gameData?.data.length > 0}
-						{#each gameData.data as game, i}
-							<Table.Row class=" border-none">
-								<Table.Cell
-									class="w-1/4 pl-10 text-md text-white {i === 0
-										? 'rounded-tl-2xl '
-										: i === gameData.count - 1
-											? 'rounded-bl-2xl'
-											: ''}">{game?.round_id}</Table.Cell
-								>
-								<Table.Cell class="w-1/4 pl-10 text-md text-white">Chain Party</Table.Cell>
-								<Table.Cell class="w-1/4 pl-10 text-md text-white"
-									>{$t(`history.gameStatus.${game.status}`)}</Table.Cell
-								>
-								<Table.Cell
-									class="w-1/4 pr-10 text-right text-md text-white {i === 0
-										? 'rounded-tr-2xl'
-										: i === gameData.count - 1
-											? 'rounded-br-2xl'
-											: ''}">{game?.date}</Table.Cell
-								>
-							</Table.Row>
-						{/each}
-					{:else}
-						<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
-							<Text size="xl">{$t('history.no_record')}</Text>
-						</div>
-					{/if}
-				</Table.Body>
-			{/key}
-		</Table.Root>
-	</div>
+	{#if $storeUserInfo.web3_address === zeroAddress}
+		<ConnectWalletToView class="bg-black/50" />
+	{:else}
+		<div
+			id="tableData"
+			class="gradientScrollbar {(transactionData && transactionData.data.length > 0) ||
+			(gameData && gameData?.data.length > 0)
+				? 'h-[550px]'
+				: ''} overflow-y-auto"
+		>
+			<Table.Root class="">
+				{#key $rerender}
+					<Table.Body
+						class={(transactionData && transactionData.data.length > 0) ||
+						(gameData && gameData?.data.length > 0)
+							? 'bg-black/20'
+							: ''}
+					>
+						{#if historyType === 'transaction' && transactionData?.data !== undefined && transactionData?.data.length > 0}
+							{#each transactionData.data as transaction, i}
+								<Table.Row class="border-none ">
+									<Table.Cell
+										class="w-1/4 pl-10 text-md text-white {i === 0
+											? 'rounded-tl-2xl '
+											: i === transactionData.count - 1
+												? 'rounded-bl-2xl'
+												: ''}">{transaction?.date}</Table.Cell
+									>
+									<Table.Cell class="w-1/4 pl-10 text-md text-white">{transaction?.sn}</Table.Cell>
+									<Table.Cell class="w-1/4 pl-10 text-md text-white"
+										>{$t(`transaction.type.${transaction.type}`)}</Table.Cell
+									>
+									<Table.Cell
+										class="w-1/4 pr-10 text-right text-md text-white {i === 0
+											? 'rounded-tr-2xl'
+											: i === transactionData.count - 1
+												? 'rounded-br-2xl'
+												: ''}">{transaction?.amount}</Table.Cell
+									>
+								</Table.Row>
+							{/each}
+						{:else if gameData?.data !== undefined && gameData?.data.length > 0}
+							{#each gameData.data as game, i}
+								<Table.Row class=" border-none">
+									<Table.Cell
+										class="w-1/4 pl-10 text-md text-white {i === 0
+											? 'rounded-tl-2xl '
+											: i === gameData.count - 1
+												? 'rounded-bl-2xl'
+												: ''}">{game?.round_id}</Table.Cell
+									>
+									<Table.Cell class="w-1/4 pl-10 text-md text-white">Chain Party</Table.Cell>
+									<Table.Cell class="w-1/4 pl-10 text-md text-white"
+										>{$t(`history.gameStatus.${game.status}`)}</Table.Cell
+									>
+									<Table.Cell
+										class="w-1/4 pr-10 text-right text-md text-white {i === 0
+											? 'rounded-tr-2xl'
+											: i === gameData.count - 1
+												? 'rounded-br-2xl'
+												: ''}">{game?.date}</Table.Cell
+									>
+								</Table.Row>
+							{/each}
+						{:else}
+							<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
+								<Text size="xl">{$t('history.no_record')}</Text>
+							</div>
+						{/if}
+					</Table.Body>
+				{/key}
+			</Table.Root>
+		</div>
+	{/if}
 </div>
