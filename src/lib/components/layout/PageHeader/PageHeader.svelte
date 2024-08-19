@@ -25,7 +25,7 @@
 
 {#if $page.url.pathname !== '/game/1' && $page.url.pathname !== '/jackpot'}
 	<div
-		class="relative z-[99] mb-5 flex w-full justify-between px-4 xl:p-10 xl:px-0 xl:pb-0 xl:pt-[90px]"
+		class="relative z-[99] mb-5 flex w-full justify-between px-4 xl:p-10 xl:px-10 xl:pb-0 xl:pt-[90px]"
 	>
 		<div class="m-auto flex w-full max-w-[1400px] items-center justify-between">
 			<div class="space-y-1">
