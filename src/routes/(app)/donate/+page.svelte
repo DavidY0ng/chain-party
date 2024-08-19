@@ -17,9 +17,9 @@
 
 </script>
 
-<div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10 ">
+<div in:fade class="h-full min-h-screen w-full space-y-5 xl:space-y-10 p-4">
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-10">
-		<div class="relative flex flex-col items-center xl:pt-[100px] pt-[50px] ">
+		<div class="relative flex flex-col items-center xl:pt-[100px] pt-[20px] ">
 			<div class="block lg:hidden pink-eclipse top-[5%] h-[350px] w-[250px] blur-[70px]"></div>
 			<div class="hidden lg:block pink-eclipse top-0 h-[200px] w-[750px] blur-[70px]"></div>
 			<RankCard />

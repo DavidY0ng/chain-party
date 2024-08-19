@@ -144,7 +144,7 @@
 </div>
 
 <!-- mobile view -->
-<div class="flex flex-col lg:hidden items-center gap-5 w-full p-3">
+<div class="flex flex-col lg:hidden items-center gap-5 w-full">
 	{#if leaderboardList?.data}
 		<div class="relative">
 			<Card.Root
@@ -184,7 +184,7 @@
 		<div class="flex w-full justify-center gap-3">
 			<div class="relative w-full flex justify-end">
 				<Card.Root
-					class="relative flex w-full max-w-[190px] h-[180px] flex-col items-center gap-3 rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[30px]"
+					class="relative flex w-[170px] max-w-[190px] h-[180px] flex-col items-center gap-3 rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[30px]"
 				>
 					<div class="flex flex-col items-center gap-2 overflow-hidden">
 						<Text size="lg">TOP 2</Text>
@@ -219,7 +219,7 @@
 	
 			<div class="relative w-full flex justify-start">
 				<Card.Root
-					class="relative flex w-full max-w-[190px] h-[180px] flex-col items-center gap-3 rounded-xl border-none bg-gradient-to-b from-[#251235] p-5 pt-[30px]"
+					class="relative flex w-[170px] max-w-[190px] h-[180px] flex-col items-center gap-3 rounded-xl border-none bg-gradient-to-b from-[#251235] p-5 pt-[30px]"
 				>
 					<div class="flex flex-col items-center gap-2 overflow-hidden">
 						<Text size="lg">TOP 3</Text>
