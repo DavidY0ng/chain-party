@@ -12,6 +12,7 @@ const labelVarient = tv({
 			default: 'text-md',
 			xs: 'text-xs',
 			sm: 'text-sm',
+			md: 'text-md',
 			lg: 'text-lg',
 			xl: 'text-xl font-semibold',
 			'2xl': 'text-2xl font-semibold',

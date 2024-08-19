@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { Text } from '$lib/components/ui/text';
+	import { isDesktop } from '$lib/stores/storeCommon';
 </script>
 
 <div class="relative z-20 flex w-full flex-col">
-	<img src="/img/footer/Party.png" alt="" class="w-full" />
-	<div class="flex w-full items-center justify-between bg-[#2D0B31] px-8 py-5">
-		<Text>Copyright © 2024 Party Chain All rights reserved.</Text>
+	<img
+		src={$isDesktop ? '/img/footer/Party.png' : '/img/footer/mobileParty.png'}
+		alt=""
+		class="w-full"
+	/>
+	<div
+		class="flex w-full flex-col-reverse items-center justify-between gap-y-3 bg-[#2D0B31] px-8 py-5 xl:flex-row xl:gap-y-0"
+	>
+		<Text class="text-center text-[12px] xl:text-left xl:text-md"
+			>Copyright © 2024 Party Chain All rights reserved.</Text
+		>
 		<div class="flex items-center gap-x-3">
 			<a href="/" class="">
 				<div class="defaultButtonBg relative rounded-full p-[1px]">

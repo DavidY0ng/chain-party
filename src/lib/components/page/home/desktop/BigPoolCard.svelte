@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Progress } from '$lib/components/ui/progress/index.js';
 	import { Skeleton } from '$lib/components/ui/skeleton';
@@ -22,17 +21,17 @@
 	}
 </script>
 
-<Card.Root class="relative w-full overflow-hidden rounded-none border-none">
+<Card.Root class="relative hidden w-full overflow-hidden rounded-xl border-none xl:block">
 	<div id="background" class="absolute h-full w-full bg-gradient-to-b from-[#251235] to-[#401A71]">
 		<div
-			class="eclipse left-[20%] top-[30%] z-10 w-[340px] blur-[120px] {planetKeys &&
+			class="eclipse left-[20%] top-[30%] z-10 hidden w-[340px] blur-[120px] xl:block {planetKeys &&
 			planetKeys[index] === 'moon'
 				? 'bg-[#FFE70F]'
 				: 'bg-[#FF0000]'}"
 		></div>
 		{#if planetKeys}
 			<img
-				src="/img/home/planet/{planetKeys[index]}.png"
+				src="/img/home/planet/desktop/{planetKeys[index]}.png"
 				class="absolute bottom-[-10%] left-1 w-full max-w-[300px]"
 				alt=""
 			/>
@@ -45,7 +44,7 @@
 		</div> -->
 	</div>
 	<div
-		class="relative z-10 flex h-full w-full flex-col items-end bg-[url(/img/home/cardBg.png)] bg-cover bg-no-repeat"
+		class="relative z-10 flex h-full w-full flex-col items-end bg-cover bg-no-repeat xl:bg-[url(/img/home/cardBg.png)]"
 	>
 		<div class="z-10 flex w-full max-w-[50%] flex-col pr-5 pt-10">
 			<div class="flex items-center gap-x-4">
