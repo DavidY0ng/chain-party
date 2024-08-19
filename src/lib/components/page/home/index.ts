@@ -1,4 +1,5 @@
-import BigPoolCard from './BigPoolCard.svelte';
-import SmallPoolCard from './SmallPoolCard.svelte';
+import DesktopBigPoolCard from './desktop/BigPoolCard.svelte';
+import DesktopSmallPoolCard from './desktop/SmallPoolCard.svelte';
+import MobilePoolCard from './mobile/PoolCard.svelte';
 
-export { BigPoolCard, SmallPoolCard };
+export { DesktopBigPoolCard, DesktopSmallPoolCard, MobilePoolCard };

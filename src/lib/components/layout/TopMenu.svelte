@@ -22,16 +22,20 @@
 </script>
 
 <div
-	class="absolute top-0 z-[999] flex w-full items-center justify-between bg-gradient-to-l from-[#29193D] via-[#29193D] to-transparent px-3 py-3 backdrop-blur-sm xl:px-10"
+	class="absolute top-0 z-[999] flex w-full items-center justify-between bg-[#481555] py-3 backdrop-blur-sm xl:bg-gradient-to-l xl:from-[#29193D] xl:via-[#29193D] xl:to-transparent xl:px-10"
 >
 	<div class="flex w-full justify-between xl:justify-end">
-		<Text size="4xl" class="block text-center text-blue-500 xl:hidden">
-			<a href="/" class=""> GAMEFI </a>
-		</Text>
+		<div class="flex w-full justify-between pr-3 xl:hidden">
+			<div class="flex gap-x-2">
+				<Drawer />
+				<img src="/img/desktopSideMenu/Chain Party Logo.png" class="w-10" alt="" />
+			</div>
+			<ConnectWallet />
+		</div>
 
-		<div class="flex">
+		<!-- Desktop View -->
+		<div class="hidden xl:flex">
 			<MultiLanguage />
-			<Drawer />
 		</div>
 
 		<!-- Mobile Drawer -->
