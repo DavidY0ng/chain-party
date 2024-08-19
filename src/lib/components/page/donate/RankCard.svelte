@@ -49,7 +49,7 @@
 </script>
 
 <!-- desktop view -->
-<div class="hidden xl:flex">
+<div class="hidden lg:flex">
 	{#if leaderboardList?.data.length >= 0}
 		<div class="relative left-[2%] z-10 rotate-[-10deg]">
 			<Card.Root
@@ -157,7 +157,7 @@
 </div>
 
 <!-- mobile view -->
-<div class="flex flex-col xl:hidden items-center gap-5 w-full">
+<div class="flex flex-col lg:hidden items-center gap-5 w-full">
 	{#if leaderboardList?.data.length >= 0}
 		<div class="relative">
 			<Card.Root
