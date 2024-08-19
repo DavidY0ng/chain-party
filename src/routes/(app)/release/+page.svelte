@@ -12,7 +12,7 @@
 	import { bscChain, bscClient } from '$lib/web3/client';
 	import { LockedPEICContract } from '$lib/web3/contract/contract';
 	import Icon from '@iconify/svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
 	import { formatEther, zeroAddress } from 'viem';
@@ -32,6 +32,8 @@
 	let intersecting: boolean = false;
 
 	let loading = false;
+
+	let interval: NodeJS.Timeout | undefined = undefined;
 
 	async function getAutoLocked() {
 		try {
@@ -100,8 +102,16 @@
 	storeUserInfo.subscribe((value) => {
 		if (value.web3_address !== zeroAddress) {
 			getStakeHistory();
-			getAutoLocked();
-			getMyReward();
+
+			// called autolocked and reward every 5 sec
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval(() => {
+				getAutoLocked();
+				getMyReward();
+				console.log('called');
+			}, 5000);
 		}
 	});
 
@@ -111,9 +121,16 @@
 
 	onMount(() => {
 		if ($isToken === undefined) return;
+		// onInit perform first call to fill up data
 		getStakeHistory();
 		getAutoLocked();
 		getMyReward();
+	});
+
+	onDestroy(() => {
+		if (interval) {
+			clearInterval(interval);
+		}
 	});
 </script>
 
