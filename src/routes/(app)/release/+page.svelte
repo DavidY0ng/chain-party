@@ -5,12 +5,15 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { Text } from '$lib/components/ui/text';
-	import { formatLockedDate } from '$lib/helper';
+	import { formatLockedDate, onTranslateErrMsg } from '$lib/helper';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { TLockedData, TStakeList } from '$lib/type/stakeType';
+	import { bscChain, bscClient } from '$lib/web3/client';
 	import { LockedPEICContract } from '$lib/web3/contract/contract';
-	import { onMount } from 'svelte';
+	import Icon from '@iconify/svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { toast } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
 	import { formatEther, zeroAddress } from 'viem';
 
@@ -28,12 +31,15 @@
 	// Intersection Observer
 	let intersecting: boolean = false;
 
+	let loading = false;
+
+	let interval: NodeJS.Timeout | undefined = undefined;
+
 	async function getAutoLocked() {
 		try {
 			const result = await LockedPEICContract.read.getUserLockData([$storeUserInfo.web3_address]);
 
 			userLockedData = result;
-			console.log(userLockedData);
 		} catch (e: any) {
 			throw new Error('Failed to get auto locked', e.shortMessage);
 		}
@@ -53,10 +59,11 @@
 	async function getStakeHistory() {
 		pagination.page++;
 		const result = await StakeAPI.history.getList(pagination);
+
 		if (result.success) {
 			if (pagination.page === 1) {
 				stakeHistory = result.data;
-			} else {
+			} else if (pagination.page > 1 && result.data.data.length > 0) {
 				stakeHistory = {
 					...result.data,
 					data: [...stakeHistory.data, ...result.data.data]
@@ -67,11 +74,43 @@
 		}
 	}
 
+	async function onReleaseReward() {
+		loading = true;
+		try {
+			await LockedPEICContract.simulate.releasePEIC({
+				account: $storeUserInfo.web3_address,
+				chain: bscChain
+			});
+
+			let hash = await LockedPEICContract.write.releasePEIC({
+				account: $storeUserInfo.web3_address,
+				chain: bscChain
+			});
+
+			let receipt = await bscClient.waitForTransactionReceipt({ confirmations: 10, hash });
+
+			if (receipt) {
+				toast.success('Release pEIC Successful');
+			}
+		} catch (error: any) {
+			onTranslateErrMsg(error);
+			console.error(error.message);
+		}
+		loading = false;
+	}
+
 	storeUserInfo.subscribe((value) => {
 		if (value.web3_address !== zeroAddress) {
 			getStakeHistory();
-			getAutoLocked();
-			getMyReward();
+
+			// called autolocked and reward every 5 sec
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval(() => {
+				getAutoLocked();
+				getMyReward();
+			}, 5000);
 		}
 	});
 
@@ -81,9 +120,16 @@
 
 	onMount(() => {
 		if ($isToken === undefined) return;
+		// onInit perform first call to fill up data
 		getStakeHistory();
 		getAutoLocked();
 		getMyReward();
+	});
+
+	onDestroy(() => {
+		if (interval) {
+			clearInterval(interval);
+		}
 	});
 </script>
 
@@ -91,9 +137,23 @@
 	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20">
 		<div class="flex w-full flex-col gap-y-10">
 			<div class="flex w-full justify-end">
-				<Button class="bg-[#480A46] px-5">
-					<Text>Claim Reward</Text>
-				</Button>
+				{#if myRewardAmount}
+					<Button
+						disabled={loading ||
+							$storeUserInfo.web3_address == zeroAddress ||
+							Number(formatEther(myRewardAmount)) === 0}
+						on:click={onReleaseReward}
+						class="w-full max-w-[150px] bg-[#480A46] px-5"
+					>
+						<Text>
+							{#if loading}
+								<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+							{:else}
+								Claim Reward
+							{/if}
+						</Text>
+					</Button>
+				{/if}
 			</div>
 			<div class="relative flex w-full gap-x-5">
 				<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
