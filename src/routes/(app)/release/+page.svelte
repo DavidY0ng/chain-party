@@ -110,7 +110,6 @@
 			interval = setInterval(() => {
 				getAutoLocked();
 				getMyReward();
-				console.log('called');
 			}, 5000);
 		}
 	});
