@@ -144,7 +144,7 @@
 </div>
 
 <!-- mobile view -->
-<div class="flex flex-col lg:hidden items-center gap-5 w-full">
+<div class="flex flex-col lg:hidden items-center gap-5 w-full p-3">
 	{#if leaderboardList?.data}
 		<div class="relative">
 			<Card.Root
