@@ -22,7 +22,7 @@
 			>
 		</div>
 		<div class="flex items-center gap-x-5">
-			<div class="flex items-center gap-x-2">
+			<div class="hidden items-center gap-x-2 md:flex">
 				<Text class="text-[14px] text-white/50">Group</Text>
 				<div class="rounded-lg bg-black/20 px-4 py-2 text-center font-bold">{gameSlotPage}</div>
 				<Text class="text-[14px] text-white/50">of {gameSlotData?.last_slot}</Text>
