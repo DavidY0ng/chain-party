@@ -1,19 +1,18 @@
 <script lang="ts">
 	import UserAPI from '$lib/api/user';
+	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
+	import { Input } from '$lib/components/ui/input';
 	import { Text } from '$lib/components/ui/text';
 	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
+	import { copyToClipboard } from '$lib/helper';
 	import { t } from '$lib/i18n';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
-	import { zeroAddress } from 'viem';
-	import * as Card from '$lib/components/ui/card';
-	import { Input } from '$lib/components/ui/input';
-	import { Button } from '$lib/components/ui/button';
-	import { copyToClipboard } from '$lib/helper';
-	import { onConnectWallet } from '$lib/utils';
 	import { fade } from 'svelte/transition';
-	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
+	import { zeroAddress } from 'viem';
 
 	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 

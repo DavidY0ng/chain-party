@@ -33,7 +33,6 @@
 			const result = await LockedPEICContract.read.getUserLockData([$storeUserInfo.web3_address]);
 
 			userLockedData = result;
-			console.log(userLockedData);
 		} catch (e: any) {
 			throw new Error('Failed to get auto locked', e.shortMessage);
 		}
@@ -56,7 +55,7 @@
 		if (result.success) {
 			if (pagination.page === 1) {
 				stakeHistory = result.data;
-			} else {
+			} else if (pagination.page > 1 && result.data.data.length > 0) {
 				stakeHistory = {
 					...result.data,
 					data: [...stakeHistory.data, ...result.data.data]

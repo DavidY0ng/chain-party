@@ -1,20 +1,54 @@
 <script lang="ts">
-	import * as Dialog from '$lib/components/ui/dialog';
 	import { Button } from '$lib/components/ui/button';
-	import Icon from '@iconify/svelte';
-	import { Text } from '$lib/components/ui/text';
+	import { onTranslateErrMsg } from '$lib/helper';
 	import { t } from '$lib/i18n';
-	import { Checkbox } from '$lib/components/ui/checkbox';
-	import { Label } from '$lib/components/ui/label';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { bscChain, bscClient } from '$lib/web3/client';
+	import { gameContract } from '$lib/web3/contract/contract';
+	import Icon from '@iconify/svelte';
+	import { toast } from 'svelte-sonner';
 
-	let showBuyTicketModal = false,
-		checked = false;
+	let loading = false;
+
+	async function onPlayGame() {
+		try {
+			let isCurrentRoundActive = await gameContract.read.isCurrentRoundActive();
+			if (isCurrentRoundActive) {
+				await gameContract.simulate.play([false], {
+					account: $storeUserInfo.web3_address,
+					chain: bscChain
+				});
+
+				let hash = await gameContract.write.play([false], {
+					account: $storeUserInfo.web3_address,
+					chain: bscChain
+				});
+
+				let receipt = await bscClient.waitForTransactionReceipt({ confirmations: 10, hash });
+
+				if (receipt) {
+					toast.success('You have joined the current game session');
+				}
+			} else {
+				toast.error('Current game is not active');
+			}
+		} catch (error: any) {
+			onTranslateErrMsg(error);
+			console.error(error.message);
+		}
+	}
 </script>
 
-<Dialog.Root bind:open={showBuyTicketModal}>
-	<Dialog.Trigger class="w-full">
-		<Button class="w-full bg-[#251235] text-sm font-bold">{$t('game.entry_game')}</Button>
-	</Dialog.Trigger>
+<!-- <Dialog.Root bind:open={showBuyTicketModal}>
+	<Dialog.Trigger class="w-full"> -->
+<Button on:click={onPlayGame} class="w-full bg-[#251235] text-sm font-bold">
+	{#if loading}
+		<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+	{:else}
+		{$t('game.entry_game')}
+	{/if}
+</Button>
+<!-- </Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px] ">
 		<div class="space-y-5">
 			<Dialog.Header
@@ -76,4 +110,4 @@
 			</Dialog.Footer>
 		</div>
 	</Dialog.Content>
-</Dialog.Root>
+</Dialog.Root> -->

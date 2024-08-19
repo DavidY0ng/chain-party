@@ -1,4 +1,4 @@
-import { createConfig, getPublicClient } from '@wagmi/core';
+import { createConfig } from '@wagmi/core';
 import {
 	createPublicClient,
 	createWalletClient,
@@ -22,7 +22,10 @@ export const wagmiConfig = createConfig({
 export let walletClient: WalletClient;
 
 // Wagmi Public Client with specified chain
-export const bscClient = getPublicClient(wagmiConfig, { chainId: bscChain.id });
+export const bscClient = createPublicClient({
+	chain: bscChain,
+	transport: http()
+});
 
 // Remember to declare window.ethereum exist first or else program will crash !
 if (typeof window !== 'undefined' && window.ethereum) {
