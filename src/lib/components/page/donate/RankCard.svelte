@@ -30,19 +30,6 @@
 		}
 	}
 
-	const topPositions = [
-		{ rank: 1, image: '/img/donate/top1.png', class: 'z-20 translate-y-[-20%]' },
-		{ rank: 2, image: '/img/donate/top2.png', class: 'left-[2%] z-10 rotate-[-10deg]' },
-		{ rank: 3, image: '/img/donate/top3.png', class: 'right-[2%] z-10 rotate-[10deg]' }
-	];
-
-	function getCardClass(rank: number) {
-		const baseClass =
-			'relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none p-5 pt-[70px]';
-		if (rank === 1) return `${baseClass} bg-[#251235]`;
-		return `${baseClass} bg-gradient-to-b from-[#251235] ${rank === 2 ? 'via-50% to-transparent' : ''}`;
-	}
-
 	onMount(() => {
 		getLeaderboardList();
 	});
@@ -201,7 +188,7 @@
 				>
 					<div class="flex flex-col items-center gap-2 overflow-hidden">
 						<Text size="lg">TOP 2</Text>
-						<div class="rounded-xl bg-black/15 px-[30px] py-[10px]">
+						<div class="rounded-xl bg-black/25 px-[30px] py-[10px]">
 							<Text size="lg"
 								>{#if leaderboardList?.data?.[1]?.address}
 									{truncateString(leaderboardList.data[1].address, 4, 4)}
@@ -236,7 +223,7 @@
 				>
 					<div class="flex flex-col items-center gap-2 overflow-hidden">
 						<Text size="lg">TOP 3</Text>
-						<div class="rounded-xl bg-black/15 px-[30px] py-[10px]">
+						<div class="rounded-xl bg-black/25 px-[30px] py-[10px]">
 							<Text size="lg">
 								{#if leaderboardList?.data?.[2]?.address}
 									{truncateString(leaderboardList.data[2].address, 4, 4)}
