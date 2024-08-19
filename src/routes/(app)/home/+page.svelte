@@ -138,21 +138,20 @@
 				<div class="flex w-full items-end justify-center gap-x-1 xl:gap-x-2">
 					{#each jackpotPoolAmount.integer as number, i}
 						<div
-							class="{number === ','
-								? '-mb-2 xl:text-3xl'
-								: 'bubbleNumber  w-full max-w-[50px]'} {jackpotPoolAmount.integer?.length > 5
+							class="{number === ',' ? '-mb-2 xl:text-3xl' : 'bubbleNumber  w-full max-w-[50px]'} 
+								{jackpotPoolAmount.integer?.length > 5
 								? 'text-lg xl:text-2xl'
 								: 'text-2xl'} flex h-[45px] max-w-[35px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
 						>
 							{number}
 						</div>
 					{/each}
-					<Text class="-translate-y-2 text-md font-bold xl:text-3xl">.</Text>
+					<Text class="-translate-y-2 text-md font-bold xl:translate-y-0 xl:text-3xl">.</Text>
 					{#each jackpotPoolAmount.decimal as decimal}
 						<div
 							class="{jackpotPoolAmount.integer?.length > 5
 								? 'text-lg xl:text-2xl'
-								: 'text-2xl'} bubbleNumber flex h-[45px] w-full max-w-[35px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
+								: 'text-2xl'}  bubbleNumber flex h-[45px] w-full max-w-[35px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
 						>
 							{decimal}
 						</div>
