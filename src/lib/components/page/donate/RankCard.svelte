@@ -161,7 +161,7 @@
 	{#if leaderboardList?.data.length >= 0}
 		<div class="relative">
 			<Card.Root
-				class="relative flex w-[250px] h-[180px] flex-col items-center overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[30px]"
+				class="relative flex w-[280px] h-[180px] flex-col items-center overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[30px]"
 			>
 				<div class="flex flex-col items-center gap-2 overflow-hidden">
 					<Text size="lg">TOP 1</Text>
