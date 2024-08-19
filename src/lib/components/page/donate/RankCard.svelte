@@ -50,7 +50,7 @@
 
 <!-- desktop view -->
 <div class="hidden lg:flex">
-	{#if leaderboardList?.data.length >= 0}
+	{#if leaderboardList?.data}
 		<div class="relative left-[2%] z-10 rotate-[-10deg]">
 			<Card.Root
 				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"
@@ -158,7 +158,7 @@
 
 <!-- mobile view -->
 <div class="flex flex-col lg:hidden items-center gap-5 w-full">
-	{#if leaderboardList?.data.length >= 0}
+	{#if leaderboardList?.data}
 		<div class="relative">
 			<Card.Root
 				class="relative flex w-[280px] h-[180px] flex-col items-center overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[30px]"
