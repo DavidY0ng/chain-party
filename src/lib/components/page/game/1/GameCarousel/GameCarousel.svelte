@@ -12,7 +12,6 @@
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
-	import { browser } from '$app/environment';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;

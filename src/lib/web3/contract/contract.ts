@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { bscClient, walletClient } from '$lib/web3/client';
-import { getContract, type Abi, type Address, type PublicClient } from 'viem';
+import {
+	getContract,
+	type Abi,
+	type Address,
+	type PublicClient
+} from 'viem';
 import contractConfig from './contract.config.json';
 
 import Game from './abi/Game';
