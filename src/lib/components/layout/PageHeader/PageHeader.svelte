@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { isDesktop } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { Text } from '../../ui/text';
 	import { menuList } from '../config';
@@ -23,11 +24,15 @@
 </script>
 
 {#if $page.url.pathname !== '/game/1' && $page.url.pathname !== '/jackpot'}
-	<div class="relative z-[99] mb-5 flex w-full justify-between xl:p-10 xl:pb-0 xl:pt-[90px]">
+	<div
+		class="relative z-[99] mb-5 flex w-full justify-between px-4 xl:p-10 xl:px-0 xl:pb-0 xl:pt-[90px]"
+	>
 		<div class="m-auto flex w-full max-w-[1400px] items-center justify-between">
 			<div class="space-y-1">
-				<Text tag="p" class="font-normal text-white/50">{onHandleSubTitle($page.route.id)}</Text>
-				<Text tag="h1" size="3xl" class="border-b-2 border-white "
+				<Text tag="p" size={$isDesktop ? 'md' : 'md'} class=" font-normal text-white/50 "
+					>{onHandleSubTitle($page.route.id)}</Text
+				>
+				<Text tag="h1" size={$isDesktop ? '3xl' : '2xl'} class="border-b-2 border-white "
 					>{onHandlePathName($page.route.id)}</Text
 				>
 			</div>

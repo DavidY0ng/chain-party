@@ -10,6 +10,7 @@
 	import type { TCurrentList } from '$lib/type/jackpotType';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { isDesktop } from '$lib/stores/storeCommon';
 
 	// Data
 	let currentList: TCurrentList;
@@ -103,20 +104,28 @@
 	});
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full">
-	<div class="pink-eclipse left-[-10%] top-[-30%] w-[560px] blur-[120px]" />
+<div in:fade class="relative h-full min-h-screen w-full p-4 xl:p-0">
+	<div
+		class="pink-eclipse left-[-30%] top-[-15%] w-[350px] blur-[120px] xl:left-[-10%] xl:top-[-30%] xl:w-[560px]"
+	/>
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<div id="Pool List" class=" space-y-5">
-			<div class="flex w-full">
-				{#each Array(2) as _, i}
-					<Home.BigPoolCard bind:planetReward index={i} />
+			{#if $isDesktop}
+				<div class="flex w-full gap-y-0">
+					{#each Array(2) as _, i}
+						<Home.DesktopBigPoolCard bind:planetReward index={i} />
+					{/each}
+				</div>
+				<div class="grid grid-cols-3 gap-x-5">
+					{#each Array(3) as _, i}
+						<Home.DesktopSmallPoolCard index={i + 2} bind:planetReward />
+					{/each}
+				</div>
+			{:else}
+				{#each Array(5) as _, i}
+					<Home.DesktopSmallPoolCard index={i} bind:planetReward />
 				{/each}
-			</div>
-			<div class="grid grid-cols-3 gap-x-5">
-				{#each Array(3) as _, i}
-					<Home.SmallPoolCard index={i + 2} bind:planetReward />
-				{/each}
-			</div>
+			{/if}
 		</div>
 
 		<div id="Jackpot Pool" class="flex flex-col items-center space-y-5">
@@ -126,26 +135,30 @@
 					class="absolute -top-[40%] left-[50%] translate-x-[-50%]"
 					alt=""
 				/>
-				<div class="flex w-full items-end justify-center gap-x-2">
+				<div class="flex w-full items-end justify-center gap-x-1 xl:gap-x-2">
 					{#each jackpotPoolAmount.integer as number, i}
 						<div
-							class="{number === ','
-								? '-mb-2 text-3xl'
-								: 'bubbleNumber  w-full max-w-[50px]'} flex h-[60px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
+							class="{number === ',' ? '-mb-2 xl:text-3xl' : 'bubbleNumber  w-full max-w-[50px]'} 
+								{jackpotPoolAmount.integer?.length > 5
+								? 'text-lg xl:text-2xl'
+								: 'text-2xl'} flex h-[45px] max-w-[35px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
 						>
 							{number}
 						</div>
 					{/each}
-					<Text size="3xl">.</Text>
+					<Text class="-translate-y-2 text-md font-bold xl:translate-y-0 xl:text-3xl">.</Text>
 					{#each jackpotPoolAmount.decimal as decimal}
 						<div
-							class="bubbleNumber flex h-[60px] w-full max-w-[50px] items-center justify-center rounded-2xl text-center text-2xl font-bold"
+							class="{jackpotPoolAmount.integer?.length > 5
+								? 'text-lg xl:text-2xl'
+								: 'text-2xl'}  bubbleNumber flex h-[45px] w-full max-w-[35px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
 						>
 							{decimal}
 						</div>
 					{/each}
-					<Text size="xl">pEIC</Text>
+					<Text class="hidden text-md xl:block xl:text-xl">pEIC</Text>
 				</div>
+				<Text class="mt-2 w-full text-center text-xl font-bold xl:hidden">pEIC</Text>
 			</div>
 			<div class="w-full space-y-3">
 				<div
