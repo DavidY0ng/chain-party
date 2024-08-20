@@ -18,7 +18,7 @@
 	import { historyType } from './filterConfig';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 
-	let drawerOpen = true;
+	let drawerOpen = false;
 
 	const dispatch = createEventDispatcher();
 
