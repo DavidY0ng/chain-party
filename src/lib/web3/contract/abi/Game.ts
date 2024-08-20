@@ -49,7 +49,6 @@ export default [
 		type: 'error'
 	},
 	{ inputs: [], name: 'InvalidSignature', type: 'error' },
-	{ inputs: [], name: 'NoRefundRequired', type: 'error' },
 	{ inputs: [], name: 'NotInitializing', type: 'error' },
 	{
 		inputs: [
@@ -99,7 +98,21 @@ export default [
 		name: 'UserJoined',
 		type: 'error'
 	},
-	{ inputs: [], name: 'ZeroClaimableRewards', type: 'error' },
+	{ inputs: [], name: 'ZeroClaimableReward', type: 'error' },
+	{ inputs: [], name: 'ZeroClaimableRewardAndRefund', type: 'error' },
+	{ inputs: [], name: 'ZeroRefund', type: 'error' },
+	{ inputs: [], name: 'ZeroUSDTToAddLiquidity', type: 'error' },
+	{
+		anonymous: false,
+		inputs: [
+			{ indexed: false, internalType: 'uint256', name: 'amountUSDTSwapped', type: 'uint256' },
+			{ indexed: false, internalType: 'uint256', name: 'amountPEICSwapped', type: 'uint256' },
+			{ indexed: false, internalType: 'uint256', name: 'amountUSDTAddLiquidity', type: 'uint256' },
+			{ indexed: false, internalType: 'uint256', name: 'amountPEICAddLiquidity', type: 'uint256' }
+		],
+		name: 'AddLiquidity',
+		type: 'event'
+	},
 	{
 		anonymous: false,
 		inputs: [
@@ -375,6 +388,13 @@ export default [
 		type: 'function'
 	},
 	{
+		inputs: [],
+		name: 'claimRoundRewardAndRefund',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
 		inputs: [{ internalType: 'uint256', name: 'pEICRatePerUsdt', type: 'uint256' }],
 		name: 'closeRound',
 		outputs: [],
@@ -397,7 +417,7 @@ export default [
 	},
 	{
 		inputs: [{ internalType: 'uint256', name: 'pEICAmount', type: 'uint256' }],
-		name: 'donateJackpot',
+		name: 'donateJetpot',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function'
@@ -848,13 +868,6 @@ export default [
 			{ internalType: 'address', name: 'callerConfirmation', type: 'address' }
 		],
 		name: 'renounceRole',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	},
-	{
-		inputs: [],
-		name: 'resetRoundId',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function'

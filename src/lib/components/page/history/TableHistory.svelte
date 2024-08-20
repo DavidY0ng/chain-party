@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class="space-y-3">
+<div class="hidden space-y-3 md:block">
 	<Table.Root>
 		<Table.Header class="relative ">
 			<Table.Row class=" rounded-lg border-none bg-[#481555] hover:bg-[#481555]">
@@ -128,6 +128,75 @@
 					</Table.Body>
 				{/key}
 			</Table.Root>
+		</div>
+	{/if}
+</div>
+
+<!-- Mobile -->
+<div class="w-full">
+	{#if $storeUserInfo.web3_address === zeroAddress}
+		<ConnectWalletToView class="bg-black/50" />
+	{:else}
+		<div
+			id="tableData"
+			class="gradientScrollbar {(transactionData && transactionData.data.length > 0) ||
+			(gameData && gameData?.data.length > 0)
+				? 'h-[550px]'
+				: ''} overflow-y-auto"
+		>
+			{#key $rerender}
+				{#if historyType === 'transaction' && transactionData?.data !== undefined && transactionData?.data.length > 0}
+					{#each transactionData.data as transaction, i}
+						<div class="w-full space-y-1 p-3">
+							<Text class="w-full font-bold">{transaction.type}</Text>
+							<div class="flex items-center justify-between">
+								<Text class="text-md">
+									<span class="text-white/50">SN : </span>
+								</Text>
+								<Text>{transaction.sn}</Text>
+							</div>
+							<div class="flex items-center justify-between">
+								<Text class="text-md">
+									<span class="text-white/50">Amount : </span>
+								</Text>
+								<Text class="text-md">{transaction.amount} pEIC</Text>
+							</div>
+							<div class="flex items-center justify-between">
+								<Text class="text-md">
+									<span class="text-white/50">Timestamp : </span>
+								</Text>
+								<Text class="text-md">{transaction.date}</Text>
+							</div>
+						</div>
+					{/each}
+				{:else if gameData?.data !== undefined && gameData?.data.length > 0}
+					{#each gameData.data as game, i}
+						<div class="w-full space-y-1 p-3">
+							<Text class="w-full font-bold">Chain Party #{game.round_id}</Text>
+							<div class="flex items-center justify-between">
+								<Text class="text-md">
+									<span class="text-white/50">Status : </span>
+									{game.status}
+								</Text>
+								<Text class="text-md">
+									<span class="text-white/50">Position : </span>
+									{game.user_position}
+								</Text>
+							</div>
+							<div class="flex items-center justify-between">
+								<Text class="text-md">
+									<span class="text-white/50">Timestamp : </span>
+								</Text>
+								<Text class="text-md">{game.date}</Text>
+							</div>
+						</div>
+					{/each}
+				{:else}
+					<div class="flex h-[300px] items-center justify-center rounded-2xl bg-black/20">
+						<Text size="xl">{$t('history.no_record')}</Text>
+					</div>
+				{/if}
+			{/key}
 		</div>
 	{/if}
 </div>

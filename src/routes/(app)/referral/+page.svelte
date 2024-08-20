@@ -10,11 +10,12 @@
 	import { t } from '$lib/i18n';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
-	const referralLink = `eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
+	const referralLink = `https://eicdapp.skywalkerlab.dev/?referralCode=${$storeUserInfo.referral_code}`;
 
 	let downlineList = {
 		web3_address: 'None',
@@ -57,18 +58,18 @@
 	});
 </script>
 
-<div in:fade class="m-auto h-full min-h-screen w-full max-w-[1400px] space-y-10">
+<div in:fade class="m-auto h-full min-h-screen w-full max-w-[1400px] space-y-10 px-4 xl:px-0">
 	<Card.Root class="overflow-hidden rounded-2xl border-none">
 		<Card.Header class=" gradient-border-bottom bg-[#481555] px-7 py-4">
 			<div class="flex items-center gap-x-3">
 				<img src="/img/desktopSideMenu/Referral.png" class="h-5 w-5" alt="" />
-				<Text class="font-bold">Your Referral Address</Text>
+				<Text class="font-bold">Your Invite Link</Text>
 			</div>
 		</Card.Header>
 		<Card.Content class="bg-black/20 pt-5">
 			<div class="relative">
 				<Input
-					class="border-none bg-black/40 px-7 py-8 text-xl {$storeUserInfo.web3_address ===
+					class="border-none bg-black/40 px-4 py-2 text-sm md:px-7 md:py-8 md:text-xl {$storeUserInfo.web3_address ===
 					zeroAddress
 						? 'text-center'
 						: ''}"
@@ -76,7 +77,19 @@
 					readonly
 				/>
 				<div
-					class="absolute right-2 top-[15%] max-w-[120px] {$storeUserInfo.web3_address ===
+					class="mx-auto mt-3 block w-[90%] md:hidden {$storeUserInfo.web3_address === zeroAddress
+						? 'hidden'
+						: 'block'}"
+				>
+					<Button
+						on:click={() => {
+							copyToClipboard(referralLink);
+						}}
+						class=" w-full bg-[#1D0720] text-sm">Copy Link</Button
+					>
+				</div>
+				<div
+					class="absolute right-2 top-[15%] hidden max-w-[120px] md:block {$storeUserInfo.web3_address ===
 					zeroAddress
 						? 'hidden'
 						: 'block'}"
@@ -85,16 +98,15 @@
 						on:click={() => {
 							copyToClipboard(referralLink);
 						}}
-						class="w-full bg-[#1D0720]">Copy Link</Button
+						class=" w-full bg-[#1D0720] ">Copy Link</Button
 					>
 				</div>
 			</div>
 		</Card.Content>
 	</Card.Root>
-	<Text size="xl">{$t('referral.your_referral')}: {$storeUserInfo.referral_code}</Text>
 	<div class="w-full space-y-5">
 		<div
-			class="gradient-border-bottom flex w-full items-center gap-x-3 rounded-lg bg-[#481555] px-7 py-4"
+			class="gradient-border-bottom flex w-full items-center gap-x-3 rounded-lg bg-[#481555] px-4 py-4 md:px-7"
 		>
 			<img src="/img/desktopSideMenu/Team.png" class="h-5 w-5" alt="" />
 			<Text class="font-bold">{$t('referral.your_team')}</Text>

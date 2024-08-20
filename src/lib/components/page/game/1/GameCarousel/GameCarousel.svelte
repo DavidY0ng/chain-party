@@ -12,6 +12,7 @@
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
+	import { isDesktop } from '$lib/stores/storeCommon';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;
@@ -134,20 +135,22 @@
 >
 	<div class="purple-eclipse -top-[30%] left-[35%] w-[350px] blur-[50px]" />
 
-	<div class="absolute right-0 top-0 z-10 h-full w-1/6 bg-gradient-to-l from-black/50" />
-	<Carousel.Content class="flex items-center ">
+	<div
+		class="absolute right-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-l from-black/50 xl:block"
+	/>
+	<Carousel.Content class="flex items-center">
 		{#if gameRoundData?.data}
 			<!-- This item pushes the slide to focus on 1st index -->
-			<Carousel.Item class="lg:basis-[25%]"
+			<Carousel.Item class="hidden md:basis-[40%] xl:block xl:basis-[25%]"
 				><Card.Root>
 					<Card.Content></Card.Content></Card.Root
 				>
 			</Carousel.Item>
 			{#each gameRoundData.data as round, i}
 				<Carousel.Item
-					class="h-fit pl-5 lg:basis-[25%] {gameRoundData.count < 2
-						? 'translate-x-[149.5%]'
-						: 'translate-x-[49.5%]'}"
+					class="h-fit basis-[80%] md:basis-[40%] xl:basis-[25%]  {gameRoundData.count < 2
+						? ' xl:translate-x-[149.5%]'
+						: ' translate-x-[13%] md:translate-x-[75%] xl:translate-x-[49.5%]'}"
 				>
 					<Card.Root>
 						<Card.Content
@@ -194,25 +197,30 @@
 				</Carousel.Item>
 			{/each}
 			<!-- This two item pushes the slide to focus on last index -->
-			{#each Array(2) as _, i}
-				<Carousel.Item class="lg:basis-[25%]"
-					><Card.Root>
-						<Card.Content></Card.Content></Card.Root
-					>
-				</Carousel.Item>
-			{/each}
+			<Carousel.Item class="basis-[10%] md:basis-[60%] xl:block xl:basis-[25%]"
+				><Card.Root>
+					<Card.Content></Card.Content></Card.Root
+				>
+			</Carousel.Item>
+			<Carousel.Item class="basis-[9%] md:basis-[0%] xl:basis-[25%]"
+				><Card.Root>
+					<Card.Content></Card.Content></Card.Root
+				>
+			</Carousel.Item>
 		{/if}
 	</Carousel.Content>
 	<Carousel.Previous
 		on:scrollPrev={onScrollPrev}
 		variant="ghost"
-		class="absolute left-[38.5%] -translate-x-10 hover:bg-transparent disabled:border-none"
+		class="absolute left-[12%] -translate-x-10 hover:bg-transparent disabled:border-none xl:left-[38.5%]"
 	/>
 	<Carousel.Next
 		variant="ghost"
-		class="absolute right-[35.6%] hover:bg-transparent disabled:border-none"
+		class="absolute right-[1%] hover:bg-transparent disabled:border-none xl:right-[35.6%]"
 	/>
-	<div class="absolute left-0 top-0 z-10 h-full w-1/6 bg-gradient-to-r from-black/50" />
+	<div
+		class="absolute left-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-r from-black/50 xl:block"
+	/>
 
 	{#if latestGameStartIndex - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->

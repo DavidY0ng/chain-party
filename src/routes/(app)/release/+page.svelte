@@ -133,10 +133,10 @@
 	});
 </script>
 
-<div in:fade class=" h-full min-h-screen w-full">
-	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20">
+<div in:fade class=" h-full w-full">
+	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20 px-4 pt-5 xl:pt-0">
 		<div class="flex w-full flex-col gap-y-10">
-			<div class="flex w-full justify-end">
+			<div class="hidden w-full justify-end md:flex">
 				{#if myRewardAmount}
 					<Button
 						disabled={loading ||
@@ -155,7 +155,7 @@
 					</Button>
 				{/if}
 			</div>
-			<div class="relative flex w-full gap-x-5">
+			<div class="relative flex w-full flex-col gap-x-5 gap-y-5 md:flex-row">
 				<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
 					<Card.Header
 						class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
@@ -190,13 +190,37 @@
 				</Card.Root>
 			</div>
 
+			<div class="block w-full justify-end md:hidden">
+				{#if myRewardAmount}
+					<div class="w-full">
+						<Button
+							disabled={loading ||
+								$storeUserInfo.web3_address == zeroAddress ||
+								Number(formatEther(myRewardAmount)) === 0}
+							on:click={onReleaseReward}
+							class="w-full bg-[#480A46] px-5 md:max-w-[150px]"
+						>
+							<Text>
+								{#if loading}
+									<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+								{:else}
+									Claim Reward
+								{/if}
+							</Text>
+						</Button>
+					</div>
+				{/if}
+			</div>
+
 			<div id="Record" class="w-full space-y-2">
 				<div
 					class="gradient-border-bottom relative flex items-center justify-between gap-x-2 rounded-2xl bg-[#481555] px-7 py-4"
 				>
-					<div class="w-full font-bold">Period</div>
-					<div class="w-full text-center font-bold">Locked Amount</div>
-					<div class="w-full text-right font-bold">Release Amount</div>
+					<div class="hidden w-full font-bold md:block">Period</div>
+					<div class="w-full text-left text-sm font-bold md:text-center md:text-md">
+						Locked Amount
+					</div>
+					<div class="w-full text-right text-sm font-bold md:text-md">Release Amount</div>
 				</div>
 				<div
 					class="gradientScrollbar {userLockedData && userLockedData[1]?.length > 0
@@ -206,13 +230,15 @@
 					{#if userLockedData && userLockedData[1].length > 0}
 						{#each userLockedData[1] as lockedData}
 							<div class="flex items-center justify-between px-8 py-4 text-md">
-								<div class="w-full">
+								<div class="hidden w-full md:block">
 									{formatLockedDate(lockedData.initLockTime)} - {formatLockedDate(
 										lockedData.latestPEICReleasedAt
 									)}
 								</div>
-								<div class="w-full text-center">{formatEther(lockedData.lockAmount)} pEIC</div>
-								<div class="w-full text-right">
+								<div class="w-full text-sm md:text-center md:text-md">
+									{formatEther(lockedData.lockAmount)} pEIC
+								</div>
+								<div class="w-full text-right text-sm md:text-md">
 									{formatEther(lockedData.initLockAmount - lockedData.lockAmount)}
 								</div>
 							</div>

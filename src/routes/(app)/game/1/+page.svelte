@@ -4,7 +4,7 @@
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { initializedWebsocket, WebSocketService } from '$lib/http/websocket';
-	import { isToken } from '$lib/stores/storeCommon';
+	import { isToken, isDesktop } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -147,11 +147,11 @@
 </script>
 
 <div in:fade class="relative z-20 m-auto h-full min-h-screen w-full">
-	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[100px]">
+	<div class="relative m-auto w-full space-y-20 xl:max-w-[1400px] xl:pt-[100px]">
 		<div class="space-y-5">
-			<div class="relative z-10 mx-auto flex w-fit items-center">
+			<div class="relative z-10 mx-auto flex w-full items-center xl:w-fit">
 				<img src="/img/game/left.png" alt="" />
-				<Text size="3xl" class="font-bold ">
+				<Text class="w-full text-center text-[25px] font-bold xl:text-3xl">
 					PARTY CHAIN <span class="text-[#ff0099]">LUCKY</span> DRAW!
 				</Text>
 				<img src="/img/game/right.png" alt="" />
@@ -159,21 +159,32 @@
 			{#if gameRoundData}
 				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage />
 			{:else}
-				<div class="flex w-full items-center gap-x-5">
+				<div
+					class=" flex w-[800px] translate-x-[-25%] items-center justify-center gap-x-5 md:w-full md:translate-x-0 xl:hidden xl:translate-x-0"
+				>
+					{#each Array(3) as _}
+						<Skeleton class="relative h-[200px] w-[200px] rounded-lg bg-black/50 xl:basis-1/4" />
+					{/each}
+				</div>
+				<div
+					class="hidden w-[800px] translate-x-[-16%] items-center justify-center gap-x-5 md:w-full md:translate-x-0 xl:flex xl:translate-x-0"
+				>
 					{#each Array(5) as _}
-						<Skeleton class="h-[200px] basis-1/4 rounded-lg bg-black/50" />
+						<Skeleton class="relative h-[200px] w-[200px] rounded-lg bg-black/50 xl:basis-1/4" />
 					{/each}
 				</div>
 			{/if}
 		</div>
 
-		<Game.Reward />
+		<div class="space-y-20 px-4 xl:px-0">
+			<Game.Reward />
 
-		{#if $storeUserInfo.web3_address !== zeroAddress && gameSlotData}
-			<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
-		{/if}
+			{#if $storeUserInfo.web3_address !== zeroAddress && gameSlotData}
+				<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
+			{/if}
 
-		<Game.Rules />
+			<Game.Rules />
+		</div>
 	</div>
 
 	<Game.WinModal bind:showWinModal />
