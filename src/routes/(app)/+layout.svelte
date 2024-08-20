@@ -46,7 +46,7 @@
 			class="relative z-20 flex h-full flex-grow flex-col items-center overflow-x-hidden overflow-y-scroll scroll-smooth pt-[80px] xl:p-0 xl:pt-0"
 		>
 			<Pageheader />
-			<div class="relative z-20 mb-10 flex w-full flex-col xl:px-10 xl:pt-0">
+			<div class="relative z-20 mb-10 flex w-full flex-1 flex-col xl:px-10 xl:pt-0">
 				<slot />
 			</div>
 			<Footer />

@@ -11,6 +11,8 @@
 	import type { Address } from 'viem';
 	import { Text } from '$lib/components/ui/text';
 	import { treeColor } from './treeColor';
+	import { isDesktop } from '$lib/stores/storeCommon';
+	import { truncateString } from '$lib/helper';
 
 	export let tree: any;
 	export let isChild = false;
@@ -112,13 +114,17 @@
 					selfLevel % treeColor.length
 				]} , transparent);"
 			>
-				<Text class="-translate-x-1 text-[12px] font-bold text-center">
+				<Text class="-translate-x-1 text-center text-[12px] font-bold">
 					LVL<br />{selfLevel + 1}
 				</Text>
 			</div>
 
-			<Text class="translate-x-20">
-				{web3_address}
+			<Text class="translate-x-16 md:translate-x-20">
+				{#if $isDesktop}
+					{web3_address}
+				{:else}
+					{truncateString(web3_address, 4, 4)}
+				{/if}
 			</Text>
 
 			<!-- Arrow icon to indicate expansion state -->
@@ -152,8 +158,8 @@
 				</Text>
 			</div>
 
-			<Text class="translate-x-20">
-				{web3_address || $t('app.referral.none')}
+			<Text class="translate-x-16 md:translate-x-20">
+				{$isDesktop ? web3_address : truncateString(web3_address, 4, 4) || $t('app.referral.none')}
 			</Text>
 			<Icon icon="octicon:dash-16" class="inline-block text-sm text-white/20" />
 		</span>

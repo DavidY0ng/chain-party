@@ -11,6 +11,8 @@
 	import type { DateValue } from '@internationalized/date';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
+	import { Text } from '$lib/components/ui/text';
+	import FilterDrawer from '$lib/components/page/history/FilterDrawer.svelte';
 
 	// Variable for filter option
 	let historyType: THistoryType | undefined = undefined;
@@ -122,10 +124,25 @@
 	}
 </script>
 
-<div in:fade class="m-auto min-h-screen w-full max-w-[1400px] space-y-10">
+<div in:fade class="m-auto min-h-screen w-full max-w-[1400px] px-4 md:space-y-10 xl:px-0">
 	{#key $rerender}
 		<FilterMenu bind:filterOption on:search={onSearchHistory} bind:historyType />
 	{/key}
+
+	<!-- Mobile History -->
+	<div class="block w-full space-y-3 md:hidden">
+		<div
+			class="gradient-border-bottom flex w-full items-center justify-between rounded-lg bg-[#481555] pl-4"
+		>
+			<Text class="text-md font-bold">Game</Text>
+			<FilterDrawer
+				bind:filterOption
+				bind:historyDataType={historyType}
+				on:search={onSearchHistory}
+			/>
+		</div>
+	</div>
+
 	<TableHistory bind:transactionData bind:gameData bind:historyType />
 	{#if $storeUserInfo.web3_address !== zeroAddress}
 		{#if (transactionData && transactionData?.data.length > 0) || (gameData && gameData?.data.length > 0)}

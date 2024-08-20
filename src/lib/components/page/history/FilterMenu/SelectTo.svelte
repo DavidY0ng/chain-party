@@ -25,7 +25,7 @@
 		<Button
 			variant="outline"
 			class={cn(
-				'w-full justify-start rounded-none border-none bg-transparent text-left text-md font-normal text-white hover:bg-black/50',
+				'w-full justify-start rounded-none border-none bg-black/20 text-left text-md font-normal text-white hover:bg-black/50 md:bg-transparent',
 				!selectedDateFrom && 'text-muted-foreground'
 			)}
 			builders={[builder]}

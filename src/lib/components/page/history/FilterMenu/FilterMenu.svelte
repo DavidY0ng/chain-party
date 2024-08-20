@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="flex w-full justify-between">
+<div class="hidden w-full justify-between md:flex">
 	<div class="flex w-full items-center gap-x-8">
 		<div class="w-full max-w-[150px]">
 			<SelectHistoryType bind:selectedHistoryType={historyType} />

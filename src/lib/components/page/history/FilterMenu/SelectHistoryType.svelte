@@ -3,13 +3,9 @@
 	import { t } from '$lib/i18n';
 	import type { THistoryType } from '$lib/type/commonType';
 	import Icon from '@iconify/svelte';
+	import { historyType } from '../filterConfig';
 
 	export let selectedHistoryType: THistoryType | undefined = undefined;
-
-	const historyType = [
-		{ value: 'game' as THistoryType, label: 'Game History' },
-		{ value: 'transaction' as THistoryType, label: 'Transaction' }
-	];
 </script>
 
 <Select.Root>

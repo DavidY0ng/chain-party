@@ -114,7 +114,9 @@
 			<img src="/img/game/reward.png" class="h-5 w-5" alt="" />
 			<Text class="font-bold">My Reward</Text>
 		</Card.Header>
-		<Card.Content class="relative flex h-full w-full justify-between gap-x-10 bg-black/20 py-8">
+		<Card.Content
+			class="relative flex h-full w-full flex-col justify-between gap-x-10 gap-y-10 bg-black/20 py-8 md:flex-row md:gap-y-0 xl:flex-row"
+		>
 			{#if $storeUserInfo.web3_address === zeroAddress}
 				<div
 					id="backdropBg"
@@ -164,7 +166,9 @@
 				</div>
 			</div>
 
-			<img src="/img/game/line.png" alt="" />
+			<img src="/img/game/line.png" alt="" class="hidden md:block" />
+			<img src="/img/game/mobileLine.png" alt="" class="block md:hidden" />
+
 			<div class="w-full space-y-5">
 				<div class="flex items-center gap-x-5">
 					<img src="/img/game/usdt.png" alt="" />

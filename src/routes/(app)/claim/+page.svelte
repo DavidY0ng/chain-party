@@ -29,9 +29,9 @@
 	});
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full">
-	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20 pt-[40px]">
-		<div class="relative flex w-full gap-x-5">
+<div in:fade class="relative h-full min-h-screen w-full px-4 xl:px-0">
+	<div class="relative m-auto -mt-5 w-full max-w-[1400px] space-y-20 pt-[20px] md:pt-[40px]">
+		<div class="relative flex w-full flex-col gap-x-5 gap-y-5 md:flex-row">
 			<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
 				<Card.Header
 					class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
@@ -45,7 +45,7 @@
 						class="relative z-10 flex h-full w-full items-center justify-center text-center"
 						>{$storeUserInfo.web3_address !== zeroAddress ? (totalAvailableClaim ?? 0) : '-'}</Text
 					>
-					<div class="pink-eclipse bottom-[-280%] left-[30%] w-1/2 blur-[90px]"></div>
+					<div class="pink-eclipse left-[30%] w-1/2 blur-[90px] md:bottom-[-280%]"></div>
 				</div>
 			</Card.Root>
 			<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
@@ -59,11 +59,13 @@
 					class="relative flex h-full w-full items-center justify-center gap-x-7 overflow-hidden bg-black/20 p-0 py-8 text-center"
 				>
 					{#if $storeUserInfo.web3_address !== zeroAddress}
-						<Text size="3xl" class="relative z-10 flex  items-center justify-center text-center"
+						<Text
+							class="relative z-10 flex items-center justify-center  text-center text-2xl md:text-3xl"
 							>{totalClaimed?.peic | 0} pEIC</Text
 						>
 						<img src="/img/claim/3line.png" alt="" />
-						<Text size="3xl" class="relative z-10 flex  items-center justify-center text-center"
+						<Text
+							class="relative z-10 flex items-center justify-center  text-center text-2xl md:text-3xl"
 							>{totalClaimed?.usdt | 0} USDT</Text
 						>
 					{:else}
@@ -71,7 +73,9 @@
 							>-</Text
 						>
 					{/if}
-					<div class="purple-eclipse bottom-[-280%] left-[20%] w-[60%] blur-[60px]"></div>
+					<div
+						class="purple-eclipse bottom-[-100%] left-[20%] w-[60%] blur-[60px] md:bottom-[-280%]"
+					></div>
 				</div>
 			</Card.Root>
 		</div>
