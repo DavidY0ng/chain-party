@@ -113,22 +113,22 @@
 		</Button>
 	</div>
 	<div class="gradientScrollbar relative rounded-2xl bg-black/20">
-		<div class="flex items-center justify-between px-8 py-4 text-md">
-			<div class="w-full">Jetpot Reward</div>
-			<div class="flex w-full justify-end gap-x-5 text-right">
-				<Text>{rewardBalance?.jetpot_reward | 0} pEIC</Text>
+		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
+			<div class="w-full text-sm md:text-md">Jetpot Reward</div>
+			<div class="flex w-full justify-end gap-x-5 text-right text-sm">
+				<Text class="text-sm md:text-md">{rewardBalance?.jetpot_reward | 0} pEIC</Text>
 			</div>
 		</div>
-		<div class="flex items-center justify-between px-8 py-4 text-md">
-			<div class="w-full">Planet Reward</div>
-			<div class="flex w-full justify-end gap-x-5 text-right">
-				<Text>{rewardBalance?.planet_reward | 0} pEIC</Text>
+		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
+			<div class="w-full text-sm md:text-md">Planet Reward</div>
+			<div class="flex w-full justify-end gap-x-5 text-right text-sm">
+				<Text class="text-sm md:text-md">{rewardBalance?.planet_reward | 0} pEIC</Text>
 			</div>
 		</div>
-		<div class="flex items-center justify-between px-8 py-4 text-md">
-			<div class="w-full">Fuel Reward</div>
+		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
+			<div class="w-full text-sm md:text-md">Fuel Reward</div>
 			<div class="flex w-full justify-end gap-x-5 text-right">
-				<Text>{rewardBalance?.fuel_reward | 0} pEIC</Text>
+				<Text class="text-sm md:text-md">{rewardBalance?.fuel_reward | 0} pEIC</Text>
 			</div>
 		</div>
 		{#if $storeUserInfo.web3_address === zeroAddress}

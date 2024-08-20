@@ -125,18 +125,22 @@
 			{/if}
 		</Button>
 	</div>
-	<div class="gradientScrollbar relative rounded-2xl bg-black/20">
-		<div class="flex items-center justify-between px-8 py-4 text-md">
-			<div class="w-full">Won Game Bonus</div>
-			<div class="flex w-full justify-end gap-x-5 text-right">
+	<div class="gradientScrollbar relative space-y-5 rounded-2xl bg-black/20 md:space-y-0">
+		<div
+			class="flex flex-col items-center justify-center gap-y-2 px-8 py-4 text-md md:flex-row md:justify-between"
+		>
+			<div class="w-full text-center md:text-left">Won Game Bonus</div>
+			<div class="flex justify-end gap-x-5 text-right md:w-full">
 				<Text>{pendingBonus?.totalPEICReward | 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
 				<Text>{pendingBonus?.totalUSDT | 0} USDT</Text>
 			</div>
 		</div>
-		<div class="flex items-center justify-between px-8 py-4 text-md">
-			<div class="w-full">Cancelled Game Refund</div>
-			<div class="flex w-full justify-end gap-x-5 text-right">
+		<div
+			class="flex flex-col items-center justify-center gap-y-2 px-8 py-4 text-md md:flex-row md:justify-between"
+		>
+			<div class="w-full text-center md:text-left">Cancelled Game Refund</div>
+			<div class="flex justify-end gap-x-5 text-right md:w-full">
 				<Text>{pendingRefund?.totalPEIC | 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
 				<Text>{pendingRefund?.totalUSDT | 0} USDT</Text>
