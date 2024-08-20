@@ -30,7 +30,43 @@
 				<Drawer />
 				<img src="/img/desktopSideMenu/Chain Party Logo.png" class="w-10" alt="" />
 			</div>
-			<ConnectWallet />
+			{#if !$isDesktop}
+				{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
+					<ConnectWallet class="hidden xl:block" />
+				{:else}
+					<DropdownMenu.Root bind:open>
+						<DropdownMenu.Trigger asChild let:builder>
+							<Button
+								builders={[builder]}
+								variant="outline"
+								class="overflow-hidden rounded-lg border-none bg-black/50 p-0 hover:bg-black/80"
+							>
+								<div
+									class="flex h-full w-[50px] items-center justify-center bg-[#FF0099] md:w-[60px]"
+								>
+									<img src="/img/desktopNav/wallet.png" alt="" class="-mt-1 w-4 md:w-[18px]" />
+								</div>
+								<div class="flex w-full items-center gap-x-2 pl-3 text-sm md:pl-5 md:text-md">
+									{truncateString($storeUserInfo.web3_address, 4, 4)}
+									<Icon
+										icon="tabler:chevron-down"
+										class={open ? 'rotate-180 transition' : 'rotate-0 transition'}
+									/>
+								</div>
+							</Button>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56 border-none bg-[#251235]">
+							<DropdownMenu.Item
+								on:click={onHandleDisconnect}
+								class="wallet-dropdown flex cursor-pointer gap-x-2"
+							>
+								<Icon icon="material-symbols:logout" class="text-2xl" />
+								Disconnect</DropdownMenu.Item
+							>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				{/if}
+			{/if}
 		</div>
 
 		<!-- Desktop View -->
