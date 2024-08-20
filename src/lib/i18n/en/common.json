@@ -1,4 +1,6 @@
 {
 	"connect_wallet": "Connect Wallet",
-	"to_view": "to view"
+	"to_view": "to view",
+	"under_maintenance": "Under Maintenance",
+	"maintenance_msg": "The page you're looking for is currently under maintenance and will be backk soon."
 }

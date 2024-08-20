@@ -128,5 +128,3 @@
 	</Dialog.Content>
 </Dialog.Root>
 
-<style>
-</style>
