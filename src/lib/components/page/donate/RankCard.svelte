@@ -36,11 +36,11 @@
 </script>
 
 <!-- desktop view -->
-<div class="hidden lg:flex">
+<div class="hidden md:flex justify-center">
 	{#if leaderboardList?.data}
 		<div class="relative left-[2%] z-10 rotate-[-10deg]">
 			<Card.Root
-				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"
+				class="w-[300px] md:w-[250px] lg:w-[300px] relative flex flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] via-50% to-transparent p-5 pt-[70px]"
 			>
 				<div class="flex flex-col items-center gap-5 overflow-hidden">
 					<Text size="3xl">TOP 2</Text>
@@ -74,7 +74,7 @@
 
 		<div class="relative z-20 translate-y-[-20%]">
 			<Card.Root
-				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[70px]"
+				class="relative flex w-[300px] md:w-[250px] lg:w-[300px]  flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-[#251235] p-5 pt-[70px]"
 			>
 				<div class="flex flex-col items-center gap-5 overflow-hidden">
 					<Text size="3xl">TOP 1</Text>
@@ -109,7 +109,7 @@
 
 		<div class="relative right-[2%] z-10 rotate-[10deg]">
 			<Card.Root
-				class="relative flex w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] p-5 pt-[70px]"
+				class="relative flex w-[300px] md:w-[250px] lg:w-[300px] flex-col items-center gap-3 overflow-hidden rounded-xl border-none bg-gradient-to-b from-[#251235] p-5 pt-[70px]"
 			>
 				<div class="flex flex-col items-center gap-5 overflow-hidden">
 					<Text size="3xl">TOP 3</Text>
@@ -144,7 +144,7 @@
 </div>
 
 <!-- mobile view -->
-<div class="flex flex-col lg:hidden items-center gap-5 w-full">
+<div class="flex flex-col md:hidden items-center gap-5 w-full">
 	{#if leaderboardList?.data}
 		<div class="relative">
 			<Card.Root

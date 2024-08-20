@@ -61,12 +61,7 @@
 				<div class="flex items-center justify-between px-8 py-4">
 					<div class="flex gap-[20px] xl:gap-[80px]">
 						<Text class="w-[50px]">{data.rank}</Text>
-						<!-- Add 4 to the index to match your numbering -->
-						{#if $isDesktop}
-							<Text>{data.address}</Text>
-						{:else}
-							<Text>{truncateString(data.address, 5, 5)}</Text>
-						{/if}
+						<Text>{data.address}</Text>
 					</div>
 
 					<Text>{data.amount} pEIC</Text>
