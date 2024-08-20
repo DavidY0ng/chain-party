@@ -11,8 +11,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { isDesktop } from '$lib/stores/storeCommon';
-	import Maintenance from '$lib/components/layout/Maintenance.svelte';
-
+	
 	// Data
 	let currentList: TCurrentList;
 	let jackpotPoolAmount = {
@@ -109,7 +108,7 @@
 	<div
 		class="pink-eclipse left-[-30%] top-[-15%] w-[350px] blur-[120px] xl:left-[-10%] xl:top-[-30%] xl:w-[560px]"
 	/>
-	<Maintenance />
+
 	<div class="relative z-[99] m-auto max-w-[1400px] space-y-28">
 		<div id="Pool List" class=" space-y-5">
 			{#if $isDesktop}

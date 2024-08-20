@@ -3,16 +3,12 @@
     import Button from '../ui/button/button.svelte';
     import { Text } from '$lib/components/ui/text';
     import { t } from '$lib/i18n';
+    import { isMaintenance } from '$lib/stores/storeCommon';
 
-    let showModal = false;
+
 </script>
 
-<Dialog.Root bind:open={showModal}>
-	<!-- <Dialog.Trigger>
-		<div class="mx-auto w-[300px]">
-			<Button class="w-full bg-[#29193D]">{$t('donate.donate')}</Button>
-		</div>
-	</Dialog.Trigger> -->
+<Dialog.Root bind:open={$isMaintenance}>
 	<Dialog.Content class="bindRef sm:max-w-[425px]">
 		<div class="space-y-5">
 			<Dialog.Header class="border-b border-white/20 pb-5 ">
