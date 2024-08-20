@@ -63,7 +63,7 @@
 	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
 		<!-- Mobile top donor -->
 		<div class="flex flex-col gap-[30px]">
-			<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
+			<!-- <div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
 				{#each Array(3) as _, i}
 					<Card.Root
 						class="flex flex-col items-center gap-x-5 border-none from-black/10 xl:flex-row xl:bg-gradient-to-l xl:p-5 {i ===
@@ -77,7 +77,7 @@
 						<Text size="xl" class="block xl:hidden">Address {i + 1}</Text>
 					</Card.Root>
 				{/each}
-			</div>
+			</div> -->
 
 			<!-- Desktop jackpot view -->
 			<!-- jackpot pool -->

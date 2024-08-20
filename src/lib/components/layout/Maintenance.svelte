@@ -5,6 +5,7 @@
     import { t } from '$lib/i18n';
     import { isMaintenance } from '$lib/stores/storeCommon';
 
+    let showModal = false
 
 </script>
 

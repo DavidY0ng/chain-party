@@ -4,13 +4,14 @@
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import Text from '$lib/components/ui/text/text.svelte';
 	import { t } from '$lib/i18n';
-	import { isToken } from '$lib/stores/storeCommon';
+	import { isDesktop, isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { TWinnerList } from '$lib/type/jackpotType';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
 	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
+	import { truncateString } from '$lib/helper';
 
 	let winnerListPagination = {
 		page: 0,
@@ -71,9 +72,15 @@
 		>
 			{#if winnerList?.data.length > 0}
 				{#each winnerList.data as user, i}
-					<div class="flex items-center justify-between px-8 py-4">
-						<Text>{user.address}</Text>
-						<Text>{user.amount}</Text>
+					<div class="flex flex-col md:flex-row md:justify-between px-8 py-4 gap-1">
+
+						<Text class="md:hidden flex">{truncateString(user.address, 15,15)}</Text>
+						<Text class="hidden md:flex">{user.address}</Text>
+
+						<div class="flex justify-between md:justify-start md:gap-1">
+							<Text>WON</Text>
+							<Text>{user.amount} pEIC</Text>
+						</div>
 					</div>
 				{/each}
 				{#if winnerListPagination.page < winnerList.last_page}

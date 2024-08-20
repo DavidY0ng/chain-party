@@ -7,7 +7,7 @@
 	export let jackpotPoolAmount;
 </script>
 
-<div id="jackpot pool" class="mb-[80px] hidden flex-col items-center md:flex">
+<div id="jackpot pool" class="mb-[80px] flex-col items-center flex">
 	<div class="jackpotPool relative z-10 w-full max-w-[1400px] rounded-2xl px-10 pb-5 pt-10">
 		<img
 			src="/img/home/jackpot&pool.png"
