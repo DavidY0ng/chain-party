@@ -72,15 +72,15 @@
 	}
 
 	// Claim for pending game money
-	async function onClaimRound() {
+	async function onClaimRoundandRefund() {
 		loading = true;
 		try {
-			await gameContract.simulate.claimRoundReward({
+			await gameContract.simulate.claimRoundRewardAndRefund({
 				account: $storeUserInfo.web3_address,
 				chain: bscChain
 			});
 
-			const hash = await gameContract.write.claimRoundReward({
+			const hash = await gameContract.write.claimRoundRewardAndRefund({
 				account: $storeUserInfo.web3_address,
 				chain: bscChain
 			});
@@ -114,7 +114,7 @@
 		</div>
 		<Button
 			disabled={totalPending < 1 || loading || $storeUserInfo.web3_address === zeroAddress}
-			on:click={onClaimRound}
+			on:click={onClaimRoundandRefund}
 			size="sm"
 			class="bg-[#481555] px-6 text-sm font-bold"
 		>
