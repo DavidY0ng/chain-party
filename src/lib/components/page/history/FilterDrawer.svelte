@@ -75,7 +75,11 @@
 
 <Sheet.Root bind:open={drawerOpen}>
 	<Sheet.Trigger asChild let:builder>
-		<Button builders={[builder]} class="flex items-center gap-x-2 text-sm">
+		<Button
+			disabled={$storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
+			builders={[builder]}
+			class="flex items-center gap-x-2 border-none text-sm"
+		>
 			<img src="/img/game/filter.png" class="w-4" alt="" />
 			Filter</Button
 		>

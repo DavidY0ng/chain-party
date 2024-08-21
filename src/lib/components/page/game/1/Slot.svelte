@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
-	import { getOrdinalSuffix } from '$lib/helper';
+	import { getOrdinalSuffix, truncateString } from '$lib/helper';
+	import { isDesktop } from '$lib/stores/storeCommon';
 	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
@@ -63,7 +64,7 @@
 					<Text class="text-sm text-white/50">th</Text>
 				</div>
 			{:else}
-				<Text size="3xl" class="">-</Text>
+				<Text size="3xl" class="relative z-10">-</Text>
 			{/if}
 		</div>
 		<div
@@ -81,7 +82,7 @@
 					>.</Text
 				>
 			{:else}
-				<Text class="">You without lucky number in this group</Text>
+				<Text class="relative z-10">You without lucky number in this group</Text>
 			{/if}
 		</div>
 		<div class="pink-eclipse bottom-[-150%] right-[-5%] w-[300px] blur-[100px]" />
@@ -101,7 +102,7 @@
 			{#if gameSlotData?.data.length > 0}
 				{#each gameSlotData?.data as slot}
 					<div class="flex items-center justify-between px-8 py-4 pr-12">
-						<Text>{slot?.address}</Text>
+						<Text class="">{$isDesktop ? slot?.address : truncateString(slot?.address, 4, 4)}</Text>
 						<Text>{slot?.user_position}</Text>
 					</div>
 				{/each}

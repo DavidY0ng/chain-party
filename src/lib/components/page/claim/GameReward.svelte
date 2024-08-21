@@ -125,7 +125,7 @@
 			{/if}
 		</Button>
 	</div>
-	<div class="gradientScrollbar relative space-y-5 rounded-2xl bg-black/20 md:space-y-0">
+	<div class="gradientScrollbar relative flex flex-col gap-y-5 rounded-2xl bg-black/20 md:gap-y-0">
 		<div
 			class="flex flex-col items-center justify-center gap-y-2 px-8 py-4 text-md md:flex-row md:justify-between"
 		>
@@ -147,7 +147,7 @@
 			</div>
 		</div>
 		{#if $storeUserInfo.web3_address === zeroAddress}
-			<ConnectWalletToView class="absolute top-0 z-10 h-full w-full backdrop-blur-sm" />
+			<ConnectWalletToView class="absolute left-0 top-0 z-10 h-full w-full backdrop-blur-sm" />
 		{/if}
 	</div>
 </div>

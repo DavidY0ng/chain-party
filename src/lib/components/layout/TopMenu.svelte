@@ -30,9 +30,10 @@
 				<Drawer />
 				<img src="/img/desktopSideMenu/Chain Party Logo.png" class="w-10" alt="" />
 			</div>
+			<!-- Mobile connect button -->
 			{#if !$isDesktop}
-				{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
-					<ConnectWallet class="hidden xl:block" />
+				{#if $storeUserInfo.web3_address === zeroAddress}
+					<ConnectWallet class="" />
 				{:else}
 					<DropdownMenu.Root bind:open>
 						<DropdownMenu.Trigger asChild let:builder>
@@ -74,7 +75,7 @@
 			<MultiLanguage />
 		</div>
 
-		<!-- Mobile Drawer -->
+		<!-- Desktop Connect Button -->
 		{#if $isDesktop}
 			{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
 				<ConnectWallet class="hidden xl:block" />
