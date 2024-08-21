@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { Text } from '$lib/components/ui/text';
 	import { menuList } from './config';
+	import { t } from '$lib/i18n';
 </script>
 
 <!-- Desktop Side Menu -->
@@ -42,7 +43,7 @@
 							<Text
 								class="text-sm uppercase group-hover:text-white {$page.url.pathname === menu.path
 									? ''
-									: 'text-white/50'}">{menu.label}</Text
+									: 'text-white/50'}">{$t(`common.menu.label.${menu.label}`)}</Text
 							>
 						</div>
 					</a>
@@ -76,7 +77,7 @@
 							<Text
 								class="text-sm uppercase group-hover:text-white {$page.url.pathname === menu.path
 									? ''
-									: 'text-white/50'}">{menu.label}</Text
+									: 'text-white/50'}">{$t(`common.menu.label.${menu.label}`)}</Text
 							>
 						</div>
 					</a>

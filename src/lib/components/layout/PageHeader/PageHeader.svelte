@@ -5,13 +5,14 @@
 	import { Text } from '../../ui/text';
 	import { menuList } from '../config';
 	import BindReferralModal from './BindReferralModal.svelte';
+	import { t } from '$lib/i18n';
 
 	function onHandlePathName(path: string | null) {
 		const splitPath = path?.split('(app)')[1];
 
 		if (!splitPath) return null;
 		const menuItem = menuList.find((item) => item.path === splitPath);
-		return menuItem ? menuItem.title : null;
+		return menuItem ? t.get(`common.menu.title.${menuItem.title}`) : null;
 	}
 
 	function onHandleSubTitle(path: string | null) {
@@ -19,7 +20,7 @@
 
 		if (!splitPath) return null;
 		const menuItem = menuList.find((item) => item.path === splitPath);
-		return menuItem ? menuItem.desc : null;
+		return menuItem ? t.get(`common.menu.desc.${menuItem.desc}`) : null;
 	}
 </script>
 
