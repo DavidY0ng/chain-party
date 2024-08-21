@@ -12,6 +12,7 @@
 	import Drawer from './Drawer.svelte';
 	import { onDisconnect } from '$lib/web3/wagmi';
 	import AuthAPI from '$lib/api/auth';
+	import { t } from '$lib/i18n';
 
 	let open = false;
 
@@ -62,7 +63,7 @@
 								class="wallet-dropdown flex cursor-pointer gap-x-2"
 							>
 								<Icon icon="material-symbols:logout" class="text-2xl" />
-								Disconnect</DropdownMenu.Item
+								{$t('common.disconnect')}</DropdownMenu.Item
 							>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>

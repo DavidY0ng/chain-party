@@ -14,6 +14,7 @@
 	import { toast } from 'svelte-sonner';
 	import { zeroAddress } from 'viem';
 	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
+	import { t } from '$lib/i18n';
 
 	// Data
 	let checkClaim: TCheckClaim;
@@ -97,7 +98,7 @@
 	>
 		<div class="flex items-center gap-x-2 font-bold">
 			<img src="/img/game/reward.png" class="h-5 w-5" alt="" />
-			<Text>Reward</Text>
+			<Text>{$t('claim.reward')}</Text>
 		</div>
 		<Button
 			disabled={!checkClaim?.claimable || loading || $storeUserInfo.web3_address === zeroAddress}
@@ -108,25 +109,25 @@
 			{#if loading}
 				<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
 			{:else}
-				Claim All
+			{$t('claim.claim_all')}
 			{/if}
 		</Button>
 	</div>
 	<div class="gradientScrollbar relative rounded-2xl bg-black/20">
 		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
-			<div class="w-full text-sm md:text-md">Jetpot Reward</div>
+			<div class="w-full text-sm md:text-md">{$t('claim.jetpot_reward')}</div>
 			<div class="flex w-full justify-end gap-x-5 text-right text-sm">
 				<Text class="text-sm md:text-md">{rewardBalance?.jetpot_reward | 0} pEIC</Text>
 			</div>
 		</div>
 		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
-			<div class="w-full text-sm md:text-md">Planet Reward</div>
+			<div class="w-full text-sm md:text-md">{$t('claim.planet_reward')}</div>
 			<div class="flex w-full justify-end gap-x-5 text-right text-sm">
 				<Text class="text-sm md:text-md">{rewardBalance?.planet_reward | 0} pEIC</Text>
 			</div>
 		</div>
 		<div class="flex items-center justify-between px-4 py-4 text-md md:px-8">
-			<div class="w-full text-sm md:text-md">Fuel Reward</div>
+			<div class="w-full text-sm md:text-md">{$t('claim.fuel_reward')}</div>
 			<div class="flex w-full justify-end gap-x-5 text-right">
 				<Text class="text-sm md:text-md">{rewardBalance?.fuel_reward | 0} pEIC</Text>
 			</div>

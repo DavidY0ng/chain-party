@@ -6,6 +6,7 @@
 	import { Button } from '../ui/button';
 	import * as Sheet from '../ui/sheet';
 	import { menuList } from './config';
+	import { t } from '$lib/i18n';
 
 	let drawerOpen = false;
 
@@ -43,7 +44,7 @@
 							class="group-hover:opacity-100 {$page.url.pathname === menu.path ? '' : 'opacity-50'}"
 							alt=""
 						/>
-						{menu.label}
+						{$t(`common.menu.label.${menu.label}`)}
 
 						{#if $page.url.pathname === menu.path}
 							<div
