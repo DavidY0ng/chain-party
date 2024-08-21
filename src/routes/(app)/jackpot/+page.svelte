@@ -58,7 +58,7 @@
 	onMount(() => [getJackpotPool()]);
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full pt-10">
+<div in:fade class="relative h-full min-h-screen w-full pt-10 p-4">
 	<div class="pink-eclipse left-[35%] top-[-15%] w-[560px] blur-[120px]" />
 	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
 		<!-- Mobile top donor -->
