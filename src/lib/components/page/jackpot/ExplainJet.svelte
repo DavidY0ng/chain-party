@@ -1,8 +1,9 @@
 <script>
     import Text from '$lib/components/ui/text/text.svelte';
     import { t } from '$lib/i18n';
+    
 </script>
-<div class="md:hidden">
+<div class="w-full md:max-w-[40%]">
     <div class='relative'>
         
         <img src='/img/jackpot/trapezium.png' alt='img'>

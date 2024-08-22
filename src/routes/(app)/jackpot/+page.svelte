@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 	import ExplainJet from '$lib/components/page/jackpot/ExplainJet.svelte';
 	import JetPlane from '$lib/components/page/jackpot/JetPlane.svelte';
+	import LoseCount from '$lib/components/page/jackpot/LoseCount.svelte';
 
 	let jackpotPoolAmount = {
 			integer: [] as string[],
@@ -63,27 +64,31 @@
 
 
 <div in:fade class="relative h-full min-h-screen w-full pt-10">
-	
+	<div id='background' class="relative w-full h-[850px] overflow-hidden">
+		<img src='/img/jackpot/background/desktop/masked-bg.png' alt='bg' class="absolute min-w-full min-h-full object-cover">
+		
+		<div class="absolute inset-0 flex items-center justify-center max-w-[1200px] xl:left-[50%] xl:translate-x-[-50%]">
+		  <img src='/img/jackpot/background/desktop/purple-cloud.png' alt='purple-cloud' class="absolute">
+		  <img src='/img/jackpot/background/desktop/nova.png' alt='nova' class="absolute">
+		</div>
+		<div class="absolute inset-0 flex flex-col items-center p-4 top-[10%]">
+			<div class="z-10 max-w-[1400px] w-full">
+			  <JackpotPool bind:jackpotPoolAmount />
+			  <!-- <JetPlane /> -->
+				<div class="flex justify-between items-end">
+					<ExplainJet/>
+					<LoseCount bind:jackpotPoolLoseCount classes="h-[100px] max-w-[200px] justify-center"/>
+				</div>
+			  
+			</div>
+		  </div>
+	</div>
 
 	<div class="relative z-[99] m-auto max-w-[1400px]">
 
 		<div class="flex flex-col gap-[30px]">
 			 
-			<div id='background' class="relative w-screen h-[850px] overflow-hidden">
-				<img src='/img/jackpot/background/desktop/masked-bg.png' alt='bg' class="absolute min-w-full min-h-full object-cover">
-				
-				<div class="absolute inset-0 flex items-center justify-center max-w-[1200px] xl:left-[50%] xl:translate-x-[-60%]">
-				  <img src='/img/jackpot/background/desktop/purple-cloud.png' alt='purple-cloud' class="absolute">
-				  <img src='/img/jackpot/background/desktop/nova.png' alt='nova' class="absolute">
-				</div>
-				<div class="absolute inset-0 flex flex-col justify-center p-4">
-					<div class="z-10 max-w-[1400px] w-full">
-					  <JackpotPool bind:jackpotPoolLoseCount bind:jackpotPoolAmount />
-					  <!-- <JetPlane /> -->
-					  <ExplainJet/>
-					</div>
-				  </div>
-			</div>
+			
 
 			<WinnerList />
 
