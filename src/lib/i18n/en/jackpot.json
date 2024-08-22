@@ -1,8 +1,11 @@
 {
     "prize_for_jackpot": "Prize for Jackpot",
     "total_game_won_times": "Total Game Won Times",
+    "total_lose_times": "Total Lose Times",
     "address_list": "Address List",
     "winner_list": "Winner List",
     "how_to_join": "How to join",
-    "won": "WON"
+    "won": "WON",
+    "explain_jet": "Explain Jet",
+    "explain_desc": "Lorem asdlaksjd alskdja lskdja lsdkaj sdlkasjd laskdj alskdja lsdkj asld"
 }
