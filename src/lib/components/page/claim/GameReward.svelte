@@ -14,6 +14,7 @@
 	import { onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
 	import { zeroAddress } from 'viem';
+	import { t } from '$lib/i18n';
 
 	// Data
 	export let totalAvailableClaim: number;
@@ -110,7 +111,7 @@
 	>
 		<div class="flex items-center gap-x-2 font-bold">
 			<img src="/img/desktopSideMenu/Game.png" class=" h-5 w-5" alt="" />
-			<Text>Game</Text>
+			<Text>{$t('claim.game')}</Text>
 		</div>
 		<Button
 			disabled={totalPending < 1 || loading || $storeUserInfo.web3_address === zeroAddress}
@@ -121,15 +122,15 @@
 			{#if loading}
 				<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
 			{:else}
-				Claim All
+				{$t('claim.claim_all')}
 			{/if}
 		</Button>
 	</div>
-	<div class="gradientScrollbar relative space-y-5 rounded-2xl bg-black/20 md:space-y-0">
+	<div class="gradientScrollbar relative flex flex-col gap-y-5 rounded-2xl bg-black/20 md:gap-y-0">
 		<div
 			class="flex flex-col items-center justify-center gap-y-2 px-8 py-4 text-md md:flex-row md:justify-between"
 		>
-			<div class="w-full text-center md:text-left">Won Game Bonus</div>
+			<div class="w-full text-center md:text-left">{$t('claim.won_game_bonus')}</div>
 			<div class="flex justify-end gap-x-5 text-right md:w-full">
 				<Text>{pendingBonus?.totalPEICReward | 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
@@ -139,7 +140,7 @@
 		<div
 			class="flex flex-col items-center justify-center gap-y-2 px-8 py-4 text-md md:flex-row md:justify-between"
 		>
-			<div class="w-full text-center md:text-left">Cancelled Game Refund</div>
+			<div class="w-full text-center md:text-left">{$t('claim.cancelled_game_refund')}</div>
 			<div class="flex justify-end gap-x-5 text-right md:w-full">
 				<Text>{pendingRefund?.totalPEIC | 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
@@ -147,7 +148,7 @@
 			</div>
 		</div>
 		{#if $storeUserInfo.web3_address === zeroAddress}
-			<ConnectWalletToView class="absolute top-0 z-10 h-full w-full backdrop-blur-sm" />
+			<ConnectWalletToView class="absolute left-0 top-0 z-10 h-full w-full backdrop-blur-sm" />
 		{/if}
 	</div>
 </div>

@@ -1,0 +1,12 @@
+{
+    "game": "Game",
+    "claim_all": "Claim All",
+    "won_game_bonus": "Won Game Bonus",
+    "cancelled_game_refund": "Cancelled Game Refund",
+    "available_for_claim": "Available for Claim",
+    "total_claimed": "Total Claimed",
+    "reward": "Reward",
+    "jetpot_reward": "Jetpot Reward",
+    "planet_reward": "Planet Reward",
+    "fuel_reward": "Fuel Reward"
+}

@@ -1,6 +1,42 @@
 {
 	"connect_wallet": "Connect Wallet",
+	"disconnect": "Disconnect",
 	"to_view": "to view",
 	"under_maintenance": "Under Maintenance",
-	"maintenance_msg": "The page you're looking for is currently under maintenance and will be backk soon."
+	"maintenance_msg": "The page you're looking for is currently under maintenance and will be backk soon.",
+	"menu": {
+		"title": {
+			"Planet Reward": "Planet Reward",
+			"Release": "Release",
+			"Jetpot": "Jetpot",
+			"History List": "History List",
+			"Referral": "Referral",
+			"Donation": "Donation",
+			"Claims": "Claims",
+			"Fuel Reward": "Fuel Reward"
+		},
+		"desc": {
+			"planet_desc": "Popular",
+			"release_desc": "Best Earn",
+			"history_desc": "View Your History",
+			"referral_desc": "Your Team",
+			"donation_desc": "Build With Us",
+			"claims_desc": "More Bonus",
+			"fuel_desc": "More Bonus"
+		},
+		"label": {
+			"Home Page": "Home Page",
+			"Game": "Game",
+			"Release": "Release",
+			"Jetpot Pool": "Jetpot",
+			"History": "History",
+			"Referral": "Referral",
+			"Donate": "Donate",
+			"Claims": "Claims",
+			"Fuel Reward": "Fuel Reward"
+		}
+		
+		
+
+	}
 }

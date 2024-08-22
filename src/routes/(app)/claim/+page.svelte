@@ -9,6 +9,7 @@
 	import { fade } from 'svelte/transition';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
+	import { t } from '$lib/i18n';
 
 	// Data
 	let totalClaimed: TTotalClaimed;
@@ -37,7 +38,7 @@
 					class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
 				>
 					<img src="/img/claim/available.png" class="-mb-1 h-5 w-5" alt="" />
-					<Text class="font-bold">Available for Claim</Text>
+					<Text class="font-bold">{$t('claim.available_for_claim')}</Text>
 				</Card.Header>
 				<div class="relative h-full w-full overflow-hidden bg-black/20 p-0 py-8 text-center">
 					<Text
@@ -53,7 +54,7 @@
 					class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
 				>
 					<img src="/img/claim/total.png" class="-mb-1 h-5 w-5" alt="" />
-					<Text class="font-bold">Total Claimed</Text>
+					<Text class="font-bold">{$t('claim.total_claimed')}</Text>
 				</Card.Header>
 				<div
 					class="relative flex h-full w-full items-center justify-center gap-x-7 overflow-hidden bg-black/20 p-0 py-8 text-center"

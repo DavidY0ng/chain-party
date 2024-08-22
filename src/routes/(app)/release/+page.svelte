@@ -265,11 +265,23 @@
 			>
 				{#if stakeHistory?.data.length > 0}
 					{#each stakeHistory.data as stake}
-						<div class="flex items-center justify-between px-8 py-4 text-md">
+						<div class="hidden items-center justify-between px-8 py-4 text-md md:flex">
 							<div class="w-full">{stake.sn}</div>
 							<div class="w-full text-center">{stake.date}</div>
 							<div class="w-full text-center">{stake.type}</div>
 							<div class="w-full text-right">{stake.amount}</div>
+						</div>
+
+						<div class="flex items-center justify-between px-4 py-4 text-md md:hidden">
+							<div class="w-full">
+								<div class="w-full text-left text-sm">{stake.sn}</div>
+								<div class="w-full text-left text-sm">{stake.date}</div>
+							</div>
+
+							<div class="w-full">
+								<div class="w-full text-right text-sm">{stake.type}</div>
+								<div class="w-full text-right text-sm">{stake.amount}</div>
+							</div>
 						</div>
 					{/each}
 					{#if pagination.page < stakeHistory.last_page}
