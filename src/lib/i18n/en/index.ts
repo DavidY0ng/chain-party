@@ -56,4 +56,9 @@ export default [
 		key: 'claim',
 		loader: async () => (await import('./claim.json')).default
 	},
+	{
+		locale: lang,
+		key: 'fuel',
+		loader: async () => (await import('./fuel.json')).default
+	},
 ];
