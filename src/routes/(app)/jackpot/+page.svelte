@@ -76,7 +76,7 @@
 				  <img src='/img/jackpot/background/desktop/purple-cloud.png' alt='purple-cloud' class="absolute">
 				  <img src='/img/jackpot/background/desktop/nova.png' alt='nova' class="absolute">
 				</div>
-				<div class="absolute inset-0 flex flex-col items-center p-4 top-[10%]">
+				<div class="absolute inset-0 flex flex-col items-center p-4 md:p-0 top-[10%]">
 					<div class="z-10 max-w-[1400px] w-full">
 					  <JackpotPool bind:jackpotPoolAmount />
 					  <!-- <JetPlane /> -->
