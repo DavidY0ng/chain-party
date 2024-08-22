@@ -83,16 +83,18 @@
 	 */
 	$: if (WebSocketService !== undefined) {
 		WebSocketService.on('gameResult', (incoming) => {
-			switch (incoming.result) {
-				case 'win':
-					showWinModal = true;
-					break;
-				case 'lose':
-					showLoseModal = true;
-					break;
-				case 'refunded':
-					showCancelGameModal = true;
-					break;
+			if (gameSlotData.self_position !== null) {
+				switch (incoming.result) {
+					case 'win':
+						showWinModal = true;
+						break;
+					case 'lose':
+						showLoseModal = true;
+						break;
+					case 'refunded':
+						showCancelGameModal = true;
+						break;
+				}
 			}
 		});
 
