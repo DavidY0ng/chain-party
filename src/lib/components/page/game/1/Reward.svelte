@@ -4,6 +4,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Text } from '$lib/components/ui/text';
 	import { onTranslateErrMsg } from '$lib/helper';
+	import { WebSocketService } from '$lib/http/websocket';
 	import { t } from '$lib/i18n';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { IPendingBonus, IPendingRefund } from '$lib/type/claimType';
@@ -99,6 +100,16 @@
 			console.log(error.message);
 		}
 		loading.refund = false;
+	}
+
+	$: if (WebSocketService !== undefined) {
+		WebSocketService.on('gameResult', async (incoming) => {
+			if (incoming) {
+				await getPendingClaim();
+				pendingBonus = pendingBonus;
+				pendingRefund = pendingRefund;
+			}
+		});
 	}
 
 	onMount(() => {

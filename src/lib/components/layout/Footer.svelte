@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { Text } from '$lib/components/ui/text';
-	import { isDesktop } from '$lib/stores/storeCommon';
 </script>
 
 <div class="relative z-20 flex w-full flex-col">
-	<img
-		src={$isDesktop ? '/img/footer/Party.png' : '/img/footer/mobileParty.png'}
-		alt=""
-		class="w-full"
-	/>
+	<img src={'/img/footer/mobileParty.png'} alt="" class="block w-full md:hidden" />
+	<img src={'/img/footer/Party.png'} alt="" class="hidden w-full md:block" />
 	<div
 		class="flex w-full flex-col-reverse items-center justify-between gap-y-3 bg-[#2D0B31] px-8 py-5 xl:flex-row xl:gap-y-0"
 	>

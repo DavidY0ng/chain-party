@@ -49,7 +49,6 @@
 			}
 
 			gameRoundData = thisData;
-			console.log(gameRoundData);
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
@@ -104,15 +103,15 @@
 			if (result.success) {
 				result.data.data = result.data.data.reverse();
 				gameRoundData = result.data;
-				console.log(result);
+				gameRoundData = gameRoundData;
 			} else {
-				console.log(result);
 				throw new Error('Failed on fetching gameRound in websocket');
 			}
 		});
 
 		WebSocketService.on('gameSlot', (incoming) => {
 			gameSlotData = incoming;
+			gameSlotData = gameSlotData;
 		});
 	}
 
@@ -157,7 +156,7 @@
 				<img src="/img/game/right.png" alt="" />
 			</div>
 			{#if gameRoundData}
-				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage />
+				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage bind:gameSlotData />
 			{:else}
 				<div
 					class=" flex w-[800px] translate-x-[-25%] items-center justify-center gap-x-5 md:w-full md:translate-x-0 xl:hidden xl:translate-x-0"
@@ -179,7 +178,7 @@
 		<div class="space-y-20 px-4 xl:px-0">
 			<Game.Reward />
 
-			{#if $storeUserInfo.web3_address !== zeroAddress && gameSlotData}
+			{#if $storeUserInfo.web3_address !== zeroAddress}
 				<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
 			{/if}
 

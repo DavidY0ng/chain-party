@@ -6,16 +6,16 @@
 	import { type CarouselAPI } from '$lib/components/ui/carousel/context';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import type { TGameRound } from '$lib/type/gameType';
+	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
 	import { onConnectWallet } from '$lib/utils';
 	import { onDestroy, onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
-	import { isDesktop } from '$lib/stores/storeCommon';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;
+	export let gameSlotData: TGameSlot;
 
 	let gameStartIndex = 0;
 	let api: CarouselAPI;
@@ -41,23 +41,30 @@
 
 	$: if (api && gameRoundData) {
 		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
-
 		if (latestGameStartIndex < 0) {
-			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
-			if (firstGameRound !== undefined) {
-				latestGameStartIndex = 0;
+			const filterPastGame = gameRoundData.data.filter((item) => item.type === 'past');
+
+			if (filterPastGame[filterPastGame.length - 1]) {
+				latestGameStartIndex = gameRoundData.data.findIndex(
+					(Item) => Item.round_id === filterPastGame[filterPastGame.length - 1].round_id
+				);
+			} else {
+				let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+				if (firstGameRound !== undefined) {
+					latestGameStartIndex = 0;
+				}
 			}
 		}
+		console.log(latestGameStartIndex + 1, current);
 
 		// if current and gameStartIndex is not the same then redirect back to game start slide after 10 sec
 		if (latestGameStartIndex + 1 - current !== 0) {
 			if (timeoutId) clearTimeout(timeoutId);
 
 			startProgressBar();
-
 			// scroll to latest index after countdown
 			timeoutId = setTimeout(() => {
-				api.scrollTo(latestGameStartIndex);
+				api.scrollTo(latestGameStartIndex + 1);
 			}, 10000);
 		} else {
 			progress = 0;
@@ -111,11 +118,18 @@
 		gameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
 
 		if (gameStartIndex < 0) {
-			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
-			if (firstGameRound !== undefined) {
-				return (gameStartIndex = 0);
+			const filterPastGame = gameRoundData.data.filter((item) => item.type === 'past');
+
+			if (filterPastGame[filterPastGame.length - 1]) {
+				gameStartIndex = gameRoundData.data.findIndex(
+					(Item) => Item.round_id === filterPastGame[filterPastGame.length - 1].round_id
+				);
+			} else {
+				let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+				if (firstGameRound !== undefined) {
+					latestGameStartIndex = 0;
+				}
 			}
-			gameStartIndex = gameRoundData.data.length;
 		}
 	});
 
@@ -129,7 +143,7 @@
 	bind:api
 	opts={{
 		align: 'start',
-		startIndex: gameStartIndex - 1
+		startIndex: gameStartIndex
 	}}
 	class="relative w-full"
 >
@@ -184,7 +198,7 @@
 												class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button
 											>
 										{:else}
-											<Game.BuyTicket />
+											<Game.BuyTicket bind:gameSlotData />
 										{/if}
 									</div>
 								{/if}
@@ -222,7 +236,7 @@
 		class="absolute left-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-r from-black/50 xl:block"
 	/>
 
-	{#if latestGameStartIndex - current !== 0 && gameRoundData.count > 2}
+	{#if latestGameStartIndex + 1 - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div
