@@ -7,6 +7,7 @@
     "jackpot_list": "Jackpot List",
     "address": "Address",
     "won_times": "Won Times",
+    "lose_times": "Lose Times",
     "in_progress": "In Progress",
     "claim_reward": "Claim Reward"
 }

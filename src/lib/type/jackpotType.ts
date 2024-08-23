@@ -8,6 +8,10 @@ export type TCurrentList = {
 	}[];
 	count: number;
 	last_page: number;
+	self: {
+		address: Address;
+		count: number;
+	}
 };
 
 export type TWinnerList = {
