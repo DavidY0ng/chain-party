@@ -35,7 +35,14 @@
 
 			<Dialog.Footer class="flex w-full flex-row items-center pt-3">
 				<div class="w-full">
-					<Button variant="second" class="w-full bg-[#251235] text-md font-bold">Claim</Button>
+					<Button
+						on:click={() => {
+							$rerender = !$rerender;
+							showCancelGameModal = false;
+						}}
+						variant="second"
+						class="w-full bg-[#251235] text-md font-bold">Claim</Button
+					>
 				</div>
 			</Dialog.Footer>
 		</div>

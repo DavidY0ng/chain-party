@@ -1,4 +1,6 @@
 <script lang='ts'>
+    import { storeUserInfo } from "$lib/stores/storeUser";
+    import { zeroAddress } from "viem";
     export let jackpotPoolLoseCount: number = 0;
     
     const jetState = [0,1,2,3,4,5]
@@ -12,11 +14,18 @@
         <img src='/img/jackpot/background/desktop/nova.png' alt='nova' class="absolute">
     </div>
     <div class="asbolute z-10">
-        {#if jetIndex !== -1}
+        {#if $storeUserInfo.web3_address === zeroAddress}
         <img 
-            src={`/img/jackpot/jet/${jetState[jetIndex]}.png`} 
-            alt={`jet ${jetState[jetIndex]}`} 
+            src='/img/jackpot/jet/0.png'
+            alt='jet 0'
             class="w-[450px] md:w-[690px] lg:md:auto h-auto ">
+        {:else}
+            {#if jetIndex !== -1}
+            <img 
+                src={`/img/jackpot/jet/${jetState[jetIndex]}.png`} 
+                alt={`jet ${jetState[jetIndex]}`} 
+                class="w-[450px] md:w-[690px] lg:md:auto h-auto ">
+            {/if}
         {/if}
     </div>
     

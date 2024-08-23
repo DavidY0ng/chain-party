@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte';
 
 	export let showLoseModal = false;
+	export let showShareModal = false;
 </script>
 
 <Dialog.Root bind:open={showLoseModal}>
@@ -42,7 +43,15 @@
 
 			<Dialog.Footer class="flex w-full flex-row items-center pt-3">
 				<div class="w-full">
-					<Button variant="second" class="w-full bg-[#251235] text-md font-bold">Claim</Button>
+					<Button
+						on:click={() => {
+							$rerender = !$rerender;
+							showLoseModal = false;
+							showShareModal = false;
+						}}
+						variant="second"
+						class="w-full bg-[#251235] text-md font-bold">Claim</Button
+					>
 				</div>
 				<div class="w-full">
 					<Button class="w-full bg-[#251235] text-md font-bold">Share</Button>
