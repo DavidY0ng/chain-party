@@ -9,7 +9,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { IPendingBonus, IPendingRefund } from '$lib/type/claimType';
 	import { onConnectWallet } from '$lib/utils';
-	import { bscChain, bscClient, wagmiConfig } from '$lib/web3/client';
+	import { bscChain, wagmiConfig } from '$lib/web3/client';
 	import { gameContract } from '$lib/web3/contract/contract';
 	import Icon from '@iconify/svelte';
 	import { waitForTransactionReceipt } from '@wagmi/core';

@@ -147,7 +147,7 @@
 	}}
 	class="relative w-full"
 >
-	<div class="purple-eclipse -top-[30%] left-[35%] w-[350px] blur-[50px]" />
+	<div class="purple-eclipse -top-[30%] left-[15%] w-[350px] blur-[50px] md:left-[35%]" />
 
 	<div
 		class="absolute right-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-l from-black/50 xl:block"
