@@ -1,12 +1,13 @@
 <script lang="ts">
-	import ArrowRight from 'lucide-svelte/icons/arrow-right';
+	import { Button, type Props, type buttonVariants } from '$lib/components/ui/button/index.js';
+	import { cn } from '$lib/utils.js';
+	import Icon from '@iconify/svelte';
+	import { createEventDispatcher } from 'svelte';
 	import type { VariantProps } from 'tailwind-variants';
 	import { getEmblaContext } from './context.js';
-	import { cn } from '$lib/utils.js';
-	import { Button, type Props, type buttonVariants } from '$lib/components/ui/button/index.js';
-	import Icon from '@iconify/svelte';
 
 	type $$Props = Props;
+	const dispatch = createEventDispatcher();
 
 	let className: $$Props['class'] = undefined;
 	export { className as class };
@@ -14,6 +15,11 @@
 	export let size: VariantProps<typeof buttonVariants>['size'] = 'icon';
 	const { orientation, canScrollNext, scrollNext, handleKeyDown } =
 		getEmblaContext('<Carousel.Next/>');
+
+	function onScrollNext() {
+		scrollNext();
+		dispatch('scrollNext');
+	}
 </script>
 
 <Button
@@ -27,7 +33,7 @@
 		className
 	)}
 	disabled={!$canScrollNext}
-	on:click={scrollNext}
+	on:click={onScrollNext}
 	on:keydown={handleKeyDown}
 	{...$$restProps}
 >

@@ -90,6 +90,9 @@
 			let receipt = await bscClient.waitForTransactionReceipt({ confirmations: 10, hash });
 
 			if (receipt) {
+				getAutoLocked();
+				getMyReward();
+				getStakeHistory();
 				toast.success('Release pEIC Successful');
 			}
 		} catch (error: any) {
@@ -100,6 +103,7 @@
 	}
 
 	storeUserInfo.subscribe((value) => {
+		pagination.page = 1;
 		if (value.web3_address !== zeroAddress) {
 			getStakeHistory();
 
@@ -141,17 +145,15 @@
 					<Button
 						disabled={loading ||
 							$storeUserInfo.web3_address == zeroAddress ||
-							Number(formatEther(myRewardAmount)) === 0}
+							Number(formatEther(myRewardAmount)) < 1}
 						on:click={onReleaseReward}
 						class="w-full max-w-[150px] bg-[#480A46] px-5"
 					>
-						<Text>
-							{#if loading}
-								<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
-							{:else}
-								Claim Reward
-							{/if}
-						</Text>
+						{#if loading}
+							<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+						{:else}
+							Claim Reward
+						{/if}
 					</Button>
 				{/if}
 			</div>
@@ -167,7 +169,7 @@
 						<Text
 							size="3xl"
 							class="relative z-10 flex h-full w-full items-center justify-center text-center"
-							>{userLockedData ? formatEther(userLockedData[0]?.lockAmount) : 0} pEIC</Text
+							>{userLockedData ? Number(formatEther(userLockedData[0]?.lockAmount)).toFixed(4) : 0} pEIC</Text
 						>
 						<div class="pink-eclipse bottom-[-280%] left-[30%] w-1/2 blur-[90px]"></div>
 					</div>

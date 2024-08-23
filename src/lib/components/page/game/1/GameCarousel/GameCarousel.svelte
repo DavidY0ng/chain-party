@@ -6,16 +6,16 @@
 	import { type CarouselAPI } from '$lib/components/ui/carousel/context';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import type { TGameRound } from '$lib/type/gameType';
-	import { onConnectWallet } from '$lib/utils';
+	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
+	import { connectWallet } from '$lib/web3/wagmi';
 	import { onDestroy, onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
-	import { isDesktop } from '$lib/stores/storeCommon';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;
+	export let gameSlotData: TGameSlot;
 
 	let gameStartIndex = 0;
 	let api: CarouselAPI;
@@ -43,22 +43,30 @@
 		latestGameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
 
 		if (latestGameStartIndex < 0) {
-			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
-			if (firstGameRound !== undefined) {
-				latestGameStartIndex = 0;
+			const filterPastGame = gameRoundData.data.filter((item) => item.type === 'past');
+
+			if (filterPastGame[filterPastGame.length - 1]) {
+				latestGameStartIndex = gameRoundData.data.findIndex(
+					(Item) => Item.round_id === filterPastGame[filterPastGame.length - 1].round_id
+				);
+			} else {
+				let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+				if (firstGameRound !== undefined) {
+					latestGameStartIndex = 0;
+				}
 			}
 		}
 
 		// if current and gameStartIndex is not the same then redirect back to game start slide after 10 sec
 		if (latestGameStartIndex + 1 - current !== 0) {
-			if (timeoutId) clearTimeout(timeoutId);
-
 			startProgressBar();
 
-			// scroll to latest index after countdown
+			if (timeoutId) clearTimeout(timeoutId);
+
+			// Set a new timeout to scroll after 10 seconds
 			timeoutId = setTimeout(() => {
 				api.scrollTo(latestGameStartIndex);
-			}, 10000);
+			}, 9500);
 		} else {
 			progress = 0;
 			clearInterval(progressInterval);
@@ -66,6 +74,8 @@
 	}
 
 	async function onScrollPrev() {
+		clearTimeout(timeoutId);
+
 		// if the remaining threshold of slides is 2 and current pagination is less than last page
 		if (
 			current !== 0 &&
@@ -75,16 +85,13 @@
 			gameRoundPage++;
 			const result = await GameAPI.getRound(gameRoundPage, 10);
 			if (result.success) {
+				result.data.data = result.data.data.reverse();
+
 				// Append new data to the front of the existing array
 				gameRoundData.data = [...result.data.data, ...gameRoundData.data];
 
-				// Sort the data array based on round_id to maintain consistent order
-				gameRoundData.data.sort((a, b) =>
-					a.round_id.toString().localeCompare(b.round_id.toString())
-				);
-
 				// update the current index and the actual live game index
-				gameStartIndex = current + result.data.data.length;
+				gameStartIndex = current + result.data.data.length - 1;
 				current = current + result.data.data.length;
 			}
 		}
@@ -111,16 +118,22 @@
 		gameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
 
 		if (gameStartIndex < 0) {
-			let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
-			if (firstGameRound !== undefined) {
-				return (gameStartIndex = 0);
+			const filterPastGame = gameRoundData.data.filter((item) => item.type === 'past');
+
+			if (filterPastGame[filterPastGame.length - 1]) {
+				gameStartIndex = gameRoundData.data.findIndex(
+					(Item) => Item.round_id === filterPastGame[filterPastGame.length - 1].round_id
+				);
+			} else {
+				let firstGameRound = gameRoundData.data.find((item) => Number(item.round_id) === 1);
+				if (firstGameRound !== undefined) {
+					latestGameStartIndex = 0;
+				}
 			}
-			gameStartIndex = gameRoundData.data.length;
 		}
 	});
 
 	onDestroy(() => {
-		if (timeoutId) clearTimeout(timeoutId); // Clear timeout on destroy
 		if (progressInterval) clearInterval(progressInterval); // Clear progress interval on destroy
 	});
 </script>
@@ -129,11 +142,11 @@
 	bind:api
 	opts={{
 		align: 'start',
-		startIndex: gameStartIndex - 1
+		startIndex: gameStartIndex
 	}}
 	class="relative w-full"
 >
-	<div class="purple-eclipse -top-[30%] left-[35%] w-[350px] blur-[50px]" />
+	<div class="purple-eclipse -top-[30%] left-[15%] w-[350px] blur-[50px] md:left-[35%]" />
 
 	<div
 		class="absolute right-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-l from-black/50 xl:block"
@@ -142,7 +155,7 @@
 		{#if gameRoundData?.data}
 			<!-- This item pushes the slide to focus on 1st index -->
 			<Carousel.Item class="hidden md:basis-[40%] xl:block xl:basis-[25%]"
-				><Card.Root>
+				><Card.Root class="border-none">
 					<Card.Content></Card.Content></Card.Root
 				>
 			</Carousel.Item>
@@ -152,7 +165,7 @@
 						? ' xl:translate-x-[149.5%]'
 						: ' translate-x-[13%] md:translate-x-[75%] xl:translate-x-[49.5%]'}"
 				>
-					<Card.Root>
+					<Card.Root class="border-none">
 						<Card.Content
 							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current -
 								1 ===
@@ -179,12 +192,11 @@
 								{#if round.type === 'current'}
 									<div class="relative w-full">
 										{#if $storeUserInfo.web3_address === zeroAddress}
-											<Button
-												on:click={onConnectWallet}
-												class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button
+											<Button on:click={connectWallet} class="w-full bg-[#251235] text-sm font-bold"
+												>Connect Wallet</Button
 											>
 										{:else}
-											<Game.BuyTicket />
+											<Game.BuyTicket bind:gameSlotData />
 										{/if}
 									</div>
 								{/if}
@@ -197,14 +209,14 @@
 				</Carousel.Item>
 			{/each}
 			<!-- This two item pushes the slide to focus on last index -->
-			<Carousel.Item class="basis-[10%] md:basis-[60%] xl:block xl:basis-[25%]"
-				><Card.Root>
-					<Card.Content></Card.Content></Card.Root
+			<Carousel.Item class="basis-[10%] border-none p-0 md:basis-[58%] xl:block xl:basis-[25%]"
+				><Card.Root class="border-none">
+					<Card.Content class="border-none"></Card.Content></Card.Root
 				>
 			</Carousel.Item>
-			<Carousel.Item class="basis-[9%] md:basis-[0%] xl:basis-[25%]"
-				><Card.Root>
-					<Card.Content></Card.Content></Card.Root
+			<Carousel.Item class="basis-[9%] border-none p-0 md:basis-[0%] xl:basis-[25%]"
+				><Card.Root class="border-none">
+					<Card.Content class="border-none"></Card.Content></Card.Root
 				>
 			</Carousel.Item>
 		{/if}
@@ -215,6 +227,9 @@
 		class="absolute left-[12%] -translate-x-10 hover:bg-transparent disabled:border-none xl:left-[38.5%]"
 	/>
 	<Carousel.Next
+		on:scrollNext={() => {
+			clearTimeout(timeoutId);
+		}}
 		variant="ghost"
 		class="absolute right-[1%] hover:bg-transparent disabled:border-none xl:right-[35.6%]"
 	/>
@@ -222,7 +237,7 @@
 		class="absolute left-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-r from-black/50 xl:block"
 	/>
 
-	{#if latestGameStartIndex - current !== 0 && gameRoundData.count > 2}
+	{#if latestGameStartIndex + 1 - current !== 0 && gameRoundData.count > 2}
 		<!-- Progress bar container -->
 		<div class="absolute bottom-[-2%] left-0 h-[2px] w-full bg-black/20 transition">
 			<div

@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { connectWallet } from '$lib/web3/wagmi';
-	import { toast } from 'svelte-sonner';
+	import { t } from '$lib/i18n';
 	import { Button } from '../ui/button';
 	import * as Sheet from '../ui/sheet';
 	import { menuList } from './config';
-	import { t } from '$lib/i18n';
 
 	let drawerOpen = false;
 
@@ -17,7 +15,7 @@
 
 <Sheet.Root bind:open={drawerOpen}>
 	<Sheet.Trigger asChild let:builder>
-		<Button builders={[builder]} variant="ghost" class="block xl:hidden">
+		<Button builders={[builder]} variant="ghost" class="block hover:bg-black/40 xl:hidden">
 			<img src="/img/mobileNav/drawer.png" alt="" />
 		</Button>
 	</Sheet.Trigger>
@@ -34,10 +32,10 @@
 						on:click={() => {
 							onHandleRedirect(menu.path);
 						}}
-						class="relative z-10 flex w-full items-center justify-start gap-x-3 p-0 px-6 py-7 text-sm font-bold uppercase  {$page
+						class="relative z-10 flex w-full items-center justify-start gap-x-3  p-0 px-6 py-7 text-sm font-bold uppercase {$page
 							.url.pathname == menu.path
-							? 'rounded-full bg-[#5C1E6C] text-white'
-							: 'hover:text-gray-300 '}"
+							? 'rounded-full bg-[#5C1E6C] text-white hover:bg-[#5C1E6C]'
+							: 'rounded-full hover:bg-transparent hover:text-gray-300'}"
 					>
 						<img
 							src={`/img/desktopSideMenu/${menu.label}.png`}

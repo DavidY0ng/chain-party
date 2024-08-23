@@ -143,17 +143,6 @@ export default [
 	},
 	{
 		inputs: [
-			{ internalType: 'uint256', name: 'initLockAmount', type: 'uint256' },
-			{ internalType: 'uint256', name: 'currentTimeAt', type: 'uint256' },
-			{ internalType: 'uint256', name: 'latestClaimRewardAt', type: 'uint256' }
-		],
-		name: 'getPendingPEICRelease',
-		outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-		stateMutability: 'view',
-		type: 'function'
-	},
-	{
-		inputs: [
 			{ internalType: 'address', name: 'user', type: 'address' },
 			{ internalType: 'uint256', name: 'currentTimeAt', type: 'uint256' }
 		],
@@ -250,7 +239,7 @@ export default [
 		type: 'function'
 	},
 	{
-		inputs: [{ internalType: 'uint88', name: 'amount', type: 'uint88' }],
+		inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
 		name: 'lock',
 		outputs: [],
 		stateMutability: 'nonpayable',

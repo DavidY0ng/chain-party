@@ -24,13 +24,13 @@ export type TRewardBalance = {
 
 // interface
 export interface IPendingBonus {
-	totalUSDT: number;
-	totalPEICReward: number;
-	totalPEICLocked: number;
+	totalUSDT: string;
+	totalPEICReward: string;
+	totalPEICLocked: string;
 }
 
 export interface IPendingRefund {
-	totalUSDT: number;
-	totalPEIC: number;
-	totalPartyTicket: number;
+	totalUSDT: string;
+	totalPEIC: string;
+	totalPartyTicket: string;
 }

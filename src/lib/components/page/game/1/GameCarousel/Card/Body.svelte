@@ -10,15 +10,12 @@
 	let interval: ReturnType<typeof setInterval> | undefined;
 	let progress = 0;
 
-	function countdownToTimestamp(targetTimestamp: number) {
-		const startTimestamp = Date.now(); // Current time when countdown starts
-		const targetDate = new Date(targetTimestamp);
-		const targetTime = targetDate.getTime();
-		const totalDuration = targetTimestamp - startTimestamp;
+	function countdownToTimestamp(startTimestamp: number, endTimestamp: number) {
+		const totalDuration = endTimestamp - startTimestamp;
 
 		function updateCountdown() {
-			const now = new Date().getTime();
-			const distance = targetTime - now;
+			const now = Date.now();
+			const distance = endTimestamp - now;
 
 			if (distance <= 0) {
 				clearInterval(interval);
@@ -34,7 +31,7 @@
 			countdown = `${minutes >= 10 ? minutes : `0${minutes}`}:${seconds < 10 ? '0' : ''}${seconds}`;
 
 			// Calculate progress based on elapsed time
-			const elapsed = totalDuration - distance;
+			const elapsed = now - startTimestamp;
 			progress = Math.min((elapsed / totalDuration) * 100, 100); // Ensure progress does not exceed 100%
 		}
 
@@ -43,7 +40,7 @@
 	}
 
 	if (round.type === 'current') {
-		countdownToTimestamp(round.date_time_end);
+		countdownToTimestamp(round.date_time_start, round.date_time_end);
 	}
 
 	onDestroy(() => {
