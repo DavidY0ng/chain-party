@@ -133,17 +133,13 @@
 		currentGame = gameRoundData?.data[+gameStartIndex];
 
 		if (value.web3_address !== zeroAddress) {
-			if (WebSocketService === undefined) {
-				initializedWebsocket();
-			}
+			initializedWebsocket();
 			await getGameSlot();
 		}
 	});
 
 	onMount(async () => {
-		if (WebSocketService === undefined && $isToken) {
-			initializedWebsocket();
-		}
+		initializedWebsocket();
 	});
 </script>
 

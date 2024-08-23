@@ -21,7 +21,9 @@
 		try {
 			const [usdtSufficient, peicSufficient] = await Promise.all([approveUSDT(), approvePEIC()]);
 
-			if (!usdtSufficient || !peicSufficient) return;
+			if (!usdtSufficient || !peicSufficient) {
+				return (loading = false);
+			}
 
 			let isCurrentRoundActive = await gameContract.read.isCurrentRoundActive();
 			if (isCurrentRoundActive) {
@@ -42,15 +44,16 @@
 				}
 			} else {
 				toast.error('Current game is not active');
+				loading = false;
 			}
 		} catch (error: any) {
+			loading = false;
 			onTranslateErrMsg(error);
 			console.error(error.message);
 		}
-		loading = false;
 	}
 
-	async function approveUSDT() {
+	async function approvePEIC() {
 		try {
 			let pEICBalance = await pEICTokenContract.read.balanceOf([$storeUserInfo.web3_address]);
 
@@ -92,7 +95,7 @@
 		}
 	}
 
-	async function approvePEIC() {
+	async function approveUSDT() {
 		try {
 			let usdtBalance = await mockUSDTContract.read.balanceOf([$storeUserInfo.web3_address]);
 
@@ -106,7 +109,7 @@
 				gameContract.address
 			]);
 
-			if (usdtAllowance < parseEther('1000')) {
+			if (usdtAllowance < parseEther('500')) {
 				await mockUSDTContract.simulate.approve([gameContract.address, usdtBalance], {
 					account: $storeUserInfo.web3_address,
 					chain: bscChain
@@ -132,6 +135,10 @@
 			console.error(error.message);
 			return false;
 		}
+	}
+
+	$: if (gameSlotData?.self_position !== null) {
+		loading = false;
 	}
 </script>
 

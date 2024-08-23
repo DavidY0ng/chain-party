@@ -23,7 +23,9 @@
 </script>
 
 <div
-	class="absolute top-0 z-[999] flex w-full items-center justify-between bg-[#481555] py-3 backdrop-blur-sm xl:bg-gradient-to-l xl:from-[#29193D] xl:via-[#29193D] xl:to-transparent xl:px-10"
+	class="absolute top-0 z-[999] flex w-full items-center justify-between bg-[#481555] py-3 backdrop-blur-sm {$isDesktop
+		? ' bg-gradient-to-r from-[#29193D] via-[#29193D] to-transparent'
+		: ''} xl:px-10"
 >
 	<div class="flex w-full justify-between xl:justify-end">
 		<div class="flex w-full justify-between pr-3 xl:hidden">

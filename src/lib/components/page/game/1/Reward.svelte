@@ -4,16 +4,18 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Text } from '$lib/components/ui/text';
 	import { onTranslateErrMsg } from '$lib/helper';
-	import { WebSocketService } from '$lib/http/websocket';
 	import { t } from '$lib/i18n';
+	import { rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { IPendingBonus, IPendingRefund } from '$lib/type/claimType';
 	import { onConnectWallet } from '$lib/utils';
-	import { bscChain, bscClient } from '$lib/web3/client';
+	import { bscChain, bscClient, wagmiConfig } from '$lib/web3/client';
 	import { gameContract } from '$lib/web3/contract/contract';
+	import Icon from '@iconify/svelte';
+	import { waitForTransactionReceipt } from '@wagmi/core';
 	import { onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
-	import { zeroAddress } from 'viem';
+	import { formatEther, zeroAddress } from 'viem';
 
 	let pendingBonus: IPendingBonus;
 	let pendingRefund: IPendingRefund;
@@ -35,15 +37,15 @@
 			]);
 
 			pendingBonus = {
-				totalUSDT: Number(pendingGameBonus[0]),
-				totalPEICReward: Number(pendingGameBonus[1]),
-				totalPEICLocked: Number(pendingGameBonus[2])
+				totalUSDT: formatEther(pendingGameBonus[0]),
+				totalPEICReward: formatEther(pendingGameBonus[1]),
+				totalPEICLocked: formatEther(pendingGameBonus[2])
 			};
 
 			pendingRefund = {
-				totalUSDT: Number(pendingGameRefund[0]),
-				totalPEIC: Number(pendingGameRefund[1]),
-				totalPartyTicket: Number(pendingGameRefund[2])
+				totalUSDT: formatEther(pendingGameRefund[0]),
+				totalPEIC: formatEther(pendingGameRefund[1]),
+				totalPartyTicket: formatEther(pendingGameRefund[2])
 			};
 		} catch (error: any) {
 			throw new Error(error.shortMessage);
@@ -63,7 +65,7 @@
 				chain: bscChain
 			});
 
-			let receipt = await bscClient.waitForTransactionReceipt({ confirmations: 10, hash });
+			let receipt = await waitForTransactionReceipt(wagmiConfig, { hash });
 
 			if (receipt) {
 				getPendingClaim();
@@ -89,7 +91,7 @@
 				chain: bscChain
 			});
 
-			let receipt = await bscClient.waitForTransactionReceipt({ confirmations: 10, hash });
+			let receipt = await waitForTransactionReceipt(wagmiConfig, { hash });
 
 			if (receipt) {
 				getPendingClaim();
@@ -100,6 +102,10 @@
 			console.log(error.message);
 		}
 		loading.refund = false;
+	}
+
+	$: if ($rerender) {
+		getPendingClaim();
 	}
 
 	onMount(() => {
@@ -147,12 +153,18 @@
 					<div class="w-full max-w-[250px]">
 						<Button
 							disabled={loading.refund ||
-								pendingRefund?.totalUSDT === 0 ||
-								pendingRefund?.totalPEIC === 0 ||
+								Number(pendingRefund?.totalUSDT) === 0 ||
+								Number(pendingRefund?.totalPEIC) === 0 ||
 								$storeUserInfo.web3_address === zeroAddress}
 							on:click={claimRefund}
-							class="w-full bg-[#2F0D35] font-bold">Claim</Button
+							class="w-full bg-[#2F0D35] font-bold"
 						>
+							{#if loading.refund}
+								<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+							{:else}
+								Claim
+							{/if}
+						</Button>
 					</div>
 					<div class="">
 						<Button
@@ -182,11 +194,17 @@
 					<div class="w-full max-w-[250px]">
 						<Button
 							disabled={loading.reward ||
-								pendingBonus?.totalPEICReward === 0 ||
+								Number(pendingBonus?.totalPEICReward) === 0 ||
 								$storeUserInfo.web3_address === zeroAddress}
 							on:click={claimGameRoundReward}
-							class="w-full bg-[#2F0D35] font-bold">Claim</Button
+							class="w-full bg-[#2F0D35] font-bold"
 						>
+							{#if loading.reward}
+								<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
+							{:else}
+								Claim
+							{/if}
+						</Button>
 					</div>
 					<div class="">
 						<Button
