@@ -20,7 +20,7 @@
 		
 	});
 </script>
-<div class="fixed inset-0 z-[-1]">
+<div class="fixed inset-0 z-[-1] ">
 	<img src='/img/fuel/bg.png' alt='bg-img' class="w-full h-full object-cover">
   </div>
 
