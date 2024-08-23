@@ -13,7 +13,7 @@
 	import { waitForTransactionReceipt } from '@wagmi/core';
 	import { onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
-	import { zeroAddress } from 'viem';
+	import { formatEther, zeroAddress } from 'viem';
 	import { t } from '$lib/i18n';
 
 	// Data
@@ -38,15 +38,15 @@
 			]);
 
 			pendingBonus = {
-				totalUSDT: Number(pendingGameBonus[0]),
-				totalPEICReward: Number(pendingGameBonus[1]),
-				totalPEICLocked: Number(pendingGameBonus[2])
+				totalUSDT: formatEther(pendingGameBonus[0]),
+				totalPEICReward: formatEther(pendingGameBonus[1]),
+				totalPEICLocked: formatEther(pendingGameBonus[2])
 			};
 
 			pendingRefund = {
-				totalUSDT: Number(pendingGameRefund[0]),
-				totalPEIC: Number(pendingGameRefund[1]),
-				totalPartyTicket: Number(pendingGameRefund[2])
+				totalUSDT: formatEther(pendingGameRefund[0]),
+				totalPEIC: formatEther(pendingGameRefund[1]),
+				totalPartyTicket: formatEther(pendingGameRefund[2])
 			};
 
 			const sumOfBonus = pendingGameBonus.reduce((acc, num) => Number(acc) + Number(num), 0);
@@ -132,9 +132,9 @@
 		>
 			<div class="w-full text-center md:text-left">{$t('claim.won_game_bonus')}</div>
 			<div class="flex justify-end gap-x-5 text-right md:w-full">
-				<Text>{pendingBonus?.totalPEICReward | 0} pEIC</Text>
+				<Text>{pendingBonus?.totalPEICReward || 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
-				<Text>{pendingBonus?.totalUSDT | 0} USDT</Text>
+				<Text>{pendingBonus?.totalUSDT || 0} USDT</Text>
 			</div>
 		</div>
 		<div
@@ -142,9 +142,9 @@
 		>
 			<div class="w-full text-center md:text-left">{$t('claim.cancelled_game_refund')}</div>
 			<div class="flex justify-end gap-x-5 text-right md:w-full">
-				<Text>{pendingRefund?.totalPEIC | 0} pEIC</Text>
+				<Text>{pendingRefund?.totalPEIC || 0} pEIC</Text>
 				<img src="/img/claim/line.png" alt="" />
-				<Text>{pendingRefund?.totalUSDT | 0} USDT</Text>
+				<Text>{pendingRefund?.totalUSDT || 0} USDT</Text>
 			</div>
 		</div>
 		{#if $storeUserInfo.web3_address === zeroAddress}
