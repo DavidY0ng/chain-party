@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from '$lib/http/https';
 import { urls } from '$lib/http/settings';
+import { isToken } from '$lib/stores/storeCommon';
+import { storeUserInfo } from '$lib/stores/storeUser';
+import { get } from 'svelte/store';
+import { zeroAddress } from 'viem';
 
 export class AppWebSocket {
 	client: WebSocket;
@@ -47,7 +51,8 @@ export let WebSocketService: AppWebSocket;
 
 export async function initializedWebsocket() {
 	WebSocketService = new AppWebSocket();
-	if (WebSocketService !== undefined) {
+
+	if (get(storeUserInfo).web3_address !== zeroAddress && get(isToken) !== undefined) {
 		WebSocketService.on('clientId', async (data) => {
 			await WebSocketService.bind(data);
 		});

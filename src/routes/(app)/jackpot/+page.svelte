@@ -8,6 +8,9 @@
 	import AddressList from '$lib/components/page/jackpot/AddressList.svelte';
 	import JackpotAPI from '$lib/api/jackpot';
 	import { onMount } from 'svelte';
+	import ExplainJet from '$lib/components/page/jackpot/ExplainJet.svelte';
+	import JetPlane from '$lib/components/page/jackpot/JetPlane.svelte';
+	import LoseCount from '$lib/components/page/jackpot/LoseCount.svelte';
 
 	let jackpotPoolAmount = {
 			integer: [] as string[],
@@ -58,34 +61,46 @@
 	onMount(() => [getJackpotPool()]);
 </script>
 
-<div in:fade class="relative h-full min-h-screen w-full pt-10">
-	<div class="pink-eclipse left-[35%] top-[-15%] w-[560px] blur-[120px]" />
-	<div class="relative z-[99] m-auto max-w-[1400px] pt-28">
-		<!-- Mobile top donor -->
+
+
+<div in:fade class="relative h-full min-h-screen w-full xl:pt-10 ">
+	
+
+	<div class="relative z-[99] m-auto">
+
 		<div class="flex flex-col gap-[30px]">
-			<div class="mx-auto grid grid-cols-2 justify-items-center gap-5 md:hidden">
-				{#each Array(3) as _, i}
-					<Card.Root
-						class="flex flex-col items-center gap-x-5 border-none from-black/10 xl:flex-row xl:bg-gradient-to-l xl:p-5 {i ===
-						0
-							? 'col-span-full w-1/2 '
-							: 'w-full'}"
-					>
-						<div class="rounded-full border p-5 xl:rounded-none xl:border-none xl:p-0">
-							<Icon icon="emojione:sports-medal" class="text-[70px] xl:text-[120px]" />
+			<div>
+				<div id='background' class="relative w-full h-[570px] md:h-[750px] ">
+					<img src='/img/jackpot/background/desktop/masked-bg.png' alt='bg' class="absolute min-w-full min-h-full object-cover">
+				</div>
+				<div class="absolute inset-0 flex flex-col items-center p-4 top-10 xl:top-20 max-w-[1400px] mx-auto">
+					<div class="z-10 w-full">
+						
+						<JackpotPool bind:jackpotPoolAmount />
+						<div class="flex justify-center pt-5">
+							<LoseCount bind:jackpotPoolLoseCount classes='md:hidden max-w-[350px]' />
 						</div>
-						<Text size="xl" class="block xl:hidden">Address {i + 1}</Text>
-					</Card.Root>
-				{/each}
+						
+						
+					  
+					  <JetPlane bind:jackpotPoolLoseCount />
+						
+					  
+					</div>
+				</div>
+				<div class="flex justify-between items-end max-w-[1400px] mx-auto px-4">
+					<ExplainJet/>
+					<LoseCount bind:jackpotPoolLoseCount classes="h-[100px] max-w-[200px] justify-center items-center hidden md:flex"/>
+				</div>
 			</div>
+			
+			
+			<div class="flex flex-col items-center px-4">
+				<WinnerList />
 
-			<!-- Desktop jackpot view -->
-			<!-- jackpot pool -->
-			<JackpotPool bind:jackpotPoolLoseCount bind:jackpotPoolAmount />
-
-			<WinnerList />
-
-			<AddressList />
+				<AddressList />
+			</div>
+			
 		</div>
 	</div>
 </div>

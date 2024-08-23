@@ -132,7 +132,7 @@
 		<div id="Jackpot Pool" class="flex flex-col items-center space-y-5">
 			<div class="jackpotPool relative z-10 w-full max-w-[1000px] rounded-2xl pb-5 pt-10">
 				<img
-					src="/img/home/jackpot&pool.png"
+					src="/img/jackpot/jetpot-pool.png"
 					class="absolute -top-[40%] left-[50%] translate-x-[-50%]"
 					alt=""
 				/>

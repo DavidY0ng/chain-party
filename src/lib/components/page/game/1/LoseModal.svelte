@@ -2,6 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Text } from '$lib/components/ui/text';
+	import { rerender } from '$lib/stores/storeCommon';
 	import Icon from '@iconify/svelte';
 
 	export let showLoseModal = false;
@@ -16,6 +17,7 @@
 				<Dialog.Title class="">Unfortunately...</Dialog.Title>
 				<Button
 					on:click={() => {
+						$rerender = !$rerender;
 						showLoseModal = false;
 					}}
 					variant="ghost"

@@ -4,7 +4,7 @@
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { initializedWebsocket, WebSocketService } from '$lib/http/websocket';
-	import { isToken, isDesktop } from '$lib/stores/storeCommon';
+	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -49,7 +49,6 @@
 			}
 
 			gameRoundData = thisData;
-			console.log(gameRoundData);
 		} else {
 			throw new Error('Failed to fetch game round');
 		}
@@ -84,16 +83,18 @@
 	 */
 	$: if (WebSocketService !== undefined) {
 		WebSocketService.on('gameResult', (incoming) => {
-			switch (incoming.result) {
-				case 'win':
-					showWinModal = true;
-					break;
-				case 'lose':
-					showLoseModal = true;
-					break;
-				case 'refunded':
-					showCancelGameModal = true;
-					break;
+			if (gameSlotData.self_position !== null) {
+				switch (incoming.result) {
+					case 'win':
+						showWinModal = true;
+						break;
+					case 'lose':
+						showLoseModal = true;
+						break;
+					case 'refunded':
+						showCancelGameModal = true;
+						break;
+				}
 			}
 		});
 
@@ -104,15 +105,15 @@
 			if (result.success) {
 				result.data.data = result.data.data.reverse();
 				gameRoundData = result.data;
-				console.log(result);
+				gameRoundData = gameRoundData;
 			} else {
-				console.log(result);
 				throw new Error('Failed on fetching gameRound in websocket');
 			}
 		});
 
 		WebSocketService.on('gameSlot', (incoming) => {
 			gameSlotData = incoming;
+			gameSlotData = gameSlotData;
 		});
 	}
 
@@ -132,17 +133,13 @@
 		currentGame = gameRoundData?.data[+gameStartIndex];
 
 		if (value.web3_address !== zeroAddress) {
-			if (WebSocketService === undefined) {
-				initializedWebsocket();
-			}
+			initializedWebsocket();
 			await getGameSlot();
 		}
 	});
 
 	onMount(async () => {
-		if (WebSocketService === undefined && $isToken) {
-			initializedWebsocket();
-		}
+		initializedWebsocket();
 	});
 </script>
 
@@ -157,7 +154,7 @@
 				<img src="/img/game/right.png" alt="" />
 			</div>
 			{#if gameRoundData}
-				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage />
+				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage bind:gameSlotData />
 			{:else}
 				<div
 					class=" flex w-[800px] translate-x-[-25%] items-center justify-center gap-x-5 md:w-full md:translate-x-0 xl:hidden xl:translate-x-0"
@@ -177,9 +174,11 @@
 		</div>
 
 		<div class="space-y-20 px-4 xl:px-0">
-			<Game.Reward />
+			{#key $rerender}
+				<Game.Reward />
+			{/key}
 
-			{#if $storeUserInfo.web3_address !== zeroAddress && gameSlotData}
+			{#if $storeUserInfo.web3_address !== zeroAddress}
 				<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
 			{/if}
 
