@@ -22,6 +22,9 @@
 </script>
 
 <div in:fade class="relative h-full min-h-screen w-full px-4 xl:px-0">
+	<div class="absolute z-[-10]">
+		<img src='/img/fuel/bg.png' alt='bg-img'>
+	</div>
 	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[20px] md:pt-[40px]">
 		<Rocket />
 		<TotalReward />

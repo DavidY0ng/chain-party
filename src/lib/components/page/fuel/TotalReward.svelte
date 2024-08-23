@@ -29,8 +29,6 @@
                 <Button class="w-full bg-[#1D0720] ">{$t('fuel.referral')}</Button>
            </div>
             
-            
-            
 		{/if}
 		
 	</div>
