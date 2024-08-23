@@ -21,6 +21,8 @@ const AuthAPI = {
 			if (signature) {
 				const verified = await this.verifyMessage(signature, address);
 				return verified;
+			} else {
+				return false;
 			}
 		} catch (error) {
 			console.error('Error requesting message:', error);
@@ -41,12 +43,16 @@ const AuthAPI = {
 				throw new Error('No Token Received');
 			}
 
-			const expires = new Date(new Date().getTime() + response.data.expires_in * 1000);
+			if (response.success && response.data) {
+				const expires = new Date(new Date().getTime() + response.data.expires_in * 1000);
 
-			Cookies.set('accessToken', response.data.access_token, {
-				expires
-			});
-			return true;
+				Cookies.set('accessToken', response.data.access_token, {
+					expires
+				});
+				return true;
+			} else {
+				return false;
+			}
 		} catch (error) {
 			console.error('Error validating message:', error);
 			return false;

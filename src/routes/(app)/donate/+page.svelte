@@ -6,13 +6,13 @@
 	import { t } from '$lib/i18n';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { onConnectWallet } from '$lib/utils';
+	import { connectWallet } from '$lib/web3/wagmi';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
 
 
 	const handleConnect = async () => {
-		await onConnectWallet();
+		await connectWallet();
 	};
 
 </script>

@@ -1,4 +1,5 @@
-import { createConfig } from '@wagmi/core';
+import { reconnect } from '@wagmi/core';
+import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
 import {
 	createPublicClient,
 	createWalletClient,
@@ -9,19 +10,43 @@ import {
 } from 'viem';
 import { bsc, bscTestnet } from 'viem/chains';
 
+// Chain
 const isProduction = process.env.NODE_ENV === 'production';
 export const bscChain: Chain = isProduction ? bsc : bscTestnet;
 
-export const wagmiConfig = createConfig({
-	chains: [bscChain],
+// 1. Get a project ID at https://cloud.walletconnect.com
+const projectId = 'f8efd8f657b6f8b08092d75ffb255ba7';
+
+// 2. Create wagmiConfig
+const metadata = {
+	name: 'AppKit',
+	description: 'AppKit Example',
+	url: 'https://web3modal.com', // origin must match your domain & subdomain.
+	icons: ['https://avatars.githubusercontent.com/u/37784886']
+};
+
+const chains = [bscChain] as const;
+
+// Define wagmi config
+export const wagmiConfig = defaultWagmiConfig({
+	chains,
+	projectId,
+	metadata,
 	client({ chain }) {
 		return createPublicClient({ chain, transport: http() });
 	}
 });
+reconnect(wagmiConfig);
 
+// 3. Create modal
+export const web3Modal = createWeb3Modal({
+	wagmiConfig,
+	projectId
+});
+
+// Lower level public Client and wallet client
 export let walletClient: WalletClient;
 
-// Wagmi Public Client with specified chain
 export const bscClient = createPublicClient({
 	chain: bscChain,
 	transport: http()

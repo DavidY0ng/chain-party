@@ -1,13 +1,9 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from 'clsx';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
+import { twMerge } from 'tailwind-merge';
 import UserAPI from './api/user';
 import { storeUserInfo } from './stores/storeUser';
-import { account, connectWallet } from './web3/wagmi';
-import AuthAPI from './api/auth';
-import { get } from 'svelte/store';
-import { toast } from 'svelte-sonner';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -69,14 +65,3 @@ export async function getUserProfile() {
 		console.error('Failed to fetch user profile');
 	}
 }
-
-export const onConnectWallet = async () => {
-	await connectWallet();
-	const auth = await AuthAPI.requestMessage(get(account).address!);
-	await getUserProfile();
-	if (auth) {
-		toast.success('Connected Wallet');
-	} else {
-		toast.error('Failed to login');
-	}
-};
