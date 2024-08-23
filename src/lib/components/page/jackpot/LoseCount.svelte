@@ -8,7 +8,7 @@
 </script>
 
 <div id="total game lose" class="flex flex-col gap-2 bg-black/25 rounded-2xl px-5 py-3 w-full  items-center {classes}">
-    <Text tag="h1" size="sm" class="text-[14px]">{$t('jackpot.total_lose_times')}:</Text>
+    <Text tag="h1" size="lg" class="">{$t('jackpot.total_lose_times')}:</Text>
     <div class="flex justify-center items-center gap-1">
         {#if jackpotPoolLoseCount === 0}
         <Text size="4xl" class="leading-none"> - </Text>

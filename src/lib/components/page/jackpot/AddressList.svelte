@@ -51,7 +51,7 @@
 			class="gradient-border-bottom flex w-full items-center justify-between rounded-xl bg-[#481555] px-7 py-4 font-bold"
 		>
 			<Text>{$t('home.address')}</Text>
-			<Text>{$t('home.won_times')}</Text>
+			<Text>{$t('home.lose_times')}</Text>
 		</div>
 		{#if currentList?.self}
 			
