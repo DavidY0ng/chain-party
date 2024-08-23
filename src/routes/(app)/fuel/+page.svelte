@@ -11,6 +11,7 @@
 	import { zeroAddress } from 'viem';
 	import { t } from '$lib/i18n';
     import TotalReward from '$lib/components/page/fuel/TotalReward.svelte';
+	import Rocket from '$lib/components/page/fuel/Rocket.svelte';
 
 
 
@@ -22,6 +23,7 @@
 
 <div in:fade class="relative h-full min-h-screen w-full px-4 xl:px-0">
 	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[20px] md:pt-[40px]">
+		<Rocket />
 		<TotalReward />
 	</div>
 </div>
