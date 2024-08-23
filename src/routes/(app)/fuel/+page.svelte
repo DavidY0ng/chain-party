@@ -20,12 +20,13 @@
 		
 	});
 </script>
+<div class="fixed inset-0 z-[-1]">
+	<img src='/img/fuel/bg.png' alt='bg-img' class="w-full h-full object-cover">
+  </div>
 
-<div in:fade class="relative h-full min-h-screen w-full px-4 xl:px-0">
-	<div class="absolute z-[-10]">
-		<img src='/img/fuel/bg.png' alt='bg-img'>
-	</div>
-	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[20px] md:pt-[40px]">
+<div in:fade class="relative h-full marker:w-full px-4 xl:px-0">
+	
+	<div class="relative m-auto w-full max-w-[1400px] space-y-20 pt-[20px] md:pt-[40px] flex flex-col md:flex-row md:justify-between">
 		<Rocket />
 		<TotalReward />
 	</div>

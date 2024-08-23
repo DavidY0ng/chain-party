@@ -8,14 +8,14 @@
 	import { Button } from '$lib/components/ui/button';
 </script>
 
-<Card.Root class=" h-full max-h-[200px] w-full overflow-hidden rounded-2xl border-none">
+<Card.Root class=" h-full max-h-[200px] w-full md:max-w-[280px] lg:max-w-[400px] overflow-hidden rounded-2xl border-none">
 	<Card.Header
 		class="gradient-border-bottom relative flex-row items-center gap-x-2 bg-[#481555] px-7 py-4"
 	>
 		<img src="/img/fuel/icon.png" class="-mb-1 h-5 w-5" alt="" />
 		<Text class="font-bold">{$t('fuel.total_reward')}</Text>
 	</Card.Header>
-	<div class="relative h-[130px] w-full overflow-hidden bg-black/20 p-0 text-center flex flex-col items-center py-4 gap-6">
+	<div class="relative h-[130px] w-full overflow-hidden bg-[#251235] p-0 text-center flex flex-col items-center py-4 gap-6">
         <div class="pink-eclipse bottom-[-140%] left-[70%] w-[250px] blur-[50px]"></div>
 		{#if $storeUserInfo.web3_address === zeroAddress}
 			<ConnectWalletToView class=" h-full w-full bg-transparent" />
