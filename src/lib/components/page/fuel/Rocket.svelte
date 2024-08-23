@@ -3,6 +3,9 @@
 	import { onMount } from 'svelte';
 	import type { TFuelLevel } from '$lib/type/fuelType';
 	import { Text } from '$lib/components/ui/text';
+    import { storeUserInfo } from '$lib/stores/storeUser';
+    import { zeroAddress } from 'viem';
+    import { isToken } from '$lib/stores/storeCommon';
 
 	const levelState = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 	let fuelData: TFuelLevel = [];
@@ -32,39 +35,66 @@
 	});
 
 	$: currentState = determineRocketState(fuelData);
+    $: console.log(currentState)
 </script>
 
-<div class="flex justify-center lg:justify-start">
+<div class="flex justify-center lg:justify-start lg:pl-[50px]">
 	<div id="rocket set" class="relative flex w-[350px] lg:w-[550px] items-center">
 		<div class="absolute left-[-130px] top-[120px] z-[-1] md:left-[-120px]">
 			<img src="/img/fuel/bow.png" alt="bow-img" />
 		</div>
 		<div class="">
-			{#if fuelData.length > 0}
-				<img
-					src={`/img/fuel/rockets/${currentState}.png`}
-					alt="Rocket state {currentState}"
-					class="h-[390px] w-auto md:h-[580px] lg:h-[700px]"
-				/>
-			{/if}
+			{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
+                <img
+                src={`/img/fuel/rockets/0.png`}
+                alt="Rocket state 0"
+                class="h-[390px] w-auto md:h-[580px] lg:h-[700px]"
+            />
+			{:else}
+            {#if fuelData.length > 0}	
+                <img
+                        src={`/img/fuel/rockets/${currentState}.png`}
+                        alt="Rocket state {currentState}"
+                        class="h-[390px] w-auto md:h-[580px] lg:h-[700px]"
+                    />
+                {/if}
+                
+            {/if}
 		</div>
 
 		<div
 			class="absolute left-[113px] top-[55px] flex w-[250px] flex-col gap-[4px] md:left-[59%] md:gap-[22px] md:top-[14%] lg:left-[55%] lg:top-[14%] lg:gap-[27px]"
 		>
+            {#if fuelData.length > 0}
 			{#each fuelData as data, i}
 				<div class="flex items-center justify-end">
 					{#if data.level !== 2 && data.level !== 3}
 						<img src="/img/fuel/lines/{data.level}.png" alt="line {data.level}" class="mr-2 h-auto w-auto" />
 					{/if}
-					<img src="/img/fuel/levels/{data.level}.png" alt="level {data.level}" class="h-auto w-auto" />
+					<img src="/img/fuel/levels/{data.level}.png" alt="level {data.level}" class="h-auto w-auto {data.level > currentState? 'mix-blend-luminosity':''}" />
 					<div
-						class="z-[-1] flex h-[30px] w-[90px] translate-x-[-20px] justify-end rounded-lg bg-black/25 p-1 pr-2"
+						class="z-[-1] flex h-[30px] w-[90px] translate-x-[-30px] justify-end rounded-lg bg-black/25 p-1 pr-2"
 					>
 						<Text size="sm" class="font-bold">{data.amount} pEIC</Text>
 					</div>
 				</div>
 			{/each}
+            {:else}
+                {#each levelState as data, i}
+                <div class="flex items-center justify-end">
+                    {#if data !== 2 && data !== 3}
+                        <img src="/img/fuel/lines/{data}.png" alt="line {data}" class="mr-2 h-auto w-auto" />
+                    {/if}
+                    <img src="/img/fuel/levels/{data}.png" alt="level {data}" class="h-auto w-auto mix-blend-luminosity" />
+                    <div
+                        class="z-[-1] flex h-[30px] w-[90px] translate-x-[-30px] justify-end rounded-lg bg-black/25 p-1 pr-2"
+                    >
+                        <Text size="sm" class="font-bold">0 pEIC</Text>
+                    </div>
+                </div>
+            {/each}
+            {/if}
+
 			<!-- {#each levelState as state, i}
 				<div class="flex items-center justify-end">
 					{#if state !== 2 && state !== 3}
