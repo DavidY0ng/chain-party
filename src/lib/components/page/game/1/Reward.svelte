@@ -8,9 +8,9 @@
 	import { rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { IPendingBonus, IPendingRefund } from '$lib/type/claimType';
-	import { onConnectWallet } from '$lib/utils';
 	import { bscChain, wagmiConfig } from '$lib/web3/client';
 	import { gameContract } from '$lib/web3/contract/contract';
+	import { connectWallet } from '$lib/web3/wagmi';
 	import Icon from '@iconify/svelte';
 	import { waitForTransactionReceipt } from '@wagmi/core';
 	import { onMount } from 'svelte';
@@ -132,7 +132,7 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<!-- svelte-ignore a11y-no-static-element-interactions -->
 					<Text size="xl"
-						><span on:click={onConnectWallet} class="cursor-pointer text-[#ff0099] underline"
+						><span on:click={connectWallet} class="cursor-pointer text-[#ff0099] underline"
 							>{$t('common.connect_wallet')}</span
 						>
 						{$t('common.to_view')}</Text

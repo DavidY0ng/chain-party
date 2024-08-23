@@ -7,12 +7,11 @@
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { TGameRound, TGameSlot } from '$lib/type/gameType';
-	import { onConnectWallet } from '$lib/utils';
+	import { connectWallet } from '$lib/web3/wagmi';
 	import { onDestroy, onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
 	import Body from './Card/Body.svelte';
 	import Header from './Card/Header.svelte';
-	import { rerender } from '$lib/stores/storeCommon';
 
 	export let gameRoundData: TGameRound;
 	export let gameRoundPage: number;
@@ -193,9 +192,8 @@
 								{#if round.type === 'current'}
 									<div class="relative w-full">
 										{#if $storeUserInfo.web3_address === zeroAddress}
-											<Button
-												on:click={onConnectWallet}
-												class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button
+											<Button on:click={connectWallet} class="w-full bg-[#251235] text-sm font-bold"
+												>Connect Wallet</Button
 											>
 										{:else}
 											<Game.BuyTicket bind:gameSlotData />

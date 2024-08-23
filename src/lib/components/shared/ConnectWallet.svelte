@@ -3,8 +3,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import { isDesktop, isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { cn, onConnectWallet } from '$lib/utils';
-	import { onDisconnect } from '$lib/web3/wagmi';
+	import { cn } from '$lib/utils';
+	import { connectWallet, onDisconnect } from '$lib/web3/wagmi';
 	import { zeroAddress } from 'viem';
 
 	let className: string | undefined = undefined;
@@ -12,7 +12,7 @@
 	export let drawerOpen: boolean = false;
 
 	const handleConnect = async () => {
-		await onConnectWallet();
+		await connectWallet();
 		if (!$isDesktop) drawerOpen = false;
 	};
 

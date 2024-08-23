@@ -1,18 +1,18 @@
 <script lang="ts">
+	import AuthAPI from '$lib/api/auth';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
-	import { Text } from '$lib/components/ui/text';
 	import { truncateString } from '$lib/helper';
+	import { t } from '$lib/i18n';
 	import { isDesktop, isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { onDisconnect } from '$lib/web3/wagmi';
 	import Icon from '@iconify/svelte';
 	import { zeroAddress } from 'viem';
 	import ConnectWallet from '../shared/ConnectWallet.svelte';
 	import MultiLanguage from '../shared/MultiLanguage.svelte';
 	import { Button } from '../ui/button';
 	import Drawer from './Drawer.svelte';
-	import { onDisconnect } from '$lib/web3/wagmi';
-	import AuthAPI from '$lib/api/auth';
-	import { t } from '$lib/i18n';
+	import IntegratedConnect from '../shared/IntegratedConnect.svelte';
 
 	let open = false;
 
@@ -23,9 +23,9 @@
 </script>
 
 <div
-	class="absolute top-0 z-[999] flex w-full items-center justify-between bg-[#481555] py-3 backdrop-blur-sm {$isDesktop
-		? ' bg-gradient-to-r from-[#29193D] via-[#29193D] to-transparent'
-		: ''} xl:px-10"
+	class="absolute top-0 z-[999] flex w-full items-center justify-between py-3 backdrop-blur-sm {$isDesktop
+		? ' bg-gradient-to-l from-[#29193D] via-[#29193D] to-transparent'
+		: 'bg-[#481555]'} xl:px-10"
 >
 	<div class="flex w-full justify-between xl:justify-end">
 		<div class="flex w-full justify-between pr-3 xl:hidden">
@@ -33,44 +33,7 @@
 				<Drawer />
 				<img src="/img/desktopSideMenu/Chain Party Logo.png" class="w-10" alt="" />
 			</div>
-			<!-- Mobile connect button -->
-			{#if !$isDesktop}
-				{#if $storeUserInfo.web3_address === zeroAddress}
-					<ConnectWallet class="" />
-				{:else}
-					<DropdownMenu.Root bind:open>
-						<DropdownMenu.Trigger asChild let:builder>
-							<Button
-								builders={[builder]}
-								variant="outline"
-								class="overflow-hidden rounded-lg border-none bg-black/50 p-0 hover:bg-black/80"
-							>
-								<div
-									class="flex h-full w-[50px] items-center justify-center bg-[#FF0099] md:w-[60px]"
-								>
-									<img src="/img/desktopNav/wallet.png" alt="" class="-mt-1 w-4 md:w-[18px]" />
-								</div>
-								<div class="flex w-full items-center gap-x-2 pl-3 text-sm md:pl-5 md:text-md">
-									{truncateString($storeUserInfo.web3_address, 4, 4)}
-									<Icon
-										icon="tabler:chevron-down"
-										class={open ? 'rotate-180 transition' : 'rotate-0 transition'}
-									/>
-								</div>
-							</Button>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content class="w-56 border-none bg-[#251235]">
-							<DropdownMenu.Item
-								on:click={onHandleDisconnect}
-								class="wallet-dropdown flex cursor-pointer gap-x-2"
-							>
-								<Icon icon="material-symbols:logout" class="text-2xl" />
-								{$t('common.disconnect')}</DropdownMenu.Item
-							>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
-				{/if}
-			{/if}
+			<IntegratedConnect />
 		</div>
 
 		<!-- Desktop View -->
@@ -79,41 +42,9 @@
 		</div>
 
 		<!-- Desktop Connect Button -->
-		{#if $isDesktop}
-			{#if $storeUserInfo.web3_address === zeroAddress || $isToken === undefined}
-				<ConnectWallet class="hidden xl:block" />
-			{:else}
-				<DropdownMenu.Root bind:open>
-					<DropdownMenu.Trigger asChild let:builder>
-						<Button
-							builders={[builder]}
-							variant="outline"
-							class="overflow-hidden rounded-lg border-none bg-black/50 p-0 hover:bg-black/80"
-						>
-							<div class="flex h-full w-[60px] items-center justify-center bg-[#FF0099]">
-								<img src="/img/desktopNav/wallet.png" alt="" class="-mt-1 w-[18px]" />
-							</div>
-							<div class="flex w-full items-center gap-x-2 pl-5">
-								{truncateString($storeUserInfo.web3_address, 4, 4)}
-								<Icon
-									icon="tabler:chevron-down"
-									class={open ? 'rotate-180 transition' : 'rotate-0 transition'}
-								/>
-							</div>
-						</Button>
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content class="w-56 border-none bg-[#251235]">
-						<DropdownMenu.Item
-							on:click={onHandleDisconnect}
-							class="wallet-dropdown flex cursor-pointer gap-x-2"
-						>
-							<Icon icon="material-symbols:logout" class="text-2xl" />
-							Disconnect</DropdownMenu.Item
-						>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-			{/if}
-		{/if}
+		<div class="hidden xl:block">
+			<IntegratedConnect />
+		</div>
 	</div>
 </div>
 
