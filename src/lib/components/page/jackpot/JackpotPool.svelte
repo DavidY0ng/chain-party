@@ -3,11 +3,10 @@
 	import Text from '$lib/components/ui/text/text.svelte';
 	import LoseCount from './LoseCount.svelte';
 
-	export let jackpotPoolLoseCount: number = 0;
 	export let jackpotPoolAmount;
 </script>
 
-<div id="jackpot pool" class="mb-[80px] flex-col items-center gap-5 flex">
+<div id="jackpot pool" class=" flex-col items-center gap-5 flex">
 	<div class="jackpotPool relative z-10 w-full max-w-[1000px] rounded-2xl pb-5 pt-10">
 		<img
 			src="/img/jackpot/jetpot-pool.png"
@@ -20,7 +19,7 @@
 					class="{number === ',' ? '-mb-2 xl:text-3xl' : 'bubbleNumber  w-full max-w-[50px]'} 
 						{jackpotPoolAmount.integer?.length > 5
 						? 'text-lg xl:text-2xl'
-						: 'text-2xl'} flex h-[35px] max-w-[25px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
+						: 'text-2xl'} flex h-[35px] max-w-[24px] items-center justify-center rounded-lg text-center font-bold md:h-[50px] md:max-w-[40px] lg:h-[60px] lg:max-w-[50px] lg:rounded-2xl"
 				>
 					{number}
 				</div>
@@ -30,7 +29,7 @@
 				<div
 					class="{jackpotPoolAmount.integer?.length > 5
 						? 'text-lg xl:text-2xl'
-						: 'text-2xl'}  bubbleNumber flex h-[35px] w-full max-w-[25px] items-center justify-center rounded-lg text-center font-bold xl:h-[60px] xl:max-w-[50px] xl:rounded-2xl"
+						: 'text-2xl'}  bubbleNumber flex h-[35px] w-full max-w-[25px] items-center justify-center rounded-lg text-center font-bold md:h-[50px] md:max-w-[40px] lg:h-[60px] lg:max-w-[50px] lg:rounded-2xl"
 				>
 					{decimal}
 				</div>
@@ -38,7 +37,7 @@
 			<Text class="text-md xl:text-xl">pEIC</Text>
 		</div>
 	</div>
-	<LoseCount bind:jackpotPoolLoseCount classes='md:hidden max-w-[350px]' />
+	
 	
 </div>
 

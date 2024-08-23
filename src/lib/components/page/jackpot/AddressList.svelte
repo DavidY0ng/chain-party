@@ -46,7 +46,7 @@
 </script>
 
 {#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
-	<div class="w-full space-y-3">
+	<div class="w-full max-w-[1400px] space-y-3">
 		<div
 			class="gradient-border-bottom flex w-full items-center justify-between rounded-xl bg-[#481555] px-7 py-4 font-bold"
 		>

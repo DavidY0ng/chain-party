@@ -1,14 +1,23 @@
-<div class="flex items-center">
-    <div class="flex items-center">
-        <img src='img/jackpot/darkPlane/4.png' alt=4 class="translate-x-[29px]">
-        <img src='img/jackpot/darkPlane/2.png' alt=2>
-    </div>
+<script lang='ts'>
+    export let jackpotPoolLoseCount: number = 0;
     
-    <img src='img/jackpot/darkPlane/1.png' alt=1>
+    const jetState = [0,1,2,3,4,5]
+    $: jetIndex = jetState.indexOf(jackpotPoolLoseCount);
 
-    <div class="flex items-center">
-        <img src='img/jackpot/darkPlane/3.png' alt=3>
-        <img src='img/jackpot/darkPlane/5.png' alt=5 class="translate-x-[-29px] ">
+</script>
+
+<div class="flex justify-center items-center py-[20px]">
+    <div class="absolute inset-0 flex items-center justify-center h-[620px]">
+        <img src='/img/jackpot/background/desktop/purple-cloud.png' alt='purple-cloud' class="absolute">
+        <img src='/img/jackpot/background/desktop/nova.png' alt='nova' class="absolute">
+    </div>
+    <div class="asbolute z-10">
+        {#if jetIndex !== -1}
+        <img 
+            src={`/img/jackpot/jet/${jetState[jetIndex]}.png`} 
+            alt={`jet ${jetState[jetIndex]}`} 
+            class="w-[450px] md:w-[690px] lg:md:auto h-auto ">
+        {/if}
     </div>
     
 </div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import Text from '$lib/components/ui/text/text.svelte';
-
+    
 	export let jackpotPoolLoseCount: number = 0;
     export let classes = ''
 
