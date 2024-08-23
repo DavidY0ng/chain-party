@@ -104,7 +104,7 @@
 				result.data.data = result.data.data.reverse();
 				gameRoundData = result.data;
 				gameRoundData = gameRoundData;
-				// $rerender = !$rerender;
+				$rerender = !$rerender;
 			} else {
 				throw new Error('Failed on fetching gameRound in websocket');
 			}
@@ -118,7 +118,7 @@
 				gameStartIndex < 0
 					? gameRoundData.data.length - 1
 					: Number(gameRoundData?.data[+gameStartIndex].round_id);
-					
+
 			const result = await GameAPI.getSlot(gameSlotPage, round_id);
 			if (result.success) {
 				gameSlotData = result.data;
