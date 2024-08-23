@@ -102,16 +102,6 @@
 		loading.refund = false;
 	}
 
-	$: if (WebSocketService !== undefined) {
-		WebSocketService.on('gameResult', async (incoming) => {
-			if (incoming) {
-				await getPendingClaim();
-				pendingBonus = pendingBonus;
-				pendingRefund = pendingRefund;
-			}
-		});
-	}
-
 	onMount(() => {
 		getPendingClaim();
 	});

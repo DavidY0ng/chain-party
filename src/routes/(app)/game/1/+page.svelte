@@ -4,7 +4,7 @@
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import { initializedWebsocket, WebSocketService } from '$lib/http/websocket';
-	import { isToken, isDesktop } from '$lib/stores/storeCommon';
+	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -178,7 +178,9 @@
 		</div>
 
 		<div class="space-y-20 px-4 xl:px-0">
-			<Game.Reward />
+			{#key $rerender}
+				<Game.Reward />
+			{/key}
 
 			{#if $storeUserInfo.web3_address !== zeroAddress}
 				<Game.Slot bind:gameSlotData bind:currentGame bind:gameSlotPage on:paginate={getGameSlot} />
