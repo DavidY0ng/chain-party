@@ -12,7 +12,7 @@
 
 	function countdownToTimestamp(startTimestamp: number, endTimestamp: number) {
 		const totalDuration = endTimestamp - startTimestamp;
-
+		console.log(startTimestamp, endTimestamp);
 		function updateCountdown() {
 			const now = Date.now();
 			const distance = endTimestamp - now;
@@ -39,7 +39,7 @@
 		updateCountdown(); // Initial call to set the countdown immediately
 	}
 
-	if (round.type === 'current') {
+	$: if (round.type === 'current') {
 		countdownToTimestamp(round.date_time_start, round.date_time_end);
 	}
 

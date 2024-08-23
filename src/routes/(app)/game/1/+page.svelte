@@ -83,18 +83,16 @@
 	 */
 	$: if (WebSocketService !== undefined) {
 		WebSocketService.on('gameResult', (incoming) => {
-			if (gameSlotData.self_position !== null) {
-				switch (incoming.result) {
-					case 'win':
-						showWinModal = true;
-						break;
-					case 'lose':
-						showLoseModal = true;
-						break;
-					case 'refunded':
-						showCancelGameModal = true;
-						break;
-				}
+			switch (incoming.result) {
+				case 'win':
+					showWinModal = true;
+					break;
+				case 'lose':
+					showLoseModal = true;
+					break;
+				case 'refunded':
+					showCancelGameModal = true;
+					break;
 			}
 		});
 
@@ -106,6 +104,7 @@
 				result.data.data = result.data.data.reverse();
 				gameRoundData = result.data;
 				gameRoundData = gameRoundData;
+				$rerender = !$rerender;
 			} else {
 				throw new Error('Failed on fetching gameRound in websocket');
 			}
@@ -186,8 +185,8 @@
 		</div>
 	</div>
 
-	<Game.WinModal bind:showWinModal />
+	<Game.WinModal bind:showWinModal bind:showShareModal />
+	<Game.LoseModal bind:showLoseModal bind:showShareModal />
 	<Game.ShareModal bind:showShareModal />
-	<Game.LoseModal bind:showLoseModal />
 	<Game.GameCancel bind:showCancelGameModal />
 </div>
