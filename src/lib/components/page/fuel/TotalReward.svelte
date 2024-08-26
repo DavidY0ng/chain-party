@@ -6,6 +6,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
 	import { Button } from '$lib/components/ui/button';
+	import { goto } from '$app/navigation';
 </script>
 
 <Card.Root class=" h-full max-h-[200px] w-full md:max-w-[280px] lg:max-w-[400px] overflow-hidden rounded-2xl border-none">
@@ -26,7 +27,7 @@
 				>53 pEIC</Text
 			>
            <div class="mx-auto w-[90%]">
-                <Button class="w-full bg-[#1D0720] ">{$t('fuel.referral')}</Button>
+                <Button on:click={() => goto('/referral')} class="w-full bg-[#1D0720] ">{$t('fuel.referral')}</Button>
            </div>
             
 		{/if}
