@@ -58,8 +58,6 @@
 			}
 		}
 
-		console.log(latestGameStartIndex + 1, current);
-
 		// if current and gameStartIndex is not the same then redirect back to game start slide after 10 sec
 		if (latestGameStartIndex + 1 - current !== 0) {
 			startProgressBar();
@@ -155,77 +153,74 @@
 		class="absolute right-0 top-0 z-10 hidden h-full w-1/6 bg-gradient-to-l from-black/50 xl:block"
 	/>
 	<Carousel.Content class="flex items-center">
-		{#key $rerender}
-			{#if gameRoundData?.data}
-				<!-- This item pushes the slide to focus on 1st index -->
-				<Carousel.Item class="hidden md:basis-[40%] xl:block xl:basis-[25%]"
-					><Card.Root class="border-none">
-						<Card.Content></Card.Content></Card.Root
-					>
-				</Carousel.Item>
-				{#each gameRoundData.data as round, i}
-					<Carousel.Item
-						class="h-fit basis-[80%] md:basis-[40%] xl:basis-[25%]  {gameRoundData.count < 2
-							? ' xl:translate-x-[149.5%]'
-							: ' translate-x-[13%] md:translate-x-[75%] xl:translate-x-[49.5%]'}"
-					>
-						<Card.Root class="border-none">
-							<Card.Content
-								class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current -
-									1 ===
-									i || round.type === 'current'
-									? 'gradient-border-bottom h-[240px] '
-									: 'h-[200px] '} w-full items-center "
+		{#if gameRoundData?.data}
+			<!-- This item pushes the slide to focus on 1st index -->
+			<Carousel.Item class="hidden md:basis-[40%] xl:block xl:basis-[25%]"
+				><Card.Root class="border-none">
+					<Card.Content></Card.Content></Card.Root
+				>
+			</Carousel.Item>
+			{#each gameRoundData.data as round, i}
+				<Carousel.Item
+					class="h-fit basis-[80%] md:basis-[40%] xl:basis-[25%]  {gameRoundData.count < 2
+						? ' xl:translate-x-[149.5%]'
+						: ' translate-x-[13%] md:translate-x-[75%] xl:translate-x-[49.5%]'}"
+				>
+					<Card.Root class="border-none">
+						<Card.Content
+							class=" relative flex aspect-square select-none flex-col overflow-hidden rounded-2xl p-0 {current -
+								1 ===
+								i || round.type === 'current'
+								? 'gradient-border-bottom h-[240px] '
+								: 'h-[200px] '} w-full items-center "
+						>
+							{#if round.type === 'current'}
+								<div class="purple-eclipse -left-[20%] -top-[30%] w-[200px] blur-[50px]" />
+							{/if}
+							<!-- ********************************* HEADER ******************************************* -->
+							<Header bind:round />
+
+							<!-- ********************************* BODY ******************************************* -->
+							<div
+								id="body"
+								class="relative flex h-full w-full flex-col items-center space-y-5 p-3 pb-4 {round.type ===
+								'current'
+									? 'bg-[#251235]'
+									: 'bg-[#2D2435]'}"
 							>
-								{#if round.type === 'current'}
-									<div class="purple-eclipse -left-[20%] -top-[30%] w-[200px] blur-[50px]" />
-								{/if}
-								<!-- ********************************* HEADER ******************************************* -->
-								<Header bind:round />
+								<Body bind:round />
 
-								<!-- ********************************* BODY ******************************************* -->
-								<div
-									id="body"
-									class="relative flex h-full w-full flex-col items-center space-y-5 p-3 pb-4 {round.type ===
-									'current'
-										? 'bg-[#251235]'
-										: 'bg-[#2D2435]'}"
-								>
-									<Body bind:round />
-
-									{#if round.type === 'current'}
-										<div class="relative w-full">
-											{#if $storeUserInfo.web3_address === zeroAddress}
-												<Button
-													on:click={connectWallet}
-													class="w-full bg-[#251235] text-sm font-bold">Connect Wallet</Button
-												>
-											{:else}
-												<Game.BuyTicket bind:gameSlotData />
-											{/if}
-										</div>
-									{/if}
-								</div>
 								{#if round.type === 'current'}
-									<div class="pink-eclipse -bottom-[50%] -right-[30%] w-[200px] blur-[80px]" />
+									<div class="relative z-10 w-full">
+										{#if $storeUserInfo.web3_address === zeroAddress}
+											<Button on:click={connectWallet} class="w-full bg-[#251235] text-sm font-bold"
+												>Connect Wallet</Button
+											>
+										{:else}
+											<Game.BuyTicket bind:gameSlotData />
+										{/if}
+									</div>
 								{/if}
-							</Card.Content>
-						</Card.Root>
-					</Carousel.Item>
-				{/each}
-				<!-- This two item pushes the slide to focus on last index -->
-				<Carousel.Item class="basis-[10%] border-none p-0 md:basis-[58%] xl:block xl:basis-[25%]"
-					><Card.Root class="border-none">
-						<Card.Content class="border-none"></Card.Content></Card.Root
-					>
+							</div>
+							{#if round.type === 'current'}
+								<div class="pink-eclipse -bottom-[50%] -right-[30%] w-[200px] blur-[80px]" />
+							{/if}
+						</Card.Content>
+					</Card.Root>
 				</Carousel.Item>
-				<Carousel.Item class="basis-[9%] border-none p-0 md:basis-[0%] xl:basis-[25%]"
-					><Card.Root class="border-none">
-						<Card.Content class="border-none"></Card.Content></Card.Root
-					>
-				</Carousel.Item>
-			{/if}
-		{/key}
+			{/each}
+			<!-- This two item pushes the slide to focus on last index -->
+			<Carousel.Item class="basis-[10%] border-none p-0 md:basis-[58%] xl:block xl:basis-[25%]"
+				><Card.Root class="border-none">
+					<Card.Content class="border-none"></Card.Content></Card.Root
+				>
+			</Carousel.Item>
+			<Carousel.Item class="basis-[9%] border-none p-0 md:basis-[0%] xl:basis-[25%]"
+				><Card.Root class="border-none">
+					<Card.Content class="border-none"></Card.Content></Card.Root
+				>
+			</Carousel.Item>
+		{/if}
 	</Carousel.Content>
 	<Carousel.Previous
 		on:scrollPrev={onScrollPrev}

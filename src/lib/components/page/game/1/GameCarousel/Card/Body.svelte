@@ -2,7 +2,7 @@
 	import CircleProgress from '$lib/components/ui/circle-progress/CircleProgress.svelte';
 	import { Text } from '$lib/components/ui/text';
 	import type { TGameRound } from '$lib/type/gameType';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let round: TGameRound['data'][0];
 
@@ -12,7 +12,7 @@
 
 	function countdownToTimestamp(startTimestamp: number, endTimestamp: number) {
 		const totalDuration = endTimestamp - startTimestamp;
-		console.log(startTimestamp, endTimestamp);
+		
 		function updateCountdown() {
 			const now = Date.now();
 			const distance = endTimestamp - now;
@@ -40,7 +40,8 @@
 	}
 
 	$: if (round.type === 'current') {
-		countdownToTimestamp(round.date_time_start, round.date_time_end);
+		if (interval) clearInterval(interval);
+		countdownToTimestamp(round?.date_time_start, round?.date_time_end);
 	}
 
 	onDestroy(() => {

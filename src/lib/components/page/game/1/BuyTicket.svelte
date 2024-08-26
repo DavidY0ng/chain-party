@@ -38,9 +38,29 @@
 				});
 
 				let receipt = await waitForTransactionReceipt(wagmiConfig, { hash });
-
 				if (receipt) {
-					toast.success('You have joined the current game session');
+					const checkGameSlotData = () => {
+						return new Promise((resolve) => {
+							const check = () => {
+								if (gameSlotData.self_position !== null) {
+									resolve({ name: 'You have joined the current game session' });
+								} else {
+									setTimeout(check, 1000); // Check again after 1 second
+								}
+							};
+							check();
+						});
+					};
+
+					const promise = checkGameSlotData();
+
+					toast.promise(promise, {
+						loading: 'Loading...',
+						success: (data: any) => {
+							return data.name;
+						},
+						error: 'Error... :( Try again!'
+					});
 				}
 			} else {
 				toast.error('Current game is not active');
@@ -147,7 +167,7 @@
 <Button
 	disabled={gameSlotData?.self_position !== null || loading}
 	on:click={onPlayGame}
-	class="w-full bg-[#251235] text-sm font-bold"
+	class=" w-full bg-[#251235] text-sm font-bold"
 >
 	{#if loading}
 		<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />

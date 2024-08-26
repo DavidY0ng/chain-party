@@ -97,7 +97,7 @@
 		});
 
 		WebSocketService.on('gameRound', async () => {
-			if (gameRoundPage > 1) gameRoundPage--;
+			gameRoundPage = 1;
 
 			const result = await GameAPI.getRound(gameRoundPage, 10);
 			if (result.success) {
@@ -110,9 +110,22 @@
 			}
 		});
 
-		WebSocketService.on('gameSlot', (incoming) => {
-			gameSlotData = incoming;
-			gameSlotData = gameSlotData;
+		WebSocketService.on('gameSlot', async (incoming) => {
+			if ($isToken == undefined) return;
+			gameStartIndex = gameRoundData.data.findIndex((item) => item.type === 'current');
+
+			const round_id: number =
+				gameStartIndex < 0
+					? gameRoundData.data.length - 1
+					: Number(gameRoundData?.data[+gameStartIndex].round_id);
+
+			const result = await GameAPI.getSlot(gameSlotPage, round_id);
+			if (result.success) {
+				gameSlotData = result.data;
+				gameSlotData = gameSlotData;
+			} else {
+				throw new Error('Failed to fetch game slot in websocket');
+			}
 		});
 	}
 
@@ -153,7 +166,9 @@
 				<img src="/img/game/right.png" alt="" />
 			</div>
 			{#if gameRoundData}
-				<Game.GameCarousel bind:gameRoundData bind:gameRoundPage bind:gameSlotData />
+				{#key $rerender || !$rerender}
+					<Game.GameCarousel bind:gameRoundData bind:gameRoundPage bind:gameSlotData />
+				{/key}
 			{:else}
 				<div
 					class=" flex w-[800px] translate-x-[-25%] items-center justify-center gap-x-5 md:w-full md:translate-x-0 xl:hidden xl:translate-x-0"

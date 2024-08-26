@@ -133,7 +133,7 @@
 </div>
 
 <!-- Mobile -->
-<div class="w-full">
+<div class="block w-full md:hidden">
 	{#if $storeUserInfo.web3_address === zeroAddress}
 		<ConnectWalletToView class="bg-black/50" />
 	{:else}
