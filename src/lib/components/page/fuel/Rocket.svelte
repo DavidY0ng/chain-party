@@ -1,6 +1,4 @@
 <script lang="ts">
-	import FuelApi from '$lib/api/fuel';
-	import { onMount } from 'svelte';
 	import type { TFuelLevel } from '$lib/type/fuelType';
 	import { Text } from '$lib/components/ui/text';
 	import { storeUserInfo } from '$lib/stores/storeUser';
@@ -55,19 +53,7 @@
 		'line9',
 		'line10'
 	];
-	let fuelData: TFuelLevel = { data: [], total: 0 };;
-
-	async function getFuelLevel() {
-		const result = await FuelApi.getFuelLevel();
-
-		if (result.success) {
-			fuelData = {
-				data: result.data.data, 
-				total: result.data.total
-			}; 
-			console.log(fuelData.data.length)
-		}
-	}
+	export let fuelData: TFuelLevel = { data: [], total: 0 };
 
 	function determineRocketState(fuelData: TFuelLevel): number {
 		if (!fuelData.data.length) return 0;
@@ -80,17 +66,6 @@
 
 		return 0; // Default state if no conditions are met
 	}
-
-	storeUserInfo.subscribe((value) => {
-		if (value.web3_address !== zeroAddress) {
-			getFuelLevel();
-		}
-	});
-
-	onMount(() => {
-		if ($isToken === undefined) return;
-		getFuelLevel();
-	});
 
 	$: currentState = determineRocketState(fuelData);
 </script>

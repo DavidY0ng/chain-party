@@ -7,26 +7,10 @@
 	import { zeroAddress } from 'viem';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import FuelApi from '$lib/api/fuel';
 	import type { TFuelLevel } from '$lib/type/fuelType';
 
-	let fuelData: TFuelLevel = { data: [], total: 0 };
+	export let fuelData: TFuelLevel = { data: [], total: 0 };
 	
-	async function getFuelLevel() {
-		const result = await FuelApi.getFuelLevel();
-
-		if (result.success) {
-			fuelData = {
-				data: result.data.data, 
-				total: result.data.total
-			}; 
-		}
-	}
-
-	onMount(() => {
-		getFuelLevel()
-	})
 </script>
 
 <Card.Root class=" h-full max-h-[200px] w-full md:max-w-[280px] lg:max-w-[400px] overflow-hidden rounded-2xl border-none">
