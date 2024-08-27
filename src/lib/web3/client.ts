@@ -8,11 +8,11 @@ import {
 	type Chain,
 	type WalletClient
 } from 'viem';
-import { bsc, bscTestnet } from 'viem/chains';
+import { bscTestnet } from 'viem/chains';
 
 // Chain
 const isProduction = process.env.NODE_ENV === 'production';
-export const bscChain: Chain = isProduction ? bsc : bscTestnet;
+export const bscChain: Chain = bscTestnet;
 
 // 1. Get a project ID at https://cloud.walletconnect.com
 const projectId = 'f8efd8f657b6f8b08092d75ffb255ba7';
