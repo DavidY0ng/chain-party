@@ -48,7 +48,7 @@
 </script>
 
 
-	<div class="w-full max-w-[1400px] space-y-3 ">
+	<div class="w-full max-w-[1400px] space-y-3 relative ">
 		<div
 			class="gradient-border-bottom flex w-full items-center justify-between overflow-hidden rounded-xl bg-[#481555] font-bold"
 		>
