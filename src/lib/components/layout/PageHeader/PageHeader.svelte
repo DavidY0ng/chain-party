@@ -30,10 +30,10 @@
 	>
 		<div class="m-auto flex w-full max-w-[1400px] items-center justify-between">
 			<div class="space-y-1">
-				<Text tag="p" size={$isDesktop ? 'md' : 'md'} class=" font-normal text-white/50 "
+				<Text tag="p" size={$isDesktop ? 'md' : 'md'} class="w-fit font-normal text-white/50 "
 					>{onHandleSubTitle($page.route.id)}</Text
 				>
-				<Text tag="h1" size={$isDesktop ? '3xl' : '2xl'} class="border-b-2 border-white "
+				<Text tag="h1" size={$isDesktop ? '3xl' : '2xl'} class="w-fit border-b-2 border-white "
 					>{onHandlePathName($page.route.id)}</Text
 				>
 			</div>
