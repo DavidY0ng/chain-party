@@ -6,11 +6,10 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Text } from '$lib/components/ui/text';
 	import Treeview from '$lib/components/ui/treeview/Treeview.svelte';
-	import { copyToClipboard } from '$lib/helper';
+	import { copyToClipboard, onTranslateI18nErrMsg } from '$lib/helper';
 	import { t } from '$lib/i18n';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
-	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { zeroAddress } from 'viem';
@@ -36,6 +35,7 @@
 
 			return (downlineList = treeData);
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error(`Failed to fetch initial downline`);
 		}
 	}

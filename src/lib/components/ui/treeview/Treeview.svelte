@@ -12,7 +12,7 @@
 	import { Text } from '$lib/components/ui/text';
 	import { treeColor } from './treeColor';
 	import { isDesktop } from '$lib/stores/storeCommon';
-	import { truncateString } from '$lib/helper';
+	import { onTranslateI18nErrMsg, truncateString } from '$lib/helper';
 
 	export let tree: any;
 	export let isChild = false;
@@ -42,6 +42,7 @@
 
 			hasFetchedChildren = true; // Mark children as fetched
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error(`Failed to fetch Children Node : ${result}`);
 		}
 	};

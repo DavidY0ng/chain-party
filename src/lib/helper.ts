@@ -1,7 +1,8 @@
 import type { DateValue } from '@internationalized/date';
 import { toast } from 'svelte-sonner';
 import { InsufficientFundsError } from 'viem';
-import type { IGetErrorType } from './type/commonType';
+import type { APIResponse, IGetErrorType } from './type/commonType';
+import { t } from './i18n';
 
 export const onTranslateErrMsg = (e: unknown) => {
 	const error = e as IGetErrorType;
@@ -11,6 +12,22 @@ export const onTranslateErrMsg = (e: unknown) => {
 		toast.error('Not Enough Balance in Wallet');
 	} else {
 		toast.error(error.shortMessage);
+	}
+};
+
+export const onTranslateI18nErrMsg = (e: APIResponse['data']) => {
+	const splitedErrorMsg = e.split(':');
+	const isLengthError = e.split('|');
+
+	if (isLengthError[1]) {
+		const errorValue = splitedErrorMsg[1].split('|');
+		toast.error(
+			`${t.get(`common.error.key.${splitedErrorMsg[0]}`)} ${t.get(`common.error.value.${errorValue[0]} ${errorValue[1]}`)}`
+		);
+	} else {
+		toast.error(
+			`${t.get(`common.error.key.${splitedErrorMsg[0]}`)} ${t.get(`common.error.value.${splitedErrorMsg[1]}`)}`
+		);
 	}
 };
 

@@ -10,6 +10,7 @@
 	import { showBindReferral } from '$lib/stores/storeCommon';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { onTranslateI18nErrMsg } from '$lib/helper';
 
 	let urlReferralCode: string | null = null;
 
@@ -37,6 +38,7 @@
 		const result = await UserAPI.team.bindUpline(referralCode.value);
 
 		if (!result.success) {
+			onTranslateI18nErrMsg(result.data);
 			referralCode.error = 'Referral Code is invalid';
 		} else {
 			isChecked.error = '';

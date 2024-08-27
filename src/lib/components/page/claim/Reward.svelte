@@ -2,7 +2,7 @@
 	import ClaimAPI from '$lib/api/claim';
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
-	import { onTranslateErrMsg } from '$lib/helper';
+	import { onTranslateErrMsg, onTranslateI18nErrMsg } from '$lib/helper';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { TCheckClaim, TRewardBalance } from '$lib/type/claimType';
@@ -28,6 +28,7 @@
 		if (result.success) {
 			checkClaim = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to check claim');
 		}
 	}
@@ -37,6 +38,7 @@
 		if (result.success) {
 			rewardBalance = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to get reward balance');
 		}
 	}
@@ -69,6 +71,9 @@
 				if (receipt) {
 					toast.success('Daily Claim Successful');
 				}
+			} else {
+				onTranslateI18nErrMsg(result.data);
+				throw new Error('Failed to claim');
 			}
 		} catch (error: any) {
 			onTranslateErrMsg(error);
@@ -109,7 +114,7 @@
 			{#if loading}
 				<Icon icon="eos-icons:bubble-loading" class="mx-2 text-xl" />
 			{:else}
-			{$t('claim.claim_all')}
+				{$t('claim.claim_all')}
 			{/if}
 		</Button>
 	</div>

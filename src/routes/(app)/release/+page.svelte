@@ -5,7 +5,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { Text } from '$lib/components/ui/text';
-	import { formatLockedDate, onTranslateErrMsg } from '$lib/helper';
+	import { formatLockedDate, onTranslateErrMsg, onTranslateI18nErrMsg } from '$lib/helper';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { TLockedData, TStakeList } from '$lib/type/stakeType';
@@ -70,6 +70,7 @@
 				};
 			}
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch stake history');
 		}
 	}

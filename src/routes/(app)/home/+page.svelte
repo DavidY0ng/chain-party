@@ -11,7 +11,8 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { isDesktop } from '$lib/stores/storeCommon';
-	
+	import { onTranslateI18nErrMsg } from '$lib/helper';
+
 	// Data
 	let currentList: TCurrentList;
 	let jackpotPoolAmount = {
@@ -33,6 +34,7 @@
 		if (result.success) {
 			planetReward = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch Planet Reward');
 		}
 	}
@@ -50,6 +52,7 @@
 				};
 			}
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch winner list');
 		}
 	}
@@ -60,6 +63,9 @@
 
 		if (result.success) {
 			handleSplitNumber(result.data.amount);
+		} else {
+			onTranslateI18nErrMsg(result.data);
+			throw new Error('Failed to fetch Jackpot Pool');
 		}
 	}
 

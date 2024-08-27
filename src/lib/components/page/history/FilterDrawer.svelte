@@ -17,6 +17,7 @@
 	import SelectTo from './FilterMenu/SelectTo.svelte';
 	import { historyType } from './filterConfig';
 	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { onTranslateI18nErrMsg } from '$lib/helper';
 
 	let drawerOpen = false;
 
@@ -38,6 +39,7 @@
 		if (result.success) {
 			gameStatus = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch game status');
 		}
 	}
@@ -49,6 +51,7 @@
 		if (result.success) {
 			transactionType = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to get transaction type');
 		}
 	}

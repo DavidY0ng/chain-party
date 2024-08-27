@@ -3,6 +3,7 @@
 	import * as Game from '$lib/components/page/game/1/index';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { Text } from '$lib/components/ui/text';
+	import { onTranslateI18nErrMsg } from '$lib/helper';
 	import { initializedWebsocket, WebSocketService } from '$lib/http/websocket';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
@@ -50,6 +51,7 @@
 
 			gameRoundData = thisData;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch game round');
 		}
 	}
@@ -74,6 +76,7 @@
 		if (result.success) {
 			gameSlotData = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch game slot');
 		}
 	}
@@ -106,6 +109,7 @@
 				gameRoundData = gameRoundData;
 				$rerender = !$rerender;
 			} else {
+				onTranslateI18nErrMsg(result.data);
 				throw new Error('Failed on fetching gameRound in websocket');
 			}
 		});
@@ -124,6 +128,7 @@
 				gameSlotData = result.data;
 				gameSlotData = gameSlotData;
 			} else {
+				onTranslateI18nErrMsg(result.data);
 				throw new Error('Failed to fetch game slot in websocket');
 			}
 		});

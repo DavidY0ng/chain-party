@@ -3,7 +3,7 @@
 	import ConnectWalletToView from '$lib/components/shared/ConnectWalletToView.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Text } from '$lib/components/ui/text';
-	import { onTranslateErrMsg } from '$lib/helper';
+	import { onTranslateErrMsg, onTranslateI18nErrMsg } from '$lib/helper';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { IPendingBonus, IPendingRefund } from '$lib/type/claimType';
@@ -68,6 +68,7 @@
 			_sumOfBonus > 0 ? totalAvailableClaim++ : null;
 			_sumOfRefund > 0 ? totalAvailableClaim++ : null;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to get available claim');
 		}
 	}

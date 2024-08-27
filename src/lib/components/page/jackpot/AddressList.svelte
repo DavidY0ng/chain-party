@@ -2,7 +2,7 @@
 	import JackpotAPI from '$lib/api/jackpot';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import Text from '$lib/components/ui/text/text.svelte';
-	import { truncateString } from '$lib/helper';
+	import { onTranslateI18nErrMsg, truncateString } from '$lib/helper';
 	import { t } from '$lib/i18n';
 	import { isToken } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
@@ -32,6 +32,7 @@
 				};
 			}
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch winner list');
 		}
 	}

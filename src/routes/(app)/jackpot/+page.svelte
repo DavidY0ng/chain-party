@@ -11,6 +11,7 @@
 	import ExplainJet from '$lib/components/page/jackpot/ExplainJet.svelte';
 	import JetPlane from '$lib/components/page/jackpot/JetPlane.svelte';
 	import LoseCount from '$lib/components/page/jackpot/LoseCount.svelte';
+	import { onTranslateI18nErrMsg } from '$lib/helper';
 
 	let jackpotPoolAmount = {
 			integer: [] as string[],
@@ -25,6 +26,9 @@
 		if (result.success) {
 			jackpotPoolLoseCount = result.data.lose_count;
 			handleSplitNumber(result.data.amount);
+		} else {
+			onTranslateI18nErrMsg(result.data);
+			throw new Error('Failed to fetch jackpot pool');
 		}
 	}
 
@@ -58,49 +62,48 @@
 		}
 	}
 
-	onMount(() => [getJackpotPool()]);
+	onMount(() => {
+		getJackpotPool();
+	});
 </script>
 
-
-
-<div in:fade class="relative h-full min-h-screen w-full xl:pt-10 ">
-	
-
+<div in:fade class="relative h-full min-h-screen w-full xl:pt-10">
 	<div class="relative z-[99] m-auto">
-
 		<div class="flex flex-col gap-[30px]">
 			<div>
-				<div id='background' class="relative w-full h-[570px] md:h-[750px] ">
-					<img src='/img/jackpot/background/desktop/masked-bg.png' alt='bg' class="absolute min-w-full min-h-full object-cover">
+				<div id="background" class="relative h-[570px] w-full md:h-[750px]">
+					<img
+						src="/img/jackpot/background/desktop/masked-bg.png"
+						alt="bg"
+						class="absolute min-h-full min-w-full object-cover"
+					/>
 				</div>
-				<div class="absolute inset-0 flex flex-col items-center p-4 top-10 xl:top-20 max-w-[1400px] mx-auto">
+				<div
+					class="absolute inset-0 top-10 mx-auto flex max-w-[1400px] flex-col items-center p-4 xl:top-20"
+				>
 					<div class="z-10 w-full">
-						
 						<JackpotPool bind:jackpotPoolAmount />
 						<div class="flex justify-center pt-5">
-							<LoseCount bind:jackpotPoolLoseCount classes='md:hidden max-w-[350px]' />
+							<LoseCount bind:jackpotPoolLoseCount classes="md:hidden max-w-[350px]" />
 						</div>
-						
-						
-					  
-					  <JetPlane bind:jackpotPoolLoseCount />
-						
-					  
+
+						<JetPlane bind:jackpotPoolLoseCount />
 					</div>
 				</div>
-				<div class="flex justify-between items-end max-w-[1400px] mx-auto px-4">
-					<ExplainJet/>
-					<LoseCount bind:jackpotPoolLoseCount classes="h-[100px] max-w-[200px] justify-center items-center hidden md:flex"/>
+				<div class="mx-auto flex max-w-[1400px] items-end justify-between px-4">
+					<ExplainJet />
+					<LoseCount
+						bind:jackpotPoolLoseCount
+						classes="h-[100px] max-w-[200px] justify-center items-center hidden md:flex"
+					/>
 				</div>
 			</div>
-			
-			
+
 			<div class="flex flex-col items-center px-4">
 				<WinnerList />
 
 				<AddressList />
 			</div>
-			
 		</div>
 	</div>
 </div>

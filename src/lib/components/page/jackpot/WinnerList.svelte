@@ -11,7 +11,7 @@
 	import { onMount } from 'svelte';
 	import { zeroAddress } from 'viem';
 	import IntersectionObserver from '$lib/components/shared/IntersectionObserver.svelte';
-	import { truncateString } from '$lib/helper';
+	import { onTranslateI18nErrMsg, truncateString } from '$lib/helper';
 
 	let winnerListPagination = {
 		page: 0,
@@ -34,6 +34,7 @@
 				};
 			}
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch winner list');
 		}
 	}

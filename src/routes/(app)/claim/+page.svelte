@@ -10,6 +10,7 @@
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
 	import { t } from '$lib/i18n';
+	import { onTranslateI18nErrMsg } from '$lib/helper';
 
 	// Data
 	let totalClaimed: TTotalClaimed;
@@ -20,6 +21,7 @@
 		if (result.success) {
 			totalClaimed = result.data;
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to get total claimed');
 		}
 	}

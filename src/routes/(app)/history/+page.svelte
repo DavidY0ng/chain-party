@@ -4,7 +4,7 @@
 	import FilterMenu from '$lib/components/page/history/FilterMenu/FilterMenu.svelte';
 	import TableHistory from '$lib/components/page/history/TableHistory.svelte';
 	import Paginator from '$lib/components/shared/Paginator.svelte';
-	import { concatinateDate } from '$lib/helper';
+	import { concatinateDate, onTranslateI18nErrMsg } from '$lib/helper';
 	import { isToken, rerender } from '$lib/stores/storeCommon';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import type { THistoryType } from '$lib/type/commonType';
@@ -95,6 +95,7 @@
 				last_page: result.data.last_page
 			};
 		} else {
+			onTranslateI18nErrMsg(result.data);
 			throw new Error('Failed to fetch history list');
 		}
 	}

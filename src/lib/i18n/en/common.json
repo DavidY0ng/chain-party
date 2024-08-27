@@ -35,8 +35,52 @@
 			"Claims": "Claims",
 			"Fuel Reward": "Fuel Reward"
 		}
-		
-		
-
+	},
+	"error": {
+		"key": {
+			"failed": "Failed",
+			"under_maintenance": "Under Maintenance",
+			"size": "Page Size",
+			"page": "Page",
+			"address": "Address",
+			"sign": "Sign",
+			"search_user": "Search User",
+			"wallet": "Wallet",
+			"slot": "Slot",
+			"reward": "Reward",
+			"contract": "Contract",
+			"user": "User",
+			"referral": "Referral",
+			"verify": "Verify",
+			"setting": "Setting",
+			"network": "Network",
+			"bind_upline": "Bind upline",
+			"client_id": "Client ID",
+			"status": "Status",
+			"type": "Type",
+			"created_at_start": "Created at start",
+			"created_at_end": "Created at end"
+		},
+		"value": {
+			"missing": "is missing",
+			"invalid": "is invalid",
+			"must_be_number": "must be a number",
+			"invalid_length": "has invalid characters, must be",
+			"must_be_alphabet_and_number": "must contain alphabet and number",
+			"inactivated": "is inactivated",
+			"freezed": "is freezed",
+			"suspended": "is suspended",
+			"not_in_network": "is not in network",
+			"exceed_network": "is exceed network",
+			"max_length": "maximum characters are",
+			"under_cooldown": "is under cooldown",
+			"nothing_to_claim": "has nothing to claim",
+			"unable_to_get_nonce": "unablie to get nonce",
+			"unable_to_sign_message": "unable to sign message",
+			"already_bound": "is already bound",
+			"not_bound": "is not bound",
+			"lock": "is lock",
+			"invalid_date": "has invalid date"
+		}
 	}
 }
