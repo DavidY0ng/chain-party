@@ -1,15 +1,9 @@
 <script lang="ts">
-	import ClaimAPI from '$lib/api/claim';
-	import * as Claim from '$lib/components/page/claim/index';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import { Text } from '$lib/components/ui/text';
 	import { isToken } from '$lib/stores/storeCommon';
-	import type { TTotalClaimed } from '$lib/type/claimType';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { storeUserInfo } from '$lib/stores/storeUser';
 	import { zeroAddress } from 'viem';
-	import { t } from '$lib/i18n';
     import TotalReward from '$lib/components/page/fuel/TotalReward.svelte';
 	import Rocket from '$lib/components/page/fuel/Rocket.svelte';
 	import FuelApi from '$lib/api/fuel';
