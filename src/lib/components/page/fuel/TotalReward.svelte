@@ -7,6 +7,26 @@
 	import { zeroAddress } from 'viem';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import FuelApi from '$lib/api/fuel';
+	import type { TFuelLevel } from '$lib/type/fuelType';
+
+	let fuelData: TFuelLevel = { data: [], total: 0 };
+	
+	async function getFuelLevel() {
+		const result = await FuelApi.getFuelLevel();
+
+		if (result.success) {
+			fuelData = {
+				data: result.data.data, 
+				total: result.data.total
+			}; 
+		}
+	}
+
+	onMount(() => {
+		getFuelLevel()
+	})
 </script>
 
 <Card.Root class=" h-full max-h-[200px] w-full md:max-w-[280px] lg:max-w-[400px] overflow-hidden rounded-2xl border-none">
@@ -24,7 +44,7 @@
 			<Text
 				size="2xl"
 				class=" z-10 flex w-full items-center justify-center text-center leading-none"
-				>53 pEIC</Text
+				>{fuelData.total} pEIC</Text
 			>
            <div class="mx-auto w-[90%]">
                 <Button on:click={() => goto('/referral')} class="w-full bg-[#1D0720] ">{$t('fuel.referral')}</Button>

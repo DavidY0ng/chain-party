@@ -1,6 +1,10 @@
 export type TFuelLevel = {
-    level: number;
-    amount: number;
-}[]
+    data: {
+        level: number;
+        amount: number;
+    }[]
+    total: number;
+ 
+}
   
   

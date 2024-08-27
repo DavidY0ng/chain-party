@@ -55,21 +55,24 @@
 		'line9',
 		'line10'
 	];
-	let fuelData: TFuelLevel = [];
-	let unsubscribe;
+	let fuelData: TFuelLevel = { data: [], total: 0 };;
 
 	async function getFuelLevel() {
 		const result = await FuelApi.getFuelLevel();
 
 		if (result.success) {
-			fuelData = result.data; // Assuming result.data is an array of levels and amounts
+			fuelData = {
+				data: result.data.data, 
+				total: result.data.total
+			}; 
+			console.log(fuelData.data.length)
 		}
 	}
 
 	function determineRocketState(fuelData: TFuelLevel): number {
-		if (!fuelData.length) return 0;
+		if (!fuelData.data.length) return 0;
 
-		for (const { level, amount } of fuelData) {
+		for (const { level, amount } of fuelData.data) {
 			if (level === 1 && amount === 0) return 0;
 			if (level === 1 && amount > 0) return 1;
 			if (level >= 2 && amount > 0) return level;
@@ -104,7 +107,7 @@
 					alt="Rocket state 0"
 					class="h-[390px] w-auto md:h-[580px] lg:h-[700px]"
 				/>
-			{:else if fuelData.length > 0}
+			{:else if fuelData.data.length > 0}
 				<img
 					src={`/img/fuel/rockets/${currentState}.png`}
 					alt="Rocket state {currentState}"
@@ -117,8 +120,8 @@
 			class="absolute left-[113px] top-[55px] flex w-[250px] flex-col gap-[4px] md:left-[59%] md:top-[14%] md:gap-[22px] lg:left-[35%] lg:top-[14%] lg:w-[350px] lg:gap-[32px]"
 		>
 			{#if $storeUserInfo.web3_address !== zeroAddress && $isToken !== undefined}
-				{#if fuelData.length}
-					{#each fuelData as data, i}
+				{#if fuelData.data}
+					{#each fuelData.data as data, i}
 						<div class="flex items-center justify-end">
 							{#if data.level !== 2 && data.level !== 3}
 								<div
@@ -136,13 +139,14 @@
 									style="width: {customDesktopWidths[lineNames[i]]}px;"
 								></div>
 							{/if}
+
 							<img
 								src="/img/fuel/levels/{data.level}.png"
 								alt="level {data.level}"
 								class="h-auto w-auto {data.level > currentState ? 'mix-blend-luminosity' : ''}"
 							/>
 							<div
-								class="z-[-1] flex h-[30px] w-[90px] translate-x-[-30px] justify-end rounded-lg bg-black/25 p-1 pr-2"
+								class="z-[-1] flex h-[30px] w-[100px] translate-x-[-30px] justify-end rounded-lg bg-black/25 p-1 pr-2 border-r border-r-[#FF5EDC]"
 							>
 								<Text size="sm" class="font-bold">{data.amount} pEIC</Text>
 							</div>
