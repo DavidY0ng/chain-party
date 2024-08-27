@@ -943,6 +943,13 @@ export default [
 		type: 'function'
 	},
 	{
+		inputs: [{ internalType: 'uint32', name: 'endTime', type: 'uint32' }],
+		name: 'setCurrentRoundEndTimeForTesting',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
 		inputs: [
 			{
 				components: [
