@@ -6,9 +6,7 @@ type TUserInfo = {
 	web3_address: Address;
 	upline: string;
 	referral_code: string;
-	point: number;
-	mission_ongoing: number;
-	mission_completed: number;
+	game_participations: number;
 };
 
 export const emptyUserInfo: TUserInfo = {
@@ -16,9 +14,7 @@ export const emptyUserInfo: TUserInfo = {
 	web3_address: zeroAddress,
 	upline: '',
 	referral_code: '',
-	point: 0,
-	mission_ongoing: 0,
-	mission_completed: 0
+	game_participations: 0
 };
 
 export const storeUserInfo = persisted<TUserInfo>('storeUserInfo', emptyUserInfo);

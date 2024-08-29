@@ -28,12 +28,12 @@
 			<Button
 				builders={[builder]}
 				variant="outline"
-				class="overflow-hidden rounded-lg border-none bg-black/50 p-0 hover:bg-black/80"
+				class="overflow-hidden rounded-lg border-none bg-black/50 p-0 hover:bg-black/80 "
 			>
-				<div class="flex h-full w-[50px] items-center justify-center bg-[#FF0099] md:w-[60px]">
+				<div class="flex h-full w-[45px] items-center justify-center bg-[#FF0099] md:w-[60px]">
 					<img src="/img/desktopNav/wallet.png" alt="" class="-mt-1 w-4 md:w-[18px]" />
 				</div>
-				<div class="flex w-full items-center gap-x-2 pl-3 text-sm md:pl-5 md:text-md">
+				<div class="flex w-full items-center gap-x-2 pl-3 text-[12px] md:pl-5 md:text-md">
 					{truncateString($storeUserInfo.web3_address, 4, 4)}
 					<Icon
 						icon="tabler:chevron-down"

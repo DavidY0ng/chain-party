@@ -1,25 +1,11 @@
 <script lang="ts">
-	import AuthAPI from '$lib/api/auth';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
-	import { truncateString } from '$lib/helper';
-	import { t } from '$lib/i18n';
-	import { isDesktop, isToken } from '$lib/stores/storeCommon';
-	import { storeUserInfo } from '$lib/stores/storeUser';
-	import { onDisconnect } from '$lib/web3/wagmi';
-	import Icon from '@iconify/svelte';
-	import { zeroAddress } from 'viem';
-	import ConnectWallet from '../shared/ConnectWallet.svelte';
-	import MultiLanguage from '../shared/MultiLanguage.svelte';
-	import { Button } from '../ui/button';
-	import Drawer from './Drawer.svelte';
+	import { isDesktop } from '$lib/stores/storeCommon';
 	import IntegratedConnect from '../shared/IntegratedConnect.svelte';
-
-	let open = false;
-
-	const onHandleDisconnect = async () => {
-		await AuthAPI.logout();
-		await onDisconnect();
-	};
+	import MultiLanguage from '../shared/MultiLanguage.svelte';
+	import Drawer from './Drawer.svelte';
+	import { Text } from '$lib/components/ui/text';
+	import { storeUserInfo } from '$lib/stores/storeUser';
+	import { zeroAddress } from 'viem';
 </script>
 
 <div
@@ -27,13 +13,33 @@
 		? ' bg-gradient-to-l from-[#29193D] via-[#29193D] to-transparent'
 		: 'bg-[#481555]'} xl:px-10"
 >
-	<div class="flex w-full justify-between xl:justify-end">
-		<div class="flex w-full justify-between pr-3 xl:hidden">
+	<div class="flex w-full items-center justify-between xl:justify-end">
+		<!-- Mobile View -->
+		<div class="flex w-full items-center justify-between pr-3 xl:hidden">
 			<div class="flex gap-x-2">
 				<Drawer />
 				<img src="/img/desktopSideMenu/Chain Party Logo.png" class="w-10" alt="" />
 			</div>
-			<IntegratedConnect />
+			<div class="flex items-center gap-x-4">
+				<div class="flex flex-col items-end">
+					<Text class="text-[10px] text-white/50">Total Played :</Text>
+					<Text class="text-[12px] font-bold">{$storeUserInfo.game_participations | 0} Times</Text>
+				</div>
+				<IntegratedConnect />
+			</div>
+		</div>
+
+		<!-- Desktop game participation -->
+		<div
+			class="{$storeUserInfo.web3_address === zeroAddress
+				? 'hidden'
+				: 'hidden md:flex'}  items-center gap-x-5"
+		>
+			<div class=" flex-col items-end">
+				<Text class="text-sm text-white/50">Total Played :</Text>
+				<Text class="text-sm font-bold">{$storeUserInfo.game_participations | 0} Times</Text>
+			</div>
+			<img src="/img/desktopNav/line.png" class=" w-fit" alt="" />
 		</div>
 
 		<!-- Desktop View -->
