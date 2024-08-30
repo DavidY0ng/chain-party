@@ -1,3 +1,4 @@
+import { PUBLIC_NODE_ENV } from '$env/static/public';
 import { reconnect } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
 import {
@@ -11,7 +12,7 @@ import {
 import { bsc, bscTestnet } from 'viem/chains';
 
 // Chain
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = PUBLIC_NODE_ENV === 'production';
 export const bscChain: Chain = isProduction ? bsc : bscTestnet;
 
 // 1. Get a project ID at https://cloud.walletconnect.com
@@ -25,7 +26,7 @@ const metadata = {
 	icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
 
-const chains = [isProduction ? bsc : bscTestnet] as const;
+const chains = [bscChain] as const;
 
 // Define wagmi config
 export const wagmiConfig = defaultWagmiConfig({
