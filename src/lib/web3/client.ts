@@ -25,7 +25,7 @@ const metadata = {
 	icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
 
-const chains = [bscChain] as const;
+const chains = [isProduction ? bsc : bscTestnet] as const;
 
 // Define wagmi config
 export const wagmiConfig = defaultWagmiConfig({
